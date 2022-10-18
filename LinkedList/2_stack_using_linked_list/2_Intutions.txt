@@ -1,10 +1,24 @@
-*   Set pointers to first and second node in linkedlist as slow and 
-    fast pointer respectively
+(1) Intution to push element to top of the stack using LinkedList :
 
-*   move the slow pointer by one node and fast pointer by two node 
-    until next's next of fast node is null
+*   create a pointer which will initially point to the head of the LinkedList
 
-*   while iterating (moving slow and fast pointer) if slow and fast pointer 
-    points to same node then there is a loop present in linkedList
+*   move that pointer to next nodes utill pointer reaches the last node
 
-*   else there is no loop present in linkedList
+*   once pointer reaches to last node then just create new node with the value that is to be added
+    and assign it to the next reference of node to which pointer is pointing to
+
+(2) Intution to pop element from top of the stack using LinkedList :
+
+*   create three pointers viz. prev, curr, nxt which will initially point to the null, head of the LinkedList and head.next
+    of the linkedList respectively
+
+*   move all the pointers to next nodes utill next node is null so that curr pointer points to last
+    node and prev pointer point to second last node
+
+*   if prev pointer points to null that means curr pointer is pointing to head and there is only 
+    one node in linkedList. So just make the head as null which will remove last nodes from the LinkedList
+
+*   if prev pointer points to some node then make next of prev node as null which will remove 
+    last node from the LinkedList
+
+*   at last return value of curr pointer node which is last node of LinkedList (stack)
