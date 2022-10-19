@@ -1,0 +1,15 @@
+Intution to add node in the middle of the LinkedList 
+
+*   create two pointer viz. slow and fast which intially points to head and head' next node.
+
+*   move forward slow pointer by one node and fast pointer by two node. We are doing this because 
+    when the fast pointer point to the last node, slow pointer will be pointing to the previous 
+    node of middle node
+
+*   move both the pointers until fast pointer's next next is not null
+
+*   if fast pointer next node is not null that means there is odd number of nodes in LinkedList. So, 
+    we need to move slow pointer one more time 
+
+*   at last just add new node in middle of slow and slow's next node.
+

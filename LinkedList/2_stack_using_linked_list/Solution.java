@@ -1,3 +1,4 @@
+// Structure of Node Class
 class StackNode {
     int data;
     StackNode next;

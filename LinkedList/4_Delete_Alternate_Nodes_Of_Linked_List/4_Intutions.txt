@@ -1,0 +1,10 @@
+Intution to delete alternate nodes of the LinkedList 
+
+*   create a pointer viz. curr which will intially points to head of the LinkedList
+
+*   while curr pointer is pointing to a node whose next node is not null, make curr pointer node's 
+    next reference to curr pointer node's next's next node. After that move curr pointer to next node
+    (after removing next node, curr pointer will move to next's next node) 
+
+*   by doing so we are removing node between curr pointer node and next's next node
+

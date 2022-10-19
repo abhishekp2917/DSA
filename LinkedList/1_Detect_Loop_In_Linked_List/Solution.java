@@ -1,4 +1,4 @@
-// Structure of LinkedList
+// Structure of Node Class
 class Node
 {
 	int data;
