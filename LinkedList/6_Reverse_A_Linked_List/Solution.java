@@ -8,22 +8,17 @@ class Node {
     }
 }
 
-class Solution {
-    
-    public void deleteAlternate (Node head){
-        
-        // create a pointer which will intially points to head of the LinkedList
-        Node curr = head;
-        
-        // while curr pointer and its next is not null perform below operation
-        while(curr!=null && curr.next!=null) {
-            
-            // make curr node next to curr curr node next's next so that it will remove 
-            // curr node next node from LinkedList
-            curr.next = curr.next.next;
-
-            // after removing next node move curr pointer to curr node new next node
-            curr = curr.next;
+class Solution
+{
+    Node reverseList(Node head)
+    {
+        Node prev = null, curr = head, next;
+        while(curr!=null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
+        return prev;
     }
 }

@@ -1,0 +1,11 @@
+Intution to delete node from LinkedList without head pointer
+
+*   here as we will get pointer to that node only which is to be deleted and that node will never 
+    be the last node, next node of node to be deleted will never be null.
+
+*   so, first replace the data of the given node (node to be deleted) with its next node, which will
+    make two nodes of same data. So now we just have to remove one of the duplicate node. And as
+    we can only access next node in LinkedList, we will remove give node next node from the list.
+
+*   to do so, make give node next to point to given node next's next node
+

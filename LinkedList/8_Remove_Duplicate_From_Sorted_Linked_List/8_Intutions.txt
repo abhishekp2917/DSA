@@ -1,0 +1,15 @@
+Intution to remove duplicate element from LinkedList 
+
+*   create two pointer viz curr and next which will point to head and head's next node of 
+    LinkedList respectively.
+
+*   while next pointer is not pointing to null, if curr pointer data is equal to next pointer data
+    then remove next pointer node by making curr pointer next to point to next pointer next node else
+    just move curr pointer forward by making to point to next pointer.
+
+    in this way we are moving next pointer moving forwad until next pointer and curr pointer data 
+    is not equal. once next and curr pointer is not having same data, make curr pointer next to point 
+    to next pointer.
+
+*   atlast make next pointer point to curr pointer next node.
+
