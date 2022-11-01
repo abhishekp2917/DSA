@@ -1,0 +1,11 @@
+Intution to reverse a circular linked list (CLL)
+
+*   create a variable viz tail to store head of the CLL which will become tail to the reversed CLL.
+
+*   reverse the CLL in same fashion as we use to do with non CLL. The only difference will be that
+    instead of null as reference to stop the loop we will use head of CLL. In this way, it will 
+    convert CLL into reversed normal LL and will return head of the reverse LL
+
+*   now to make this normal reversed LL into reversed CLL, make tail next node point to head 
+
+*   finally return head

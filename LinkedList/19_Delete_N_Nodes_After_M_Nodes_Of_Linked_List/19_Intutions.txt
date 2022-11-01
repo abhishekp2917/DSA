@@ -1,0 +1,3 @@
+Intution to delete N nodes after M nodes of a LinkedList
+
+*   

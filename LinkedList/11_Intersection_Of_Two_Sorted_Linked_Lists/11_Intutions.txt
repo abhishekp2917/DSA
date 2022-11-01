@@ -1,0 +1,17 @@
+Intution to intersect two sorted LinkedList
+
+*   create a new Node viz ansHead which will be the head of the intersection of two sorted LinkedList
+    and assign a pointer to it viz pointer 'curr'.
+
+*   create two pointers viz ptr1 and ptr2 which will initially point to heads of both the sorted LinkedList.
+
+*   move both pointer forward by one node until any one of them points to null.
+
+*   compare both the pointer node data and whichever is smaller than the other make that node to 
+    next of the curr pointer and move that pointer and curr pointer forward and make curr pointer next to null
+    to break the connection with the given sorted LinkedList.
+
+*   after coming out of the loop if any of the pointer is not null, then make that pointer to be the 
+    next of curr pointer.
+
+*   atlast return next node of ansHead.

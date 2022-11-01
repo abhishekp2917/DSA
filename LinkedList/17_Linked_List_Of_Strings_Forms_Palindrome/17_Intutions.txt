@@ -1,0 +1,11 @@
+Intution to check if LinkedList of strings is palindrome or not
+
+*   create two string variables viz str1 and str2 to store string value from LinkedList so 
+    that we can compare it later.
+
+*   convert LinkedList into string and assign it to str1.
+
+*   now reverse the str1 and assign it to str2. 
+
+*   compare str1 and str2 whether both are equal or not. if equal then LinkedList is palindrome 
+    else not.
