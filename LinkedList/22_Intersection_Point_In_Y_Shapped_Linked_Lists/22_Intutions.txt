@@ -1,0 +1,15 @@
+Intution to find intersection of Y shaped LinkedList
+
+*   find the length of both the LinkedList viz len1 and len2
+
+*   whichever LinkedList length is greater than the other, move that LL head ahead by N 
+    nodes where N is the difference between both LL length (abs(len1-len2)). We are doing
+    this because if there is an intersection point present between both LL then after
+    moving head of longest LL ahead by N nodes, then intersection point will be ahead of both
+    the LL head by same number of nodes.
+
+*   now just move both the heads ahead until both head points to same node.
+
+*   if both head points to same node thenm just return that node else there will be no 
+    intersection point and both head will point to null after certain iteration
+     

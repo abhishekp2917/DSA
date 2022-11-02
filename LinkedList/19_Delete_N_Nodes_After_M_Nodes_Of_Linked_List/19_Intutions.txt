@@ -1,3 +1,11 @@
 Intution to delete N nodes after M nodes of a LinkedList
 
-*   
+*   create a node viz tempHead whose next will be head. We are creating this node so that in case 
+    we have to remove head, we will be able to do that using tempHead node.
+
+*   create two pointer viz prev and curr which will be pointing to tempHead and head respectively.
+
+*   while curr pointer is not pointing to null, move curr pointer by M + N node and prev node by M node 
+    so that we can remove nodes between prev and curr pointer which is equal to N nodes.
+
+*   finally return tempHead's next node.

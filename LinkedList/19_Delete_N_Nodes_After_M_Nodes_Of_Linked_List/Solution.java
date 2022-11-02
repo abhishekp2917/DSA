@@ -16,13 +16,13 @@ class Solution
         tempHead.next = head;
         Node prev = tempHead, curr = head;
         
-        while(true) {
+        do{
             curr = moveNodeByK(curr, M+N);
             prev = moveNodeByK(prev, M);
             if(prev==null) break;
-            else prev.next = curr;
-            if(curr==null) break;
-        }
+            prev.next = curr;
+        }while(curr!=null);
+        
         head = tempHead.next;
     }
     
