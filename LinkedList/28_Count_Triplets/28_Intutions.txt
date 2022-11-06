@@ -1,0 +1,26 @@
+Intution to count distinct nodes triplet whose sum is equal to given target
+
+*   if LL is in decreasing order, then reverse the LL to make it in ascending order.
+
+*   make a Hashmap in which key will be the nodes and value will be that node's prev node. We are
+    making this map so that we can traverse the LL in reverse order as well.
+
+*   create a pointer viz ptr1 which will intially point to head of LL.
+
+*   while ptr1 is not null and ptr1's next node is not null and ptr1's next's next node is not null, 
+    create another two pointer viz ptr2 and ptr3 which will point to ptr1's next node and last node of LL
+    respectively. 
+
+    we are loop this until curr's next's next is null as we need triplets and is curr points to last or
+    second last node, then there is no chance of getting triplets.
+
+*   now sum up ptr1, ptr2 and ptr3 node data and if it is equal to target then increment the count and 
+    move ptr2 ahead and ptr3 backward.
+
+*   if sum is greater than target then, we must reduce the sum and then check it again. To do so, move
+    ptr3 backward as by moving it backward, its data will reduce since LL is sorted in ascending order.
+
+*   if sum is less than target then, we must increase the sum and then check it again. To do so, move
+    ptr2 forward as by moving it forward, its data will increase since LL is sorted in ascending order.
+
+*   finally return the count.

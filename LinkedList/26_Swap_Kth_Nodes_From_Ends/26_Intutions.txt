@@ -1,0 +1,12 @@
+Intution to swap kth nodes from ends
+
+*   here we have to swap kth node from the head with kth node from the end, that means we have to swap
+    pos1 = kth node with pos2 = (k-n+1)th node from the head, where n is length of LL.
+
+*   if k>n or pos1 is equal to pos2, then we don't have to do anything. Simply return the head of LL.
+
+*   else create pointers prev1/prev2, curr1/curr2 and next1/next2 for both the position (pos1 and pos2) 
+    where pointer prev1/prev2 will point to previous node of pos1/pos2, curr1/curr2 will point to 
+    pos1/pos2 and next1/next2 will point to next node of pos1/pos2.
+
+*   once we get the nodes to be swaped, just swap the nodes and return head of the LL. 

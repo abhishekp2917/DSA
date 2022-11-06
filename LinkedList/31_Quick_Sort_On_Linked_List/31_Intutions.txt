@@ -1,0 +1,18 @@
+Intution for quick sort on Linked List
+
+*   choose a pivot node let say head of LL.
+
+*   segregate LL into three LL viz LL1, LL2 and LL2 in which one LL1 will have nodes value less than pivot value, LL2
+    will have ndoes value equal to pivot value and LL3 will be having nodes with greater than pivot value.
+
+*   after segregating the LL, recursively call the method to segregate LL1 and LL3 around the pivot
+    (head of the LL). This recursive calling of the method by passing LL1 and then LL3 will return 
+    sorted LL1 and LL3.
+
+*   replace LL1 and LL3 with the returned value of the method which was recursively called.
+
+*   connect LL1, LL2 and LL3 in the order of of their numbering as LL1 and LL3 will be sorted 
+    after recursive calls and will have nodes smaller and greater than LL2 respectively.
+
+*   finally return the head of the LL1.
+

@@ -1,0 +1,14 @@
+Intution for merge sort on Linked List
+
+*   split the LL from the middle and continue splitting that splitted LL from the middle by
+    recursively calling the method until LL will left with only one node.
+
+    if LL has only one node then just return the head of the LL.
+
+*   as we are recursively calling the same method two times by passing first and second half of the 
+    LL separately, both the method will return sorted LL.
+
+*   merge that two sorted LL into one sorted LL and then return the head of that merged LL.
+
+
+
