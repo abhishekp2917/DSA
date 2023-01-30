@@ -1,0 +1,23 @@
+Intution to find length of longest palindrome in linked list
+
+*   create two pointer viz ptr1 and ptr2 which will initially point to head and head's next node.
+
+*   while ptr2 is not pointing to null, split the LL from ptr1 and ptr2 and store these two splitted 
+    LL in variable viz LL1 and LL2 where LL1 will point to head and LL2 will point to ptr2
+    as ptr2 is starting node for second part of LL and ptr1 is tail of first part of LL.
+
+*   reverse the first part of the LL and store its had in LL1.
+
+*   compare both LL1 and LL2 and count the how many nodes are simillar from the starting.
+
+    this is done for palindrome having even length
+
+*   simillarly, compare both LL1 and LL2's next and count the how many nodes are simillar 
+    from the starting.
+
+    this is done for palindrome having odd length.
+
+*   maintain a global variable viz maxlength and update this variable in each iteration with
+    maximum value from both of above comapre values.
+
+*   finally return maxLength.
