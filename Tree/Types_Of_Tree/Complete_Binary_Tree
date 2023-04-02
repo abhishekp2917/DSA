@@ -1,0 +1,37 @@
+Complete Binary Tree has following features :
+
+(1) All levels in a tree should be completely filled except the last levels
+(2) The last level has all the nodes as left as possible
+
+Eg :
+
+(1)
+
+                    1
+                   / \
+                  /   \
+                2      3
+               /\      /\
+              /  \    /  \
+             4    5  6    7
+
+(2)
+
+                    1
+                   / \
+                  /   \
+                2      3
+               /\      /
+              /  \    / 
+             4    5  6   
+
+(3)
+
+                    1
+                   / \
+                  /   \
+                2      3
+               /\      
+              /  \     
+             4    5    
+

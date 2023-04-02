@@ -1,0 +1,23 @@
+In Full Binary Tree, every node has either 0 or 2 children.
+
+Eg :
+
+(1)
+
+                    1
+                   / \
+                  /   \
+                2      3
+               /\
+              /  \
+             4    5
+
+(2)
+
+                    1
+                   / \
+                  /   \
+                2      3
+                       /\
+                      /  \
+                     4    5

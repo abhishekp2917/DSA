@@ -1,0 +1,28 @@
+Balanced Binary Tree has following features :
+
+(1) Height of the tree must be log2(N), where N is the number of nodes.
+
+Eg :
+
+(1)
+
+                    1
+                   / \
+                  /   \
+                2      3
+               /\      
+              /  \      
+             4    5  
+            /\
+           /  \
+          6    7
+
+(2)
+
+                    1
+                   / \
+                  /   \
+                2      3
+               /       /
+              /       / 
+             4       6   

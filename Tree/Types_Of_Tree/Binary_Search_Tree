@@ -1,0 +1,21 @@
+Binary Search Tree has following features :
+
+(1) Every left node is either smaller or equal to its parent node
+(2) Every right node is either larger or equal to its parent node
+
+Eg :
+
+(1)
+
+                    9
+                   / \
+                  /   \
+                5      10
+               /\        \
+              /  \        \
+             4    7        12
+            /
+           /  
+          1    
+
+  
