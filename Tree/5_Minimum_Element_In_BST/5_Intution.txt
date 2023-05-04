@@ -1,8 +1,9 @@
-*   In BST left node is always smaller or equal to parent node while right node is always larger or equal to parent node.
+*   In BST left node is always smaller or equal to parent node while right node 
+    is always larger or equal to parent node.
 
 *   Since, we are looking for the smallest node, we have to move as left as possible. 
 
 *   If the head of the tree is null then return -1, else move left. 
 
-*   Once there is no left node of the current node exists, return the current node as it is the leftest
-    in th tree
+*   Once there is no left node of the current node exists, return the current node 
+    as it is the leftest in th tree

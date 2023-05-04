@@ -1,0 +1,14 @@
+*   declare a global variable which will track whether tree is balanced or not. Intially
+    it will be set to true and will be changed only if tree is not balanced
+
+*   declare a function which will return max height of the tree and will check whether 
+    tree is balanced or not. This function will finalize the value of the global variable.
+
+*   In that function, if root is null then return 0 as without head, the tree height will be 0
+
+*   Move left and right to get the maximum height of both the subtree. 
+
+*   check whether the absolute diff of left and right is greater than 1 or not. If it is,
+    then set the global variable as false as tree isn't balanced one.
+
+*   atlast return max of left and right plus 1 (plus 1 to include root node in subtree height)

@@ -1,0 +1,13 @@
+*   traverse all the nodes and check if that node value is within the range (min, max)
+
+*   for head of the tree, min will be min int value while max will be max int value.
+
+*   for left child max will change to parent node value while for right child, min value will change to 
+    parent node value
+
+*   if any node that doesn't reside within the given range, then return false.
+
+*   if node is null, that means we reached the end of tree, so just return true as it shows that for that 
+    specific path, all the node fulfills the condition.
+
+*   atlast, return AND logic of whatever returned by traversing left and right child.

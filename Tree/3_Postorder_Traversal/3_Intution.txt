@@ -1,0 +1,10 @@
+*   if root is null then return from that function. This will be the 
+    base condition.
+    
+*   if root is not null, then move to the left by recursively calling the function 
+
+*   after returning from left, recursively call the function to move right
+
+*   at last, after returning from left and right node, add the root node data
+
+*   logic : left --> right --> root

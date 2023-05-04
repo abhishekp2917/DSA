@@ -1,0 +1,8 @@
+*   first add the root node is root is not null. If root is null then return from there. 
+    This is the base condition.
+
+*   after adding root data, recursively call the function to move left
+
+*   after returning from left, recursively call the function to move right
+
+*   logic : root --> left --> right

@@ -1,0 +1,24 @@
+Approach 1 : 
+
+*   make an inorder traversal of the tree and store the node values in a arraylist.
+
+*   Since inorder traversal of BST is always result in sorted array in increasing order,
+    check if values stored in arraylist is in increasing order or not
+
+*   return true or false based on the result from above condition.
+
+Approach 2 : 
+
+*   traverse all the nodes and check if that node value is within the range (min, max)
+
+*   for head of the tree, min will be min int value while max will be max int value.
+
+*   for left child max will change to parent node value minus 1 while for right child, 
+    min value will change to parent node value plus 1
+
+*   if any node that doesn't reside within the given range, then return false.
+
+*   if node is null, that means we reached the end of tree, so just return true as it 
+    shows that for that specific path, all the node fulfills the condition.
+
+*   atlast, return AND logic of whatever returned by traversing left and right child.

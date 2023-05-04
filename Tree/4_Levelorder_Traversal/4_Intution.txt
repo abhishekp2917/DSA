@@ -1,0 +1,7 @@
+*   for level order traversal, we have to use queue DS. 
+
+*   At first we will insert root node in the queue. Then we will iteratively poll out the
+    node that is infront of the queue and will add its left and right node into the queue
+    from last. 
+
+*   This process will end only if queue gets empty 
