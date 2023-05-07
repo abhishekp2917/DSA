@@ -1,0 +1,30 @@
+*   declare a function which will take node, two int values (x, y) and arraylist as a parameter
+
+*   X and Y will be use to track horizontal and vertical position of a node. Intially, both 
+    the values will be 0.
+
+*   To store result, use ArrayList.
+
+Intution for left view :
+
+*   For getting left view, traverse the left node first then move to right node.   
+
+*   Since we are traversing left side first, so the very first node that will be reached at 
+    each level will be the part of the left view. 
+
+*   So, if size of the list is less than the height of the tree, then only add the node in list
+    cause that node wouldn't be added to the list 
+
+*   after adding, first move left and then to right node.
+
+Intution for right view :
+
+*   For getting right view, traverse the right node first then move to left node.  
+
+*   Since we are traversing right side first, so the very first node that will be reached at 
+    each level will be the part of the right view. 
+
+*   So, if size of the list is less than the height of the tree, then only add the node in list
+    cause that node wouldn't be added to the list 
+
+*   after adding, first move right and then to left node.

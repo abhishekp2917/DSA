@@ -1,0 +1,2 @@
+*   It's logic is similar to Identical trees problem. The only difference is that initially,
+    both the root node will point to same node 

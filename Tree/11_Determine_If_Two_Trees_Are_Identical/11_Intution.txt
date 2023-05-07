@@ -1,0 +1,7 @@
+*   traverse left and right sub tree parallelly for both the trees and check if 
+    the nodes are same or not. If condition fails then return false.
+
+*   At last return AND logic of result returned from left and right subtree traversal
+
+*   Here we are doing AND operation cause if any of the subtree isn't identical then,
+    operation of left and right will be false as well.

@@ -1,0 +1,34 @@
+Approach 1 :
+
+*   Use two list viz curr and nxt, one for traversing over the nodes that is being stored in it and the other one 
+    for temporarily storing nodes that is being retrived from traversing first list nodes.
+
+*   To track level of the tree, take a variable having initial value as 1 and increament its value on each level.
+
+*   Use a list viz result to store the output. 
+
+*   If the level value is even then add the nodes from curr list in normal order else add nodes
+    in reverse order.
+
+*   To summarize the approach, we are keeping track of level and based on its value we will
+    add nodes in forward or backward direction in result list.
+
+Approach 2 
+
+*   In this approach, we will use two stack viz stack1 snd stack2. One for storing odd level nodes while 
+    other for even level nodes. We are using stack because in stack we take out last element first which 
+    will make adding and poping out nodes in forward and reverse order alternatively.
+
+*   The order of storing the nodes in these stack will depend upon the level of tree or the 
+    very top node of that stack.
+
+*   If top node of a stack is the leftest node of its level, then for adding node in next stack,
+    first add left child and then right child. Else if top node is the rightest one, then first add
+    right child and then left. By doing this, the order of next level nodes will be in proper order.
+
+*   While poping nodes from either of the stack, add that node in final result and after completion 
+    of this process return that result.
+
+
+
+ 

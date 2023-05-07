@@ -1,0 +1,7 @@
+*   The logic here is that traverse left and right subtree and when we find a node that is 
+    the one of the given node then return that node else return from left and right traversal 
+    which is not null.
+
+*   on doing this, at one point when from both left and right traversal we will get node (non null value).
+    And that node for which we get two node returned from left and right traversal is LCA
+
