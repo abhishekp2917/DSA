@@ -1,0 +1,11 @@
+*   Use queue for normal level order traversal. 
+
+*   use stack to store each level nodes in it, so that while poping out the nodes from stack,
+    the order will be from bottom to top.
+
+*   while adding node in queue and stack first add right child node if exists then go for left 
+    child because for each level while poping element from stack, the order in which it will
+    pop out will be from left to right which is the required result.
+
+*   Once stack holds all the nodes, pop out the elements from it and add it into final list
+    which is to be returned.

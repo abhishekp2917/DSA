@@ -1,0 +1,8 @@
+*   For each node, get left and right subtree total sum values. 
+
+*   temporarily store current node value and replace it with left and right subtree summation.
+
+*   we need to return current subtree all the node sum which will be equal to left plus right plus 
+    temp value (temp holds current root node value)
+
+*   for the base condition, return 0 if root is null.

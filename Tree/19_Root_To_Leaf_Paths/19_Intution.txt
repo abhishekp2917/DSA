@@ -1,0 +1,6 @@
+*   While traversing tree, keep adding nodes to the temporary list and once reached to leaf node
+    , create a copy of the current temp list and add that copied list to final list.
+
+*   Before each backtracking, just remove the last node entered from the temp list cause 
+    that node parent node path won't include that current node.
+

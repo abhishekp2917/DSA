@@ -1,0 +1,7 @@
+*   traverse both the tree parallelly. First go left and then right for both the trees 
+    simultaneously and check if both left nodes and right nodes are equal or not.
+
+*   After above traversal, move left for one tree and right for another and vice-versa.
+    Again check if one's left is equal to another's right and vice-versa. 
+
+*   If either of the above condition satisfies, the return true else return false;

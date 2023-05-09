@@ -1,0 +1,9 @@
+*   The intution is while traversing, if we find the target node then return an empty arraylist else
+    return null.
+
+*   By doing this, while backtracking if any of the subtree returns arraylist that means current node
+    is one of the ancestor of the target node. So simply add that node in arraylist and return that 
+    arraylist after modification.
+
+*   This will add up ancestors of target node from bottom to top and finally the function will return 
+    the required result
