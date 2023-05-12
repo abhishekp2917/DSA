@@ -1,0 +1,14 @@
+*   The intution is to use two stack to traverse BST in DFS fashion. 
+
+*   First will add all the left nodes ion both the stack viz stack1 and stack2 of root1 and root2 resp.
+
+*   After this compare top element of both the stack, if they are the same then add the element 
+    in the result list and then pop out the top element from both the stack and add all the left
+    nodes of that poped element right node
+
+*   If top element aren't the same, then pop out the smallest element from its stack and 
+    add all the left nodes of that poped element right node
+
+*   By doing so, the element in the stack will be in ascending order from top to bottom in both the stack
+
+*   This will become similar to searching common elements in two sorted array 

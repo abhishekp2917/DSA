@@ -1,0 +1,8 @@
+*   Traverse the tree to find the left most and right most node position of the tree using variable
+    left and right.
+
+*   To find it, while keeping track of the horizontal position of each node using variable x, 
+    keep updating var left value with the minimum x value and var right value with maximun x 
+    value.
+
+*   once traversal completes, return right-left+1 
