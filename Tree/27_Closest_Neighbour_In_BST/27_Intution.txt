@@ -1,0 +1,10 @@
+*   While traversing if curr node value is equal to target value, then return that node value
+
+*   If curr node value is less than target value, then check on right subtree else check on left
+    subtree.
+
+*   while returning from curr node, if curr node is greater than target value, then just return 
+    maximum of left and right subtree value 
+
+*   If current node value is smaller than target value, then there is a possiblity of curr node
+    value being the answer. So return maximum of left, right subtree an curr node value. 

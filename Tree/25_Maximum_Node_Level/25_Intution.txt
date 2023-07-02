@@ -1,0 +1,10 @@
+*   As we have to find the level which has most number of nodes, we have to perform level order 
+    traversal. Use queue for this purpose.
+
+*   Use variable to keep track of max number of nodes and level which has that number of nodes.
+
+*   For each level, store the current size of queue so that while poping out the elements from
+    it and adding back their child nodes into it, we could know how many elements we have to
+    remove in current iteration.
+
+*   Use a level counter to keep track of level and increament it's value in each iteration.

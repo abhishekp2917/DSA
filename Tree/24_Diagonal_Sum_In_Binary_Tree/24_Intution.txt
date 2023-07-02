@@ -1,0 +1,8 @@
+*   The intution is to keep track of horizontal and vertical position of each node let's say
+    using var 'x' and 'y' respectively. The initial value of both of them should be 0. 
+
+*   If we take absolute diff of both 'x' and 'y' and divide the result by 2, we will get the 
+    diagonal level of a particular node.
+
+*   Since we get the level of each node, use map to add the node value of each level and later on
+    after completion of traversal, transfer it to the list

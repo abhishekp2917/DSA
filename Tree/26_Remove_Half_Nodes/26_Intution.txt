@@ -1,0 +1,28 @@
+Approach 1 : 
+
+*   The intution is to check if root left and right child is not null or not. If either of the 
+    root's child is null, then in that traversal, return that child node which is not null.
+
+*   If both the child is not null, return that root node.
+
+*   On back tracking to parent node, assign that node left and right child the value returned
+    from left and right child traversal respectively.
+
+*   If any one of the child node was missing, then while assigning root child node, that child  
+    node won't be returned from traversal, instead that child's child node will be returned. This way 
+    node which has only one child will be removed.
+
+Approach 2 : 
+
+*   While traversing, if there is a node which has only one child, then assign that child node
+    value to it's parent node and assign that parent node's left and right child with it's child
+    (which is not null) left and right node. 
+
+*   This way that root node will be eliminated in caee it has only one child.
+
+*   After replacing root node left and right child, as the root node has also updated,
+    traverse that root node once again.
+
+*   If root has both left and right child, traverse those child further.
+
+
