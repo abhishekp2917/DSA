@@ -1,0 +1,10 @@
+*   IN BST, we don't have to traverse entire tree. If a node data is smaller than both the target value, then
+    LCA will always be in right subtree of that node.
+
+*   Similarlly, If a node data is larger than both the target value, then
+    LCA will always be in left subtree of that node.
+
+*   based on above logic, traverse tree either to its left or right for searching. 
+
+*   A node for which one of the target is smaller than that node and other is larger or vice versa, that node will be the
+    LCA in BST so just return that node.

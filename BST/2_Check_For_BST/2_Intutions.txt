@@ -1,0 +1,8 @@
+*   while traversing the tree, keep track of max and min value a subtree can have 
+
+*   for left traveral, min value will be as it is and max value will become root node data minus 1. Similarly,
+    for right traversal, max value will be as it is and min value will become root node data plus 1
+
+*   for each node, if node data doesn't resides in the given range, then return false as that node violates the BST property
+
+*   if both left and right subtree is BST then return true else false
