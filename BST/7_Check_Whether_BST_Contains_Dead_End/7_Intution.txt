@@ -1,0 +1,9 @@
+*   for any subtree keep track of range of values that tree can have. 
+
+*   for every leaf node, check if that range length is positive or not. If it is +ve, that means more nodes
+    can be added as child of that leaf node. So return false in that case.
+
+*   if length is not positive, that means that node is one and only node of that subtree and no further
+    node can be inserted, so return true
+
+*   recursively check for left and right subtree and return logical OR of the returned value

@@ -1,0 +1,8 @@
+*   The inorder traversal of BST gives elements in sorted order. Keeping this in mind, 
+    we will first find all the elements of given binary tree and will sort it in ascending order
+
+*   after getting sorted list of elements, just update the tree node by traversing it in inorder
+    fashion
+
+*   to keep track of index of element to be inserted, declare a global variable and increment it by 1 on each
+    updation of node

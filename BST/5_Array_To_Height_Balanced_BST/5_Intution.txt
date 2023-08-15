@@ -1,0 +1,11 @@
+*   Since we havce been given sorted array, if we keep the mid of array the root value, then
+    all the elements to it left ill be part of left subtree and all to its right will be part of right subtree
+    as in BST all elements of left subtree is smaller than root and vice versa for right subtree.
+
+*   for an array, find its mid and assign it to answer array and recursively find mid for its left part and right 
+    part. Continue this untill all the elements get inserted into answer array.
+
+*   we are inserting mid value first because requirement is to give preorder traversa. 
+
+*   since we need to provide lexicographically smallest preorder, in case array size is even for a particular recursive 
+    call, consider the floor value as a mid value cause that will be the smaller than mid ceil value 
