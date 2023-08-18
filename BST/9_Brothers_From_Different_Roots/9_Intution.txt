@@ -1,0 +1,10 @@
+*   The intution is to keep two pointer, one will point to smallest node of first BST and other will point to greatest of second one
+
+*   we will add both the pointers value and will compare with the target. We will traverse both the BST in inorder fashion. In which, second traversal will 
+    be done in reverse order so that initially second will traverse from greatest to smallest.
+
+*   If result is larger than the target, then make the second pointer point to smaller than the current value by traversing second BST.
+
+*   If result is smaller than the target, then make the first pointer point to larger than the current value by traversing first BST.
+
+*   In case it matches the target, increment te count by 1 and move both the pointer.

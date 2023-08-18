@@ -1,0 +1,24 @@
+Add a new node :
+
+*   To add a new node, if node value is smaller than target node, then traverse right else traverse left.
+
+*   On each left or right traversal, reassign the left or right child resp with node returned from the traversal.
+
+*   By doing so, we will reach the node which is null, in that case just create a new node and return it. That retured node will get assigned
+    as a child of its parent node
+
+*   Atlast, return the parent node.
+
+Delete a node :
+
+*   search for the target node
+
+*   Once found the node, check if that node has both the child or not.
+
+*   If both the child exist then attach right child to rightmost child of left child and return left child. This way it will not lose BST property
+
+*   If only one child is present, then return that child.
+
+*   Since we are returning the node, parent node will reassign left or right child with that returned value. In case the node is not target node
+    we will return that node only, so that that node will not get removed.
+

@@ -1,0 +1,8 @@
+*   we have to provide the node value which should be either smalller or equal to target. The intution is to keep updating our answer as we traverse the tree.
+
+*   To find that, while traversing tree, if a node value is smaller than target, then assign that node value to answer variable 
+    as that node could be our answer. After assigning, move right to explore further as it mak no sense to move left as all the values to the left
+    will be smaller and we need closest value to target.
+
+*   if a node value is greater than target, then neither of it's right subtree nor that node will have our answer. In this case, don't assign this node value.
+    Instead, just move left to explore. 
