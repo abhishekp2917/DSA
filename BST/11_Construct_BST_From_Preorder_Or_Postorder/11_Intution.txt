@@ -1,0 +1,27 @@
+Construct from preorder :
+
+*   For every node we will keep track of upper bound (max value a subtree node can have)
+
+*   We will build tree in preorder fashion by traversing given preorder. If node value resides
+    within upperbound, then we will create a node else will return null
+
+*   after creating a node, increment the preorder index and traverse left and then right.
+
+*   for left subtree, since all the nodes should be less than root node, left traversal upperbound
+    will be equal to root data.
+
+*   for right subtree, upperbound will be equal to root node upperbound as right subtree is child of
+    root, so max value a root tree can hold will be same for right subtree.
+
+*   finally return the newly created node.
+
+Construct from postorder :
+
+*   If we traverse postorder in reverse order, then it will become preorder in reverse order i.e.
+    root -> right -> left instead of conventional flow i.e. root -> left -> right.
+
+*   So, for postorder we will traverse array in reverse order and first we will traverse right and then
+    left to match the flow of array.
+
+*   Since, we are traversing right first, we will keep track of lower bound remaining logic will be same.
+

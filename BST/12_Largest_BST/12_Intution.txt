@@ -1,0 +1,12 @@
+*   while backtracking, keep track of max and min value of a traversed subtree, max size of BST in that
+    subtree and a boolean value which will tell if that traversed back subtree is BST or not
+
+*   after traversing left and right subtree, if left and right both are BST, then check if root tree 
+    is also BST or not. If it is then return max and min value of the root tree, max size of left and right
+    subtree plus 1 and true stating that this root tree is also a BST.
+
+*   if either of the subtree is not BST then, then root tree will also not be a BST. In that case min and max 
+    of the root tree, max of max size of left and max size of right and false indicating the root tree is not
+    a BST.
+
+*   at last return max size calculated after traversing the tree

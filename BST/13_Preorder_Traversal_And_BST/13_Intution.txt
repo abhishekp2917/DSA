@@ -1,0 +1,10 @@
+*   We will keep track of lower bound and while traversing array we will push the values to stack
+    
+*   If new value is smaller than top of stack, that means that node could be the left child of 
+    the top stack node.
+
+*   The new value should be greater than lower bound else it doesn't follow BST rule.
+
+*   In case new value is larger than top of the stack, it shows that new node is part of right subtree. So keep poping the top of stack
+    which are smaller than new node. The last node which poped out will be the new lower bound as that node will be the root node of new node.
+    Since all the element new node subtree should be greater than root element, root element is our new lower bound
