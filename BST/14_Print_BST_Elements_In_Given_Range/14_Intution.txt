@@ -1,0 +1,11 @@
+*   Traverse tree in inorder fashion so that we will encounter each node in increasing order
+
+*   Moreover, move to left only if the current node value is greater than given lower bound because if
+    the node value is lower than lower bound than all the nodes of left subtree will be out of range as all of them
+    will be smaller than current node (parent node).
+
+*   Similarly, move to right only if the current node value is smaller than given upper bound because if
+    the node value is greater than upper bound than all the nodes of right subtree will be out of range as all of them
+    will be greater than current node (parent node).
+
+*   While adding the node to result array, check if that node resides in given range or not

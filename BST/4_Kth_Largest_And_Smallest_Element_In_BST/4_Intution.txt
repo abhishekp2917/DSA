@@ -1,0 +1,11 @@
+Kth Largest
+
+*   If we will traverse tree in right -> root -> left fashion then we will encounter node in decreasing order
+
+*   while traversing, keep track of count of node that is visited by decrementing it on each node visit and once it become equal to 1,
+    assign that node value to some ref variable cause that node will be the kth largest element
+
+Kth Smallest 
+
+*   To find the kth smallest element, traverse the tree in left -> root -> right fashion while keeping the rest of the
+    logic same.

@@ -1,0 +1,12 @@
+*   if current node data is smaller than lower bound, then return the value which will be returned from current node right subtree
+    because all the nodes of left subtree will be out of range. We will not return root here as we have to remove node which is out of range. 
+    Instead we are returning whatever is getting returned from right subtree which will get assigned to parent node child
+
+*   if current node data is larger than uppper bound, then return the value which will be returned from current node left subtree
+    because all the nodes of right subtree will be out of range. We will not return root here as we have to remove node which is out of range. 
+    Instead we are returning whatever is getting returned from left subtree which will get assigned to parent node child
+
+*   if node is within the range, then reassign its left and right child node with the returned value that we will get from 
+    traversing left and right subtree resp. At last return current node as it is within the range
+        
+        
