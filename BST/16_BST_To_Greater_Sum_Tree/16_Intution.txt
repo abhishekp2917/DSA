@@ -1,0 +1,7 @@
+*   traverse tree in reverse inorder fashion i.e. right -> root -> left
+
+*   while traversing, keep track of sum of nodes that encountered
+
+*   update the current node with the curr sum value and then add current node previous value to sum. To get the previous value of
+    current node, before updating its value, temporarily store its value 
+    

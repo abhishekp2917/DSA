@@ -1,0 +1,6 @@
+*   While traversing tree, if the root node value is smaller than both the target node, then explore right subtree 
+    and if node value is larger than both the target node then explore left subtree else just stop exploration
+
+*   In this process, keep adding the node value into the stack. All these node value will be ancestors of both the target node.
+
+*   Once we get the list of ancestors, just get the pth ancestor if present else return -1
