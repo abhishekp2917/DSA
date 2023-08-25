@@ -1,0 +1,6 @@
+*   for a particular node, it's abs diff with any other node will be minimum if and only if that other node is
+    closest to the node. It could be either predecessor or sccessor. 
+
+*   if we will traverse tree in inorder fashion than we will encounter nodes in ordered fashion. So for any node, to find the 
+    min abs diff we just have to compare curr min abs diff with the diff of current node and its closest node that would be its 
+    predecessor or successor.
