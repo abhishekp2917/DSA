@@ -1,0 +1,51 @@
+*   Let's say we have N = 4, that means there are 4 nodes in a BST.
+
+*   In this case below are the possible combinations 
+
+    (1)  
+            root
+             \
+              \
+              3 Nodes
+
+        Here root will be the smallest element having 0 element on left and 3 on right
+        So, number of BST with this combination will be equal to 
+        (Num of combo of BST with 0 element) * (Num of combo of BST with 3 elements)
+
+    (2)  
+           root
+           / \
+          /   \
+      1 Node  2 Nodes
+
+        number of BST with this combination will be equal to 
+        (Num of combo of BST with 1 element) * (Num of combo of BST with 2 elements)
+
+    (3)  
+           root
+           / \
+          /   \
+      2 Nodes  1 Node
+
+        number of BST with this combination will be equal to 
+        (Num of combo of BST with 2 elements) * (Num of combo of BST with 1 elements)
+
+    (4)  
+           root
+           / 
+          /   
+      3 Nodes
+
+        number of BST with this combination will be equal to 
+        (Num of combo of BST with 3 elements) * (Num of combo of BST with 0 elements)
+
+    Finally, total combo of BST with 4 nodes will be equal to sum of above combinations count.
+
+*   keeping above obervation in mind, we can say that for a value N, 
+
+                                N-1
+                                ____
+    possible comination of N =  \      (possible comination of i) * (possible comination of N-i-1) 
+                                /___
+                                 i=0
+            

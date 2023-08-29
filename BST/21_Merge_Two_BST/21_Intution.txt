@@ -1,0 +1,11 @@
+*   first store both the BST nodes separately in a list in increasing order.
+
+*   since we want result in increasing order, keep a pointer of both the list
+
+*   until any one of the pointer points outside the list, compare the element to which
+    they are pointing to and whichever is teh smallest, add the elemtent into the answer
+    list and increment that pointer by one
+
+*   after coming out the loop, if any one of the list has some element left unexplored,
+    add all those element in the answer list in the same order.
+    
