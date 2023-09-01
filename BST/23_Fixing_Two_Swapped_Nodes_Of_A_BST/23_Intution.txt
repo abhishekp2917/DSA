@@ -1,0 +1,8 @@
+*   traverse tree in inorder fashion so as to encounter nodes in increasing order
+
+*   to find the swapped nodes, compare current node with prev node. If prev node is greater than 
+    current node that mean the prev node is one of the swapped nodes. So, if first swapped node is null, assign
+    the prev node to it else leave as it is
+
+*   once we found the first swapped node, keep updating the second swapped node with the current node until
+    current nodes becomes greater than first swapped node cause first node must come after that last node that is just samller to it

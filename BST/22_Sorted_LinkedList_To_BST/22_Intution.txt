@@ -1,0 +1,6 @@
+*   since Linkedlist is given in ascending order, building tree in inorder fashion will result in BST
+
+*   to make a balanced BST, while building the tree keep track of the size of current subtree. Left subtree 
+    size will always be half of the current size and right subtree will have the other half minus root of the current subtree 
+
+*   during recursion call, if the size goes below 0, return null
