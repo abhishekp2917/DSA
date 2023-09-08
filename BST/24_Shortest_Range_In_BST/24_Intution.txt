@@ -1,0 +1,48 @@
+*   given tree is 
+
+                        8
+                       /\
+                      /  \
+                     /    \
+                    3      10
+                   /\       \
+                  /  \       \
+                 /    \       \
+                2      6       14
+                       /\       /
+                      /  \     /
+                     /    \   /
+                    4      7  12
+                              /\
+                             /  \
+                            /    \
+                           11     13
+
+*   first form a matrix out of the tree where each row will represent the level of the tree
+
+
+    level 1 => 8
+    level 2 => 3   => 10
+    level 3 => 2   => 6   => 14
+    level 4 => 4   => 7   => 12
+    level 5 => 11  => 13 
+
+*   All the row will be sorted in acending order because in BST, each levels are sorted in ascending order
+
+*   Since we want range [min, max] which covers atleast one node of each level (row), sort the first column of the matrix
+    and which will give [2, 3, 4, 8, 11]. So our curent range is [2, 11] since we have taken min and max value from the list
+    which has one node from every level
+
+*   Now, take the min value of the tree and replace it with next right value of that node level (row) and again sort the list 
+    after replacing. This will give [3, 4, 6, 8, 11]. Now our new range is [3, 11]. If the new range is smallest, then 
+    consider this range as the answer. By doing this we will make sure there is atleast one node from each level.
+
+*   Keeping repeating above step until min value of range doesn't have any node at right in that level. 
+
+*   tranform of the list throughout the process will be
+
+    [2, 3, 4, 8, 11]    => [2, 11]
+    [3, 4, 6, 8, 11]    => [3, 11]
+    [4, 6, 8, 10, 11]   => [4, 11]
+    [6, 7, 8, 10, 11]   => [6, 11]
+    [7, 8, 10, 11, 14]  => [7, 14]

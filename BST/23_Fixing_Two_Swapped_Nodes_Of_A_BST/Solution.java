@@ -1,25 +1,11 @@
-// Linked List Node
-class LNode
+class Node
 {
     int data;
-    LNode next;
-    LNode(int d) {
+    Node left, right;
+    Node(int d) {
         data = d; 
-        next = null;
+        left = right = null;
     }
-}
-
-//Tree Node
-class TNode
-{
-    int data;
-    TNode left, right;
-    TNode(int x)
-    {
-        data=x;
-        left=right=null;
-    }
-    
 }
 
 class Solution {
