@@ -1,0 +1,13 @@
+*   traverse the tree to find the node to be deleted.
+
+*   once found the target node, there would be 2 scenarios. Either the node will have both the child or it will have atmost 1 child.
+
+*   Incase node has only one child, just return that child which will get attached to the root node parent's one of the child pointer
+
+*   If it has both the child, then find the largest node of left child and replace root node value with that largest node value. Thereafter,
+    recursively call the delete method to delete that largest node from left subtree.
+
+*   After deletion, while backtracking, modify the height of each node and if that subtree is imbalance, call the method to balance it just 
+    how we did while inserting a node in AVL tree.
+
+*   once these operations are done, return the root node.
