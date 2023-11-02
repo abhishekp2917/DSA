@@ -2,9 +2,13 @@ import java.util.HashMap;
 
 class LFUCache {
 
+    // map to store the key mapped to its freq in LFU cache
     HashMap<Integer, Integer> keyMap;
+    // map to store the freq mapped to the LRU cache having that freq
     HashMap<Integer, LRUCache> freqMap;
+    // minFreq to track the LRU cache having least freq
     int capacity, minFreq;
+    // size object to track the size of the LFU cache
     int[] size;
 
     public LFUCache(int capacity) {
@@ -70,6 +74,7 @@ class LFUCache {
     }
 }
 
+// LRU cache to store the key-value
 class LRUCache {
 
     Node head, rear;

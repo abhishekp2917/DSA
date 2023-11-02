@@ -1,0 +1,14 @@
+*   The intution is to maintain a linkedlist which will have the key-value pair as a node value. This linkedlist will 
+    imitate as a cache.
+
+*   for inserting new value, check the size of linkedlist. If it exceeds the limit, then remove the last node from the 
+    linkedlist. After checking, insert the new node in front of the linkedlist.
+
+*   for inserting an existing one which already there in linkedlist, don't check the size, just remove that node from its 
+    position and add it to the front of the linkedlist.
+
+*   for getting the key, again remove that node from it's position if it's present and add to the front of the linkedlist
+    and then return that node value. If it's not present, then return -1.
+
+*   to make node search in linkedlist in O(1), use map where key value will be key of that node and value will be ref of 
+    that node.

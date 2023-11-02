@@ -1,0 +1,19 @@
+*   The intution is to maintain a map whose key will be the key of the value that we want to store in the cache and value 
+    of that map will be the frequency (how many times that key has been accessed)
+
+*   since for key-value pairs whose frequency are same has to stored as LRU cache, we will create another map whose key 
+    will be frequency and value will be LRU cache object which will hold all the key-value pair whose frequency ae similar 
+    to the key of this second map
+
+*   for inserting new key-value pair, we will check the size of the LFU cache, and if it exceeds the limit, we will remove 
+    the last element of the LRU cache whose frequency is least. After checking the size, add the new element to the LRU cache
+    whose frequency is 1.
+
+*   for inserting an existing key-value pair, remove the key-value pair from the LRU cache by checking it's frequency in 
+    the first map. After removal, add this key-value pair to the LRU cache whose frequency is 1 more than the current 
+    frequency.
+
+*   for getting the value from the LFU cache, get the value frequency and based on frequency, get the associated LRU cache
+    and remove that key-value from that LRU cache and add it to the LRU cache whose frequency is 1 more than the current 
+    frequency and at last return that value. If that key doesn't exist in first map, then it means it's not in LFU cache
+    so return -1;
