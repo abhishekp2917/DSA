@@ -1,0 +1,10 @@
+*   Instantiate the array of size greater than or equal to the maximum number of push calls
+    so that all the pushed element can be accomodated in the array.
+
+*   maintain couple of variable to keep track of front and rear element of the queue
+
+*   for every push call, add the element in the array at rear index and then increment the rear index by 1
+
+*   for every pop call, if front and rear pointer points to same index, then return -1 as it means queue
+    is empty. If front != rear, then return element at front index and increment front by 1 which will be 
+    similar to removing front element
