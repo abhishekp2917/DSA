@@ -1,0 +1,21 @@
+*   The algorithm aims to maximize the count of leaf nodes visited within a given budget k, where the cost of visiting a 
+    leaf node is equal to its level in the binary tree. To achieve this, we use a Breadth-First Search (BFS) traversal approach. 
+
+
+*   We begin at the root of the binary tree (level 1) and initialize a counter for the number of leaf nodes visited.
+
+*   We use a BFS traversal to explore the tree level by level. This ensures that we visit leaf nodes at a lower level 
+    before those at higher levels, as the cost of visiting a leaf node is equal to its level.
+
+*   At each level of the BFS traversal, we check if the current node is a leaf node (i.e., it has no left and right children). 
+    If it is a leaf node, we calculate the cost of visiting it, which is equal to its level.
+
+*   We compare the cost of visiting the leaf node with the remaining budget (k). If the cost is less than or equal to the 
+    remaining budget, we visit the leaf node, decrement the budget by the cost, and increment the leaf node counter. If 
+    the cost exceeds the remaining budget, we break out of the loop, as we cannot visit this leaf node or any subsequent 
+    leaf nodes at higher levels due to the cost constraint.
+
+*   Regardless of whether we visit a leaf node or not, we continue the BFS traversal by enqueuing any non-leaf children 
+    nodes with their corresponding levels.
+
+*   We repeat the above steps until we have traversed the entire tree or exhausted the budget.

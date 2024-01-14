@@ -16,4 +16,6 @@
     then move right of second subtree and vice versa. This way both the node pointer will be pointing
     to its mirror node
 
-*   Swap the node value for odd level nodes, which will eventually reverse the node at odd levels
+*   Swap the node value with it's mirror node for odd level nodes , which will eventually reverse the node at odd levels
+
+*   This approach is similar to reversing an array by swaping values of index with it's mirrored one

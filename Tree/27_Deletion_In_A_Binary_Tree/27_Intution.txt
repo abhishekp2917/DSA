@@ -1,0 +1,9 @@
+*   Traverse the tree in any fashion and find the node that needs to be removed and the deepest right node
+
+*   To find the deepest right node, take a variable and update the variable with the current node while traversing so 
+    when we come out of the traversal, the variable will have the deepest right node as it is the last node in the tree
+
+*   once we have the both the above mentioned node ref, assign deepest right node value to the node that needs to be removed
+
+*   Now remove the deepest right node. To do so, traverse the tree in any fashion and if for any node, the deepest right 
+    node is it's child, make that node one of the child ref as null.

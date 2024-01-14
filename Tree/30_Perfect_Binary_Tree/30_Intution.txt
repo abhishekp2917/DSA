@@ -1,0 +1,20 @@
+Approach 1 :
+
+*   In perfect binary tree, the count of nodes doubles at each level as we traverse below the tree
+
+*   Do BFS and check if the count of nodes at current level is not equal to the expected count, return 
+    false else continue the checking next levels
+
+Approach 2 :
+
+*   In condition it's mentioned that all nodes should have either 2 child or 0 and leaf must be at same 
+    level
+
+*   Traverse DFS and check if the current node has either 2 child or no child. If this condition fails return 
+    false else return true
+
+*   For checking second condition, while traversing the tree, if we encounter first leaf node we will store it's
+    depth in a global variable and will compare rest of the leaf depth with this global var.
+
+*   If the second condition fails, that means all the leaf nodes aren't at same level so return false else return true
+

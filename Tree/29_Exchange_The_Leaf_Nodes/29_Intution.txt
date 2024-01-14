@@ -1,0 +1,12 @@
+*   To swap the leaf nodes we first have to find the pairs.
+
+*   To find pair of leaf nodes, we will have a global ref which will hold the leaf node 
+
+*   When we reach leaf node, we will check if global var is null or not
+
+*   If global var is null that means current node is the first node of the leaf pair so just assign the 
+    current node to that var
+
+*   If global var is not null, that means current node is the pair of the global var, so swap their values and 
+    make global var null as current leaf pairs are swapped
+    

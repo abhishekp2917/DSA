@@ -1,0 +1,15 @@
+Approach 1 :
+
+*   The idea is to iteratively traverse the tree, and when you encounter the first leaf node, store 
+    its level in result variable
+    
+*   Now whenever you encounter any leaf node, compare its level with previously stored result
+
+*   If they are the same then proceed for the rest of tree, else return false.
+
+Approach 2 :
+
+*   The intuition behind this approach lies in the understanding that if all leaf nodes in a binary tree are at the same 
+    level, the maximum depth and minimum depth of the tree should be equal
+
+*   So find the min and max depth of the tree and return true if both are the same else return false

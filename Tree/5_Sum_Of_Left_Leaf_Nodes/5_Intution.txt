@@ -1,0 +1,8 @@
+*   The intution is to traverse the tree and aslo keep track of the node whether it's a left node or
+    right node
+
+*   while traversing left subtree, pass boolean value true indicating it's a left child and false 
+    otherwise
+
+*   once we reach the leaf node, check if it's a left child and add it's value to a gobal variable in 
+    case it's a left child. 

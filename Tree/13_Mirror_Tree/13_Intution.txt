@@ -1,0 +1,7 @@
+*   Mirror of a Binary Tree T is another Binary Tree M(T) with left and right children of all non-leaf nodes interchanged. 
+    Its very easy to use the idea of swapping for the above purpose. We can traverse the tree and keep swapping the left 
+    and right children.
+
+*   Call Mirror function for left-subtree i.e., Mirror(left-subtree) and for right-subtree i.e., Mirror(right-subtree)
+    
+*   Swap left and right subtrees. 
