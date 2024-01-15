@@ -1,0 +1,10 @@
+*   We can print postorder traversal without constructing the tree. The idea is, root is always the 
+    first item in preorder traversal and it must be the last item in postorder traversal. We first 
+    recursively print left subtree, then recursively print right subtree. Finally, print root. 
+
+*   To find boundaries of left and right subtrees in pre[] and in[], we search root in in[], all 
+    elements before root in in[] are elements of left subtree, and all elements after root are elements 
+    of right subtree. 
+    
+*   In pre[], all elements after index of root in in[] are elements of right subtree. And elements 
+    before index (including the element at index and excluding the first element) are elements of left subtree.
