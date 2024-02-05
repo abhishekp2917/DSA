@@ -1,0 +1,8 @@
+*   traverse the tree and keep track of head and tail of each subtree
+
+*   on backtracking, connect the linkedlist form by traversing left subtree and right subtree along 
+    with current root node. 
+
+*   return the head and tail of the linkedlist form 
+
+*   at very last connect the head and tail odf the linkedlist and return the head

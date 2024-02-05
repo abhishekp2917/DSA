@@ -1,0 +1,9 @@
+*   traverse the tree and generate string representation of each subtree
+
+*   use hashmap to store this string representation of subtree count.
+
+*   while traversing check, if that subtree present in hashmap and has current count 
+    equal to 1
+
+*   if already presemt having count 1, increment the duplicate count by 1 else put that 
+    string representation of subtree in hasmap with initial count of 1
