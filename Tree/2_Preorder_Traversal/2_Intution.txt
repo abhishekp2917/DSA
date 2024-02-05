@@ -1,3 +1,5 @@
+Approach 1 :  
+
 *   first add the root node is root is not null. If root is null then return from there. 
     This is the base condition.
 
@@ -6,3 +8,20 @@
 *   after returning from left, recursively call the function to move right
 
 *   logic : root --> left --> right
+
+Approach 2 :
+
+*   Since we have to traverse in DFS fashion, here's is a simple stack based iterative process to 
+    print Preorder traversal. 
+
+*   Create an empty stack nodeStack and push root node to stack. 
+
+*   Do the following while nodeStack is not empty. 
+
+*   Pop an item from the stack and print it. 
+
+*   Push right child of a popped item to stack 
+
+*   Push left child of a popped item to stack
+
+*   The right child is pushed before the left child to make sure that the left subtree is processed first.

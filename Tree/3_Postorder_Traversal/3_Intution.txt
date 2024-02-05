@@ -1,3 +1,5 @@
+Approach 1 : 
+
 *   if root is null then return from that function. This will be the 
     base condition.
     
@@ -8,3 +10,23 @@
 *   at last, after returning from left and right node, add the root node data
 
 *   logic : left --> right --> root
+
+Approach 2 :
+
+*   postorder traversal of a tree is equal to it's preorder in which we traverse 
+    right child before left child
+
+*   so first store the result of preorder traversal and reverse the result to get 
+    postorder
+
+Approach 3 :
+
+*   keep adding left child of current root and make root point to left child. do 
+    this until left child is not null
+
+*   keep poping the element whose right child is null and add it to the result list
+
+*   if there is a node which has right child, then make root point to it and repeat 
+    the process from first step
+
+
