@@ -1,0 +1,9 @@
+*   traverse the tree in DFS fashion and return the total sum of nodes of current 
+    subtree and number of subtree whose sum is equal to target
+
+*   while backtracking, calculate the sum of current subtree with the help of 
+    returned value from left and right subree  
+
+*   if sum is equal to target, then return 1 + count from left and right subtree
+
+*   if sum is not equal to target, then return count from left and right subtree 

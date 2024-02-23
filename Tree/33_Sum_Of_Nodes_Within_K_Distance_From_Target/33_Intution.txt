@@ -1,0 +1,14 @@
+*   create a helper function which calculates sum of all the nodes which are at K distance from 
+    root node
+
+*   traverse the tree and check for the target node. if we the target node is not in the current subtree
+    return 0
+
+*   once we found the target node, call the helper function to calculate the sum and then return K 
+
+*   while backtracking, if we get the positive value from left or right subtree, then it shows the target
+    node is in the subtree which returned positive value. So call the helper function to add the sum of nodes
+    of other subtree i.e if we get +ve value from left subtree, call the helper function for right subtree
+    or viceversa
+
+*   return one subtracted value if we get +ve value from the child (subtree) else return 0   

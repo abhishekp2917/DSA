@@ -1,0 +1,13 @@
+*   to form the star, there should be only one intermidiary node 
+
+*   this intermidiary node can be removed by merging it with adjacent node (which 
+    is asked in question)
+
+*   so first count the number of intermidiary nodes that includes root node also
+
+*   if root node has only one child than intermidiary node count will reduce by 1
+
+*   atlast return (count of intermidiary node - 1). cause by removing this number 
+    of intermidiary node, we will have only one such node to form star
+
+

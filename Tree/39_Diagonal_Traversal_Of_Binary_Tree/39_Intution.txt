@@ -1,0 +1,9 @@
+*   while traversing the tree, keep track of the vertical and horizontal position (co-ordinates) of 
+    the nodes
+
+*   the absolute diff of their vertical and horizontal position will give the diagonal level of the node
+
+*   maintain a hashmap of diagonal level and it's associated nodes in form of list
+
+*   after completion of traversal, add each level nodes in the answer list starting from the zeroth level 
+    

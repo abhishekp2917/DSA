@@ -1,0 +1,16 @@
+*   the reverse of post order traversal is similar to preorder traversal if traversed 
+    right subtree before left one 
+
+*   we will use this postorder traversal in reverse to build the tree
+
+*   the next question comes our way is to find whether the current node is part of 
+    left subtree or right. 
+
+*   to find that, we will levarage inorder traversal. all the nodes left to a node in 
+    inorder traversal is part of left subtree and those are on right is part of right
+    subtree
+
+*   using inorder, we will keep track of size of a particular subtree during traversal
+    
+*   if size is zero, then we will not create node object, as that node is not part of 
+    current subtree. We will return from that recursion call

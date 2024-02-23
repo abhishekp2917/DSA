@@ -1,0 +1,23 @@
+Approach 1 : 
+
+*   in this parent array, indices are children and indices value are their parents.
+
+*   if we take any one child (index) we can get it's parent through it's value. Now to check
+    that parent's parent, we have to treat the value as an index and have to look into the parent array
+    for the new index value. 
+
+*   in this way, by following parent and parent's parent. eventually all the child will lead to the root.
+
+*   the intution is to iterate over parent array and for each index (child) count the number of it's 
+    ancestors. And whichever child will have max number of ancestor will be the deepest node in the 
+    tree.
+
+Approach 2 : 
+
+*   create a hashmap of parent as a key and their children as value. 
+
+*   perform DFS starting with -1 as it is the root node and traverse it's child recursively.
+
+*   if the current parent is not in the map, that means it's the leaf node so return 1 else return 
+    max height from left or right child and add 1 to it (similar to finding height of normal tree).
+

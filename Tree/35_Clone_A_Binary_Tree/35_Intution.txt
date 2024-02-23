@@ -1,0 +1,8 @@
+*   build the clone tree and store each node from main tree in hashmap mapped to it cloned node
+
+*   we are storing main node mapped to it's cloned node in map because, while assiging 
+    the random ref of the cloned node, we can know what node to be assigned as a random node to cloned 
+    node
+
+*   to know what node to be pointed by random pointer, check what corresponding main node random pointer
+    is pointing to and with that value, check for entry in hashmap to get it's cloned counterpart
