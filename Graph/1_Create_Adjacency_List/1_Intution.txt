@@ -1,0 +1,24 @@
+Creating Adjacency List of an Undirected Graph:
+
+*   Imagine each edge as a two-way street between two points (nodes).
+
+*   For every edge, connect both nodes to each other so they can "talk" to one another.
+
+*   If a node doesn't already have any connections, create a blank list to store its neighbors.
+
+*   Add the other node as its neighbor and vice versa, ensuring both points know about the connection.
+
+*   At the end, you have a map where each node lists all its connected nodes.
+
+Creating Adjacency List of a Directed Graph:
+
+*   Think of each edge as a one-way street from one point (node) to another.
+
+*   For every edge, ensure the starting node "knows" where it can go next, but don't update the destination node since 
+    the connection is one-directional.
+
+*   If the starting node doesn't already have connections, create a blank list to hold its neighbors.
+
+*   Add the destination node to the starting node's list, creating a pathway to it.
+
+*   At the end, you have a map where each node only lists the nodes it can directly "reach."

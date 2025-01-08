@@ -1,0 +1,20 @@
+Creating Adjacency Matrix of an Undirected Graph:
+
+*   Imagine a table where rows and columns represent nodes, and each cell shows if two nodes are connected.
+
+*   For each edge (connection) between two nodes, mark their relationship in the table by setting the value to 1 in both 
+    directions (row to column and column to row).
+
+*   This symmetry in marking happens because the graph is undirected, meaning the connection works both ways.
+
+*   By the end, the table gives a clear "yes" or "no" (1 or 0) for whether any two nodes are connected.
+
+Creating Adjacency Matrix of a Directed Graph:
+
+*   Think of a table where rows represent "senders" and columns represent "receivers."
+
+*   For each edge (one-way connection), mark the cell at the sender’s row and receiver’s column with a 1.
+
+*   Since the graph is directed, the reverse direction is not automatically marked, meaning the connection is one-way.
+
+*   At the end, the table shows who can reach whom, with 1 indicating a possible path and 0 indicating no direct path.
