@@ -1,0 +1,14 @@
+BFS Traversal of a Graph:
+
+*   Begin from a starting point, like exploring a neighborhood from your house.
+
+*   Check out first all the places (nodes) directly connected to your starting point before moving further.
+
+*   Keep a list (queue) of places to visit in the order they’re discovered, so you don’t miss anything.
+
+*   Keep track of places you’ve already visited, so you don’t revisit the same spot.
+
+*   Once all the nearby places are visited, move to the next level of connections by exploring neighbours of the
+    node present in the queue and repeat the process.
+
+*   Finish when no more places to visit i.e. queue is empty.

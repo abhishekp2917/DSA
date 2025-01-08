@@ -1,0 +1,15 @@
+DFS Traversal of a Graph:
+
+*   Imagine you're standing at a starting point in a maze.
+
+*   From your current position, choose one of your connected neighbors and move to it.
+
+*   From your new position, keep going deeper by moving to one of its connected neighbors, and so on. It's like walking 
+    through the maze and never turning back until you're stuck.
+
+*   Every time you visit a new place, mark it as visited, so you don’t go there again.
+
+*   If you reach a place where there are no unvisited paths, you go back to the last place you visited, and check if 
+    there's another unvisited path from there.
+
+*   Keep repeating this process—going deeper into the maze and backtracking when needed—until you've visited all the places.
