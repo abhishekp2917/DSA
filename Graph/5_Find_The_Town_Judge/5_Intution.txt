@@ -1,0 +1,19 @@
+*   We need to identify a person in the town who satisfies two conditions:
+
+        - Doesn’t trust anyone.
+        - Is trusted by everyone else.
+
+*   This concludes two important observations:
+
+        - If there are N people, the judge must be trusted by exactly N-1 people (everyone except themselves).
+        - If a person trusts someone, they cannot be the judge.
+
+*   Keeping above two observation in mind, while iterating through the trust relationships, we need to track two things:
+
+        - Maintain a "trusted by" count of how many people trust each person.
+        - Keep a set of people who trust at least one person. This helps us eliminate candidates who cannot be the judge.
+
+*   After processing all trust relationships, check if there exists a person who is not in the set of "trusters" and 
+    who has a "trusted by" count equal to N-1.
+
+*   If such a person exists, they are the judge. If no one satisfies both conditions, there is no judge.
