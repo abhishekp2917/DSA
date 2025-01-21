@@ -1,0 +1,19 @@
+bottom view :
+
+*   The intution is to keep track of the vertical(y) and horizontal(x) co-ordinates of the nodes and
+    store the node based on it's x co-ordinate in map where key will be x co-ordinate and value will 
+    be node itself along with it's y co-ordinate (to select the deepest node of a particular x co-ordinate) 
+
+*   While traversing, if doesn't have the node of a particular x co-ordinate then put the data inside the map
+
+*   if data already exists, then compare the node's y co-ordinate with current node y co-ordinate and update
+    the data if the current node is the deepest node 
+
+*   while traversing the tree, maintain the leftmost and rightmost node co-ordinate because we have to store
+    answer from left to right. If we have the leftmost and rightmost co-ordinate value, then we run a loop
+    from left to right to store the data in required manner
+
+top view :
+
+*   the intution is similar to bottom view. The only difference is while inserting the node in the map, give preference
+    to that node over other which is at upper level becuase we want top view 

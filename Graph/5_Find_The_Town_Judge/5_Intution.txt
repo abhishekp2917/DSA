@@ -1,3 +1,5 @@
+Question Link : https://leetcode.com/problems/find-the-town-judge/description/
+
 *   We need to identify a person in the town who satisfies two conditions:
 
         - Doesn’t trust anyone.

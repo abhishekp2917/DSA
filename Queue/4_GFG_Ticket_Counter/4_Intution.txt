@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/ticket-counter-2731/1
+
 *   use start and end variable to track the first and last element of the queue at the ticket counter
     and a boolean value to keep track of the turn i.e. to remove from front or back
 
