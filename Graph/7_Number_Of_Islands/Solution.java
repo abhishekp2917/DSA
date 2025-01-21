@@ -9,10 +9,10 @@ class Solution {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 // If the cell is land and not visited, then it is a new island
-                // traverse all such land cells using DFS
+                // traverse all such 'land' cells using DFS
                 if (grid[i][j] == '1' && !visited[i][j]) {
                     dfs(grid, visited, i, j);
-                    // after traversing all the land cells of an island, increment the count
+                    // after traversing all the island, increment the count
                     islandsCount++;
                 }
             }
@@ -25,12 +25,13 @@ class Solution {
         int n = grid.length;
         int m = grid[0].length;
 
-        // Check bounds and whether the cell is land and not visited
+        // Check if x and y index si within the bounds of the grid to avoid ArrayIndexOutOfBoundException
+        // Check whether the cell is land and not visited before to avoid infinite loop
         if (x < 0 || x >= n || y < 0 || y >= m || grid[x][y] != '1' || visited[x][y]) {
             return;
         }
 
-        // Mark the cell as visited so that we don't visit it again
+        // Mark the cell as visited so that we won't visit it again
         visited[x][y] = true;
 
         // Visit all adjacent cells of the current cell

@@ -1,3 +1,14 @@
-*   For a particular cell traverse it's neighbour cell if it's land in DFS/BFS fashion
+Question Link : https://leetcode.com/problems/number-of-islands/description/
 
-*   On each traversal, mark the cell as visited so that you won't traverse it again.    
+*   If we will start from a cell which is a land (i.e. value is 1), and do BFS/DFS traversal to it's neighbouring land 
+    cell only, then we could visit all the land cells of that island.
+
+*   Keeping above observation in mind, we can say that each time we start exploring from a new land cell, it means we 
+    found a new island.
+
+*   To make sure we don't start from a cell of previously visited island, we would mark cells as visited after traversing them. 
+
+*   Iterate through each cell and whenever we found a non visited land cell, we would start the traversal from it and 
+    then increment the counter after completion.
+
+*   At last we would have counter which would reflect the number of island.  
