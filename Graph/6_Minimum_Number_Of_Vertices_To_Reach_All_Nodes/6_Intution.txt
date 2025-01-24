@@ -1,0 +1,11 @@
+Question Link : https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/description/
+
+*   The smallest set of nodes includes only those that have no incoming edges (i.e., no parent nodes).
+
+*   In the directed graph, the edge (a -> b) shows 'b' can be reached from 'a', where 'a' is parent node and 'b' being 
+    its child.
+
+*   So if we iterate through all the edges (a -> b) given to us and mark 'b' as child, then whichever node left after
+    marking would be the node which doesn't have a parent.
+
+*   That means, the set of remaining node would be the smallest set of nodes that we need to traverse all the nodes. 
