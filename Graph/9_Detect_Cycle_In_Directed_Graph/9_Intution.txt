@@ -1,0 +1,17 @@
+Question Link : https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
+
+*   The algo is quite similar to undirected graph but with slight difference i.e. unlike undirected graph, in a directed 
+    graph, a cycle exists if a node is visited again in the same DFS traversal path.
+
+*   But in a directed graph, not all nodes are reachable from a single starting node, so we must explore each unvisited 
+    node separately.
+
+*   The visited[] array helps prevent redundant DFS calls but cannot distinguish cycles correctly because a node can be 
+    part of multiple paths and it could be possible that such node would appear as visited when we encouter it through 
+    some other path.
+
+*   The pathVisited[] array tracks nodes visited in the current DFS path.
+
+*   If a node is encountered again in the same path, it confirms a cycle.
+
+*   If a node is encountered in a different path, it does not confirm a cycle, so we reset pathVisited[] after backtracking.
