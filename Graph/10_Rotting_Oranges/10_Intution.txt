@@ -1,0 +1,17 @@
+Question Link : https://leetcode.com/problems/rotting-oranges/description/
+
+*   We will use BFS traversal and not the DFS traversal to rot the oranges because all the fresh oranges will be rotten 
+    concurrently.
+
+*   Since rottening of oranges will start from the rotten oranges, we will add all the rotten oranges to the queue 
+    initially to start the BFS traversal.
+
+*   Use a visited matrix to mark if an organge has been rotten.
+
+*   Traverse only those neighbouring oranges which are fresh and not visited. If the orange is fresh and not visited then 
+    mark it as visited and add it to the queue.
+
+*   Increment the time after processing all the neighbours of the current oranges. If the queue is empty then it means 
+    that all the oranges are rotten so we don't need to increment the time.
+
+*   If all the oranges are rotten then return the time taken to rot all the oranges else return -1

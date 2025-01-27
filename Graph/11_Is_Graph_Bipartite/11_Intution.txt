@@ -1,0 +1,21 @@
+Question Link : https://leetcode.com/problems/is-graph-bipartite/description/
+
+*   Traverse each connected graph and assign two colors (e.g. 1 and -1) to the nodes of the graph such that no two 
+    adjacent nodes have the same color.
+
+*   Start with a node and assign a color to it (e.g. 1) and traverse all it's neighbours and assign a color opposite to 
+    that of current node (e.g. -1).
+
+*   If we find any node which is already colored and the color is not the same as the color we are trying to assign, then 
+    the graph is not bipartite so return false.
+
+*   If we find any node which is already colored and the color is the same as the color we are trying to assign, then 
+    return true.
+
+*   If we find any node which is not colored, then assign the color and call the dfs on the neighbours.
+
+*   Use AND operation on results from all the neighbours. Because if any of the neighbour is not bipartite, then the 
+    whole graph is not bipartite.
+
+*   Return the result after the AND operation. If graph is bipartite, we will get true at the end.
+
