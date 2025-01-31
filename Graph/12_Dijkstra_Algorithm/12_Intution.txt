@@ -1,0 +1,27 @@
+Question Link : https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
+
+*   We begin by choosing a source node. From this node, we need to find the shortest path to all other nodes in the graph.
+
+*   To keep track of the shortest distances from the source node to all other nodes, we use an array or list called shortestDistance. 
+    
+*   Initially, the distance to the source node itself is set to 0, and the distance to all other nodes is set to infinity 
+    (since we haven’t explored them yet).
+
+*   We use a min-heap (priority queue) to explore the graph. The priority queue helps us always pick the node that is 
+    closest to the source. Initially, only the source node (with distance 0) is in the queue.
+
+*   We continuously pop (remove) the node with the smallest distance from the priority queue and explore its neighbors 
+   (nodes directly connected to it by an edge).
+
+*   For each neighboring node, we compute the new potential distance to it which will be 
+    (weight of the edge between the current node and the neighbor) + (current node's distance from source). 
+    
+*   If this new distance is smaller than the previously known distance (stored in shortestDistance), we update the neighbor's 
+    distance and add the neighbor to the min-heap with the updated distance.
+
+*   The reason for updating a node’s distance is that we may find a shorter path to that node through a different route. 
+    Once we find a shorter path, we update the distance and revisit the node.
+
+*   The process continues until the priority queue is empty, meaning we've explored all reachable nodes and found the shortest paths to each one. 
+
+*   At this point, the shortestDistance array contains the minimum distance from the source node to every other node in the graph.
