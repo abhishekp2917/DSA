@@ -41,10 +41,10 @@ class Solution {
                 int newDistance = currNodeDistance + neighbourWeight;
                 // fetch the previously calculated distance of the neighbour node from source node from the shortestDistance array
                 int prevDistance = shortestDistance.get(neighbourNode);
-                // if the new distance is less than the previously calculated distance, then update the distance of the neighbour node from the source node 
+                // if the new distance is less than or equal to the previously calculated distance, then update the distance of the neighbour node from the source node 
                 // and add the neighbour node to the minHeap
                 // else don't add the neighbour node to the minHeap since we will not explore it further
-                if(newDistance<prevDistance) {
+                if(newDistance<=prevDistance) {
                     shortestDistance.set(neighbourNode, newDistance);
                     minHeap.add(new Pair(neighbourNode, newDistance));
                 }

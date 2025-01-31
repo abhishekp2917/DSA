@@ -1,0 +1,18 @@
+Question Link : https://leetcode.com/problems/shortest-distance-after-road-addition-queries-i/description/
+
+*   Since we need to find the shortest distance from city 0 to city n-1, Dijkstra’s Algorithm is the optimal choice as 
+    it efficiently finds the shortest paths in weighted graphs.
+
+*   Construct the initial graph where each city is connected to the next (i → i+1 for i < n-1).
+
+*   Use Dijkstra’s Algorithm from source city 0 to compute the shortest distance to all other cities and store these 
+    distances in the shortestDistance[] array.
+
+*   For each query (u, v), add a new road from city u to city v. Since this new edge might create a shorter path, we must 
+    update the shortest distances accordingly.
+
+*   Instead of recomputing everything from scratch, observe that only cities whose shortest paths pass through 'u' can be 
+    affected. We treat u as a new starting point and update affected nodes using Dijkstra’s Algorithm.
+
+*   After each query update, store the shortest distance from 0 to n-1 in the result array and return it.
+
