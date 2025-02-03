@@ -1,0 +1,17 @@
+Question Link : https://www.geeksforgeeks.org/problems/topological-sort/1
+
+*   Topological sort ensures that ancestors appear before their descendants in the sorted list.
+
+*   To generate this order, we perform a Depth-First Search (DFS). In DFS, we naturally encounter an ancestor before 
+    visiting its descendants.
+   
+*   If we were to add a node to the list before visiting its descendants, we might later encounter its ancestor, causing 
+    it to be added after the current node—violating the topological order.
+   
+*   To prevent this, we add each node to the list while backtracking—after fully traversing all its descendants.
+   
+*   Once DFS completes for the entire graph, we reverse the list to obtain the correct topological order.
+   
+*   This backtracking ensure correctness because even if we discover an ancestor later in the traversal, it will still 
+    appear before its descendants in the final reversed list, maintaining the correct order.
+
