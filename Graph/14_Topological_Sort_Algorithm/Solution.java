@@ -7,8 +7,6 @@ class Solution {
         ArrayList<Integer> topologicallySortedList = new ArrayList<>();
         boolean[] visited = new boolean[n];
         for(int i=0; i<n; i++) {
-            // if the node is not visited, then traverse the graph starting from that node and store the topologically sorted list
-            if(visited[i]) continue;
             dfs(adj, i, visited, topologicallySortedList);
         }
         // reverse the list to get the topologically sorted list

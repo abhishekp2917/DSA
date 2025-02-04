@@ -1,0 +1,25 @@
+Question Link : https://www.geeksforgeeks.org/problems/topological-sort/1
+
+*   In topological sort, ancestor node always comes before its descendants in the order. 
+
+*   This means the node which is at 1st position doesn't have any ancestor or incoming edges. So we need
+    to find the node with zero incoming edge to start with.
+
+*   So, compute In-degree of Each Node. The In-degree of a node is the number of incoming edges towards it.
+
+*   If In-degree = 0, it means no dependencies exist on that node so add those nodes to a Queue. These nodes can be 
+    processed first since they don’t depend on any other node.
+
+*   Process Nodes in Queue (BFS Style). Remove a node u from the queue and add it to the result (topological order).
+
+*   For each neighbor v of u, reduce its in-degree (in-degree[v] -= 1) indicating that edge has been traversed.
+
+*   If In-degree[v] == 0, it indicates all of it's ancestor has been processed and added to the topological sort. So 
+    add v to the queue.
+
+*   Repeat this process until the Queue is Empty.
+
+*   The order in which nodes are removed from the queue gives the topological sorting.
+
+*   Check for Cycles: If all nodes are not processed (result.size() < total_nodes), then a cycle exists, making topological 
+    sorting impossible.

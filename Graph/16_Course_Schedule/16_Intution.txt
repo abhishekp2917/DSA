@@ -1,0 +1,13 @@
+Question Link : https://leetcode.com/problems/course-schedule/description/
+
+*   If course 'a' has dependencies on course 'b' then course 'a' can be finished only if we finish course 'b'.
+
+*   This means we can finish all the course only if there is no cyclic dependencies of courses such as 'a' -> 'b', 'b' -> 'c',
+    'c' -> 'a'.
+
+*   If there are no cycles then the answer is true else false.
+
+*   To find if there is a cycle, we can use kahn's Algorithm which calculates topologically sorted list.
+
+*   If after completion of algorithm, the size of topologically sorted list is same as number of nodes, then there is no 
+    cycle and all the courses can be finished else cycle exist and answer is false.
