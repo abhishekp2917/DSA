@@ -1,0 +1,26 @@
+Question Link : https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph/1
+
+*   A DAG has no cycles, so there exists a topological ordering of its vertices. This means that for every directed edge 
+   (u → v), u appears before v in the topological ordering.
+
+*   Suppose we are processing a vertex u. By topological order, we have already processed all nodes that have a path leading to u.
+
+*   So, when we try to update distances for u's neighbors, we are guaranteed that u already has the correct shortest distance.
+
+*   Normally, in Dijkstra’s Algorithm, we use a priority queue to pick the minimum distance node. In a DAG, we don’t 
+    need a priority queue because topological sorting ensures we process nodes in the correct order.
+
+*   We initialize all distances to ∞ (or a large value) and set distance[source] = 0.
+
+*   For each node u in topological order, we try to update distances of its neighbors v using:
+    
+        - distance[v] = min(distance[v], distance[u] + weight(u,v))
+
+*   In graphs with cycles, Dijkstra’s algorithm may need to revisit nodes multiple times. In a DAG, every node is processed 
+    exactly once (because of topological sorting), making it very efficient.
+
+*   Time Complexity: O(V+E)
+
+        where, 
+            V = Number of nodes
+            E = Number of edges

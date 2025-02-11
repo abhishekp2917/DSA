@@ -25,3 +25,9 @@ Question Link : https://www.geeksforgeeks.org/problems/implementing-dijkstra-set
 *   The process continues until the priority queue is empty, meaning we've explored all reachable nodes and found the shortest paths to each one. 
 
 *   At this point, the shortestDistance array contains the minimum distance from the source node to every other node in the graph.
+
+*   Time Complexity: O(E*logV)
+
+        where, 
+            V = Number of nodes
+            E = Number of edges
