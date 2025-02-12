@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/word-ladder/description/
+
+*   Treat each word as a node. An edge exists between two nodes if they differ by exactly one character.
+
+*   The problem is now about finding the shortest path from beginWord to endWord in this graph.
+
+*   We need the shortest transformation sequence (i.e., the smallest number of changes). Breadth-First Search (BFS) explores 
+    all nodes level by level, ensuring the shortest path is found first.
+
+*   Use a HashMap (wordsLength) to store the shortest distance from beginWord to each word. Initialize all words with a 
+    distance of infinity (Integer.MAX_VALUE) to indicate they are unvisited.
+
+*   Set the distance for beginWord to 1 because it's the starting word. Enqueue beginWord to start the BFS process.
+
+*   For the current word, change one character at a time (e.g., "hit" → "hot"). This is done by iterating through each 
+    character position and replacing it with all letters from 'a' to 'z'.
+
+*   If the new word is in the wordList and the new distance is shorter than the previously recorded distance, update its 
+    distance in the map and enqueue this new word for further exploration.
+
+*   If endWord is reached during BFS, return its distance as the shortest transformation sequence length. This is optimal 
+    because BFS finds the shortest path first.
+
+*   If BFS completes and endWord was never reached (i.e. distance is infinity), return 0, indicating no transformation 
+    sequence exists.
+
+*   Why Not DFS? DFS might explore longer paths first, leading to suboptimal results while BFS guarantees the shortest 
+    path by exploring all possibilities at each level.
