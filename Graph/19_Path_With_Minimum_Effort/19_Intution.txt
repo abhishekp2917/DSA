@@ -1,0 +1,18 @@
+Question Link : https://leetcode.com/problems/path-with-minimum-effort/description/
+
+*   The goal is to minimize the maximum height difference between consecutive cells from the top-left to the bottom-right of the grid.
+
+*   Use a modified Dijkstra's algorithm to find the optimal path.
+
+*   Treat each grid cell as a node, with edges weighted being the height differences between neighbouring cell.
+
+*   Track minimum effort to reach each cell using a 2D array initialized to infinity.
+
+*   Start from the top-left cell with 0 effort and use a priority queue to explore the least effort path first.
+
+*   For each cell, calculate the maximum height difference to its four neighbors i.e. 
+    Max(effort so far to reach curr cell, height difference between curr cell and neighbour cell)
+
+*   If the new effort is less than the recorded effort for that neighbor, update it and add the neighbor to the queue.
+
+*   The algorithm ensures the minimum maximum effort path by always expanding the smallest effort path first.
