@@ -1,47 +1,55 @@
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        // map to store the length of the word from beginWord
-        HashMap<String, Integer> wordsLength = new HashMap<>();
-        // initialize the length of all words to infinity
-        wordList.stream().forEach(word -> wordsLength.put(word, Integer.MAX_VALUE));
-        // add the beginWord to the map and set its length to 1 since it is the starting word
-        wordsLength.put(beginWord, 1);
-        // create a queue to store the words to be processed
+        // initialize the length to 1 since we are starting from beginWord
+        int length = 1;
+        // create a set of words for faster lookup and also for tracking visited words
+        Set<String> words = new HashSet<>(wordList);
+        // create a queue for BFS traversal
         Queue<String> queue = new LinkedList<>();
-        // add the beginWord to the queue to start the processing
+        // since we are starting from beginWord, add it to the queue
         queue.add(beginWord);
         while(!queue.isEmpty()) {
-            // get the word from the queue
-            String word = queue.poll();
-            // we are using StringBuilder to change the characters of the word
-            StringBuilder sb = new StringBuilder(word);
-            // iterate through all the characters of the word and one by one change them to all the alphabets 'a' to 'z'
-            for(int i=0; i<sb.length(); i++) {
-                for(int j=0; j<26; j++) {
-                    char prevChar = sb.charAt(i);
-                    char newChar = (char) ('a'+j);
-                    sb.setCharAt(i, newChar);
-                    String newWord = sb.toString();
-                    // check if the new word created after changing single character in original word is present in the wordList
-                    if(wordsLength.containsKey(newWord)) {
-                        int prevLength = wordsLength.get(newWord);
-                        int newLength = wordsLength.get(word) + 1;
-                        // if the length of the new word is less than the length of the original word + 1, then update the length of the new word and add it to the queue
-                        if(newLength<prevLength) {
-                            wordsLength.put(newWord, newLength);
+            // increment the length since we are moving to the next level
+            length++;
+            // get the size of the queue at this level so that we can process only the words at this level
+            int queueSize = queue.size();
+            while(queueSize-->0) {
+                // get the word from the queue of this level
+                String word = queue.poll();
+                // we are using StringBuilder to modify the word since Strings are immutable
+                // we are iterating over each character of the word and replacing it with all 26 alphabets to create new words
+                // each new word will have one character different from the original word
+                StringBuilder sb = new StringBuilder(word);
+                for(int i=0; i<sb.length(); i++) {
+                    for(int j=0; j<26; j++) {
+                        char prevChar = sb.charAt(i);
+                        char newChar = (char) ('a'+j);
+                        sb.setCharAt(i, newChar);
+                        String newWord = sb.toString();
+                        // check if the newWord is present in the word set. If it is present, that means this word is not visited yet
+                        // if not present, that means this word is already visited or not present in the wordList
+                        if(words.contains(newWord)) {
+                            // remove the newWord from the set to mark it as visited
+                            words.remove(newWord);
+                            // if the newWord is the endWord, return the length
+                            if(newWord.equals(endWord)) {
+                                return length;
+                            }
+                            // add the newWord to the queue for further processing
                             queue.add(newWord);
                         }
+                        sb.setCharAt(i, prevChar);
                     }
-                    sb.setCharAt(i, prevChar);
                 }
             }
         }
-        // if the length of the endWord is not infinity (that means there is a way to transform from begin word to end word), then return the length of the endWord, else return 0
-        return (wordsLength.getOrDefault(endWord, Integer.MAX_VALUE)!=Integer.MAX_VALUE)? wordsLength.get(endWord):0;
+        // if we reach here, that means we have traversed all the words and we couldn't reach the endWord so return 0
+        return 0;
     }
 }
