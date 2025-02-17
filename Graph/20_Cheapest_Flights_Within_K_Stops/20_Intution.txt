@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
+
+
+*   The goal is to find the cheapest way to fly from the source city to the destination city but with a catch: we can't 
+    make more than k stops along the way.
+
+*   BFS is ideal here because it explores the graph level by level. In this case, each level corresponds to one flight 
+    stop, allowing us to naturally keep track of the number of stops made.
+
+*   Why Not Dijkstra's Algorithm? Dijkstra's algorithm finds the shortest path but doesn't naturally limit the number of stops. 
+    BFS helps us control the stop count by exploring routes with the fewest stops first.
+
+*   We maintain a list to keep track of the minimum cost to reach each city. This list is updated only if a cheaper 
+    route is found through the current exploration.
+
+*   From each city, we look at all possible next flights (neighbors). We calculate the total cost to reach each neighboring city.
+
+*   If taking a flight exceeds the stop limit or results in a more expensive cost than previously recorded, that route is 
+    skipped, avoiding unnecessary calculations.
+
+*   BFS naturally gives priority to routes with the fewest stops because it explores all flights at the current stop level 
+    before moving to the next.
+
+*   If we reach the destination city within the allowed stops and at a lower cost, we can record the cost immediately. 
+    This avoids unnecessary exploration.
+
+*   If we find a valid route within the stop limit, the total cost for that route is returned. If no such route is found, 
+    -1 is returned to indicate it's not possible to reach the destination with the given constraints.
