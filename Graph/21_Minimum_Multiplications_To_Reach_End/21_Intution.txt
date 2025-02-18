@@ -1,0 +1,18 @@
+Question Link : https://www.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1
+
+*   We are given a start number which can be multipled with any number from the array of number given any number of time.
+
+*   The bruteforce approach would be to explore all the combinations of numbers for multiplication to check if that 
+    combination can lead us to end number.
+
+*   But this would lead to TLE since we can use a number from array any number of times.
+
+*   One thing to worth notice is after each multiplication we are asked to apply modulo with 100000. This means any combination
+    of number we take for multiplication, the resultant number would always be in the range of [0, 99999].
+
+*   These finite range of number can be treated as graph nodes in which edges between nodes would be determined by the multiplication
+    factor which could be any number from the array given. 
+
+*   Now we have a graph structure, we can simply apply Dijkstra algorithm to get the minimum number of steps from start to end. 
+    We would explore that node first which has minimum step count from start number/node.
+
