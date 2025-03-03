@@ -1,0 +1,32 @@
+Question Link : https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1
+
+*   In this algorithm, we relax all edges in any order. For each edge (u, v), we update the shortest distance to node v as follows:
+
+        - distance[v]=min(distance[v],distance[u]+weight(u,v))
+
+*   We repeat this process (n-1) times, where n is the number of nodes.
+
+*   Why (n-1) iterations? In a graph with n nodes, the longest possible shortest path (without cycles) can have at most (n-1) edges.
+
+*   Since we relax edges in random order, in the worst case, it takes (n-1) iterations to ensure that the shortest distance is 
+    correctly updated for all n nodes.
+
+*   For example,
+        
+        - In a linear graph A --(4)--> B --(3)--> C --(2)--> D, if we relax edges in reverse order (C → D, B → C, A → B), the shortest distance to node D from source A will take (n-1) iterations to propagate fully.
+
+        - Initially, D remains at infinity (∞) because C hasn’t been updated yet.
+
+        - After the first iteration, only B gets the correct shortest distance (B = 4).
+
+        - After the second iteration, C gets updated (C = 7).
+
+        - Finally, after the third iteration, D gets its correct shortest distance (D = 9).  
+
+*   After (n-1) iterations, if any distance still decreases in the nth iteration, it means a negative weight cycle exists.
+
+*   Time Complexity: O(E*V)
+
+        where, 
+            V = Number of nodes
+            E = Number of edges
