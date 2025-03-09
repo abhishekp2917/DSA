@@ -1,0 +1,23 @@
+Question Link : https://leetcode.com/problems/detonate-the-maximum-bombs/
+
+*   Each bomb is a node, and if another bomb lies within its detonation radius, draw a directed edge. 
+
+*   The graph will be a directed and not undirected because it could be possible bomb 'A' lies in bomb 'B' detonation 
+    range but viceversa is not true. 
+
+*   Use an adjacency list to store which bombs each bomb can detonate.
+
+*   Distance between bombs is calculated using Euclidean distance formula.
+
+*   If distance ≤ radius, a detonation edge is added to the adjacency list.
+
+*   For every bomb, run DFS to see how many bombs can be detonated in a chain reaction.
+
+*   Use a boolean visited array to avoid counting a bomb more than once in a DFS run.
+
+*   Track maximum detonated bombs by trying DFS from every bomb.
+
+*   This is similar to the “Number of Islands” pattern where DFS used to explore all connected bombs (like connected lands).
+    and visited[] used to mark detonated bombs (like visited land).
+
+*   Overall time complexity is O(n²) due to pairwise distance checks and DFS from each node.
