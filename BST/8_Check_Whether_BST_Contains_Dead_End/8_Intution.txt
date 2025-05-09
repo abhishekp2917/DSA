@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/check-whether-bst-contains-dead-end/1
+
 *   for any subtree keep track of range of values that tree can have. 
 
 *   for every leaf node, check if that range length is positive or not. If it is +ve, that means more nodes

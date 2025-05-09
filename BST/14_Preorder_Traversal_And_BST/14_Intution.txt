@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/preorder-traversal-and-bst4006/1
+
 *   We will keep track of lower bound and while traversing array we will push the values to stack
     
 *   If new value is smaller than top of stack, that means that node could be the left child of 

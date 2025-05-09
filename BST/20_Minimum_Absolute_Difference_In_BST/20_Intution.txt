@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/minimum-absolute-difference-in-bst-1665139652/1
+
 *   for a particular node, it's abs diff with any other node will be minimum if and only if that other node is
     closest to the node. It could be either predecessor or sccessor. 
 

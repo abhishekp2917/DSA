@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/check-for-bst/1
+
 *   while traversing the tree, keep track of max and min value a subtree can have 
 
 *   for left traveral, min value will be as it is and max value will become root node data minus 1. Similarly,

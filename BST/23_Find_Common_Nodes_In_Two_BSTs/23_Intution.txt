@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/print-common-nodes-in-bst/1
+
 *   The intution is to use two stack to traverse BST in DFS fashion. 
 
 *   First will add all the left nodes ion both the stack viz stack1 and stack2 of root1 and root2 resp.

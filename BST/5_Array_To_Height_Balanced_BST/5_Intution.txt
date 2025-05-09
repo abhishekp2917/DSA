@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/array-to-bst4443/1
+
 *   Since we havce been given sorted array, if we keep the mid of array the root value, then
     all the elements to it left ill be part of left subtree and all to its right will be part of right subtree
     as in BST all elements of left subtree is smaller than root and vice versa for right subtree.

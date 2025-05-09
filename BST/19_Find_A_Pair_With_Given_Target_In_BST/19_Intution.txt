@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/find-a-pair-with-given-target-in-bst/1
+
 *   traverse the tree and store node value in a set.
 
 *   for a node, it's pair counterpart will be (taregt-node), so before adding node value in set

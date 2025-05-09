@@ -1,3 +1,6 @@
+Question Link : https://www.geeksforgeeks.org/problems/insert-a-node-in-a-bst/1
+Question Link : https://www.geeksforgeeks.org/problems/delete-a-node-from-bst/1
+
 Add a new node :
 
 *   To add a new node, if node value is smaller than target node, then traverse right else traverse left.

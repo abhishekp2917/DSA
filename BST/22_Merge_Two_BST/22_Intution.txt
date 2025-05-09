@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/merge-two-bst-s/1
+
 *   first store both the BST nodes separately in a list in increasing order.
 
 *   since we want result in increasing order, keep a pointer of both the list

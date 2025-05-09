@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/minimum-element-in-bst/1
+
 *   In BST left node is always smaller or equal to parent node while right node 
     is always larger or equal to parent node.
 

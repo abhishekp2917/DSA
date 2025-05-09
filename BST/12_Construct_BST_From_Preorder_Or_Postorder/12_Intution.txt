@@ -1,3 +1,6 @@
+Question Link : https://www.geeksforgeeks.org/problems/preorder-to-postorder4423/1
+Question Link : https://www.geeksforgeeks.org/problems/construct-bst-from-post-order/1
+
 Construct from preorder :
 
 *   For every node we will keep track of upper bound (max value a subtree node can have)

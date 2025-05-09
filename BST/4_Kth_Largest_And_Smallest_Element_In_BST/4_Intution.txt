@@ -1,3 +1,6 @@
+Question Link : https://www.geeksforgeeks.org/problems/kth-largest-element-in-bst/1
+Question Link : https://www.geeksforgeeks.org/problems/find-k-th-smallest-element-in-bst/1
+
 Kth Largest
 
 *   If we will traverse tree in right -> root -> left fashion then we will encounter node in decreasing order

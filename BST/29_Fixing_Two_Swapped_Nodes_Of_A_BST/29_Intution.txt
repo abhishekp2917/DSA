@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/fixed-two-nodes-of-a-bst/1
+
 *   traverse tree in inorder fashion so as to encounter nodes in increasing order
 
 *   to find the swapped nodes, compare current node with prev node. If prev node is greater than 

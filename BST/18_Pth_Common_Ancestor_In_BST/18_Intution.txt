@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/kth-common-ancestor-in-bst/1
+
 *   While traversing tree, if the root node value is smaller than both the target node, then explore right subtree 
     and if node value is larger than both the target node then explore left subtree else just stop exploration
 

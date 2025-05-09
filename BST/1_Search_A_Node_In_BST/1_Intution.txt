@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/search-a-node-in-bst/1
+
 *   In BST all the nodes on the left are smaller and on the right are larger than the current node
 
 *   if current node is larger than target node then traverse left 

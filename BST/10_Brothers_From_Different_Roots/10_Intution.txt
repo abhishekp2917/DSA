@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/brothers-from-different-root/1
+
 *   The intution is to keep two pointer, one will point to smallest node of first BST and other will point to greatest of second one
 
 *   we will add both the pointers value and will compare with the target. We will traverse both the BST in inorder fashion. In which, second traversal will 

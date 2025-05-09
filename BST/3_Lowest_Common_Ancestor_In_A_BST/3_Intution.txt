@@ -1,3 +1,5 @@
+Question Link : https://www.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1
+
 *   IN BST, we don't have to traverse entire tree. If a node data is smaller than both the target value, then
     LCA will always be in right subtree of that node.
 
