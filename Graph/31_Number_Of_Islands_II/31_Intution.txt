@@ -1,0 +1,17 @@
+Question Link : https://www.geeksforgeeks.org/problems/number-of-islands/1
+
+*   The grid is represented as a 2D matrix where each cell can either be water (0) or land (1). 
+
+*   The goal is to track how many distinct "islands" (connected components of land) are formed as we add land one by one provided by operators array.
+
+*   We use the DSU structure to keep track of connected components (islands). 
+
+*   Each cell initially represents its own island, and as we add land, we try to merge islands that become connected.
+
+*   When a new land cell is added, we check its neighboring cells (up, down, left, right). If any of the neighbors are already land, we try to merge the two islands. 
+
+*   Merging reduces the total count of islands by 1 as two island will merge into one.
+
+*   When finding the root of a component, we use path compression to flatten the tree structure, ensuring future find operations are faster.
+
+*   After each land addition, we update the number of distinct islands and store it in the result list.

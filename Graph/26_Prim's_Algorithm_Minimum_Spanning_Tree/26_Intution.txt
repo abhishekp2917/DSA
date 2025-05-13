@@ -1,0 +1,11 @@
+Question Link : https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
+
+*   The intuition is to traverse the graph and keep adding the edge weights to the total cost until all nodes are visited.
+
+*   To ensure the total cost is minimized, we always consider the edge with the lowest weight available at each step.
+
+*   To efficiently select the minimum weight edge, we use a MinHeap (PriorityQueue) to store edges along with their weights.
+
+*   If the polled node has not been visited, we add its edge weight to the total cost and push all its adjacent (neighboring) edges into the heap.
+
+*   We repeat this process until all nodes are visited and the heap becomes empty.

@@ -1,9 +1,24 @@
 Question Link : https://www.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1
 
+*   Floyd-Warshall algo is used to find the shortest distances between every pair of nodes in a weighted graph.
 
+*   For each pair of nodes (i, j), we check if the path i → k → j is shorter than the current i → j path.
 
-*   Time Complexity: O(E*V)
+        ```
+            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+        ```
 
-        where, 
+*   We repeat this process for all nodes as intermediate nodes.
+
+*   We would try every node as an intermediate because a shortest path from i to j might go through any of the n nodes.
+
+*   Eventually, after n iterations, we find the shortest path between all node pairs (i, j) using any other nodes as intermediates.
+
+*   The algorithm handles negative weights, but not negative weight cycles.
+
+*   To detect a negative weight cycle, check if any dist[i][i] < 0 after the algorithm.
+
+*   Time Complexity: O(V³)
+    
+        where,
             V = Number of nodes
-            E = Number of edges

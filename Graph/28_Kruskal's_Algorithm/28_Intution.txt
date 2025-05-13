@@ -1,0 +1,22 @@
+Question Link : https://www.geeksforgeeks.org/problems/minimum-spanning-tree-kruskals-algorithm/1
+
+*   The intuition behind Kruskal's Algorithm is to construct the Minimum Spanning Tree (MST) by always choosing the edge with the smallest weight that connects two different components (i.e., does not form a cycle).
+
+*   It works by initially treating each vertex as its own component (disjoint set), and merging components as we process edges.
+
+*   The algorithm first sorts all the edges in ascending order of their weights.
+
+*   Then, for each edge, it checks if the two vertices belong to different components (sets) using the Disjoint Set Union (DSU) data structure.
+
+*   If the vertices belong to different sets, it means adding the edge won’t form a cycle, so the edge is included in the MST, and the sets are merged.
+
+*   If they belong to the same set, adding that edge would form a cycle, so we skip that edge.
+
+*   The process continues until V - 1 edges have been added to the MST, where V is the number of vertices (nodes).
+
+*   DSU operations are used to efficiently check and merge components:
+
+        - find(): to get the root of the set (component) a node belongs to.
+
+        - merge(): to merge two different sets.
+

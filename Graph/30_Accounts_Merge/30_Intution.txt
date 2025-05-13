@@ -1,0 +1,23 @@
+Question Link : https://leetcode.com/problems/accounts-merge/description/
+
+*   Each account is treated as a node, and the emails in that account act as identifiers that may connect multiple nodes (accounts).
+
+*   To uniquely identify an account, we would be using account index since it will unique unlike account name which could be same for two diff account.
+
+*   The goal is to group accounts that share at least one common email into the same set, indicating that they belong to the same person.
+
+*   The intuition is to use Disjoint Set Union (DSU) to efficiently merge such connected accounts.
+
+*   Initially, every account is its own set (i.e., not yet connected to any other account).
+
+*   We would maintain a HashMap to map email to it's respective account index.
+
+*   As we iterate through each account and its emails, we use a map to record the account index for every email.
+
+*   If an email appears in a later account already present in map, we perform a DSU merge between the current account and the earlier one — they share the same owner.
+
+*   After processing all emails and performing all merges, we know which accounts are grouped together by finding the root of each account using DSU.
+
+*   We then traverse the email-to-account map again and group emails under their root account representative (ultimate parent).
+
+*   Finally, for each group (set of merged emails), we attach the original user’s name (from one of the grouped accounts) after sorting the emails to prepare the result.

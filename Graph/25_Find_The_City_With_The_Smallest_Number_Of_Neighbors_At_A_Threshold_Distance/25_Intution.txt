@@ -1,0 +1,11 @@
+Question Link : https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/description/
+
+*   First, we need to compute the shortest distance between all pairs of cities. For this, we use the Floyd-Warshall algorithm.
+
+*   To achieve this, we build an adjacency matrix and initialize unreachable paths with Integer.MAX_VALUE to indicate no direct connection between cities.
+
+*   After computing the shortest paths for all (i, j) city pairs, we determine how many cities are reachable from each city i within the given distance threshold.
+
+*   For each city i, we count the number of cities j such that the shortest distance from i to j is less than or equal to the threshold. If this count is less than or equal to the current minimum, we update the minimum and store the current city.
+
+*   After checking all cities, we return the city with the smallest number of reachable cities within the threshold.

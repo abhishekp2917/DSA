@@ -1,0 +1,24 @@
+Question Link : https://leetcode.com/problems/making-a-large-island/description/
+
+*   The grid is represented as a 2D matrix where each cell can either be water (0) or land (1).
+
+*   The goal is to find the maximum size of an island that can be formed by changing at most one water cell (0) into land (1).
+
+*   We use the DSU structure to group all the initially connected land cells (1s) into their own connected components (islands).
+
+*   Each land cell initially represents its own island, and as we explore its neighbors, we try to merge land cells that are adjacent into a larger island (connected component).
+
+*   When merging two land cells that are part of different islands, we combine their sizes and assign the same parent to both, effectively reducing the total number of islands.
+
+*   While doing the union operation, we track the size of each component to efficiently calculate potential island sizes later.
+
+*   After the initial union of all land cells, we loop over all water cells (0s) and evaluate what happens if we flip it to land (1).
+
+*   For each such flip, we check all 4 directions (up, down, left, right). For every neighboring land cell, we find its root island and collect the unique ones in a set to avoid counting duplicates.
+
+*   The maximum possible island size by flipping that water cell is 1 (itself) plus the sum of sizes of all unique neighboring islands.
+
+*   We repeat this for every water cell and track the maximum size obtained among all such flips.
+
+*   If there are no zeroes (i.e. all are already 1), the largest island is the one formed during the initial union phase.
+

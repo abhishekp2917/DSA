@@ -1,0 +1,21 @@
+Question Link : https://www.geeksforgeeks.org/problems/disjoint-set-union-find/1
+
+*   The intuition is to group elements into disjoint (non-overlapping) sets and quickly check if two elements belong to the same set.
+
+*   Each set is represented as a tree, with one element acting as the root of the set. 
+
+*   Two element that are part of a set will have same root element. This way we can check if two elements are part of same set.
+
+*   To find the root of an element, we recursively traverse up to its parent until we reach the root.
+
+*   To merge two sets, we use either Union by Rank (based on tree height) or Union by Size (based on number of elements) to keep trees shallow.
+
+        - Union by Rank : attach shorter tree under the taller one.
+
+        - Union by Size : attach smaller set under the larger one.
+
+*   Rank means the height of the tree. We attach the smaller tree under the larger tree to keep the depth small.
+
+*   Size means number of element in a set. We attach tree with smaller size under the tree with larger size to keep the depth small.
+
+*   To speed up repeated find() operations, we use Path Compression, which flattens the tree by directly connecting nodes to the root.

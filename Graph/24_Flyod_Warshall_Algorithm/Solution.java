@@ -1,51 +1,26 @@
-import java.util.Arrays;
-
 class Solution {
-    static int[] bellmanFord(int n, int[][] edges, int src) {
-        // Step 1: Initialize distances array with a large value (∞ equivalent)
-        int[] distances = new int[n];
-        Arrays.fill(distances, 100000000); // Represents "infinity" for unreachable nodes
-        distances[src] = 0; // Distance from source to itself is always 0
+    public void floydWarshall(int[][] dist) {
+        int n = dist.length;
+        // A large constant to represent "infinity" for unreachable paths
+        final int INF = 100000000; 
 
-        // Perform (n-1) iterations to relax all edges
-        // In each iteration, we go through all edges and update shortest distances
-        // (n-1) iterations ensure correct shortest paths
-        for (int i = 0; i < n - 1; i++) {  
-            for (int j = 0; j < edges.length; j++) {
-                int u = edges[j][0]; // Start node of the edge
-                int v = edges[j][1]; // End node of the edge
-                int cost = edges[j][2]; // Edge weight
-
-                // If the source node of the edge has not been reached yet, skip
-                if (distances[u] == 100000000) continue;
-
-                // Relaxation: If taking edge (u → v) results in a shorter path to v, update it
-                int prevDistance = distances[v];
-                int newDistance = distances[u] + cost;
-                if (newDistance < prevDistance) {
-                    distances[v] = newDistance;
+        // Compute distnace for each possible intermediate node 'k' ('i'-> 'k' -> 'j')
+        for(int k=0; k<n; k++) {
+            // compute distnace for each path ('i' -> 'j') where 'k' is the intermediate node.
+            for(int i=0; i<n; i++) {
+                for(int j=0; j<n; j++) {
+                    // distance from node 'i' to 'k' 
+                    int i_To_k = dist[i][k];
+                    // distance from node 'k' to 'j' 
+                    int k_To_j = dist[k][j];
+                    // if any of these distance is infinity that means there is no path through intermediate node so skip it.
+                    if(i_To_k==INF || k_To_j==INF) continue;
+                    int prevDist = dist[i][j];
+                    int newDist = i_To_k + k_To_j;
+                    // if newly computed distance is shorter than previous one, then update the distance
+                    dist[i][j] = Math.min(prevDist, newDist);
                 }
             }
         }
-
-        // Check for negative weight cycles
-        // If we can still relax an edge, then a negative cycle exists
-        for (int j = 0; j < edges.length; j++) {
-            int u = edges[j][0];
-            int v = edges[j][1];
-            int cost = edges[j][2];
-
-            if (distances[u] == 100000000) continue;
-
-            int prevDistance = distances[v];
-            int newDistance = distances[u] + cost;
-            if (newDistance < prevDistance) {
-                // Negative weight cycle detected
-                return new int[]{-1};
-            }
-        }
-
-        // Return the shortest distances from the source to all nodes
-        return distances;
     }
 }

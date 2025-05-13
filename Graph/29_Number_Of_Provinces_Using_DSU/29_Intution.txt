@@ -1,0 +1,13 @@
+Question Link : https://leetcode.com/problems/number-of-provinces/description/
+
+*   The cities are represented as nodes in a graph, and adjMatrix[i][j] == 1 means there's an edge between city i and city j.
+
+*   We want to count how many connected components (groups of cities that are directly or indirectly connected) exist in this graph — each such component is called a province.
+
+*   The intuition is to group connected cities into the same set using the Disjoint Set Union (DSU) data structure.
+
+*   Initially, every city belongs to its own set (province).
+
+*   As we iterate through the matrix, whenever we find a connection between two cities i and j, we merge their sets to indicate that they belong to the same province.
+
+*   After processing all connections, the number of provinces is equal to the number of disjoint sets i.e. nodes that are parent of itself.
