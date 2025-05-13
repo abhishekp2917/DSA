@@ -1,2 +1,22 @@
 Question Link : https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/
 
+*   The grid is represented as a set of coordinates, where each coordinate represents a stone placed on a 2D plane.
+
+*   The goal is to remove as many stones as possible under the constraint that a stone can be removed if another stone shares its row or column.
+
+*   We model this as a graph problem, where each stone is a node and an edge exists between two stones if they are in the same row or column.
+
+*   We use the Disjoint Set Union (DSU) data structure to track connected components (groups of stones connected by row or column).
+
+*   Each stone is assigned a unique ID using (x * N + y) to transform the 2D position of stone into an ID.
+
+*   Initially, each stone is its own parent in the DSU, representing its own component.
+
+*   We first sort by row, and if two adjacent stones have the same row, they are merged into the same component using DSU.
+
+*   We then sort by column, and for every consecutive pair of stones in the same column, we merge them as well.
+
+*   After all merges, stones in the same row and column would be part of same component. 
+
+*   From each connected component, we can remove all stones except one. Hence, the maximum stones that can be removed = total stones - number of connected components.
+
