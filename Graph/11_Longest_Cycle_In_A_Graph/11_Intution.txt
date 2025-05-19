@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/longest-cycle-in-a-graph/description
+
+*   The graph is represented as an array where each node points to at most one other node, or -1 if it points to none.
+
+*   To detect cycles, we perform a DFS traversal from each unvisited node.
+
+*   We maintain two arrays:
+
+        - visited to mark nodes that have been completely processed,
+
+        - pathVisitedOrder to track the order/position in which nodes are visited in the current DFS path.
+
+*   If during DFS, we reach a node that is already in the current path (pathVisitedOrder[node] != 0), it means a cycle is detected.
+
+*   The length of the cycle is calculated as the difference between the current DFS order and the order when the node was first visited in the path.
+
+        1    2    3    4    5
+        A -> B -> C -> D -> B
+
+        Cycle Length = 5 (current DFS order) - 2 (order when the node was first visited) = 3
+
+*   If a node is visited but not in the current path (pathVisitedOrder[node] == 0), it means it was processed before, so we skip it.
+
+*   We reset the pathVisitedOrder for nodes when backtracking since same node could be visited from other DFS path.
+
+*   Since the graph may have disconnected components, we initiate DFS from every unvisited node to ensure all cycles are detected.
+
+*   We keep track of the longest cycle length found and return it; if no cycles exist, return -1.

@@ -1,0 +1,22 @@
+Question Link : https://leetcode.com/problems/find-eventual-safe-states
+
+*   A terminal node is a node with 0 outgoing edges — it cannot lead to any other node.
+
+*   A safe node is a node from which every path eventually leads to a terminal node, i.e., it does not participate in a cycle.
+
+*   If we reverse all the edges of the graph:
+
+        - A terminal node (in the original graph) will now have 0 incoming edges.
+
+        - A safe node will now have all incoming edges from terminal or safe nodes (since its original outgoing edges were to terminal/safe nodes).
+
+*   Based on this observation, we can perform BFS (Kahn’s Algorithm) on the reversed graph.
+
+*   Start with nodes having 0 in-degree (these correspond to terminal nodes in the original graph).
+
+*   As we remove these nodes, we reduce the in-degree of their neighbors (which are predecessors in the original graph).
+
+*   If a node’s in-degree becomes 0, it means all its outgoing edges in the original graph were pointing to terminal or already safe nodes — hence, it is safe.
+
+*   Therefore, by reversing the graph and applying Kahn’s Algorithm, we can efficiently determine all nodes whose paths eventually lead to terminal nodes — i.e., all eventually safe nodes.
+

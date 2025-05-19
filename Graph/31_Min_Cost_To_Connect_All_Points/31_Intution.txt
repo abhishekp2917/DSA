@@ -1,0 +1,25 @@
+Question Link : https://leetcode.com/problems/min-cost-to-connect-all-points/description
+
+*   The intuition is to connect all points such that the total cost (sum of distances between connected points) is minimized.
+
+*   This is a classic Minimum Spanning Tree (MST) problem, where each point is a node, and the cost to connect any two points is their Manhattan Distance.
+
+*   To build the MST, we use Prim’s Algorithm, which grows the MST one node at a time by always picking the smallest edge that connects a new node.
+
+*   We use a MinHeap (PriorityQueue) to efficiently select the edge with the lowest cost at each step.
+
+*   Initially, we start from any node (e.g., point 0) and add its edges to the heap.
+
+*   At each step, we poll the edge with the smallest cost from the heap.
+
+*   If the destination node of the edge is not yet visited, we:
+
+        - Mark it as visited,
+
+        - Add its cost to the total cost,
+
+        - Add all of its edges to the heap (i.e., compute distance to all unvisited nodes).
+
+*   We repeat this process until all nodes are visited (i.e., included in the MST).
+
+*   This ensures that every node gets connected in the most cost-effective way without forming cycles.

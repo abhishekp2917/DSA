@@ -1,0 +1,34 @@
+Question Link : https://leetcode.com/problems/minimize-the-maximum-edge-weight-of-graph/description
+
+*   We need to find the maximum edge weight in a graph such that:
+
+        - Every node can reach node 0 (i.e., there exists a path from each node to node 0).
+
+        - No node has more than threshold outgoing edges (minimum allowed threshold is 1).
+
+*   Based on the above observation, we aim to build a special kind of tree — similar to a Minimum Spanning Tree (MST) — where:
+
+        - Node 0 acts as the root, and
+
+        - All other nodes are connected directly or indirectly to node 0 through a path of directed edges.
+
+*   In this structure, we want to minimize the maximum edge weight used, because that's the cost we are trying to reduce.
+
+*   Since we are given directed edges, and the problem says that node 0 must be reachable from all nodes, we need to reverse 
+    the direction of all edges in our algorithm.
+
+*   If we now start from node 0 in the reversed graph, and try to reach all other nodes, it’s equivalent to checking if 
+    all nodes can originally reach node 0 (which is what we want).
+
+*   After reversing the edges:
+        
+        - We run an algorithm similar to Prim’s algorithm for MST starting from node 0.
+
+        - At each step, we select the next lightest edge (smallest weight) leading to an unvisited node, and we continue 
+          until all nodes are visited or we run out of edges.
+
+*   If we are able to reach all nodes from node 0 (in the reversed graph), then the maximum edge weight used during this 
+    traversal is our answer.
+
+*   Otherwise, if not all nodes are reachable, we return -1.
+

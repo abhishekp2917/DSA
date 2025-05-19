@@ -1,0 +1,17 @@
+Question Link : https://leetcode.com/problems/minimum-cost-to-convert-string-i/description/
+
+*   The intuition is to find the minimum cost to convert each character in the source string to the corresponding character in the target string.
+
+*   Since a character might not directly convert to another, we model the problem as a graph where each node is a character and edges represent allowed transformations with associated costs.
+
+*   To ensure we find the minimum cost between any two characters (even indirectly), we use the Floyd-Warshall algorithm to compute the shortest path between all pairs of characters.
+
+*   We first build a 26x26 matrix (for each lowercase alphabet character) where each cell [i][j] holds the minimum cost to convert character i to character j.
+
+*   Floyd-Warshall iteratively updates this matrix by checking if converting via an intermediate character gives a cheaper path.
+
+*   After building the full cost matrix, we iterate over each character in the source string and accumulate the transformation cost to the target string using the precomputed matrix.
+
+*   If at any point a transformation from a source character to the corresponding target character is impossible, we return -1.
+
+*   Otherwise, we return the total minimum cost to convert the entire source string to the target string.
