@@ -1,0 +1,2 @@
+Question Link : https://www.geeksforgeeks.org/problems/strongly-connected-component-tarjanss-algo-1587115621/1
+
