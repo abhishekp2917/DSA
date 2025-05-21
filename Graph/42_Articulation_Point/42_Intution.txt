@@ -1,0 +1,37 @@
+Question Link : https://www.geeksforgeeks.org/problems/articulation-point-1/1
+
+*   The graph is modeled as an undirected network where each node is a vertex, and edges represent bi-directional connections between them.
+
+*   An articulation point is a node that, if removed, increases the number of connected components — in other words, it disconnects part of the graph.
+
+*   We aim to find all such nodes whose removal would split the graph into two or more disconnected parts.
+
+*   To solve this, we use Tarjan’s Algorithm, which relies on DFS traversal and assigns each node:
+
+        - ids[]: The time when a node was first visited.
+
+        - lowIds[]: The lowest discovery time reachable from that node (either through DFS children or back-edges).
+
+        - Initially, all nodes are unvisited (marked with -1), and we perform DFS on each unvisited node to ensure disconnected components are also covered.
+
+*   During DFS:
+
+        - For each node curr, we explore its neighbors.
+
+        - If the neighbor is not visited yet, it's a child in the DFS tree. We recurse into it and then update lowIds[curr] based on the child’s lowIds.
+
+        - Check if lowIds[child] >= ids[curr], which implies the child cannot reach an ancestor of curr without going through curr.
+
+        - If so, and curr is not the root, mark it as an articulation point.
+
+*   Special handling is needed for the root node of DFS:
+
+        - If it has more than one child, then removing it will disconnect those child subtrees from each other.
+
+        - So, root is an articulation point only if it has more than one DFS child.
+
+*   We maintain a childrenCount only for DFS tree children — i.e., neighbors that are not visited.
+
+*   This avoids over-counting neighbors that are already reachable through back-edges.
+
+*   Finally, all nodes marked as articulation points are collected. If none are found, return -1 as per the problem statement.

@@ -1,2 +1,29 @@
 Question Link : https://www.geeksforgeeks.org/problems/strongly-connected-component-tarjanss-algo-1587115621/1
 
+*   The graph is represented as a set of nodes, where each node represents a vertex in a directed graph.
+
+*   The goal is to find all Strongly Connected Components (SCCs) — groups of nodes where each node is reachable from every other node in the group.
+
+*   We model this as a depth-first search (DFS) traversal problem, where we explore the graph to detect cycles and group nodes accordingly.
+
+*   We assign each node a unique discovery time (ID) as we visit it during DFS. This helps track the order of visitation.
+
+*   The intuition is to find cycles in a directed graph, and assign the ID of the cycle's entry point (lowest discovery time) to all nodes within that cycle.
+
+*   We maintain a low-link value for each node, which represents the lowest discovery time reachable from that node.
+
+*   We use a stack to keep track of the current path of nodes being explored, so we can easily group them once an SCC is found.
+
+*   A node is marked as being on the stack, so we can identify back edges that point to ancestors in the current DFS path.
+
+*   During DFS, when we visit a neighbor:
+
+        - If it hasn't been visited, we recursively DFS into it.
+
+        - If it’s on the stack, we update the current node’s low-link with the neighbor’s low-link value.
+
+        - After processing all neighbors, if a node's id == lowlink, it means it is the root of an SCC. 
+        
+        - We then pop all nodes from the stack until we reach this node (all of these nodes form one SCC).
+
+*   We collect SCCs which represents a loop or cycle in the graph, where every node can reach every other node in its group.

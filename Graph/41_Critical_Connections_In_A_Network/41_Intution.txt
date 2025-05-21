@@ -1,0 +1,23 @@
+Question Link : https://leetcode.com/problems/critical-connections-in-a-network/description/
+
+*   The network is represented as an undirected graph, where each node is a server and each connection is a bidirectional edge between two servers.
+
+*   A connection (edge) is said to be critical if removing it increases the number of connected components — in other words, the two servers can no longer reach each other via any alternate path.
+
+*   We model this as a graph problem, where we aim to find all such critical connections (also called bridges) in the network.
+
+*   We use Tarjan’s Algorithm for this purpose, which performs a DFS traversal and assigns each node a discovery time (ids) and a low-link value indicating the earliest node it can reach via alternate path.
+
+*   The ids[curr] marks when a node was first visited (discovery time), and lowIds[curr] represents the earliest visited node reachable from curr.
+
+*   For each unvisited node, we recursively explore all its neighbors using DFS and keep updating lowIds based on the reachability through children.
+
+*   If after visiting a neighbor neighbour, we find that lowIds[neighbour] > ids[curr], it means neighbour cannot reach back to curr or any of its ancestors without the direct edge, so this edge is a bridge.
+
+*   Such an edge is added to the criticalConnections list because its removal would disconnect the graph.
+
+*   The DFS also avoids revisiting the immediate parent node (from which we arrived at the current node) to prevent infinite cycles.
+
+*   The final result is the list of all edges that are critical to keeping the graph connected.
+
+
