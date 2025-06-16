@@ -1,0 +1,195 @@
+*   Explain Entry<K, V> interface and how it is being used in HashMap.
+
+>>  Map.Entry<K, V> is a nested static interface inside Map<K, V> interface that represents a key-value pair in the map.
+
+        ```
+            public interface Map<K,V> {
+
+                interface Entry<K,V> {
+                    K getKey();
+                    V getValue();
+                    V setValue(V value);
+                    boolean equals(Object o);
+                    int hashCode();
+                }
+            }
+        ```
+
+    In HashMap, this interface is implemented by a static inner class named Node<K, V>.
+
+        - 'hash' stores the hashcode of that entry.
+
+        - 'key' and 'value' stores the key-value pair entered in map.
+
+        - 'next' stores reference to next Node<K, V> node forming a singly linked list.
+
+
+    In HashMap, the data is not stored directly in the array, but inside objects of a static inner class called Node<K, V>.
+
+    It acts as a data container to represent a single entry (key-value pair) in the map.
+
+
+        ```
+            static class Node<K,V> implements Map.Entry<K,V> {
+
+                final int hash;
+                final K key;
+                V value;
+                Node<K,V> next;
+
+                Node(int hash, K key, V value, Node<K,V> next) {
+                    this.hash = hash;
+                    this.key = key;
+                    this.value = value;
+                    this.next = next;
+                }
+
+                public final K getKey()        { return key; }
+                public final V getValue()      { return value; }
+                public final String toString() { return key + "=" + value; }
+
+                public final int hashCode() {
+                    return Objects.hashCode(key) ^ Objects.hashCode(value);
+                }
+
+                public final V setValue(V newValue) {
+                    V oldValue = value;
+                    value = newValue;
+                    return oldValue;
+                }
+
+                public final boolean equals(Object o) {
+                    if (!(o instanceof Map.Entry)) return false;
+                    Map.Entry<?,?> e = (Map.Entry<?,?>)o;
+                    return Objects.equals(key, e.getKey()) &&
+                        Objects.equals(value, e.getValue());
+                }
+            }
+        ```
+
+________________________________________________________________________________________________________________________
+
+*   Explain internal working of HashMap.
+
+>>  (1) put(K key, V value):
+
+        The put(K key, V value) method in HashMap inserts or updates a key-value pair in the map. It follows below steps:
+
+        (a) Compute HashCode:
+
+            - hash(Object key) method of HashMap<K, V> class is used to generate the hashCode of the key
+
+            - It uses key’s hashCode and applies a bitwise XOR with a right-shifted version of itself to generate the 
+              hashcode which improves the distribution of hashCodes across the buckets.
+
+            - Null keys are always assigned hash 0.
+
+            ```
+                static final int hash(Object key) {
+                    int h;
+                    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+                }
+            ```
+    
+        (b) Calculate Bucket Index:
+
+            ```
+                int index = (n - 1) & hash;
+            ```
+            
+            - n is the length of the internal array table (must be a power of 2).
+
+            - This bitwise AND operation ensures index is always within 0 to n-1 and is uniformly distributed across buckets.
+
+        
+        (c) Check the Bucket:
+
+            ```
+                for (Node<K,V> e = table[index]; e != null; e = e.next) {
+                    if (e.hash == hash && (e.key == key || key.equals(e.key))) {
+                        V oldValue = e.value;
+                        e.value = value;
+                        return oldValue;
+                    }
+                }
+            ```
+
+            - If table[index] == null, then there is Nn collision. So, insert directly.
+
+            - If there is already an element at the generated index, then it leads to collision. 
+
+            - In case of collision:
+
+                - Traverse the linked list or tree at that index.
+
+                - If a matching key is found, update value and return old value.
+
+                - If no match is found, move to next step to insert new node.
+
+        (d) Treeify (If Needed):
+
+            - If number of elements in a single bucket > TREEIFY_THRESHOLD (typically 8), LinkedList at that index is 
+              converted to a Red-Black Tree.
+
+            - This ensures O(log n) access time in worst case.
+
+            - Treeification is only done if Node<K, V> array size ≥ MIN_TREEIFY_CAPACITY (typically 64), else resize is 
+              triggered instead of treeification.
+
+        (e) Resize (If Needed):
+    
+            - If  current array size is greater than (capacity * DEFAULT_LOAD_FACTOR), then capacity is doubled.
+
+            - While resizing, all existing nodes are rehashed and redistributed.
+
+    (2) get(K key):
+
+        (a) Compute HashCode:
+
+            - Uses the same hash function as used in put(K key, V value):
+
+                ```
+                    static final int hash(Object key) {
+                        int h;
+                        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+                    }
+                ```
+
+        (b) Calculate Bucket Index:
+                
+            - Computes the index in similar fashion as it was done while put operation.
+
+                ```
+                    int index = (n - 1) & hash;
+                ```
+
+        (c) Retrieve the Node:
+
+            - Accesses the node (head of list or root of tree) at the calculated index.
+
+                ```
+                    Node<K,V> node = table[index];
+                ```
+            
+            - Then traverses the chain (linked list or Red-Black Tree).
+
+                
+
+        (d) Traverse to find matching key:
+        
+            - Traverse through each element of the linked list or Red-Black Tree and compare:
+
+                - Stored hash vs computed hash
+                - Stored key vs given key using == or equals().
+
+                ```
+                    if (node.hash == hash && (node.key == key || key.equals(node.key))) {
+                        return node.value;
+                    }
+                ```
+
+            - If match found then return corresponding value else continue traversal via next pointer or tree node traversal.
+
+            - If no match after full traversal, return null.
+
+________________________________________________________________________________________________________________________
