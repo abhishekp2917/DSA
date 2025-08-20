@@ -1,0 +1,30 @@
+Question Link : https://www.geeksforgeeks.org/dsa/find-all-subsequences-with-sum-equals-to-k/
+
+*   Think of each number in the array as giving you two choices i.e. either include it in the subsequence or exclude it.
+
+*   Use a pointer ptr to track the current index while building subsequences.
+
+*   Along with the subsequence, keep a running total (currSum) of the chosen elements.
+
+*   When ptr reaches the end of the array:
+        
+        - If currSum == K, save the subsequence.
+        - Otherwise, discard it.
+
+*   At every step:
+
+        - First add the current element         → recurse with updated sum.
+
+        - Then backtrack (remove the element)   → recurse without it.
+
+*   This creates a binary recursion tree:
+
+        - Left branch   → subsequences including current element.
+
+        - Right branch  → subsequences excluding current element.
+
+*   Eventually, all possible subsequences (2^n) are explored, and only those with sum K are stored.
+
+*   Time Complexity: O(2^n) (exploring all subsequences).
+
+*   Space Complexity: O(n) (recursion depth + temporary list for subsequences).

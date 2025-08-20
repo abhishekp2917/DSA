@@ -1,2 +1,17 @@
 Question Link : https://leetcode.com/problems/fibonacci-number/description/
 
+*   Think of the Fibonacci sequence as a chain where each number depends on the two numbers just before it.
+
+*   The first two links are special cases: fib(0) = 0 and fib(1) = 1. These act as the foundation (base cases).
+
+*   To find fib(n), break the problem into two smaller subproblems: compute fib(n-1) and fib(n-2).
+
+*   Each of these subproblems again follows the same rule, breaking further until the base cases are reached.
+
+*   Once the base cases return their values (0 or 1), the results are added together as the recursion unwinds.
+
+*   This forms a recursive tree of calls where many values (like fib(2), fib(3)) are recalculated multiple times.
+
+*   The process works correctly but is inefficient, taking exponential time (O(2^n)), since the same work is repeated often.
+
+*   The recursion depth can go as deep as n, meaning the space complexity is O(n) due to the call stack.

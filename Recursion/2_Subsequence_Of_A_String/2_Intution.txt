@@ -1,1 +1,20 @@
+*   Think of each character in the string as giving you two choices i.e. either include it in the subsequence or exclude it.
 
+*   Start at the first character and move forward with a pointer (ptr).
+
+*   If the pointer has crossed the end of the string, you’ve built one complete subsequence → print it.
+
+*   At every character, first append it to the current subsequence and recurse to explore subsequences that contain it.
+
+*   Then, backtrack by removing that character (undo the choice), and recurse again to explore subsequences that exclude it.
+
+*   This branching forms a binary recursion tree:
+
+        - Left branch   → includes current character
+        - Right branch  → excludes current character
+
+*   For a string of length n, there are 2^n possible subsequences (since every character has 2 choices).
+
+*   Time Complexity: O(2^n) (each subsequence is built once).
+
+*   Space Complexity: O(n) (recursion depth + StringBuilder).
