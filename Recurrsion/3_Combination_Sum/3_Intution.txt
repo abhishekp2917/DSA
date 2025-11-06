@@ -1,2 +1,23 @@
 Question Link : https://leetcode.com/problems/combination-sum/description/
 
+*   The goal is to find all unique combinations of numbers from list of unique numbers that sum up to a given target.
+
+*   Each number can be used multiple times, but order doesn’t matter.
+
+*   The idea is to explore all possible subsets of the given numbers using recursion, and collect those whose sum equals the target.
+
+*   Start with an empty combination and a pointer startPtr indicating which element in the array you are allowed to pick next.
+
+*   At every recursive call, you have a choice:
+    - Include the current number (and stay at the same index since it can be reused),
+    - Or move ahead to try the next number.
+
+*   Every time you include a number, you reduce the remaining target (target - candidates[i]).
+
+*   If the remaining target becomes exactly 0, it means the current combination adds up to the desired sum — so you record it as a valid result.
+
+*   If the remaining target becomes negative, it means you’ve exceeded the sum, so you backtrack (undo the last choice) and try the next possibility.
+
+*   The pointer startPtr ensures that numbers before the current index aren’t reconsidered in later recursion steps — this prevents duplicate combinations like [2,3] and [3,2].
+
+*   The time complexity is roughly O(2^n) in the worst case due to exploring many subsets, while the space complexity is O(target) due to the maximum recursion depth and temporary combination storage.

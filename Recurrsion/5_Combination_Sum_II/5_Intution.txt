@@ -1,0 +1,36 @@
+Question Link : https://leetcode.com/problems/combination-sum-ii/description/
+
+*   Think of the problem as finding all unique combinations of numbers that add up to the target.
+
+*   Each number can be used only once, and the array may contain duplicates — so we must avoid duplicate combinations like [1,2,2] appearing twice.
+
+*   We begin by sorting the array — this helps:
+        - Detect duplicates easily (as identical numbers appear together).
+        - Stop recursion early when a number exceeds the remaining target.
+
+*   The recursive function explores all subsets starting from currPtr, maintaining:
+
+        - A current combination
+
+        - The remaining target
+
+        - A results list 
+
+*   At every recursive step:
+
+        - If the target becomes 0, we’ve found a valid combination → add it to results.
+
+        - If the target becomes negative or we run out of numbers, stop exploring.
+
+*   Inside the loop, we try each number from currPtr onward:
+
+        - Skip duplicates: If the same number appeared just before (nums[i] == nums[i-1]) and we’re still in the same recursive level (i > currPtr), skip it. This ensures uniqueness of results.
+
+        - Pick the number: Add it to the current combination.
+
+        - Recurse ahead: Move to the next index (i + 1), since each number can be used only once.
+
+        - Backtrack: Remove the number and try the next one.
+
+*   The recursion explores all possible paths — pruning duplicates and impossible paths efficiently.
+

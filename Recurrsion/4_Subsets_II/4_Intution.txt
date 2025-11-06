@@ -1,2 +1,35 @@
 Question Link : https://leetcode.com/problems/subsets-ii/description/
 
+*   Think of the problem as generating all possible subsets of a given list of numbers.
+
+*   The twist is that the input array may contain duplicate numbers, and you must ensure that no duplicate subsets appear in the result.
+
+*   It is similar to combination sum but only difference is list could have duplicate numbers and you can't resue same idx.
+
+*   Start by sorting the array — this makes all identical elements appear next to each other, which helps in easily skipping duplicates during recursion.
+
+*   Use recursion to explore two choices at each step:
+    - Include the current number in the subset.
+    - Skip it and move on to the next number.
+
+*   Maintain a subset list that represents the current combination of chosen elements, and a subsets list to store all generated subsets.
+
+*   The recursion parameter ptr (pointer) represents the current index in the array from where you can still pick elements.
+
+*   The loop runs from ptr to the end of the array, trying each number one by one.
+
+*   Before including a number, you check: 
+    - If it’s a duplicate of the previous number (i.e., nums[i] == nums[i - 1]) and 
+    - If it’s not the first number of this recursive level (i > ptr).
+
+*   If both conditions are true, you skip that number to prevent generating duplicate subsets like [1,2] and [1,2] when the array has duplicate 2s.
+
+*   After including a number, you make a recursive call with i + 1 as the new pointer — meaning the next element can only come from the remaining part of the array.
+
+*   Once the recursive call returns, you remove the last added element so you can explore other possibilities from the same recursion level.
+
+*   Every node in this recursive tree corresponds to one valid subset, so at every recursive call, add a copy of the current subset to the result.
+    
+*   The time complexity is roughly O(2ⁿ) since each element can be included or excluded, and sorting adds an O(n log n) overhead.
+
+*   The space complexity is O(n) for the recursion call stack and the temporary subset being built.
