@@ -1,0 +1,39 @@
+Question Link : https://leetcode.com/problems/minimum-array-end/description
+
+*   The problem asks us to compute the minimum possible value of the last element
+    after constructing an array of length n, starting with the value x.
+
+*   The key constraint is that the bitwise AND of consecutive elements must
+    remain equal to x.
+
+*   This implies that all bits set in x must remain set in every element of the
+    array.
+
+*   Therefore, when constructing the last element, we are only allowed to
+    modify bit positions where x has a zero.
+
+*   The idea is to encode the value (n - 1) into the zero-bit positions of x.
+
+*   Each bit of (n - 1) is placed into the next available zero bit position of
+    the answer.
+
+*   This guarantees that the resulting value is the smallest possible while
+    still satisfying the constraints.
+
+*   We process the bits of (n - 1) from least significant to most significant.
+
+*   For each bit, we scan forward to find the next zero bit position in the
+    current answer.
+
+*   That bit from (n - 1) is inserted into this position.
+
+*   After placing a bit, we move forward to look for the next zero bit position.
+
+*   This process continues until all bits of (n - 1) have been placed.
+
+*   The final constructed number is returned as the minimum possible ending
+    value.
+
+*   The algorithm runs in O(number of bits) time.
+
+*   The space complexity is O(1), since only a few variables are used.

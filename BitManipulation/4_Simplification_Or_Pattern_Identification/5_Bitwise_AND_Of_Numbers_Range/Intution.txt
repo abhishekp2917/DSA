@@ -1,0 +1,35 @@
+Question Link : https://leetcode.com/problems/bitwise-and-of-numbers-range/description/
+
+*   The problem asks us to compute the bitwise AND of all integers in the range
+    from left to right, inclusive.
+
+*   Bitwise AND keeps a bit set only if that bit is set in every number of the
+    range.
+
+*   If left and right differ at a certain bit position, that bit will eventually
+    become zero when ANDing all numbers in between.
+
+*   This means that only the common leading bits shared by left and right can
+    survive in the final result.
+
+*   To find these common bits, both numbers are repeatedly shifted right until
+    they become equal.
+
+*   Each right shift removes one differing least significant bit from
+    consideration.
+
+*   The number of shifts performed tells us how many bits were removed.
+
+*   Once left and right are equal, the remaining value represents the common
+    prefix.
+
+*   Shifting this common prefix back to the left restores it to its original
+    bit position.
+
+*   All lower bits become zero because they differed at some point in the range.
+
+*   This approach avoids iterating through every number in the range.
+
+*   The algorithm runs in O(number of bits) time.
+
+*   The space complexity is O(1), since only a few integer variables are used.

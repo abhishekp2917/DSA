@@ -1,0 +1,30 @@
+Question Link : Question Link : https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/description/
+
+*   The problem asks for the minimum length subarray whose bitwise OR is greater than or equal to k.
+
+*   Since bitwise OR only increases when more bits are added, we can use a sliding window approach.
+
+*   We expand the window to the right until the OR value becomes greater than or equal to k.
+
+*   Once the condition is satisfied, we try to shrink the window from the left to minimize its length.
+
+*   To efficiently maintain the OR value while shrinking, we track how many numbers in the window contribute
+    to each bit position.
+
+*   For each number added to the window, we:
+    - Update the count of set bits
+    - Update the OR value
+
+*   When removing a number from the left, we decrement the bit counts.
+
+*   If the count of a bit becomes zero, that bit must be removed from the OR value.
+
+*   This allows us to correctly maintain the OR value without recomputing it from scratch.
+
+*   The window continues expanding and shrinking until all possibilities are explored.
+
+*   If no subarray satisfies the condition, the answer remains -1.
+
+*   The algorithm runs in O(30 * n) time.
+
+*   The space complexity is O(1), since the bit count array has fixed size.

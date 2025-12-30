@@ -1,0 +1,41 @@
+Question Link : https://leetcode.com/problems/divide-two-integers/description/
+
+*   The problem asks us to divide two integers without using multiplication,
+    division, or modulo operators.
+
+*   Direct subtraction would be too slow, so we look for a faster method based
+    on binary representation.
+
+*   Division can be viewed as repeated subtraction of the divisor from the
+    dividend, scaled by powers of two.
+
+*   To simplify calculations and avoid sign issues, both numbers are converted
+    to their absolute values.
+
+*   The final sign of the result is determined separately based on the original
+    signs of the dividend and divisor.
+
+*   The algorithm tries to subtract the largest possible multiple of the
+    divisor from the dividend at each step.
+
+*   This is done by left-shifting the divisor and checking if it still fits
+    within the remaining dividend.
+
+*   When a shifted divisor fits, it is subtracted and the corresponding power
+    of two is added to the quotient.
+
+*   This process is repeated from the highest bit to the lowest bit.
+
+*   By iterating from bit 31 down to 0, we ensure that the largest contributions
+    to the quotient are handled first.
+
+*   The loop finishes when no more shifted divisors can be subtracted.
+
+*   The accumulated value represents the absolute quotient.
+
+*   A special edge case is handled where dividing the minimum integer by -1
+    would overflow the integer range.
+
+*   The algorithm runs in O(32) time, since it checks a fixed number of bits.
+
+*   The space complexity is O(1), as only a few variables are used.

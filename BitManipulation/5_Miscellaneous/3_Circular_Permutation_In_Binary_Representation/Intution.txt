@@ -1,0 +1,40 @@
+Question Link : https://leetcode.com/problems/circular-permutation-in-binary-representation/description/
+
+*   The problem asks us to generate a permutation of all n-bit binary numbers
+    such that consecutive numbers differ by exactly one bit.
+
+*   In addition, the permutation must be circular, meaning the last and first
+    numbers should also differ by exactly one bit.
+
+*   Gray codes naturally satisfy the condition where consecutive numbers differ
+    by exactly one bit.
+
+*   There are exactly 2^n Gray codes for n bits, and they form a circular
+    sequence by definition.
+
+*   A standard Gray code sequence can be generated using the formula
+    gray = i ^ (i >> 1).
+
+*   However, the sequence needs to start from a specific value provided as
+    `start`.
+
+*   To shift the sequence to start from `start`, we XOR every Gray code value
+    with `start`.
+
+*   XORing with the same value preserves the one-bit difference property
+    between consecutive elements.
+
+*   This transformation effectively rotates the Gray code sequence so that
+    the first value becomes `start`.
+
+*   The resulting sequence still maintains the circular property required
+    by the problem.
+
+*   Each transformed Gray code is added to the result list in order.
+
+*   The algorithm avoids explicitly rotating the array and keeps the logic
+    simple.
+
+*   The time complexity is O(2^n), since each Gray code is generated once.
+
+*   The space complexity is O(2^n), required to store the permutation.

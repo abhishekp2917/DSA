@@ -1,0 +1,34 @@
+Question Link : https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/description/
+
+*   The problem asks for the minimum number of operations required to reduce a
+    given integer n to zero.
+
+*   The allowed operations effectively depend on the binary representation of
+    the number.
+
+*   Observing the least significant bits helps determine the optimal operation
+    at each step.
+
+*   If the number is even, dividing it by two is always beneficial.
+
+*   If the number is odd, one operation is required to handle the least
+    significant bit.
+
+*   When the last two bits are both set (binary pattern ...11), incrementing the
+    number causes a carry that clears multiple bits at once.
+
+*   This greedy increment is often better than decrementing, as it reduces the
+    total number of operations.
+
+*   After handling odd cases, the number is shifted right, effectively dividing
+    it by two.
+
+*   Each shift represents a step toward reducing the number to zero.
+
+*   The process repeats until the value becomes zero.
+
+*   Each decision is made using constant-time bit operations.
+
+*   The algorithm runs in O(number of bits in n) time.
+
+*   The space complexity is O(1), since only a few variables are used.

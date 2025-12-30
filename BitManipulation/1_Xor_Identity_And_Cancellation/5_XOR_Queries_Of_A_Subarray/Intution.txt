@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/xor-queries-of-a-subarray/description/
+
+*   The problem asks for the XOR of elements in multiple subarrays.
+
+*   Calculating XOR for each query by looping every time would be inefficient.
+
+*   XOR has a useful property similar to prefix sums:
+    prefixXor[i] stores the XOR of elements from index 0 to i.
+
+*   Using prefix XOR allows reuse of previous computations.
+
+*   The XOR of a subarray [L, R] can be computed as:
+    prefixXor[R] ^ prefixXor[L - 1].
+
+*   This works because values before index L cancel out due to
+    XOR’s self-canceling property.
+
+*   If L is 0, then the XOR is simply prefixXor[R].
+
+*   After building the prefix XOR array once, each query
+    can be answered in constant time.
+
+*   This reduces the overall time complexity significantly.
+
+*   The prefix array is built in O(n) time,
+    and answering all queries takes O(q) time.
+
+*   The space complexity is O(n) due to the prefix XOR array.

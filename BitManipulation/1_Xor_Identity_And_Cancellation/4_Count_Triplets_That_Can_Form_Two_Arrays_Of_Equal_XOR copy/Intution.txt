@@ -1,0 +1,32 @@
+Question Link : https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/description/
+
+*   The problem asks to count triplets (i, j, k) such that:
+    XOR of arr[i..j-1] == XOR of arr[j..k].
+
+*   XOR over a range can be efficiently represented using prefix XOR.
+
+*   Let prefixXor[x] represent XOR of elements from index 0 to x-1.
+
+*   Then:
+    XOR(i, j-1) = prefixXor[j] ^ prefixXor[i]
+    XOR(j, k)   = prefixXor[k + 1] ^ prefixXor[j]
+
+*   If these two XOR values are equal, prefixXor[j] cancels out,
+    leaving prefixXor[i] == prefixXor[k + 1].
+
+*   This means we only need to find pairs (i, k) where
+    prefixXor[i] equals prefixXor[k + 1].
+
+*   For each such pair, any index j satisfying i < j ≤ k
+    will form a valid triplet.
+
+*   The number of valid j values for a fixed (i, k) is (k - i).
+
+*   By iterating over all possible (i, k) pairs and checking
+    the prefix XOR condition, we can count all valid triplets.
+
+*   This avoids checking j explicitly, reducing unnecessary computation.
+
+*   The time complexity is O(n²) due to the nested loops.
+
+*   The space complexity is O(n) because of the prefix XOR array.

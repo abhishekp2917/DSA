@@ -1,0 +1,46 @@
+Question Link : https://leetcode.com/problems/maximum-product-of-the-length-of-two-palindromic-subsequences/description/
+
+*   The problem asks us to find two palindromic subsequences that do not overlap
+    and whose length product is as large as possible.
+
+*   A subsequence can be represented by choosing or skipping each character,
+    which naturally suggests a recursive backtracking approach.
+
+*   While generating subsequences, a bitmask is used to record which indices of
+    the original string are included.
+
+*   This bitmask helps later to determine whether two subsequences overlap or
+    not.
+
+*   During recursion, whenever a non-empty subsequence is formed, it is checked
+    to see if it is a palindrome.
+
+*   If the subsequence is a palindrome, its length is stored in a map using the
+    bitmask as the key.
+
+*   The recursion explores both choices at each index: including the character
+    or skipping it.
+
+*   This ensures that all possible subsequences are considered.
+
+*   After collecting all palindromic subsequences, the problem reduces to
+    choosing two that do not overlap.
+
+*   Two subsequences do not overlap if their bitmasks have no common set bits.
+
+*   This condition is checked using a bitwise AND operation between masks.
+
+*   For every valid pair of non-overlapping palindromes, the product of their
+    lengths is computed.
+
+*   The maximum product found across all valid pairs is stored as the answer.
+
+*   Bitmask representation makes overlap detection efficient and simple.
+
+*   Although the approach is exponential, it works because the input size is
+    small.
+
+*   The time complexity is O(2^n * n), due to subsequence generation and
+    palindrome checks.
+
+*   The space complexity is O(2^n), used to store palindromic subsequences.

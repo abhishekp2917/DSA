@@ -1,0 +1,36 @@
+Question Link : https://leetcode.com/problems/construct-the-minimum-bitwise-array-ii/description/
+
+*   The problem asks us to construct an array where each element is derived from
+    the given number using specific bitwise rules.
+
+*   Each number is processed independently, so the solution naturally uses a
+    simple iteration over the list.
+
+*   If a number is even, its least significant bit is zero, which violates the
+    required condition for constructing a valid result.
+
+*   In such cases, it is impossible to generate a valid value, so the answer
+    for that number is set to -1.
+
+*   When the number is odd, it has at least one trailing set bit, which allows
+    controlled bit manipulation.
+
+*   The expression (num + 1) is used to locate the lowest bit position where
+    num has a zero.
+
+*   Applying (num + 1) & (-(num + 1)) isolates the lowest set bit of (num + 1),
+    which corresponds to the lowest clear bit in num.
+
+*   To produce the minimum valid result, the bit just below this position is
+    flipped using an XOR operation.
+
+*   This operation preserves higher bits and changes the smallest possible bit,
+    ensuring the result is minimal.
+
+*   The process is repeated for each number in the input list.
+
+*   All operations are constant time per element, making the solution efficient.
+
+*   The algorithm runs in O(n) time, where n is the number of elements.
+
+*   The space complexity is O(n), due to the output array.

@@ -1,0 +1,37 @@
+Question Link : https://leetcode.com/problems/hamming-distance/description/
+
+*   The Hamming distance between two numbers is defined as the number of bit
+    positions at which the corresponding bits are different.
+
+*   To identify differing bit positions, the two numbers are XORed together.
+
+*   In the XOR result, a bit is set to 1 if and only if the bits at that position
+    in the two original numbers are different.
+
+*   Therefore, the problem reduces to counting how many set bits exist in the
+    XOR result.
+
+*   Instead of checking each bit individually, a faster method is used to count
+    the set bits.
+
+*   The expression xor & (xor - 1) removes the lowest set bit from the number.
+
+*   Each time this operation is applied, exactly one differing bit is removed.
+
+*   By repeating this operation until the number becomes zero, we count all the
+    set bits efficiently.
+
+*   The counter is incremented once per removed bit, which directly corresponds
+    to one differing bit position.
+
+*   This approach is known as Brian Kernighan’s algorithm.
+
+*   The loop runs once for each set bit in the XOR value, not for every bit
+    position.
+
+*   This makes the solution efficient, especially when the number of differing
+    bits is small.
+
+*   The time complexity is O(number of set bits in x ^ y).
+
+*   The space complexity is O(1), since only a few integer variables are used.

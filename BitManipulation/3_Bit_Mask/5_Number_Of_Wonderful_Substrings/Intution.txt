@@ -1,0 +1,40 @@
+Question Link : https://leetcode.com/problems/number-of-wonderful-substrings/description/
+
+*   The problem asks us to count substrings where at most one character appears
+    an odd number of times.
+
+*   Only the characters from 'a' to 'j' are relevant, which allows us to use a
+    10-bit mask to track character parity.
+
+*   Each bit in the mask represents whether the corresponding character has
+    appeared an even or odd number of times so far.
+
+*   As we iterate through the string, we update the parity mask by toggling the
+    bit corresponding to the current character.
+
+*   A substring has all characters appearing an even number of times if the
+    parity mask has appeared before.
+
+*   This is because equal parity states cancel out between the two positions.
+
+*   A substring has exactly one character with an odd count if its parity mask
+    differs by exactly one bit from a previous state.
+
+*   To account for this, we toggle each of the 10 bits individually and check
+    how many times those states have occurred.
+
+*   An array is used to store the frequency of each parity state, allowing
+    constant-time lookups.
+
+*   The base state where all characters have even counts is initialized with a
+    frequency of one.
+
+*   At each step, we add the number of valid substrings ending at the current
+    position to the total count.
+
+*   This avoids checking all substrings explicitly and keeps the solution
+    efficient.
+
+*   The algorithm runs in O(10 * n) time, since each character checks 10 states.
+
+*   The space complexity is O(2^10), which is constant and small.

@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/decode-xored-permutation/description/
+
+*   The problem gives an encoded array where each value is
+    the XOR of two consecutive elements of the original permutation.
+
+*   The original array is a permutation of numbers from 1 to n,
+    meaning all numbers appear exactly once.
+
+*   XORing all numbers from 1 to n gives the XOR of the entire permutation.
+
+*   XORing encoded elements at odd indices cancels out all elements
+    except perm[0].
+
+*   Using totalXor ^ oddIndexXor gives the first element of the permutation.
+
+*   Once the first element is known, the rest of the permutation
+    can be reconstructed sequentially.
+
+*   Each next value is obtained by XORing the previous value
+    with the corresponding encoded element.
+
+*   This avoids using extra memory like sets or maps.
+
+*   The solution works in linear time with constant extra space.
+
+*   The time complexity is O(n).
+
+*   The space complexity is O(1), excluding the output array.

@@ -1,0 +1,41 @@
+Question Link : https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/description/
+
+*   The problem asks for the longest substring in which each vowel appears an
+    even number of times.
+
+*   A vowel appearing an even number of times means its parity is even, which
+    can be tracked using bit manipulation.
+
+*   Each vowel is represented by one bit, and the bit is toggled whenever that
+    vowel is encountered.
+
+*   A prefix XOR mask is used to represent the parity state of all vowels up to
+    the current index.
+
+*   If two prefixes have the same XOR mask, the substring between them has all
+    vowels appearing an even number of times.
+
+*   This is because the parity changes cancel out between the two positions.
+
+*   A map is used to store the first index at which each XOR mask appears.
+
+*   Storing the first occurrence ensures the longest possible substring is
+    considered when the same mask is seen again.
+
+*   The XOR mask is initialized to zero at index -1 to handle substrings that
+    start at index 0.
+
+*   While iterating through the string, the mask is updated only when a vowel is
+    encountered.
+
+*   If the current XOR mask has been seen before, the length of the substring
+    between the two indices is computed.
+
+*   The maximum such length found during iteration is stored as the answer.
+
+*   Using XOR allows parity tracking in constant time per character.
+
+*   The algorithm runs in O(n) time, since each character is processed once.
+
+*   The space complexity is O(1), because there are only a fixed number of vowel
+    parity states.

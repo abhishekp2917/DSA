@@ -1,0 +1,38 @@
+Question Link : https://leetcode.com/problems/longest-nice-subarray/description/
+
+*   The problem asks for the length of the longest subarray where no two numbers
+    share any common set bit.
+
+*   Two numbers are considered incompatible if their bitwise AND is non-zero.
+
+*   This condition suggests using a sliding window to maintain a valid subarray.
+
+*   A variable is used to store the bitwise OR of all numbers currently inside
+    the window.
+
+*   When a new number is added, we check if it shares any set bit with the
+    current window by computing (nums[end] & or).
+
+*   If a conflict is found, the window is shrunk from the left until the
+    conflict is resolved.
+
+*   While shrinking the window, the leftmost number is removed by XORing it
+    from the OR value.
+
+*   This works because the window maintains the invariant that no two numbers
+    share a common set bit.
+
+*   Once the window becomes valid, the new number is added to the OR value.
+
+*   The length of the current valid window is computed and compared with the
+    maximum length found so far.
+
+*   The process continues until all elements are processed.
+
+*   Each element enters and leaves the window at most once.
+
+*   This guarantees linear time complexity.
+
+*   The algorithm runs in O(n) time.
+
+*   The space complexity is O(1), since only a few integer variables are used.

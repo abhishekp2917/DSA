@@ -1,0 +1,39 @@
+Question Link : https://leetcode.com/problems/total-hamming-distance/description/
+
+*   The problem asks for the sum of Hamming distances between all pairs of
+    numbers in the array.
+
+*   The Hamming distance between two numbers depends on how many bit positions
+    differ between them.
+
+*   Instead of comparing every pair directly, each bit position can be
+    analyzed independently.
+
+*   For a fixed bit position, pairs contribute to the Hamming distance only
+    when one number has the bit set and the other does not.
+
+*   While scanning the array from left to right, we keep track of how many
+    numbers have had this bit set so far.
+
+*   When the current number has a 0 at this bit position, it forms differing
+    pairs with all previously seen numbers that had a 1.
+
+*   When the current number has a 1 at this bit position, it forms differing
+    pairs with all previously seen numbers that had a 0.
+
+*   The number of such pairs can be computed incrementally without storing
+    all previous values.
+
+*   By adding these contributions while iterating, we account for all pairs
+    exactly once.
+
+*   This process is repeated independently for all 32 bit positions.
+
+*   Summing contributions across all bit positions gives the total Hamming
+    distance.
+
+*   This avoids the need for nested pair comparisons across the entire array.
+
+*   The algorithm runs in O(32 * n) time, which is effectively linear.
+
+*   The space complexity is O(1), since only counters are used.

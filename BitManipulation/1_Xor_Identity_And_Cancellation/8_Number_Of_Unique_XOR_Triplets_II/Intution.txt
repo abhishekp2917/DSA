@@ -1,0 +1,36 @@
+Question Link : https://leetcode.com/problems/number-of-unique-xor-triplets-ii/description/
+
+*   The problem asks for the number of distinct values that can be formed
+    by XORing any three elements from the array.
+
+*   Instead of choosing three indices directly, we observe that:
+    (a ^ b ^ c) can be rewritten as (a ^ b) ^ c.
+
+*   This allows us to break the problem into two stages.
+
+*   First, compute all possible XOR values formed by XORing
+    any two elements of the array.
+
+*   These values are stored in a boolean array representing
+    the entire possible XOR value space.
+
+*   The XOR result space is bounded because all values are
+    less than 2^11.
+
+*   Next, iterate through every possible XOR result value
+    and check if it can be produced by XORing:
+    (some pair XOR) with a third number from the array.
+
+*   If such a combination exists, that XOR result is valid
+    and counted exactly once.
+
+*   Using a boolean array avoids counting duplicates.
+
+*   This approach avoids explicitly iterating over all triplets,
+    while still following the same logical computation.
+
+*   The time complexity comes from generating all pair XORs
+    and checking each possible XOR value.
+
+*   The space complexity is fixed and depends only on
+    the maximum possible XOR value.

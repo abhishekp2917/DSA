@@ -1,0 +1,29 @@
+Question Link : https://leetcode.com/problems/count-the-number-of-beautiful-subarrays/description/
+
+*   A subarray is considered beautiful if the XOR of all its elements is 0.
+
+*   Directly checking all subarrays would be inefficient.
+
+*   XOR over a range can be represented using prefix XOR.
+
+*   Let prefixXor[i] be the XOR of elements from index 0 to i.
+
+*   If prefixXor[i] == prefixXor[j],
+    then the XOR of elements between (i, j] is 0.
+
+*   This means every pair of equal prefix XOR values
+    forms one or more beautiful subarrays.
+
+*   As we iterate through the array, we keep track of
+    how many times each prefix XOR value has appeared.
+
+*   When the current prefix XOR has appeared before,
+    it contributes that many beautiful subarrays ending
+    at the current index.
+
+*   We accumulate this count as we move forward.
+
+*   Initializing prefix XOR 0 with frequency 1 handles
+    subarrays starting from index 0.
+
+*   The al*

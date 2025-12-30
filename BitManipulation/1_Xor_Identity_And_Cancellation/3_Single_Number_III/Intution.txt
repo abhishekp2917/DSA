@@ -1,0 +1,31 @@
+Question Link : https://leetcode.com/problems/single-number-iii/description/
+
+*   The problem states that exactly two numbers appear once,
+    while all other numbers appear exactly twice.
+
+*   XOR is useful because duplicate numbers cancel each other out.
+
+*   When all numbers are XORed together, the result is:
+    xorAll = a ^ b, where a and b are the two unique numbers.
+
+*   Since a and b are different, xorAll must contain at least
+    one set bit.
+
+*   A set bit in xorAll means that a and b differ at that bit position.
+
+*   By isolating the lowest set bit using (xorAll & -xorAll),
+    we get a bit that separates a and b into different groups.
+
+*   Now, partition all numbers into two groups:
+    - Numbers where this bit is set
+    - Numbers where this bit is not set
+
+*   All duplicate numbers fall into the same group and cancel out.
+
+*   Each group is left with exactly one unique number.
+
+*   This avoids extra memory like hash maps and works in linear time.
+
+*   The time complexity is O(n) since the array is scanned twice.
+
+*   The space complexity is O(1) because only constant extra variables are used.

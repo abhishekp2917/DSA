@@ -1,0 +1,39 @@
+Question Link : https://leetcode.com/problems/two-out-of-three/description/
+
+*   The problem asks us to find all numbers that appear in at least two of the
+    three given arrays.
+
+*   Since each number can appear in any combination of the three arrays, we
+    need a way to track presence across multiple sources.
+
+*   Bit masking is a natural fit because each array can be represented by one
+    bit position.
+
+*   We use a map where each number is mapped to an integer mask that represents
+    which arrays contain that number.
+
+*   When a number appears in the first array, we set bit 0 in its mask.
+
+*   When it appears in the second array, we set bit 1 in its mask.
+
+*   When it appears in the third array, we set bit 2 in its mask.
+
+*   Using bitwise OR ensures that repeated appearances in the same array do not
+    affect the mask.
+
+*   After processing all three arrays, each number’s mask encodes its presence
+    across the arrays.
+
+*   To decide if a number appears in at least two arrays, we count how many bits
+    are set in its mask.
+
+*   If the number of set bits is greater than or equal to two, the number is
+    included in the result.
+
+*   This avoids checking array intersections explicitly and keeps the logic
+    clean and efficient.
+
+*   The time complexity is O(n1 + n2 + n3), where n1, n2, and n3 are the array
+    lengths.
+
+*   The space complexity is O(n), used by the map to store unique numbers.

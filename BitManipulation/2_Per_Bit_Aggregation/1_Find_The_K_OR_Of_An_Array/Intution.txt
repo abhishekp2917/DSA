@@ -1,0 +1,23 @@
+Question Link : https://leetcode.com/problems/find-the-k-or-of-an-array/description/
+
+*   The problem defines K-OR as a bitwise operation where a bit is set if at least k numbers
+    have that bit set at the same position.
+
+*   Instead of combining numbers directly, each bit position is analyzed independently.
+
+*   For every bit position from 0 to 30, we count how many numbers have that bit set.
+
+*   This count is stored in an array where each index corresponds to a bit position.
+
+*   If the count for a bit position is greater than or equal to k, that bit must be present
+    in the final result.
+
+*   Helper functions are used to:
+    - Check whether a bit is set
+    - Set a specific bit in the answer
+
+*   After processing all bit positions, the constructed number is returned.
+
+*   The algorithm runs in O(31 * n) time.
+
+*   The space complexity is O(1) since the bit count array has fixed size.

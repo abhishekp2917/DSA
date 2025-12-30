@@ -1,0 +1,39 @@
+Question Link : https://leetcode.com/problems/maximum-k-to-sort-a-permutation/description/
+
+*   The problem asks us to find a value k that can be used to sort a permutation
+    using the allowed bitwise operations.
+
+*   If the permutation is already sorted, no operation is required, and the
+    answer should be zero.
+
+*   Only the elements that are not in their correct positions affect the
+    required value of k.
+
+*   Elements that are already at index i do not need to be moved and therefore
+    do not impose any constraint.
+
+*   For all misplaced elements, k must satisfy the condition imposed by their
+    values.
+
+*   Since the operation involves bitwise AND, all constraints can be combined
+    using a cumulative AND operation.
+
+*   Initializing k with all bits set allows the first AND operation to correctly
+    capture the first constraint.
+
+*   As we AND k with each misplaced value, bits that are not common to all such
+    values are cleared.
+
+*   The remaining bits in k represent the maximum flexibility allowed while
+    still being able to sort the permutation.
+
+*   If no elements are misplaced, k remains unchanged, and the correct return
+    value is zero.
+
+*   Otherwise, the final value of k represents the required answer.
+
+*   The algorithm processes the array in a single pass.
+
+*   The time complexity is O(n), where n is the length of the permutation.
+
+*   The space complexity is O(1), since only a few integer variables are used.

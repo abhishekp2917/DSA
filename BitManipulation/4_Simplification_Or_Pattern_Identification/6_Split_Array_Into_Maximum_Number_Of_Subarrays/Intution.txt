@@ -1,0 +1,40 @@
+Question Link : https://leetcode.com/problems/split-array-into-maximum-number-of-subarrays/description/
+
+*   The problem asks us to split the array into the maximum number of subarrays
+    such that the bitwise AND of each subarray equals zero.
+
+*   Bitwise AND only decreases or stays the same as more numbers are included,
+    which makes it suitable for a greedy approach.
+
+*   First, we compute the bitwise AND of the entire array to check feasibility.
+
+*   If the AND of all elements is not zero, then no partitioning can produce
+    multiple subarrays with AND equal to zero.
+
+*   In that case, the best possible answer is one subarray containing all
+    elements.
+
+*   If the total AND is zero, it is possible to split the array into multiple
+    valid subarrays.
+
+*   We then iterate through the array while maintaining the AND of the current
+    subarray.
+
+*   As soon as the running AND becomes zero, we have found a valid subarray.
+
+*   To maximize the number of subarrays, we greedily cut the subarray at this
+    point.
+
+*   After forming a subarray, we reset the AND value to start a new subarray
+    from the next element.
+
+*   This greedy choice is optimal because extending a subarray beyond AND zero
+    cannot increase the number of valid partitions.
+
+*   The process continues until the entire array is processed.
+
+*   The count of such cuts gives the maximum number of valid subarrays.
+
+*   The algorithm runs in O(n) time since the array is traversed once.
+
+*   The space complexity is O(1), as only a few integer variables are used.

@@ -1,0 +1,49 @@
+Question Link : https://leetcode.com/problems/maximum-xor-product/description/
+
+*   The problem asks us to choose a number x, limited to n bits, such that the
+    product (a ^ x) * (b ^ x) is as large as possible.
+
+*   Since x is applied to both numbers using XOR, choosing x carefully can help
+    balance or increase the resulting values.
+
+*   The bits of x can be decided independently, but decisions at higher bits
+    matter more because they affect the magnitude significantly.
+
+*   A bit mask is first created to ensure that x is restricted to exactly n
+    bits and does not affect higher bits.
+
+*   An initial value of x is chosen where both a and b have 0s, since setting
+    those bits in x increases both (a ^ x) and (b ^ x).
+
+*   The XOR of a and b is used to identify positions where a and b differ, since
+    only those positions require careful decision making.
+
+*   The algorithm processes bits from the most significant bit downwards to make
+    greedy decisions that impact the final product the most.
+
+*   If a and b have the same bit at a position, changing x there affects both
+    equally, so no special handling is needed.
+
+*   When a and b differ at a bit, setting that bit in x will increase one value
+    while decreasing the other.
+
+*   To maximize the product, the algorithm compares the current values of
+    (a ^ x) and (b ^ x) and tries to improve the smaller one.
+
+*   If (a ^ x) is larger than (b ^ x), the algorithm prefers choices that
+    increase (b ^ x), and vice versa.
+
+*   This greedy balancing helps keep the two values closer, which maximizes
+    their product.
+
+*   Each decision is final because higher bits dominate the product more than
+    all lower bits combined.
+
+*   After processing all bits, the final transformed values (a ^ x) and (b ^ x)
+    are multiplied.
+
+*   The result is returned modulo 1e9 + 7 as required by the problem statement.
+
+*   The algorithm runs in O(n) time since each bit is processed once.
+
+*   The space complexity is O(1), as only a few variables are used.

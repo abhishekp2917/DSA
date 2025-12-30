@@ -1,0 +1,40 @@
+Question Link : https://leetcode.com/problems/count-pairs-of-similar-strings/description/
+
+*   Two words are considered similar if they contain exactly the same set of
+    characters, regardless of order or frequency.
+
+*   Since the words contain only lowercase English letters, each character can
+    be represented using a single bit.
+
+*   A bitmask is used where each bit corresponds to one character from 'a' to
+    'z'.
+
+*   For every word, we iterate through its characters and set the corresponding
+    bit in the mask.
+
+*   If a character appears multiple times in a word, the same bit is set again,
+    which does not change the mask.
+
+*   After processing a word, its bitmask fully represents the set of characters
+    present in that word.
+
+*   Once all words are converted into bitmasks, the problem reduces to counting
+    how many pairs of masks are identical.
+
+*   To compare two masks, XOR is used because identical masks produce a result
+    of zero when XORed.
+
+*   If the XOR of two masks is zero, the corresponding words are similar.
+
+*   All pairs of words are checked using two nested loops to ensure every
+    possible pair is considered.
+
+*   Each time a similar pair is found, the count is incremented.
+
+*   At the end of the iteration, the total count represents the number of
+    similar word pairs.
+
+*   The time complexity is O(n² + totalCharacters), due to pair comparison and
+    mask construction.
+
+*   The space complexity is O(n), used for storing the bitmask of each word.

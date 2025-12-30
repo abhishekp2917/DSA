@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/longest-subsequence-with-non-zero-bitwise-xor/description/
+
+*   The goal is to find the longest subsequence whose XOR value is non-zero.
+
+*   XOR becomes zero only when all contributing values cancel each other out.
+
+*   First, compute the XOR of the entire array.
+
+*   If this XOR is non-zero, then taking all elements already satisfies
+    the condition, so the answer is the full length of the array.
+
+*   If the XOR of the entire array is zero, it means all elements together
+    cancel out perfectly.
+
+*   In this case, removing any single element will break the cancellation
+    and result in a non-zero XOR.
+
+*   Therefore, the longest possible subsequence in this case is
+    the array length minus one.
+
+*   There is no need to check individual subsequences explicitly.
+
+*   This works because XOR is associative and removing one element
+    changes the overall XOR result.
+
+*   The time complexity is O(n) since we scan the array once.
+
+*   The space complexity is O(1) because only a single variable is used.

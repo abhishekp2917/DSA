@@ -1,0 +1,58 @@
+Question Link : https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/
+
+*   The problem asks for the maximum XOR value that can be formed by XORing any
+    two numbers from the given array.
+
+*   XOR values become larger when higher-order bits differ, so differences in
+    the most significant bits contribute the most to the final result.
+
+*   This observation suggests using a greedy strategy that tries to decide the
+    result starting from the most significant bit and moving downward.
+
+*   Instead of selecting pairs of numbers directly, we attempt to build the
+    maximum possible XOR value incrementally, one bit at a time.
+
+*   A variable is maintained to store the best XOR value that has already been
+    confirmed based on previous bit decisions.
+
+*   A bit mask is also maintained to keep only the prefixes of all numbers up to
+    the current bit being processed.
+
+*   At each bit position, we tentatively assume that this bit can be set in the
+    final XOR result and check if this assumption is feasible.
+
+*   This tentative value represents the maximum XOR we want to validate using
+    the prefixes of the numbers considered so far.
+
+*   To verify this, all masked prefixes of the numbers are collected into a set
+    so that fast lookups can be performed.
+
+*   If there exist two prefixes whose XOR equals the tentative XOR value, then
+    the current bit can indeed be part of the final answer.
+
+*   This check works due to the XOR property that if a ^ b = c, then a ^ c = b,
+    allowing us to search for a matching prefix efficiently.
+
+*   When such a valid pair is found, the current bit is permanently added to the
+    result, confirming this greedy decision.
+
+*   If no such pair exists, the bit cannot be set, and the algorithm moves on to
+    the next lower bit without changing the current result.
+
+*   Making greedy decisions on higher bits is safe because higher bits dominate
+    the XOR value more than all lower bits combined.
+
+*   Repeating this process from the highest bit down to the lowest bit gradually
+    constructs the maximum possible XOR value.
+
+*   The final value obtained after processing all bits represents the maximum
+    XOR that can be formed by any two numbers in the array.
+
+*   This approach avoids checking all possible pairs explicitly, which would be
+    computationally expensive for large arrays.
+
+*   The time complexity of this algorithm is O(32 * n), since each bit position
+    requires scanning all numbers in the array.
+
+*   The space complexity is O(n), due to the use of a hash set for storing masked
+    prefixes at each step.

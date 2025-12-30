@@ -1,0 +1,24 @@
+Question Link : https://leetcode.com/problems/single-number/description/
+
+*   The problem states that every number appears exactly twice except one number that appears only once.
+
+*   This hints at using a property that can "cancel out" duplicate values efficiently.
+
+*   XOR is ideal here because XORing a number with itself results in 0, and XORing with 0 returns the number itself.
+
+*   Start with an initial value of 0 and XOR every element of the array one by one.
+
+*   When a number appears twice, the two XOR operations cancel each other out:
+    (a ^ a = 0).
+
+*   Because XOR is commutative and associative, the order of elements does not matter.
+
+*   After processing the entire array, all duplicate numbers become 0.
+
+*   The only number that remains is the one that appeared exactly once.
+
+*   This approach avoids extra memory like hash maps and works in linear time.
+
+*   The time complexity is O(n) since we traverse the array once.
+
+*   The space complexity is O(1) because only a single variable is used.

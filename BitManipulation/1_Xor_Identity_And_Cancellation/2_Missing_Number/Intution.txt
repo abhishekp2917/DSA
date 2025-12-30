@@ -1,0 +1,27 @@
+Question Link : https://leetcode.com/problems/missing-number/description/
+
+*   The array contains numbers in the range [0, n], but exactly one number is missing.
+
+*   Since the numbers are supposed to be unique and cover a fixed range,
+    we can compare what is expected with what is actually present.
+
+*   XOR is useful because it cancels out duplicate values when applied twice.
+
+*   First, XOR all numbers from 0 to n. This represents the complete expected set.
+
+*   Then, XOR all numbers present in the array.
+
+*   Every number that exists in both the expected range and the array
+    cancels itself out.
+
+*   The only number that does not cancel is the one that is missing
+    from the array.
+
+*   Because XOR is commutative and associative, the order of operations
+    does not matter.
+
+*   This approach avoids sorting or extra memory like hash sets.
+
+*   The time complexity is O(n) since we iterate through the array once.
+
+*   The space complexity is O(1) because only a single variable is used.

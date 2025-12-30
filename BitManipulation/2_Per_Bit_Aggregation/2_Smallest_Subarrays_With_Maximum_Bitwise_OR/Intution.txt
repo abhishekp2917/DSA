@@ -1,0 +1,29 @@
+Question Link : https://leetcode.com/problems/smallest-subarrays-with-maximum-bitwise-or/description/
+
+*   The task is to find, for each index i, the smallest subarray starting at i whose bitwise OR value is as large as possible.
+
+*   Bitwise OR only increases when more bits are included, and never decreases.
+
+*   Therefore, the maximum possible OR starting at index i must include every bit that appears at index i or to its right.
+
+*   Each bit position can be analyzed independently.
+
+*   For a fixed bit position, we track the nearest index to the right where that bit is set.
+
+*   If a bit appears at index j ≥ i, then the subarray starting at i must extend at least till j
+    to include that bit in the OR.
+
+*   While traversing from right to left, we continuously update the nearest position
+    where the current bit is set.
+
+*   For each index i, the required subarray length for this bit is (nearestRightSetBitIdx - i + 1).
+
+*   The final answer for index i is the maximum length required across all bit positions.
+
+*   Initializing the answer array with 1 ensures the minimum subarray length is always valid.
+
+*   Processing all bits guarantees that all contributing bits are included in the subarray.
+
+*   The algorithm runs in O(30 * n) time.
+
+*   The space complexity is O(1) excluding the output array.

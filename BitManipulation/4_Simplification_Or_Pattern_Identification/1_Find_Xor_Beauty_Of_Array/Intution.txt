@@ -1,0 +1,27 @@
+Question Link : https://leetcode.com/problems/find-xor-beauty-of-array/description/
+
+*   The problem defines XOR beauty as a value derived from XOR operations applied
+    over elements of the array.
+
+*   XOR has a key property where XORing a number with itself results in zero,
+    and XORing with zero leaves the number unchanged.
+
+*   XOR is also associative and commutative, meaning the order of operations
+    does not affect the final result.
+
+*   When multiple XOR expressions involving array elements are expanded, most
+    intermediate values cancel out due to the self-canceling property of XOR.
+
+*   After all cancellations, each number in the array contributes exactly once
+    to the final XOR beauty value.
+
+*   As a result, the XOR beauty is simply the XOR of all elements in the array.
+
+*   This allows the solution to be implemented using a single pass through the
+    array with an XOR accumulator.
+
+*   No extra data structures or nested loops are required.
+
+*   The algorithm runs in O(n) time, where n is the number of elements.
+
+*   The space complexity is O(1), since only one variable is used.
