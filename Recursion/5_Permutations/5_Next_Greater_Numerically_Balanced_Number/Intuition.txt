@@ -1,0 +1,29 @@
+Question Link : https://leetcode.com/problems/next-greater-numerically-balanced-number/description
+
+*   A numerically balanced number is one where digit i appears exactly i times
+    in the number.
+
+*   Since n is at most 10^6, only digits from 1 to 6 are relevant.
+
+*   The idea is to generate valid candidate numbers by constructing them digit
+    by digit using backtracking.
+
+*   Each digit i has a limited quota of i uses, which is tracked using a count
+    array.
+
+*   At every step, we choose a digit whose remaining count is greater than zero
+    and append it to the current number.
+
+*   This creates a DFS over all possible digit arrangements that respect the
+    allowed counts.
+
+*   Whenever the constructed number exceeds n, we check whether the remaining
+    counts satisfy the balanced condition.
+
+*   If valid, we update the minimum answer found so far.
+
+*   Pruning is applied by stopping recursion when the current number already
+    exceeds the best known answer.
+
+*   The search space is small due to strict digit limits, making brute-force
+    backtracking feasible.

@@ -1,0 +1,26 @@
+Question Link : https://leetcode.com/problems/split-array-into-fibonacci-sequence/description
+
+*   The problem asks whether a string of digits can be split into a Fibonacci
+    sequence with at least three numbers.
+
+*   The order of digits is fixed, so characters cannot be rearranged or skipped.
+
+*   The main decision is where to split the string to form the next number.
+
+*   Backtracking is used to try all possible prefix splits of the remaining
+    string.
+
+*   The first two numbers can be chosen freely, but all subsequent numbers
+    must satisfy the Fibonacci condition.
+
+*   Pruning is applied when the current number exceeds the expected sum of
+    the previous two numbers.
+
+*   Leading zeros are disallowed except for the number zero itself.
+
+*   Integer overflow is avoided by stopping when numbers exceed Integer.MAX_VALUE.
+
+*   When the entire string is consumed and the sequence length is at least 3,
+    a valid Fibonacci sequence has been formed.
+
+*   The recursion explores all valid cut positions efficiently due to pruning.

@@ -1,3 +1,31 @@
 Question Link : https://leetcode.com/problems/find-the-k-th-character-in-string-game-i/
 
+*   The string in this problem is not built explicitly but follows a recursive
+    construction pattern.
 
+*   At each level, the string is divided into two halves of equal length.
+
+*   The first half remains unchanged, while the second half is formed by taking
+    the first half and shifting each character forward by one.
+
+*   This creates a self-similar structure, where smaller versions of the string
+    appear inside larger ones.
+
+*   To find the k-th character, we only need to know whether k lies in the first
+    half or the second half.
+
+*   If k is in the first half, the answer is the same as the k-th character of
+    the smaller string.
+
+*   If k is in the second half, it maps to position (k - n/2) in the first half.
+
+*   After finding the corresponding character in the first half, it is shifted
+    by +1 to match the transformation rule.
+
+*   This process repeats recursively until k becomes 1, which directly maps to
+    the base character 'a'.
+
+*   The problem size halves at each step, so the recursion depth is logarithmic.
+
+*   The time complexity is O(log n), and the space complexity is O(log n) due to
+    recursion.

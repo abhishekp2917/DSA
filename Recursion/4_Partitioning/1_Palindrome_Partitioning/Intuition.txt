@@ -1,0 +1,29 @@
+Question Link : https://leetcode.com/problems/palindrome-partitioning/description/
+
+*   The problem asks us to split a string into substrings such that every
+    substring is a palindrome.
+
+*   The order of characters is fixed; we are only deciding where to cut the
+    string.
+
+*   At each position, we try all possible prefixes starting from that index.
+
+*   If a prefix is a palindrome, it becomes a valid part of the current
+    partition.
+
+*   After choosing a palindrome substring, we recursively solve the problem
+    for the remaining suffix.
+
+*   When the start index reaches the end of the string, a complete valid
+    partition has been formed.
+
+*   Backtracking is used to explore all valid cut combinations.
+
+*   The palindrome check ensures that invalid substrings are never included.
+
+*   This approach systematically explores all ways to partition the string
+    into palindromic pieces.
+
+*   The time complexity is exponential due to the number of possible partitions.
+
+*   The space complexity is O(n) for the recursion stack and current partition.

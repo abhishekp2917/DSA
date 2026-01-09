@@ -1,0 +1,34 @@
+Question Link : https://leetcode.com/problems/fair-distribution-of-cookies/description/
+
+*   This problem is a variation of Combination Sum, but instead of forming sums
+    equal to a target, we are distributing values across fixed buckets.
+
+*   Each cookie bag must be assigned to exactly one child, which creates a
+    choice at every step.
+
+*   The order of cookie bags is fixed, but each bag can be given to any child,
+    similar to choosing where to place a number.
+
+*   This naturally leads to a backtracking approach where we try all possible
+    assignments.
+
+*   Instead of collecting combinations, the objective is to minimize the
+    maximum load across all children.
+
+*   While distributing cookies, we keep track of the current maximum cookies
+    received by any child.
+
+*   Once all cookies are assigned, this maximum value represents the unfairness
+    of that distribution.
+
+*   Among all possible distributions, we select the one with the minimum
+    unfairness.
+
+*   This is similar to Combination Sum in structure, but differs in goal:
+    Combination Sum checks feasibility, while this problem optimizes a value.
+
+*   The recursion explores all assignments and uses backtracking to undo choices.
+
+*   The time complexity is exponential due to all possible distributions.
+
+*   The space complexity is O(k), from the distribution array and recursion stack.

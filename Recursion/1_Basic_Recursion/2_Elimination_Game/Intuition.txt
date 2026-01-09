@@ -1,2 +1,45 @@
 Question Link : https://leetcode.com/problems/elimination-game/description/
 
+*   The problem starts with numbers from 1 to n and repeatedly removes every
+    second number, alternating the direction each round.
+
+*   Instead of simulating removals, we focus on how the remaining numbers are
+    transformed after each elimination round.
+
+*   After one elimination round, exactly n/2 numbers remain, regardless of the
+    direction.
+
+*   These remaining numbers are not arbitrary; they are a transformed version
+    of the original sequence.
+
+*   When eliminating from the left, all odd positions are removed, and the
+    remaining numbers are the even ones: 2, 4, 6, ...
+
+*   This means each remaining number can be written as:
+        original_value = 2 × new_index
+
+*   Therefore, the result of the smaller problem (size n/2) must be multiplied
+    by 2 to map back to the original numbering.
+
+*   When eliminating from the right, the remaining numbers still form a sequence
+    of size n/2, but the exact mapping depends on whether n is even or odd.
+
+*   If n is even, the remaining numbers correspond to:
+        original_value = 2 × new_index − 1
+
+*   If n is odd, the remaining numbers correspond to:
+        original_value = 2 × new_index
+
+*   In all cases, each elimination round reduces the problem size to n/2 and
+    transforms the result by a fixed factor and offset.
+
+*   The direction flips after every round, so this transformation alternates
+    accordingly.
+
+*   The recursion continues until n becomes 1, which is the base case.
+
+*   While returning from recursion, the result is reconstructed by applying
+    the correct transformation at each level.
+
+*   Since the problem size halves each time, the time complexity is O(log n),
+    with recursion depth also O(log n).

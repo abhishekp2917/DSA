@@ -1,1 +1,31 @@
 Question Link : https://leetcode.com/problems/different-ways-to-add-parentheses/description/
+
+*   The problem asks for all possible results obtained by adding parentheses
+    in different ways to an arithmetic expression.
+
+*   Parentheses decide the order of evaluation, which means choosing where
+    to split the expression.
+
+*   Each operator can be treated as a split point that divides the expression
+    into a left and a right sub-expression.
+
+*   For a chosen split, all possible results of the left part are combined
+    with all possible results of the right part.
+
+*   This naturally leads to a divide-and-conquer recursive solution.
+
+*   The base case occurs when the sub-expression contains only one number.
+
+*   Since the same sub-expression ranges appear repeatedly, memoization is
+    used to avoid recomputation.
+
+*   Each recursive call returns a list of all possible results for a given
+    sub-expression range.
+
+*   The final answer is the list of all results obtained from splitting the
+    full expression in every valid way.
+
+*   This approach ensures all parenthesization possibilities are explored.
+
+*   The time complexity is exponential in the number of operators, but
+    memoization significantly reduces repeated work.

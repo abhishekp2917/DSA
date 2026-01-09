@@ -1,0 +1,37 @@
+Question Link : https://leetcode.com/problems/maximum-points-in-an-archery-competition/description/
+
+*   Bob and Alice compete over 12 scoring sections, each worth its index value
+    in points.
+
+*   Bob can earn points for a section only if he shoots more arrows than Alice
+    in that section.
+
+*   For each score i, Bob has a binary decision: either contest that score or
+    skip it entirely.
+
+*   If Bob contests score i, he must spend aliceArrows[i] + 1 arrows to win
+    i points.
+
+*   This creates a backtracking problem where choices are made over score
+    indices, not over arrows directly.
+
+*   The recursion processes scores from highest to lowest to prioritize higher
+    point values.
+
+*   At each step, Bob’s remaining arrows and total score define the current
+    state.
+
+*   Whenever a better total score is found, the current arrow distribution is
+    saved as the best result.
+
+*   Any remaining arrows that are not used for scoring must be assigned to
+    score 0, since it does not affect the total score.
+
+*   The recursion explores all valid ways Bob can spend his arrows to maximize
+    points.
+
+*   This is a combination-style backtracking problem with an optimization goal,
+    not a permutation or subset problem.
+
+*   The time complexity is exponential due to exploring all score combinations,
+    but the state space is small (12 scores).

@@ -1,0 +1,30 @@
+Question Link : https://leetcode.com/problems/split-a-string-into-the-max-number-of-unique-substrings/description
+
+*   The problem asks us to split a string into substrings such that all
+    substrings are unique.
+
+*   The order of characters is fixed, so we are not rearranging the string.
+
+*   The only decision at each step is where to cut the string.
+
+*   Starting from a given index, we try all possible substrings that begin at
+    that index.
+
+*   A substring can be chosen only if it has not appeared earlier in the split.
+
+*   Once a valid substring is chosen, we recursively solve the problem for the
+    remaining suffix.
+
+*   A set is used to track which substrings have already been used.
+
+*   When the end of the string is reached, the size of the set represents the
+    number of unique substrings formed.
+
+*   Among all possible ways to split the string, we choose the one that
+    maximizes the count of unique substrings.
+
+*   Backtracking is used to explore all valid cut positions and undo choices.
+
+*   The time complexity is exponential due to the number of possible partitions.
+
+*   The space complexity is O(n) due to recursion depth and stored substrings.

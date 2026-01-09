@@ -1,0 +1,32 @@
+Question Link : https://leetcode.com/problems/matchsticks-to-square/description
+
+*   The problem asks whether matchsticks can be partitioned into exactly four
+    groups such that all groups have the same total length.
+
+*   Since each matchstick must be used exactly once, this is a partitioning
+    problem rather than a combination or subset generation problem.
+
+*   The total length of all matchsticks must be divisible by four; otherwise,
+    forming a square is impossible.
+
+*   The goal is to assign each matchstick to one of four sides without exceeding
+    the required side length.
+
+*   Backtracking is used to try all possible assignments of matchsticks to sides.
+
+*   Sorting matchsticks in ascending order allows us to assign larger sticks
+    first, which helps prune invalid paths early.
+
+*   At each step, the current matchstick is tried on all four sides.
+
+*   If adding the stick exceeds the expected side length, that option is skipped.
+
+*   When all matchsticks are assigned, we check whether all four sides are equal.
+
+*   The recursion explores all valid assignments and stops early if a valid
+    square configuration is found.
+
+*   The time complexity is exponential due to the number of assignments, but
+    pruning makes the solution practical.
+
+*   The space complexity is O(n), due to recursion depth and side-length tracking.

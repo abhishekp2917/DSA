@@ -1,3 +1,43 @@
 Question Link : https://leetcode.com/problems/find-the-winner-of-the-circular-game/description/
 
+*   This problem is a variation of the Elimination Game (Josephus problem), where
+    players are removed one by one in a circular order.
+
+*   In each round, the k-th player is eliminated, and the game continues from the
+    player immediately after the eliminated one.
+
+*   The players are arranged in a circle, so after the last player we come back
+    to the first one again.
+
+*   This means the sequence repeats forever:
+        1 2 3 4 5 1 2 3 4 5 ...
+
+*   After elimination, the remaining players form a smaller rotated circle of size n - 1,
+    starting from the next position.
+
+*   For example, if player 4 is removed:
+        Original: 1 2 3 4 5
+        Remaining: 5 1 2 3
+
+*   The recursive call finds the winner in this smaller, rotated circle.
+
+*   Since this smaller circle is rotated (transformed), we need to convert the result 
+    of this smaller circle, back to the original circle.
+
+*   To convert, we shift it by the same amount:
+        nextStart = (k % n) + 1
+
+*   The final mapping uses modular arithmetic to handle wrap-around:
+        original_position = (nextStart + winner - 2) % n + 1
+
+*   This same transformation idea appears in the Elimination Game, where each
+    round reduces the problem size and applies a fixed position shift.
+
+*   Since the problem size reduces by one each round, the overall time complexity
+    is O(n).
+
+
+
+
+
 

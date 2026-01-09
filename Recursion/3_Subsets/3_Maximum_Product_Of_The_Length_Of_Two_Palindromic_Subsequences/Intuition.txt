@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/maximum-product-of-the-length-of-two-palindromic-subsequences/description/
+
+*   The problem asks us to choose two palindromic subsequences that do not
+    share any character indices.
+
+*   Each character in the string can either be included in a subsequence
+    or skipped, which naturally forms a subset decision.
+
+*   A bitmask is used to represent which indices are included in a subsequence.
+
+*   All possible subsequences are generated using recursion by making a
+    take or skip decision at each index.
+
+*   Whenever a generated subsequence is a palindrome, its length is stored
+    against its bitmask.
+
+*   After generating all palindromic subsequences, every pair of bitmasks
+    is compared.
+
+*   If two bitmasks do not overlap, the corresponding subsequences do not
+    share any characters.
+
+*   The product of their lengths is computed and the maximum product is tracked.
+
+*   This approach works because the string length is small, allowing
+    enumeration of all subsets.
+
+*   The solution combines subset enumeration with bitmasking and validation.

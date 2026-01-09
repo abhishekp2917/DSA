@@ -1,0 +1,29 @@
+Question Link : https://leetcode.com/problems/additive-number/description/
+
+*   The problem asks whether a string can be split into a sequence of numbers
+    where each number (starting from the third) is the sum of the previous two.
+
+*   The order of digits is fixed, so we cannot rearrange characters.
+
+*   The main decision is where to split the string to form the next number.
+
+*   Backtracking is used to try all possible prefixes as the next number in
+    the sequence.
+
+*   The first two numbers are chosen freely, but all subsequent numbers must
+    satisfy the additive condition.
+
+*   Pruning is applied to stop early when the current number exceeds the
+    expected sum.
+
+*   Leading zeros are handled by checking whether the parsed number matches
+    the substring length.
+
+*   If the entire string is consumed after forming at least three numbers,
+    the sequence is valid.
+
+*   This approach explores all valid ways to partition the string into an
+    additive sequence.
+
+*   The recursion depth is bounded by the length of the string, making the
+    solution feasible with pruning.

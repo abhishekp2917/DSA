@@ -1,0 +1,33 @@
+Question Link : https://leetcode.com/problems/shopping-offers/description/
+
+*   The problem asks for the minimum cost required to satisfy a list of item
+    needs using individual prices and special bundle offers.
+
+*   At any point, the state of the problem is fully described by the remaining
+    needs.
+
+*   For a given needs state, we have two choices:
+    buy all remaining items individually, or apply a valid special offer.
+
+*   Applying an offer reduces the current needs and incurs the offer’s price.
+
+*   This naturally leads to a recursive exploration of all valid ways to apply
+    offers.
+
+*   The same needs configuration can be reached through different sequences of
+    offers.
+
+*   To avoid recomputing results for the same needs, memoization is used.
+
+*   Each recursive call computes the minimum cost for a specific needs state.
+
+*   The recursion ends when no offer can be applied, and only individual
+    purchases remain.
+
+*   The final answer is the minimum cost computed for the initial needs.
+
+*   The state space is limited by the maximum quantities in needs, making
+    DFS with memoization efficient.
+
+*   This problem is a combination-style optimization problem with state
+    compression.
