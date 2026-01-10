@@ -1,0 +1,28 @@
+Question Link : https://leetcode.com/problems/course-schedule-iv/description/
+
+*   The problem asks whether one course is a prerequisite of another,
+    considering both direct and indirect dependencies.
+
+*   Since course dependencies form a directed acyclic graph,
+    courses can be processed in topological order.
+
+*   The key idea is to precompute all prerequisite relationships
+    before answering queries.
+
+*   A boolean matrix is used where matrix[u][v] means
+    "u is a prerequisite of v".
+
+*   Initially, each course is marked as a prerequisite of itself.
+
+*   Courses with no prerequisites are processed first.
+
+*   When a course is processed, its prerequisite information is
+    propagated to all courses that depend on it.
+
+*   This propagation ensures that indirect prerequisites are captured.
+
+*   By the time a course is processed, all of its prerequisites
+    have already been finalized.
+
+*   Once preprocessing is complete, each query can be answered
+    in constant time by simply checking the matrix.

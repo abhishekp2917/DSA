@@ -1,0 +1,20 @@
+Question Link : https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+
+*   The graph is undirected and may contain multiple connected components.
+
+*   A cycle exists if during DFS we reach a node that has already been visited
+    and is not the immediate parent.
+
+*   The parent check is essential because in an undirected graph,
+    every edge appears in both directions.
+
+*   Without tracking the parent, simply revisiting the parent node
+    would be incorrectly detected as a cycle.
+
+*   DFS is started from every unvisited node to ensure all components
+    of the graph are checked.
+
+*   Once a cycle is found in any component, the final result is true.
+
+*   If all components are explored without encountering such a condition,
+    the graph does not contain a cycle.

@@ -1,0 +1,33 @@
+Question Link : https://leetcode.com/problems/course-schedule/description/
+
+*   Each course is a node in a directed graph.
+
+*   A prerequisite pair [a, b] means course b must be completed
+    before course a, creating a directed edge b → a.
+
+*   A course can be taken only when all its prerequisites
+    have already been completed.
+
+*   The idea is to repeatedly take courses that currently
+    have no prerequisites left.
+
+*   We first compute how many prerequisites (indegree) each course has.
+
+*   All courses with indegree 0 can be taken immediately,
+    so they are added to a queue.
+
+*   When a course is taken, it effectively removes itself
+    as a prerequisite for other courses.
+
+*   This is simulated by reducing the indegree of its neighboring courses.
+
+*   If any neighbor’s indegree becomes 0, it means all its
+    prerequisites are now satisfied, and it can be taken next.
+
+*   We keep processing courses this way until no more are available.
+
+*   If we are able to process all courses, there is no cycle,
+    and finishing all courses is possible.
+
+*   If some courses remain unprocessed, it means there is a cycle,
+    making it impossible to finish all courses.

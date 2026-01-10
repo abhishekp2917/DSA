@@ -1,0 +1,27 @@
+Question Link : https://leetcode.com/problems/possible-bipartition/description/
+
+*   Each person is represented as a node in a graph.
+
+*   A dislike between two people creates an undirected edge,
+    meaning they cannot be placed in the same group.
+
+*   The goal is to check whether the graph can be split into
+    exactly two groups such that no edge connects nodes
+    within the same group.
+
+*   This is done by assigning each node one of two values
+    (+1 or -1), representing the two groups.
+
+*   When we assign a node to a group, all of its neighbors
+    must be assigned to the opposite group.
+
+*   DFS is used to propagate this assignment through the graph.
+
+*   If during traversal we encounter a node that has already
+    been assigned a conflicting value, the graph is not bipartite.
+
+*   Since the graph may be disconnected, we repeat this process
+    for every unvisited node.
+
+*   If all components can be assigned without conflict,
+    the bipartition is possible.

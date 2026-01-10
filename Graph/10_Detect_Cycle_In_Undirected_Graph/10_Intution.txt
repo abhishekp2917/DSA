@@ -1,9 +1,0 @@
-Question Link : https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
-
-*   In an undirected graph, a cycle exists if we encounter a node that we have already visited.
-
-*   To detect cycles, we traverse the graph while keeping track of visited nodes.
-
-*   If we reach a previously visited node (excluding the direct parent), a cycle is present.
-
-*   Since the graph may have multiple connected components, we start traversal from each unvisited node.
