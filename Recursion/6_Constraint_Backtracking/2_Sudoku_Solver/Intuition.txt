@@ -1,3 +1,26 @@
 Question Link : https://leetcode.com/problems/sudoku-solver/description/
 
+*   The problem asks us to fill a partially completed 9x9 Sudoku board
+    such that all Sudoku rules are satisfied.
 
+*   Each empty cell must contain a digit from 1 to 9.
+
+*   The order of filling matters because an early wrong choice can
+    invalidate later placements.
+
+*   The algorithm first collects all empty cell positions.
+
+*   Backtracking is used to fill these empty cells one by one.
+
+*   For each empty cell, we try all digits from 1 to 9.
+
+*   A digit is placed only if it does not violate row, column,
+    or 3x3 sub-grid constraints.
+
+*   If a conflict arises later, the algorithm backtracks and
+    tries a different digit.
+
+*   When all empty cells are filled successfully, the Sudoku
+    board is solved.
+
+*   Pruning happens naturally by rejecting invalid placements early.

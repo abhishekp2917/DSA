@@ -1,2 +1,26 @@
 Question Link : https://leetcode.com/problems/construct-the-lexicographically-largest-valid-sequence/description
 
+*   The problem asks us to construct a sequence of length (2n - 1) with strict
+    placement constraints on each number.
+
+*   Each number i > 1 must appear exactly twice, and the distance between the
+    two occurrences must be exactly i.
+
+*   The number 1 appears only once.
+
+*   All positions in the sequence must be filled, and no number can be reused.
+
+*   The sequence must be lexicographically largest, so larger numbers should
+    be placed as early as possible.
+
+*   Backtracking is used to try placing numbers at the earliest empty position.
+
+*   At each step, numbers are tried from n down to 1 to enforce lexicographic
+    ordering.
+
+*   If a number i > 1 is chosen, both required positions are filled together.
+
+*   Invalid placements are pruned early when positions are out of bounds or
+    already occupied.
+
+*   Once all positions are filled, a valid sequence is obtained.

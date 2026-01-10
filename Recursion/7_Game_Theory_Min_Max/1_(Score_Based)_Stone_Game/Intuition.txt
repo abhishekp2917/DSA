@@ -1,2 +1,39 @@
 Question Link : https://leetcode.com/problems/stone-game/description/
 
+Approach 1:
+
+*   Alice wants to maximize the total stones she collects.
+
+*   Bob also plays optimally, so Alice must assume Bob will always make
+    the move that minimizes her future gain.
+
+*   For every subarray [start, end], Alice has two choices:
+    take the first pile or take the last pile.
+
+*   After Alice makes a choice, Bob immediately responds optimally,
+    which is why Alice assumes the minimum of the next possible states.
+
+*   This creates a recursive structure where each state depends on
+    smaller subproblems of the same type.
+
+*   Memoization avoids recomputing the same subarrays repeatedly.
+
+*   If Alice can collect more than half of the total stones, she wins.
+
+Approach 2:
+
+*   Instead of tracking Alice and Bob separately, we track the score
+    difference between the current player and the opponent.
+
+*   When a player takes a pile, they gain its stones immediately.
+
+*   After that, the opponent plays optimally and reduces the advantage,
+    which is why the recursive call is subtracted.
+
+*   Each subarray [start, end] represents the same game in a smaller form.
+
+*   The recursive function answers:
+    “What is the best score difference the current player can guarantee?”
+
+*   If Alice can guarantee a positive score difference at the start,
+    she will end the game with more stones than Bob.

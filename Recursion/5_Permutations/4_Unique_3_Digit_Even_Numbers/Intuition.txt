@@ -1,3 +1,24 @@
 Question Link : https://leetcode.com/problems/unique-3-digit-even-numbers/
 
+*   The task is to count how many unique 3-digit even numbers can be formed
+    using the given digits.
 
+*   Each digit can be used only as many times as it appears in the input.
+
+*   A valid number must satisfy two conditions:
+    it must be a 3-digit number (>= 100) and must be even.
+
+*   The number is built digit by digit using backtracking.
+
+*   At each step, we try all digits that are still available.
+
+*   A frequency array is used to ensure digits are not reused more times
+    than allowed.
+
+*   Once three digits are placed, the constructed number is validated.
+
+*   If the number is even and has no leading zero, it contributes to the count.
+
+*   Backtracking ensures all valid permutations are explored without duplicates.
+
+*   The search space is small, making brute-force generation feasible.

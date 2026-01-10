@@ -1,3 +1,24 @@
 Question Link : https://leetcode.com/problems/n-queens/description/
 
+*   The problem asks us to place n queens on an n x n chessboard such that
+    no two queens attack each other.
 
+*   Exactly one queen must be placed in each row.
+
+*   For a given row, the decision is which column to place the queen in.
+
+*   Once a queen is placed, it restricts future choices by blocking its
+    column and both diagonals.
+
+*   Backtracking is used to try all valid column placements row by row.
+
+*   If a queen placement causes a conflict, that branch is abandoned early.
+
+*   When all rows are filled without conflicts, a valid board configuration
+    is obtained.
+
+*   The algorithm explores all permutations of column placements that satisfy
+    the attack constraints.
+
+*   The total number of solutions grows quickly with n, but pruning makes
+    the search feasible.

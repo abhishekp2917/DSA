@@ -1,2 +1,33 @@
 Question Link : https://leetcode.com/problems/can-i-win/description/
 
+*   Two players take turns picking a unique number from 1 to maxChoosableInteger.
+
+*   Each picked number is added to a running total.
+
+*   The player who causes the total to reach or exceed desiredTotal wins.
+
+*   The game is fully deterministic: both players play optimally.
+
+*   The key idea is to simulate the game state using recursion.
+
+*   A game state is completely defined by:
+    - which numbers are still available
+    - how much more total is needed to win
+
+*   A bitmask is used to represent available numbers efficiently.
+
+*   For each available number, the current player tries picking it.
+
+*   After picking a number, the opponent becomes the current player
+    in the next recursive call.
+
+*   If there exists at least one move that forces the opponent into
+    a losing position, the current player wins.
+
+*   Memoization is crucial because many game states repeat due to
+    different move orders leading to the same set of remaining numbers.
+
+*   The recursion answers one question:
+    "Can the current player force a win from this exact state?"
+
+*   The initial call answers whether the first player can force a win.

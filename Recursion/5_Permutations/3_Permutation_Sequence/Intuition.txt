@@ -1,2 +1,26 @@
 Question Link : https://leetcode.com/problems/permutation-sequence/description/
 
+*   The problem asks for the k-th permutation of numbers from 1 to n in
+    lexicographical order.
+
+*   Generating all permutations would take O(n!) time, which is unnecessary.
+
+*   The key observation is that permutations can be grouped based on the
+    first digit.
+
+*   For n numbers, fixing the first digit creates (n-1)! permutations.
+
+*   By dividing k by (n-1)!, we can determine which digit should appear
+    at the current position.
+
+*   Once a digit is fixed, it is removed from the available pool.
+
+*   The same logic is applied recursively to determine the remaining digits.
+
+*   This approach is based on the factorial number system.
+
+*   The recursion builds the permutation one digit at a time without
+    generating all permutations.
+
+*   Time complexity is O(n^2) due to list removals, and space complexity
+    is O(n).

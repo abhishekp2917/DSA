@@ -1,2 +1,34 @@
 Question Link : https://leetcode.com/problems/stone-game-ii/
 
+*   The game is played by two players taking turns.
+
+*   On each turn, a player can take X piles from the front, where
+    1 ≤ X ≤ 2*M.
+
+*   After a player takes X piles, the value of M becomes max(M, X).
+
+*   The key difficulty is that the allowed move range changes dynamically
+    based on previous choices.
+
+*   To handle this, we define a recursive function that represents:
+    "How many stones can the current player collect starting from index `start`
+     when the current M value is `m`?"
+
+*   A suffix sum array is used so that we always know how many stones are
+    still available from a given index.
+
+*   For each possible choice of X, the current player takes some piles,
+    and the opponent then plays optimally on the remaining piles.
+
+*   Since the total stones from `start` is fixed, the current player's
+    stones equal:
+        total remaining stones - opponent's best achievable stones
+
+*   This transforms the problem into choosing X such that the opponent's
+    future gain is minimized.
+
+*   Memoization ensures that each (start, M) state is solved only once,
+    reducing the time complexity drastically.
+
+*   The recursion explores all valid choices of X and picks the best one,
+    ensuring optimal play.

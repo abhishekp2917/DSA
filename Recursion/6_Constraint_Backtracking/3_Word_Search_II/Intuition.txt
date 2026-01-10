@@ -1,3 +1,24 @@
 Question Link : https://leetcode.com/problems/word-search-ii/description/
 
+*   The problem asks us to find which given words can be formed by walking
+    paths on a character grid.
 
+*   A word is formed by moving to adjacent cells (up, down, left, right)
+    without revisiting the same cell.
+
+*   The algorithm starts a DFS from every cell on the board.
+
+*   A string is built character by character as the path grows.
+
+*   Prefix pruning is used to stop exploring paths that cannot form
+    any valid word.
+
+*   A visited matrix ensures that each cell is used at most once per path.
+
+*   When a complete word is formed, it is recorded and removed to avoid
+    duplicates.
+
+*   Backtracking restores the board state after each recursive call.
+
+*   This approach avoids unnecessary exploration and efficiently finds
+    all valid words.

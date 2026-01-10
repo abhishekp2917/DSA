@@ -1,2 +1,27 @@
 Question Link : https://leetcode.com/problems/divisor-game/description/
 
+*   Two players take turns playing with a number n.
+
+*   On each turn, a player chooses a divisor x of n such that 0 < x < n,
+    and replaces n with n - x.
+
+*   If a player cannot make a move (n becomes 1), that player loses.
+
+*   The game is deterministic and both players play optimally.
+
+*   The key idea is to determine whether the current player can force
+    the opponent into a losing position.
+
+*   For a given n, the current player tries all valid divisors.
+
+*   If there exists at least one divisor i such that the opponent loses
+    when the game continues with (n - i), then the current player wins.
+
+*   If all valid moves lead to states where the opponent can win,
+    then the current player loses.
+
+*   This creates a recursive structure where the result for n depends
+    on smaller values of n.
+
+*   Memoization is used to avoid recomputing the same game states,
+    making the solution efficient.
