@@ -1,0 +1,22 @@
+Question Link : https://www.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1
+
+*   create a node viz ansHead which will be the head of the additon of the two given LinkedList and assign a 
+    pointer to it let say pointer 'curr'.
+
+*   reverse both the given LinkedList so that we can start adding nodes value from the ones place.   
+
+*   create two another pointers viz ptr1 and ptr2 which will intially point to that given LinkedList
+    create two variables viz sum and carry in which sum will hold sum of ptr1, ptr2 and carry while 
+    carry will hold carry generated after performing summation of ptr1, ptr2 and carry.
+
+*   while ptr1 is not null or ptr2 is not null or carry is not equal to zero, add ptr1 node data is not null, 
+    ptr2 node data if not null and carry and assign the result to varaible sum
+
+*   create a new node with value equal to sum%10 (ones place digit value) and make curr pointer next 
+    point to this newly created node and then move curr pointer forward.
+
+*   assign carry value equal to sum/10
+
+*   reverse newly created LinkedList with ansHead beign the head of it
+
+*   finally return ansHead's next node

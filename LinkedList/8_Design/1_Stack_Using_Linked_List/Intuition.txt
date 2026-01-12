@@ -1,0 +1,15 @@
+Question Link : https://www.geeksforgeeks.org/problems/implement-stack-using-linked-list/1
+
+(1) Intution to push element to top of the stack using LinkedList :
+
+*   we will maintain top of stack using head of linked list.
+
+*   for a new value, create a new node and make its next point to current head.
+
+*   make the head ptr point to newly created node. This way head will always point to last input value (top of stack)
+
+(2) Intution to pop element from top of the stack using LinkedList :
+
+*   if head is null then return -1
+
+*   else make the head pointer point to its next so as to eliminate the head (top of stack) 

@@ -1,0 +1,22 @@
+Question Link : https://www.geeksforgeeks.org/problems/remove-loop-in-linked-list/1
+
+*   using slow and fast pointer detect if loop is present or not. If fast pointer becomes null 
+    that means loop is not present. If slow and fast pointer points to same node after some iteration
+    then loop is present.
+
+*   if loop is present then find out number of nodes present in the loop viz N by moving 
+    fast pointer one node ahead of slow node and then moving fast node forward until fast and 
+    slow becomes equal.
+
+*   now make slow and fast pointer point to head of LinkedList and move fast pointer ahead by 
+    N-1 nodes. We are doing this because let say there are M nodes after which there is loop of N nodes
+    then if we move N nodes from head then ((N+M)-N)=M nodes will remain to reach at node where tail
+    of LL connected to (intersection point). 
+
+    once fast pointer will move to that point, then pointer at head (slow) and at fast will be at 
+    M distance from the intersection point which we can find out by movinf both slow and fast pointer
+    ahead by one node at a time until they both point to same node.
+
+*   at last once both the fast and slow pointer meet at same point, make fast prev node's next point 
+    to null
+

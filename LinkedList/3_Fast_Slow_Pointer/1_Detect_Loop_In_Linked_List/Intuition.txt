@@ -1,0 +1,12 @@
+Question Link : https://www.geeksforgeeks.org/problems/detect-loop-in-linked-list/1
+
+*   Set pointers to first and second node in linkedlist as slow and 
+    fast pointer respectively
+
+*   move the slow pointer by one node and fast pointer by two node 
+    until next's next of fast node is null
+
+*   while iterating (moving slow and fast pointer) if slow and fast pointer 
+    points to same node then there is a loop present in linkedList
+
+*   else loop doesn't exists

@@ -1,0 +1,25 @@
+Question Link : https://www.geeksforgeeks.org/problems/pairwise-swap-elements-of-a-linked-list-by-swapping-data/1
+
+*   The goal is to swap every adjacent pair of nodes in the linked list.
+
+*   Instead of swapping data, the problem requires rearranging the links
+    between nodes.
+
+*   Each iteration focuses on exactly two nodes (a pair).
+
+*   The second node of the pair is moved ahead of the first node,
+    effectively reversing their order.
+
+*   A `prev` pointer is used to connect the previously processed part
+    of the list with the newly swapped pair.
+
+*   After swapping a pair, the algorithm moves forward to the next
+    pair using stored references.
+
+*   Special care is taken to handle cases where the list has an odd
+    number of nodes.
+
+*   The process continues until no more complete pairs remain.
+
+*   The head of the list changes after the first swap, so it is
+    stored separately and returned at the end.

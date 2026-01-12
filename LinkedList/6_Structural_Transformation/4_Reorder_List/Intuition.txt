@@ -1,0 +1,9 @@
+Question Link : https://www.geeksforgeeks.org/problems/reorder-list/1
+
+*   split the LL into two parts from the middle and store bothe the splitted LL in LL1 and LL2
+
+*   reverse the LL2.
+
+*   merge LL1 and LL2 alternatively
+
+*   return the head of LL1.

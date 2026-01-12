@@ -1,0 +1,20 @@
+Question Link : https://www.geeksforgeeks.org/problems/reverse-a-linked-list-in-groups-of-given-size/1
+
+*   create a counter having intial value of zero.
+
+*   perform algorithm to reverse a LinkedList (using prev, curr and next pointer) until counter is 
+    not less than K (do increment the counter in each iteration).
+
+*   once counter is equal to K, LL of K nodes will be reversed in which prev will point to reversed LL
+    head, head will point to reversed LL tailand next will point to head of the remaing nodes of LL.
+
+*   if next pointer is null, then just return prev pointer node as it points to head of the reversed
+    LL in K groups.
+
+*   if next is not null, that means there are nodes remaining to be reversed in K groups, so recursively
+    call the same method with next pointer being the head which will return head of the remaining 
+    LL reversed in K groups. So just make head's next node point ot returned value from the recursive call
+    as head points to tail of the previous section of reversed LL in K groups.
+
+*   this recursive call of method will eventually reverse the LL in K groups and will return head of the 
+    LL

@@ -1,0 +1,18 @@
+Question Link : https://www.geeksforgeeks.org/problems/linked-list-in-zig-zag-fashion/1
+
+*   create a node viz tempHead whose next will be head so that prev node will not be null at initially
+
+*   create three pointer viz prev, curr and next which will initially point to tempHead, head and head's next
+    node of the LinkedList
+
+*   create a boolean variable viz status to track whether two nodes relation should be lessthan or greaterthan so that
+    we based on the situation we can perform certain operation
+
+*   while next pointer is not null, move prev, curr and next pointer and check whether curr nodes data
+    and next node data relation is equal to required relation or not. If it is not equal to
+    required realtion then just swap those node postion else leave as it is.
+
+*   now toggle the boolean variable so that we can switch from lessthan to greaterthan or viceversa and
+    move all the pointers forward 
+
+*   finally return the tempHead next node

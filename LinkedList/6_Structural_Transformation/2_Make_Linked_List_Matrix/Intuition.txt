@@ -1,0 +1,11 @@
+Question Link : https://www.geeksforgeeks.org/problems/linked-list-matrix/1
+
+*   create a Node type 2D array of size m+1 and n+1 where m and n are rows and column size of
+    given 2D array.
+
+*   intialize Node type 2D array with nodes with data corespond to row and column of given 2D array. 
+
+*   now make right and below pointer of each node of the 2D array to point to its next column node and 
+    next row node. In this way, it will connect all the nodes of 2D array
+
+*   atlast return zeroth row and zeroth column node as it will be the head of the LinkedList matrix.  

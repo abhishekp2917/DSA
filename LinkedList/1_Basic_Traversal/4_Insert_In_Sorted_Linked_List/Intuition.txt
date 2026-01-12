@@ -1,0 +1,17 @@
+Question Link : https://www.geeksforgeeks.org/problems/insert-in-a-sorted-list/1
+
+*   create two pointers viz prev and curr which will intially point to null and head of the given 
+    LinkedList.
+
+*   move both the prev and curr pointer until either curr pointer points to null or curr pointer data is larger
+    than the value to be inserted so that we can reach to the node where we have to insert new node.
+
+*   after coming out of the loop, if prev pointer points to null that means we need to add new node at the
+    starting of the LinkedList. So, just create a new node and male its next to head of the given 
+    LinkedList and then make that newly created node the head of the LinkedList
+
+*   if prev is not null, then create a new node and make that node prev's next node. Thenafter, make
+    newly created node next node to curr node so that we can add new node between prev and curr
+    node
+
+*   finally return head of the LinkedList

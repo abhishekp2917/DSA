@@ -1,0 +1,17 @@
+Question Link : https://www.geeksforgeeks.org/problems/rotate-a-linked-list/1
+
+*   create two pointer prev and curr which will be pointing to null and head intially.
+
+*   move both the pointer by K node so that curr pointer will reach to that node from where all
+    the nodes after curr pointer inclusively will come before head of LL after rotation
+
+    if curr is pointing to null that means we have rotated the LL K times where here K is equal to
+    size of LL. In thsi case LL will remain as it is so just return head of LL
+
+*   if curr is not null the make prev pointer next point to null to break the link between prev
+    curr pointer
+
+*   find the last node of the second part (list starting from curr pointer) of LL and make last node
+    next point to head to make second part come before head of LL.
+
+*   finally return curr pointer which is head of the second part.

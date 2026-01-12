@@ -1,0 +1,28 @@
+Question Link : https://www.geeksforgeeks.org/problems/swap-kth-node-from-beginning-and-kth-node-from-end-in-a-singly-linked-list/1
+
+*   The goal is to swap the kth node from the beginning
+    with the kth node from the end in a singly linked list.
+
+*   The kth node from the beginning can be found by simply
+    moving k-1 steps from the head.
+
+*   Finding the kth node from the end efficiently requires
+    the two-pointer technique.
+
+*   A fast pointer is moved k-1 steps ahead first.
+
+*   Then both fast and slow pointers move together until
+    fast reaches the last node.
+
+*   At that moment, the slow pointer is exactly at the
+    kth node from the end.
+
+*   This works because the distance between fast and slow
+    remains constant throughout the traversal.
+
+*   Once both target nodes are identified, their values
+    are swapped instead of changing links, which keeps
+    the structure of the list intact.
+
+*   This approach completes the task in one traversal
+    and uses constant extra space.

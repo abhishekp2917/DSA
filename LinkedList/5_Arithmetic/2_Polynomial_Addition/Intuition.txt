@@ -1,0 +1,16 @@
+Question Link : https://www.geeksforgeeks.org/problems/polynomial-addition/1
+
+*   create a node viz tempHead and a pointer viz curr which will intially point to tempHead.
+
+*   create two pointers viz ptr1 and ptr2 which will intially point to head1 and head2 repectively.
+
+*   while ptr1 and ptr2 is not pointing to null, if pow of both the pointer are equal, then add coeff of
+    ptr2 into ptr1 and make curr pointer next poin to ptr1. Then move curr, ptr1 and ptr2 forward.
+
+*   if pow of ptr1 is greater than ptr2, then don't add ptr2 coeff in ptr1 and just make curr pointer 
+    next point to ptr1 and only move pointer curr and pointer ptr1 forward.
+
+*   else if pow of ptr2 is greater than ptr1, then don't add ptr2 coeff in ptr1 and just make curr pointer 
+    next point to ptr2 and only move pointer curr and pointer ptr2 forward.
+
+*   finally return tempHead next node.

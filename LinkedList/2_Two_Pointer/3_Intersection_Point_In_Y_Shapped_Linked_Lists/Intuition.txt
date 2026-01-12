@@ -1,0 +1,24 @@
+Question Link : https://www.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1
+
+*   Two linked lists may have different lengths but can share a common tail.
+
+*   The goal is to find the first node where both lists merge.
+
+*   Using two pointers allows us to traverse both lists without
+    explicitly calculating their lengths.
+
+*   Each pointer starts at the head of a different list.
+
+*   When a pointer reaches the end of its list, it is redirected
+    to the head of the other list.
+
+*   This ensures that both pointers traverse the same total distance:
+    length(list1) + length(list2).
+
+*   If the lists intersect, both pointers will arrive at the
+    intersection node at the same time.
+
+*   If the lists do not intersect, both pointers will eventually
+    reach null at the same time.
+
+*   This approach works in linear time and constant space.

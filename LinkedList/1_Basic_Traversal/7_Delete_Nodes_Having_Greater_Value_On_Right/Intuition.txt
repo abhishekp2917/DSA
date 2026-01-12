@@ -1,0 +1,15 @@
+Question Link : https://www.geeksforgeeks.org/problems/delete-nodes-having-greater-value-on-right/1
+
+*   first reverse the LL so that we have to remove all the nodes which are smaller than current node
+    as performing this is equal to removing node which has node greater on right.
+
+*   after reversing, create a pointer prev and curr where prev will point to head and curr will point to 
+    head's next node.
+
+*   while curr is not pointing to null, move curr pointer forward until curr pointer data is greater than 
+    prev pointer data.
+
+*   once curr data is greater than prev data, make prev's next pointer point to curr. Then make prev point
+    to curr and curr point to curr's next node.
+
+*   after coming out of the loop, reverse the LL once again and return the head of that LL.
