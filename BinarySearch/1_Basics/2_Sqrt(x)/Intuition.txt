@@ -1,0 +1,35 @@
+Question Link : https://leetcode.com/problems/sqrtx/description/
+
+*   We are asked to find the integer square root of x,
+    which means the largest integer whose square is less than or equal to x.
+
+*   The result must satisfy:
+        result * result <= x
+    and (result + 1) * (result + 1) > x
+
+*   Instead of trying all numbers linearly, we can binary search on the
+    possible answer range because the square function is monotonic
+    (as the number increases, its square always increases).
+
+*   The smallest possible square root is 1 and the largest possible is x / 2
+    (for x >= 2), because any number greater than x / 2 squared will exceed x.
+
+*   At each step, we pick a middle value mid as a candidate square root.
+
+*   If mid * mid is less than or equal to x, then mid is a valid answer,
+    but there might exist a larger valid value.
+    So we store mid as a possible result and search on the right side.
+
+*   If mid * mid is greater than x, then mid is too large to be the square root,
+    so we discard the right side and search on the left side.
+
+*   We always keep track of the largest valid mid found so far.
+
+*   When the search finishes, the stored value is the floor of sqrt(x).
+
+*   This works because the condition (mid * mid <= x) is monotonic:
+    once it becomes false, it will remain false for all larger values.
+
+*   Time Complexity  : O(log x) because we binary search on the value range.
+
+*   Space Complexity : O(1) because only constant extra variables are used.

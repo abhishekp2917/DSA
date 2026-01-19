@@ -1,0 +1,64 @@
+Question Link : https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/
+
+*   We need to distribute all products into exactly n stores such that
+    the MAXIMUM number of products in any store is minimized.
+
+*   Brute force trying all distributions is impossible.
+
+*   Key observation:
+        If a maximum per-store capacity X is feasible,
+        then any larger capacity is also feasible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (capacity).
+
+*   Binary search range:
+
+        Minimum capacity = 1
+        Reason:
+            Each product must go to some store.
+
+        Maximum capacity = max value in quantities
+        Reason:
+            One store might take all of a product type.
+
+*   For a candidate capacity X:
+        We compute how many stores are REQUIRED if
+        no store can take more than X items.
+
+*   For each product type with quantity q:
+
+        We need:
+            ceil(q / X) stores
+
+        Reason:
+            Each store can take at most X items,
+            so we split the quantity into chunks of size ≤ X.
+
+*   Total required stores =
+        sum over all product types of ceil(quantity / X)
+
+*   Feasibility check:
+        If required stores <= n → X is valid
+        Else → X is too small
+
+*   Binary search decisions:
+
+        - If feasible:
+              store X and try smaller capacity
+
+        - If not feasible:
+              try larger capacity
+
+*   This works because:
+        - Required store count decreases monotonically as X increases
+        - Ceiling division correctly models splitting across stores
+
+*   Time Complexity:
+        For each binary search step:
+            scan quantities → O(m)
+        Binary search steps → O(log(maxQuantity))
+
+        Total → O(m log(maxQuantity))
+
+*   Space Complexity:
+        O(1)

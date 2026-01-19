@@ -1,0 +1,65 @@
+Question Link : https://leetcode.com/problems/split-array-largest-sum/description/
+
+*   We need to split the array into k continuous subarrays such that
+    the LARGEST subarray sum is as SMALL as possible.
+
+*   Brute force trying all splits is impossible.
+
+*   Key observation:
+        If a maximum allowed subarray sum S is feasible,
+        then any larger sum is also feasible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (subarray sum).
+
+*   Binary search range:
+
+        Minimum possible sum =
+            max element in the array
+        Reason:
+            At least one subarray must contain the largest element.
+
+        Maximum possible sum =
+            total sum of the array
+        Reason:
+            One subarray containing all elements.
+
+*   For a candidate maximum sum S:
+        We greedily split the array into subarrays such that
+        no subarray exceeds sum S.
+
+*   Greedy splitting logic:
+
+        Traverse from left to right:
+            - Keep adding elements to current subarray
+            - If adding an element exceeds S:
+                  start a new subarray here
+
+    Reason:
+        We want each subarray as large as possible (up to S)
+        to minimize the number of subarrays.
+
+*   Feasibility check:
+        If number of subarrays needed <= k → S is valid
+        Else → S is too small
+
+*   Binary search decisions:
+
+        - If feasible:
+              store S and try smaller sum
+
+        - If not feasible:
+              try larger sum
+
+*   This works because:
+        - Required subarray count decreases monotonically as S increases
+        - Greedy splitting gives the minimum possible number of subarrays for fixed S
+
+*   Time Complexity:
+        For each binary search step:
+            greedy scan → O(n)
+        Binary search steps → O(log(totalSum))
+
+        Total → O(n log(totalSum))
+
+*   Space Complexity:
+        O(1)

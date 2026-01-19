@@ -1,0 +1,63 @@
+Question Link : https://www.geeksforgeeks.org/problems/minimize-max-distance-to-gas-station/1
+
+*   We want to add at most k new stations such that
+    the MAXIMUM distance between adjacent stations is minimized.
+
+*   Brute force placement is impossible because positions are continuous.
+
+*   Key observation:
+        If a maximum distance D is possible,
+        then any larger distance is also possible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (distance).
+
+*   Binary search range:
+        Minimum distance = 0
+        Maximum distance = very large (given by constraints)
+
+*   For a candidate distance D:
+        We check if we can make ALL adjacent gaps <= D
+        using at most k new stations.
+
+*   Feasibility logic for one gap:
+
+        gap = stations[i+1] - stations[i]
+
+        To make each segment <= D,
+        we need to split the gap into pieces of length at most D.
+
+        Number of new stations needed =
+                floor(gap / D)
+
+    Reason:
+        Each new station creates an additional segment,
+        reducing the maximum segment length.
+
+*   For all gaps:
+        - Compute required stations
+        - Subtract from k
+        - If k becomes negative → not feasible
+
+*   Binary search decisions:
+
+        - If feasible:
+              distance works → try smaller distance
+
+        - If not feasible:
+              distance too small → try larger distance
+
+*   We stop when the distance range becomes very small (precision threshold).
+
+*   This works because:
+        - Required stations decreases monotonically as distance increases
+        - Feasibility is monotonic over distance
+
+*   Time Complexity:
+        For each binary search step:
+            scan all gaps → O(n)
+        Binary search iterations on doubles → ~60 (constant)
+
+        Total → O(n)
+
+*   Space Complexity:
+        O(1)

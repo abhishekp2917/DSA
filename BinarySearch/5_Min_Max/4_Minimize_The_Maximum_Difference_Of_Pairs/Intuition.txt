@@ -1,0 +1,63 @@
+Question Link : https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/description/
+
+*   We need to select p DISJOINT pairs such that
+    the MAXIMUM difference among chosen pairs is minimized.
+
+*   Brute force choosing pairs is impossible due to combinations.
+
+*   Key observation:
+        If a maximum difference D is feasible,
+        then any larger difference is also feasible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (difference).
+
+*   We sort the array because:
+        - Closest values give smallest differences
+        - Greedy pairing on adjacent elements becomes optimal
+
+*   Binary search range:
+        Minimum difference = 0
+        Maximum difference = max(nums) - min(nums)
+
+*   For a candidate difference D:
+        We check how many disjoint pairs can be formed
+        such that pair difference <= D.
+
+*   Greedy pairing logic:
+
+        Traverse from left to right:
+            - Try to pair nums[i] with nums[i+1]
+            - If their difference <= D:
+                  form a pair and skip both elements
+            - Else:
+                  move forward to try next element
+
+    Reason:
+        Pairing closest available neighbors minimizes differences
+        and maximizes the number of valid pairs.
+
+*   Feasibility check:
+        If number of formed pairs >= p → D is valid
+        Else → D is too small
+
+*   Binary search decisions:
+
+        - If feasible:
+              store D and try smaller difference
+
+        - If not feasible:
+              try larger difference
+
+*   This works because:
+        - Pair count decreases monotonically as D decreases
+        - Greedy pairing always gives maximum number of pairs for a fixed D
+
+*   Time Complexity:
+        Sorting                  → O(n log n)
+        Each feasibility check   → O(n)
+        Binary search steps      → O(log(maxDiff))
+
+        Total → O(n log n)
+
+*   Space Complexity:
+        O(1)

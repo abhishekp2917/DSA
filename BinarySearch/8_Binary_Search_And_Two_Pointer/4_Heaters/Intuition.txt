@@ -1,0 +1,56 @@
+Question Link : https://leetcode.com/problems/heaters/description/
+
+*   We need to find the MINIMUM radius such that every house
+    is within distance 'radius' from at least one heater.
+
+*   Instead of guessing which heater covers which house,
+    we binary search on the ANSWER (radius).
+
+*   Observation:
+        If a certain radius R can cover all houses,
+        then any radius greater than R will also work.
+
+    This monotonic behavior allows Binary Search on the answer.
+
+*   We sort both houses and heaters so that we can greedily
+    match houses to heaters in increasing order.
+
+*   Binary search range:
+        - Minimum radius = 0
+        - Maximum radius = very large (safe upper bound)
+
+*   For a candidate radius mid:
+        We check if all houses can be covered using heaters
+        with this radius.
+
+*   Feasibility check (isPoss):
+
+        - Use two pointers:
+              i → current house
+              j → current heater
+
+        - For each house, move heater pointer forward until
+          we find a heater whose coverage range includes this house:
+                heater[j] - range <= house <= heater[j] + range
+
+        - If such a heater is found, the house is covered → move to next house.
+
+        - If we exhaust all heaters before covering all houses,
+          then this radius is NOT sufficient.
+
+*   If all houses are covered, radius is valid and we try to minimize it.
+    If not, radius is too small and must be increased.
+
+*   This works because:
+        - Coverage feasibility is monotonic with radius
+        - Once radius works, all larger radii will also work
+
+*   Time Complexity:
+        Sorting houses   → O(n log n)
+        Sorting heaters  → O(m log m)
+        Each feasibility check → O(n + m)
+        Binary search steps    → O(log answer)
+
+        Total → O((n + m) log maxRadius)
+
+*   Space Complexity : O(1) extra space

@@ -1,0 +1,40 @@
+Question Link : https://leetcode.com/problems/minimum-absolute-difference-between-elements-with-constraint/description/
+
+*   We need to minimize |nums[i] - nums[j]| with the constraint:
+        |i - j| >= x
+
+*   This means that when we are at index j,
+    only indices i <= j - x are valid for comparison.
+
+*   So we maintain a sliding window of VALID previous elements:
+        - When j - i >= x, nums[i] becomes eligible to compare with nums[j]
+        - We insert nums[i] into a data structure and then move i forward
+
+*   To minimize absolute difference, for a given value nums[j],
+    the closest candidates must be:
+        - the largest value <= nums[j]   (floor)
+        - the smallest value >= nums[j]  (ceil)
+
+*   Therefore, we use a TreeSet because:
+        - It keeps elements sorted
+        - It supports floor() and ceiling() in O(log n)
+
+*   For each valid nums[j]:
+        - Find floor and ceil in the set
+        - Compute both differences
+        - Update the minimum answer
+
+*   We slide the window forward by:
+        - Adding nums[i] into the set when it becomes valid
+        - Increasing i so that index gap condition is maintained
+
+*   This works because:
+        - Only valid indices are stored in the set
+        - Closest neighbors in sorted order always give minimum difference
+
+*   Time Complexity:
+        Each insertion + floor + ceiling → O(log n)
+        Done for all elements → O(n log n)
+
+*   Space Complexity:
+        TreeSet stores at most n elements → O(n)

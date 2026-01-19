@@ -1,0 +1,62 @@
+Question Link : https://leetcode.com/problems/the-latest-time-to-catch-a-bus/description/
+
+*   We want to arrive as LATE as possible such that:
+        - Our arrival time is not already taken by any passenger
+        - We can still board some bus with available capacity
+
+*   Observation:
+        If arriving at time T is possible,
+        then arriving at any earlier time is also possible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (arrival time).
+
+*   We sort both buses and passengers so that we can simulate boarding
+    in chronological order using two pointers.
+
+*   We store all passenger times in a HashSet because:
+        - We are NOT allowed to arrive at a time already taken by a passenger
+        - We need fast O(1) checking for occupied times
+
+*   Binary search range:
+        - Minimum arrival time = 1
+        - Maximum arrival time = last bus departure time
+
+*   For a candidate mid time:
+        - First, move backward from mid to find the nearest FREE time
+          (not present in passenger set)
+
+        - Then check if arriving at this time allows us to catch any bus
+
+*   Feasibility check (isPoss):
+
+        - Simulate boarding bus by bus
+        - For each bus, board passengers in order until:
+              capacity is full OR
+              passenger arrives after bus departs
+
+        - Two possible ways we can board:
+              (1) If we arrive before some passenger → we take their spot
+              (2) If bus still has capacity and we arrive before departure
+
+*   If any bus can take us, this arrival time is feasible.
+
+*   If feasible:
+        - Store it as an answer
+        - Try to move RIGHT to find a later valid time
+
+*   If not feasible:
+        - Move LEFT because time is too late
+
+*   This works because:
+        - Feasibility is monotonic with arrival time
+        - Once a time fails, all later times will also fail
+
+*   Time Complexity:
+        Sorting buses + passengers  → O(n log n + m log m)
+        Binary search steps         → O(log maxTime)
+        Each feasibility check     → O(n + m)
+
+        Total → O((n + m) log maxTime)
+
+*   Space Complexity :
+        O(m) for HashSet to store passenger times

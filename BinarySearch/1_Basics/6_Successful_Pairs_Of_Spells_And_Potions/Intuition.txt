@@ -1,0 +1,43 @@
+Question Link : https://leetcode.com/problems/successful-pairs-of-spells-and-potions/description/
+
+*   For each spell, we need to count how many potions satisfy:
+        spell * potion >= success
+
+*   Brute force would try all pairs and take O(n*m),
+    which is too slow.
+
+*   We sort the potions array so that the product with a fixed spell
+    becomes monotonic as potions increase.
+
+*   For a fixed spell:
+        - Smaller potions give smaller product
+        - Larger potions give larger product
+
+    So once the condition becomes true, it will remain true for all larger potions.
+
+*   This allows us to use Binary Search to find the FIRST potion
+    such that spell * potion >= success.
+
+*   That index divides the array into:
+        - Left part  → all invalid potions
+        - Right part → all valid potions
+
+*   Number of valid potions =
+        total potions - index of first valid potion
+
+*   We repeat this process independently for each spell.
+
+*   In binary search:
+        - If arr[mid] * spell >= success, mid is a valid candidate,
+          but we search left to find the earliest one.
+        - If arr[mid] * spell < success, we search right.
+
+*   This works because the condition (spell * potion >= success) is monotonic
+    after sorting the potions.
+
+*   Time Complexity:
+        Sorting potions        → O(m log m)
+        For each spell         → Binary search O(log m)
+        Total                 → O(m log m + n log m)
+
+*   Space Complexity : O(1) extra space (ignoring output array)

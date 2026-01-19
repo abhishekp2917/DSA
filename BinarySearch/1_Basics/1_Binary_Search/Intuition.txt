@@ -1,0 +1,32 @@
+Question Link : https://leetcode.com/problems/binary-search/description/
+
+*   The array is already sorted, which strongly hints at using Binary Search instead of linear search.
+
+*   Binary Search works by repeatedly cutting the search space into half, reducing the problem size very fast.
+
+*   We maintain two pointers:
+    - start → beginning of the current search range
+    - end   → end of the current search range
+
+*   At every step, we calculate the middle index mid to examine the middle element,
+    because mid splits the array into two equal halves.
+
+*   If nums[mid] is greater than the target, then all elements to the right of mid are also greater
+    (since the array is sorted).
+    So the target can only be on the left side → move end = mid - 1.
+
+*   If nums[mid] is smaller than the target, then all elements to the left of mid are also smaller.
+    So the target can only be on the right side → move start = mid + 1.
+
+*   If nums[mid] == target, we have found the required element and return the index immediately.
+
+*   The loop continues while start <= end, meaning there is still a valid range where the target might exist.
+
+*   If the loop finishes without finding the target, it means we eliminated all possible ranges
+    and the element does not exist → return -1.
+
+*   This approach works because sorting guarantees that half of the array can be safely discarded at every step.
+
+*   Time Complexity  : O(log n) because the search space is halved each iteration.
+
+*   Space Complexity : O(1) because only constant extra variables are used.

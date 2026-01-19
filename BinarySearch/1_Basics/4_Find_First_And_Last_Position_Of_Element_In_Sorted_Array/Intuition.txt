@@ -1,0 +1,36 @@
+Question Link : https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
+
+*   The array is sorted, so all occurrences of the target appear in a contiguous block.
+    This allows us to use Binary Search instead of scanning linearly.
+
+*   We need to find two things:
+        - the first (leftmost) index of target
+        - the last  (rightmost) index of target
+
+*   We run binary search TWICE:
+        - First search → push towards the LEFT to find earliest position
+        - Second search → push towards the RIGHT to find latest position
+
+*   In the first search:
+        - If nums[mid] >= target, the first occurrence must be on the LEFT side.
+        - If nums[mid] == target, we store mid as a possible answer,
+          but continue searching left to find an earlier one.
+
+*   This guarantees that we finally land on the LEFTMOST occurrence.
+
+*   In the second search:
+        - If nums[mid] > target, the last occurrence must be on the LEFT side.
+        - If nums[mid] <= target, the last occurrence can be at mid or on the RIGHT side.
+        - If nums[mid] == target, we store mid and continue searching right.
+
+*   This guarantees that we finally land on the RIGHTMOST occurrence.
+
+*   Using two binary searches works because:
+        - All target values are grouped together in a sorted array.
+        - Binary search can precisely locate the boundaries of that group.
+
+*   If the target does not exist, both values remain -1.
+
+*   Time Complexity  : O(log n) because we perform two binary searches.
+
+*   Space Complexity : O(1) because only constant extra variables are used.

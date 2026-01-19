@@ -1,0 +1,65 @@
+Question Link : https://leetcode.com/problems/ways-to-split-array-into-three-subarrays/description/
+
+*   We must split the array into:
+        left | mid | right
+    such that:
+        sum(left) <= sum(mid) <= sum(right)
+
+*   Brute force is slow because:
+        For every first split, trying all second splits → O(n^2)
+
+*   Key observation:
+        If we fix the first split,
+        then as second split index increases:
+            - midSum strictly increases
+            - rightSum strictly decreases
+
+    So the validity condition forms a CONTINUOUS RANGE.
+
+*   We build prefix sum so that:
+        leftSum   = prefixSum[firstSplitEnd]
+        midSum    = prefixSum[mid] - leftSum
+        rightSum  = totalSum - midSum - leftSum
+
+    Reason: prefix sums allow O(1) sum calculation inside binary search.
+
+*   For each fixed first split:
+        We binary search the SECOND split boundaries:
+
+        (1) Find the FIRST index where:
+                leftSum <= midSum <= rightSum
+
+        (2) Find the LAST index where:
+                leftSum <= midSum <= rightSum
+
+*   All indices between these two boundaries are valid splits.
+
+*   Binary search decisions:
+
+        - If middleSum < leftSum:
+              mid too small → move right (increase midSum)
+
+        - If rightSum < middleSum:
+              mid too large → move left (decrease midSum)
+
+        - If valid:
+              store index and move left / right depending on
+              whether we want FIRST or LAST valid position
+
+*   This works because:
+        - middleSum increases monotonically with mid
+        - rightSum decreases monotonically with mid
+        - valid region is continuous
+
+*   Total valid splits for this first split:
+        upperSecondSplit - lowerSecondSplit + 1
+
+*   Time Complexity:
+        Prefix sum build          → O(n)
+        For each first split:
+            two binary searches   → O(log n)
+
+        Total → O(n log n)
+
+*   Space Complexity:
+        Prefix sum array → O(n)

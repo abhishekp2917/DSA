@@ -1,0 +1,65 @@
+Question Link : https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/description/
+
+*   We need the LARGEST possible square side length such that:
+        sum of the square <= threshold
+
+*   Brute force trying all square sizes and all positions would be too slow.
+
+*   Key observation:
+        If a square of side length L is possible,
+        then any smaller side length is also possible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (side length).
+
+*   Binary search range:
+        Minimum side = 1
+        Maximum side = min(rows, cols)
+
+*   For a fixed side length:
+        We need to check if ANY square of this size has sum <= threshold.
+
+*   To compute square sums efficiently:
+        We build a 2D prefix sum matrix where:
+            prefixSum[r][c] = sum of rectangle (0,0) → (r-1,c-1)
+
+    Reason:
+        Without prefix sums, each square sum costs O(k^2)
+        With prefix sums, each square sum costs O(1)
+
+*   Square sum formula using prefix sum:
+
+        squareSum =
+            prefix[br][bc]
+          - prefix[br - side][bc]
+          - prefix[br][bc - side]
+          + prefix[br - side][bc - side]
+
+    Reason:
+        Inclusion-exclusion removes double counted regions.
+
+*   Feasibility check:
+        Slide the square over all valid bottom-right positions
+        and stop as soon as one valid square is found.
+
+*   Binary search decisions:
+
+        - If any square of this size is valid:
+              size works → try bigger size
+
+        - Else:
+              size too big → try smaller size
+
+*   This works because:
+        - Feasibility is monotonic with side length
+        - Prefix sums allow constant-time square sum queries
+
+*   Time Complexity:
+        Prefix sum build              → O(rows * cols)
+        For each binary search step:
+            scanning all squares      → O(rows * cols)
+        Binary search steps           → O(log(min(rows, cols)))
+
+        Total → O(rows * cols * log(min(rows, cols)))
+
+*   Space Complexity:
+        Prefix sum matrix → O(rows * cols)

@@ -1,0 +1,56 @@
+Question Link : https://leetcode.com/problems/minimum-operations-to-make-all-array-elements-equal/description/
+
+*   For each query, we need the total cost:
+        sum |nums[i] - queryValue|
+
+*   Brute force for each query would be O(n),
+    which is too slow for large inputs.
+
+*   Key observation:
+        After sorting nums:
+            - All values <= query are on the LEFT
+            - All values >  query are on the RIGHT
+
+*   For LEFT part (nums[i] <= query):
+        cost = query - nums[i]
+        total left cost =
+            query * countLeft - sum(left elements)
+
+*   For RIGHT part (nums[i] > query):
+        cost = nums[i] - query
+        total right cost =
+            sum(right elements) - query * countRight
+
+*   So total cost =
+        leftCost + rightCost
+
+*   To compute this efficiently:
+        - Sort nums once
+        - Build prefix sum array
+
+*   For each query:
+        - Binary search to find:
+              countLeft = number of elements <= query
+        - Use prefix sums to compute:
+              sum(left elements)   in O(1)
+              sum(right elements)  in O(1)
+
+*   Binary search logic:
+        - Find the LAST index where nums[mid] <= query
+        - countLeft = index + 1
+
+*   This works because:
+        - Absolute difference splits naturally into left and right parts
+        - Prefix sums allow constant time range sum queries
+        - Binary search finds correct split point efficiently
+
+*   Time Complexity:
+        Sorting nums              → O(n log n)
+        For each query:
+            Binary search         → O(log n)
+            O(1) prefix sum ops
+
+        Total → O(n log n + q log n)
+
+*   Space Complexity:
+        Prefix sum array → O(n)

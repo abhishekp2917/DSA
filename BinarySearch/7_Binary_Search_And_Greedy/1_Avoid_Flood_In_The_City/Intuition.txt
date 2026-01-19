@@ -1,0 +1,59 @@
+Question Link : https://leetcode.com/problems/avoid-flood-in-the-city/description/
+
+*   Each day:
+        - If rains[i] > 0 → lake rains[i] becomes FULL
+        - If rains[i] == 0 → we may choose ONE lake to dry
+
+*   If a lake becomes full again before being dried,
+    flooding happens and the answer is impossible.
+
+*   Goal:
+        Schedule drying days so that every lake is dried
+        before it rains on that lake again.
+
+*   Key observation:
+        When a lake rains again, it MUST have been dried
+        on some dry day strictly AFTER its last rain day.
+
+*   We maintain:
+        - lastRainDay[lake] = last index when this lake was filled
+        - dryDay = all indices where we can dry (rains[i] == 0), stored in sorted order
+
+*   When rain happens on lake L at day i:
+
+        - If L never rained before → just mark it filled
+
+        - If L rained before at day lastDay:
+              We MUST find a dry day d such that:
+                    lastDay < d < i
+
+              Otherwise flooding is unavoidable.
+
+*   To choose best dry day:
+        - Pick the EARLIEST dry day that occurs after lastDay
+        - This is greedy and optimal because it preserves later dry days for future lakes
+
+*   We use TreeSet.ceiling(lastDay) to get:
+        the smallest dry day index >= lastDay
+
+*   If such a day exists:
+        - Assign that dry day to dry this lake
+        - Remove it from available dry days
+
+*   If no such day exists:
+        - Flooding cannot be avoided → return empty array
+
+*   At the end:
+        - Any unused dry days can dry any lake (does not matter which)
+
+*   This works because:
+        - Each lake must be dried between two rain events
+        - Choosing the earliest possible dry day is always optimal
+        - TreeSet lets us efficiently schedule drying in sorted order
+
+*   Time Complexity:
+        Each day operations in TreeSet / HashMap → O(log n)
+        Total → O(n log n)
+
+*   Space Complexity:
+        HashMap + TreeSet + answer array → O(n)

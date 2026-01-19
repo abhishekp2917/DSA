@@ -1,0 +1,38 @@
+Question Link : https://leetcode.com/problems/single-element-in-a-sorted-array/description/
+
+*   The array is sorted and every number appears exactly twice except one number.
+    This strongly hints at using Binary Search instead of linear scanning.
+
+*   In a perfect paired array (without the single element):
+        pairs start at EVEN indices:
+        (0,1), (2,3), (4,5), ...
+
+*   When the single element appears, this pairing pattern breaks:
+        - Before the single element → pairs start at EVEN indices
+        - After the single element  → pairs start at ODD indices
+
+*   So the position (parity) of pair indices tells us which side the single element lies on.
+
+*   At each step, we pick a middle index and compare it with its neighbors.
+
+*   If nums[mid] is different from both neighbors,
+    then it is not part of any pair → this is the single element.
+
+*   Otherwise, nums[mid] belongs to a pair.
+    We determine the index of the second element of that pair:
+        - If left == nums[mid], the pair ends at mid
+        - Else, the pair ends at mid + 1
+
+*   If the pair ends at an EVEN index,
+    it means we are still on the LEFT side of the single element,
+    so we discard the right half.
+
+*   If the pair ends at an ODD index,
+    it means we are on the RIGHT side of the single element,
+    so we discard the left half.
+
+*   This works because the pairing index pattern changes exactly at the single element.
+
+*   Time Complexity  : O(log n) because we use binary search.
+
+*   Space Complexity : O(1) because no extra data structures are used.

@@ -1,0 +1,42 @@
+Question Link : https://leetcode.com/problems/find-the-distance-value-between-two-arrays/description/
+
+*   For each element in arr1, we need to check whether there exists any element in arr2
+    such that |arr1[i] - arr2[j]| <= d.
+
+*   Instead of comparing with every element in arr2 (O(n*m)),
+    we sort arr2 and use Binary Search to find the closest values efficiently.
+
+*   After sorting, the closest elements to any number must be:
+        - the largest value <= num   (lower bound)
+        - the smallest value >= num  (upper bound)
+
+*   If both of these closest values are farther than distance d,
+    then no element in arr2 lies within distance d from num.
+
+*   So for each num in arr1:
+        - Find lower bound in arr2 (floor value)
+        - Find upper bound in arr2 (ceil value)
+        - Check both distances
+
+*   If:
+        |lowerBound - num| > d   AND
+        |upperBound - num| > d
+    then this num is valid and we increase the count.
+
+*   Lower Bound logic:
+        - Find the greatest element that is <= target
+        - Move right when value is valid to get as close as possible
+
+*   Upper Bound logic:
+        - Find the smallest element that is >= target
+        - Move left when value is valid to get as close as possible
+
+*   This works because in a sorted array, the closest element to any number
+    must be either the immediate smaller or immediate larger value.
+
+*   Time Complexity:
+        Sorting arr2        → O(m log m)
+        For each arr1[i]    → 2 binary searches → O(log m)
+        Total              → O(m log m + n log m)
+
+*   Space Complexity : O(1) extra space (ignoring sort space)

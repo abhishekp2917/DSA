@@ -1,0 +1,50 @@
+Question Link : https://leetcode.com/problems/find-the-student-that-will-replace-the-chalk/description/
+
+*   Students take chalk in order, repeatedly in cycles.
+
+*   Direct simulation may take too long because:
+        k can be very large (up to 10^9)
+
+*   Key observation:
+        After one full round of students,
+        chalk consumption repeats in the same pattern.
+
+*   So first compute:
+        totalChalkPerRound = sum of all chalk[i]
+
+*   Instead of simulating many rounds,
+    we only need to simulate:
+        remainingChalk = k % totalChalkPerRound
+
+*   Now the problem reduces to:
+        In a single round, find the FIRST student
+        whose cumulative chalk usage exceeds remainingChalk.
+
+*   We build a prefix sum array:
+        prefixSum[i] = chalk[0] + chalk[1] + ... + chalk[i]
+
+*   We need the smallest index i such that:
+        prefixSum[i] > remainingChalk
+
+*   This is a classic:
+        "first element greater than target" binary search problem
+
+*   Binary search logic:
+        - If prefixSum[mid] > remainingChalk → possible answer → move left
+        - Else → this student can be served → move right
+
+*   The first index where prefixSum > remainingChalk
+    is the student who runs out of chalk.
+
+*   This works because:
+        - prefixSum is strictly increasing
+        - cumulative usage is monotonic
+
+*   Time Complexity:
+        Prefix sum build      → O(n)
+        Binary search         → O(log n)
+
+        Total → O(n + log n)
+
+*   Space Complexity:
+        Prefix sum array → O(n)

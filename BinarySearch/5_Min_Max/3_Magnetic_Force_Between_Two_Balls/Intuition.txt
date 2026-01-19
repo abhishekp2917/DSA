@@ -1,0 +1,61 @@
+Question Link : https://leetcode.com/problems/magnetic-force-between-two-balls/description/
+
+*   We need to place m balls in given positions such that
+    the MINIMUM distance between any two balls is maximized.
+
+*   Brute force trying all placements is impossible.
+
+*   Key observation:
+        If a minimum distance D is feasible,
+        then any smaller distance is also feasible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (distance).
+
+*   We sort the positions because:
+        - Distance comparisons only make sense in sorted order
+        - Greedy left-to-right placement becomes optimal
+
+*   Binary search range:
+        Minimum distance = 0
+        Maximum distance = max(position) - min(position)
+
+*   For a candidate distance D:
+        We check if we can place m balls such that
+        every adjacent pair has distance >= D.
+
+*   Greedy placement logic:
+
+        - Place first ball at the leftmost position
+        - For each next position:
+              if distance from last placed ball >= D,
+              place a new ball here
+
+    Reason:
+        Placing as early as possible leaves more room
+        for future balls and maximizes the chance of placing all m balls.
+
+*   Feasibility check:
+        If we can place at least m balls → D is valid
+        Else → D is too large
+
+*   Binary search decisions:
+
+        - If feasible:
+              store D and try larger distance
+
+        - If not feasible:
+              try smaller distance
+
+*   This works because:
+        - As D increases, number of placeable balls decreases monotonically
+        - Greedy placement gives maximum possible placements for a fixed D
+
+*   Time Complexity:
+        Sorting                  → O(n log n)
+        Each feasibility check   → O(n)
+        Binary search steps      → O(log(maxDistance))
+
+        Total → O(n log n)
+
+*   Space Complexity:
+        O(1)

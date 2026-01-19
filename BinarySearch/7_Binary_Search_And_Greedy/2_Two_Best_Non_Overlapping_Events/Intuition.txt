@@ -1,0 +1,58 @@
+Question Link : https://leetcode.com/problems/two-best-non-overlapping-events/description/
+
+*   We are given events as [start, end, value].
+    We need to choose at most TWO non-overlapping events
+    such that the total value is maximized.
+
+*   Brute force would try all pairs of events → O(n^2),
+    which is too slow.
+
+*   Key idea:
+        Fix one event as the SECOND event,
+        and find the best possible FIRST event that does not overlap with it.
+
+*   We sort all events by END time.
+
+    This allows:
+        - Non-overlapping condition becomes:
+              previous_event.end < current_event.start
+        - We can binary search on end times
+
+*   We build a prefix array:
+        maxEventValue[i] = maximum value among events[0 ... i]
+
+    This lets us instantly know the best event up to any index.
+
+*   For each event i (as second event):
+
+        - We binary search among events[0 ... i-1]
+          to find the RIGHTMOST event whose end < events[i].start
+
+        - Once found at index mid,
+          the best possible first event value is:
+                maxEventValue[mid]
+
+        - Total value =
+                events[i].value + maxEventValue[mid]
+
+        - Update the global maximum
+
+*   Binary search logic:
+
+        - If events[mid].end >= current.start → overlapping → move left
+        - Else → valid candidate → store value and move right to find later one
+
+*   This works because:
+        - Events are sorted by end time
+        - Prefix max ensures we always pick the best possible first event
+        - Overlap condition is monotonic in sorted order
+
+*   Time Complexity:
+        Sorting events           → O(n log n)
+        For each event:
+            Binary search        → O(log n)
+
+        Total → O(n log n)
+
+*   Space Complexity:
+        Prefix max array → O(n)

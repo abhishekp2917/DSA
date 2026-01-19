@@ -1,0 +1,67 @@
+Question Link : https://leetcode.com/problems/find-the-longest-equal-subarray/description/
+
+*   We need the maximum length of a subarray such that after deleting
+    at most k elements, all remaining elements are equal.
+
+*   Key observation:
+        In a valid window:
+            window_length - frequency_of_most_common_element <= k
+
+    Because all other elements must be deleted.
+
+*   Instead of directly finding the answer,
+    we binary search on the ANSWER (possible length of equal subarray).
+
+*   Observation for binary search:
+        If a length L is possible,
+        then any smaller length is also possible.
+
+    This monotonic behavior allows Binary Search on length.
+
+*   Binary search range:
+        Minimum length = 1
+        Maximum length = nums.size()
+
+*   For a candidate size = mid:
+        We check if there exists ANY subarray where:
+            - Some number appears at least 'mid' times
+            - Total window length <= mid + k
+              (so at most k deletions are needed)
+
+*   Feasibility check using Sliding Window:
+
+        - Maintain a window [i ... j]
+        - Maintain frequency of numbers using HashMap
+
+        - For each j:
+              increase frequency of nums[j]
+
+        - If any number’s frequency >= mid:
+              then we can delete the remaining elements
+              and form an equal subarray of size mid → return true
+
+        - If window size becomes >= mid + k:
+              shrink from the left to maintain deletion limit
+
+*   If any valid window is found, mid is feasible.
+    Otherwise, mid is too large.
+
+*   If feasible:
+        - Store mid as answer
+        - Try larger size
+
+*   If not feasible:
+        - Try smaller size
+
+*   This works because:
+        - Validity depends only on window length and frequency
+        - Feasibility is monotonic with respect to subarray size
+
+*   Time Complexity:
+        Binary search steps        → O(log n)
+        Each feasibility check    → Sliding window O(n)
+
+        Total → O(n log n)
+
+*   Space Complexity:
+        HashMap for frequencies → O(n) in worst case
