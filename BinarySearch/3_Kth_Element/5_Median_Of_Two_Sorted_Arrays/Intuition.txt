@@ -1,1 +1,68 @@
 Question Link : https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+
+*   We need to find the median of two sorted arrays in O(log(min(n, m))) time.
+
+*   Median logic:
+        If total length is odd:
+              median = (total/2 + 1)-th smallest element
+
+        If total length is even:
+              median = average of (total/2)-th and (total/2 + 1)-th smallest
+
+*   So the real problem becomes:
+        Find the k-th smallest element in two sorted arrays.
+
+*   Key idea:
+        Partition both arrays such that:
+            - Exactly k elements are on the LEFT side
+            - All left elements <= all right elements
+
+*   Suppose:
+        We take cnt1 elements from nums1
+        We take cnt2 = k - cnt1 elements from nums2
+
+*   Valid partition condition:
+
+        left1 <= right2   AND
+        left2 <= right1
+
+    Meaning:
+        All left-side elements are <= all right-side elements
+
+*   Binary search on cnt1 (how many we take from nums1)
+
+        cnt1 range:
+            max(0, k - n2)  to  min(k, n1)
+
+*   At each step:
+
+        - Compute cnt1 and cnt2
+        - Check partition validity
+
+        If valid:
+              k-th smallest = max(left1, left2)
+
+        If left1 > right2:
+              Took too many from nums1 → move left
+
+        If left2 > right1:
+              Took too few from nums1 → move right
+
+*   Why this works:
+
+        - We always keep exactly k elements on the left side
+        - Binary search finds the only partition where ordering is correct
+        - Partition boundaries directly give the k-th element
+
+*   Final median:
+        If odd:
+            return k-th element
+
+        If even:
+            return average of k-th and (k+1)-th elements
+
+*   Time Complexity:
+        Binary search on smaller array → O(log(min(n1, n2)))
+
+*   Space Complexity:
+        O(1)

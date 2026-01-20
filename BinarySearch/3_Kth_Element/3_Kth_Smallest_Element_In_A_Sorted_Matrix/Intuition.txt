@@ -1,1 +1,59 @@
 Question Link : https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/
+
+*   The matrix is sorted in ascending order both row-wise and column-wise.
+
+*   We need the k-th smallest element among all n*m elements.
+
+*   Brute force flatten + sort costs O(n*m log(n*m)), which is too slow.
+
+*   Key observation:
+        If a value X has at least k elements <= X,
+        then the k-th smallest element is <= X.
+
+    This monotonic property allows Binary Search on the VALUE.
+
+*   Binary search range:
+
+        Minimum value = matrix[0][0]
+        Maximum value = matrix[n-1][m-1]
+
+*   For a candidate value mid:
+        Count how many elements in the matrix are <= mid.
+
+*   Efficient counting strategy (O(n + m)):
+
+        Start from TOP-RIGHT corner:
+
+        - If matrix[i][j] <= mid:
+              Then all elements in this row from 0 to j are <= mid
+              → add (j + 1) to count
+              → move DOWN
+
+        - If matrix[i][j] > mid:
+              This element and all below it in this column are too large
+              → move LEFT
+
+*   Feasibility check:
+
+        - If count < k:
+              mid is too small → search right
+
+        - Else:
+              mid is a valid candidate → store it and search left
+
+*   Binary search goal:
+        Find the SMALLEST value such that
+        number of elements <= value is at least k.
+
+*   This works because:
+        - Count of elements <= X increases monotonically with X
+        - Matrix ordering allows fast counting
+
+*   Time Complexity:
+        Binary search steps          → O(log(maxValue))
+        Each count operation        → O(n + m)
+
+        Total → O((n + m) log(maxValue))
+
+*   Space Complexity:
+        O(1)

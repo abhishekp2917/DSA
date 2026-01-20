@@ -1,1 +1,72 @@
 Question Link : https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/description/
+
+*   We need to make exactly m bouquets.
+    Each bouquet requires k ADJACENT flowers.
+    Flower i blooms on bloomDay[i].
+
+*   We must find the MINIMUM day such that
+    it is possible to form all bouquets.
+
+*   Brute force checking each day is inefficient.
+
+*   Key observation:
+        If we can make all bouquets on day D,
+        then we can also make them on any later day.
+
+    This monotonic behavior allows Binary Search on the ANSWER (day).
+
+*   Binary search range:
+
+        Minimum day = 1
+        Reason:
+            Days start from 1
+
+        Maximum day = max(bloomDay)
+        Reason:
+            Before this day, some flowers never bloom
+
+*   For a candidate day D:
+        We simulate whether bouquets can be formed.
+
+*   Greedy simulation logic:
+
+        Traverse from left to right:
+            - If bloomDay[i] <= D:
+                  increase adjacent count
+            - Else:
+                  reset adjacent count to 0
+
+            - When adjacent count reaches k:
+                  one bouquet is formed
+                  reset count
+                  decrease remaining m
+
+    Reason:
+        Bouquets must use ADJACENT flowers,
+        and using them as early as possible maximizes total bouquets.
+
+*   Feasibility check:
+
+        - If we can form m bouquets → D is valid
+        - Else → D is too early
+
+*   Binary search decisions:
+
+        - If feasible:
+              store D and try smaller day
+
+        - If not feasible:
+              try larger day
+
+*   This works because:
+        - Number of bouquets possible increases monotonically with days
+        - Greedy adjacency counting gives maximum bouquets for a fixed day
+
+*   Time Complexity:
+        Each feasibility check   → O(n)
+        Binary search steps      → O(log(maxBloomDay))
+
+        Total → O(n log(maxBloomDay))
+
+*   Space Complexity:
+        O(1)

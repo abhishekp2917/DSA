@@ -1,1 +1,65 @@
 Question Link : https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/
+
+*   The array is sorted but rotated AND may contain duplicates.
+
+*   Goal:
+        Determine whether target exists in O(log n) average time.
+
+*   Problem with duplicates:
+        When nums[i] == nums[mid] == nums[j],
+        we CANNOT determine which half is sorted.
+
+*   Key observation:
+        Except in the duplicate-ambiguous case,
+        at least one half is always SORTED.
+
+*   At each step:
+
+        (1) If nums[mid] == target → return true
+
+        (2) If nums[i] == nums[mid] == nums[j]:
+               Shrink both ends (i++, j--)
+               Reason:
+                   These equal boundary values give no ordering information
+
+        (3) Otherwise, determine which half is sorted:
+
+            If nums[mid] >= nums[i] AND nums[mid] >= nums[j]:
+                   mid lies in LEFT sorted region
+
+            Else:
+                   mid lies in RIGHT sorted region
+
+*   If mid is in LEFT sorted part:
+
+        Sorted range = [nums[i] ... nums[mid]
+
+        If target lies inside this range:
+              search LEFT
+        Else:
+              search RIGHT
+
+*   If mid is in RIGHT sorted part:
+
+        Sorted range = nums[mid] ... nums[j]]
+
+        If target lies inside this range:
+              search RIGHT
+        Else:
+              search LEFT
+
+*   Why shrinking works in duplicate case:
+        When all three are equal, removing both ends
+        does not remove the target uniquely,
+        but helps break symmetry and continue search.
+
+*   This works because:
+        - When not ambiguous, one side is always sorted
+        - Duplicate shrinking guarantees progress and avoids infinite loop
+
+*   Time Complexity:
+        Average → O(log n)
+        Worst case (all duplicates) → O(n)
+
+*   Space Complexity:
+        O(1)

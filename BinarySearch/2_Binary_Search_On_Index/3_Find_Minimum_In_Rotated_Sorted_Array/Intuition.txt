@@ -1,1 +1,48 @@
 Question Link : https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+
+*   The array is originally sorted and then rotated at some pivot.
+
+*   We need to find the MINIMUM element in O(log n).
+
+*   Key observation:
+        The array consists of two parts:
+            - Left sorted part (values >= nums[0])
+            - Right rotated part (values <= nums[last])
+
+        The MINIMUM element always lies in the RIGHT rotated part.
+
+*   At any mid position, we determine which part mid belongs to.
+
+*   How to detect the region of mid:
+
+        If nums[mid] >= nums[0] AND nums[mid] >= nums[last]:
+              mid is in LEFT sorted part
+
+        Else:
+              mid is in RIGHT rotated part
+
+*   If mid is in LEFT sorted part:
+
+        - All values from i to mid are >= nums[0]
+        - Minimum cannot be there
+        - So we move RIGHT → i = mid + 1
+
+*   If mid is in RIGHT rotated part:
+
+        - This region contains the pivot and minimum
+        - nums[mid] is a valid candidate for minimum
+        - But there may be smaller values on the LEFT side
+        - So we move LEFT → j = mid - 1
+
+*   We keep updating answer whenever we are in right rotated part.
+
+*   This works because:
+        - Left part is always fully sorted and larger
+        - Right part always contains the minimum
+        - We always shrink towards the pivot region
+
+*   Time Complexity:
+        O(log n)
+
+*   Space Complexity:
+        O(1)

@@ -1,1 +1,56 @@
 Question Link : https://leetcode.com/problems/maximum-candies-allocated-to-k-children/description/
+
+*   We are given piles of candies and k children.
+    Each child must receive the SAME number of candies.
+    We want to MAXIMIZE this number.
+
+*   Brute force trying all distributions is impossible.
+
+*   Key observation:
+        If each child can receive X candies,
+        then any smaller value is also possible.
+
+    This monotonic behavior allows Binary Search on the ANSWER (candies per child).
+
+*   Binary search range:
+
+        Minimum = 0
+        Reason:
+            If not enough candies, answer is 0
+
+        Maximum = max(candies)
+        Reason:
+            A child cannot receive more than the largest pile
+
+*   For a candidate value X:
+        Count how many children can be served:
+
+        For each pile with size p:
+            number of children from this pile = floor(p / X)
+
+    Total children served = sum over all piles of floor(p / X)
+
+*   Feasibility check:
+
+        - If total children served >= k:
+              X is feasible → try larger X
+
+        - If total children served < k:
+              X is too large → try smaller X
+
+*   Binary search goal:
+        Find the LARGEST X such that
+        at least k children can each receive X candies.
+
+*   This works because:
+        - Number of children served decreases monotonically as X increases
+        - Integer division correctly models splitting piles into equal portions
+
+*   Time Complexity:
+        Each feasibility check   → O(n)
+        Binary search steps      → O(log(maxPile))
+
+        Total → O(n log(maxPile))
+
+*   Space Complexity:
+        O(1)

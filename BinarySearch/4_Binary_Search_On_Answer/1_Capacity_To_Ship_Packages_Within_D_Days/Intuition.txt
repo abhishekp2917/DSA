@@ -1,1 +1,61 @@
 Question Link : https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
+
+*   We need to ship all packages within 'days' days.
+    Each day, ship has a fixed capacity.
+    We must MINIMIZE this capacity.
+
+*   Brute force trying all capacities is inefficient.
+
+*   Key observation:
+        If a capacity C is sufficient to ship within 'days',
+        then any larger capacity is also sufficient.
+
+    This monotonic behavior allows Binary Search on the ANSWER (capacity).
+
+*   Binary search range:
+
+        Minimum capacity =
+            max(weight in array)
+        Reason:
+            A ship must carry at least the heaviest package.
+
+        Maximum capacity =
+            sum of all weights
+        Reason:
+            Ship everything in one day.
+
+*   For a candidate capacity C:
+        Simulate shipping greedily day by day:
+
+        - Add packages until capacity is exceeded
+        - Start a new day when limit is crossed
+        - Count total days used
+
+*   Greedy simulation is optimal because:
+        - Packages must be shipped in order
+        - Filling each day as much as possible minimizes number of days
+
+*   Feasibility check:
+
+        - If required days > allowed days:
+              capacity too small → increase capacity
+
+        - If required days <= allowed days:
+              capacity works → try smaller capacity
+
+*   Binary search goal:
+        Find the SMALLEST capacity such that
+        all packages can be shipped within 'days'.
+
+*   This works because:
+        - Required days decreases monotonically as capacity increases
+        - Greedy simulation gives minimum days for a fixed capacity
+
+*   Time Complexity:
+        Each feasibility check   → O(n)
+        Binary search steps      → O(log(totalSum))
+
+        Total → O(n log(totalSum))
+
+*   Space Complexity:
+        O(1)

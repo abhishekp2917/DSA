@@ -1,1 +1,77 @@
 Question Link : https://leetcode.com/problems/maximum-number-of-alloys/description/
+
+*   We have k machines.
+    Each machine defines how much metal of each type is needed to make 1 alloy.
+
+*   We also have:
+        - initial stock of each metal
+        - cost per unit of each metal
+        - total budget
+
+*   Goal:
+        Find the MAXIMUM number of alloys that can be produced
+        using AT LEAST ONE machine and within budget.
+
+*   Brute force trying all quantities is impossible.
+
+*   Key observation:
+        If we can produce X alloys,
+        then we can also produce any smaller number.
+
+    This monotonic behavior allows Binary Search on the ANSWER (quantity).
+
+*   Binary search range:
+
+        Minimum = 0
+        Reason:
+            We can always make 0 alloys
+
+        Maximum = very large (constraint based)
+        Reason:
+            Upper bound not tightly known, but safe limit used
+
+*   For a candidate quantity Q:
+        We check if ANY machine can produce Q alloys within budget.
+
+*   Feasibility check for one machine:
+
+        For each metal i:
+            Required units = machine[i] * Q
+
+            Already have = stock[i]
+
+            Extra needed = max(0, required - stock[i])
+
+            Cost for this metal = extra needed * cost[i]
+
+        Total cost = sum over all metals
+
+        If total cost <= budget → this machine works
+
+*   Overall feasibility:
+        If at least ONE machine can make Q alloys → Q is feasible
+
+*   Binary search decisions:
+
+        - If feasible:
+              store Q and try larger quantity
+
+        - If not feasible:
+              try smaller quantity
+
+*   This works because:
+        - Required budget increases monotonically with quantity
+        - At least one valid machine is sufficient
+        - Cost calculation is exact using ceiling-free arithmetic
+
+*   Time Complexity:
+        For each binary search step:
+            try all k machines
+            each machine checks n metals
+
+        Binary search steps → O(log(maxQuantity))
+
+        Total → O(k * n * log(maxQuantity))
+
+*   Space Complexity:
+        O(1)

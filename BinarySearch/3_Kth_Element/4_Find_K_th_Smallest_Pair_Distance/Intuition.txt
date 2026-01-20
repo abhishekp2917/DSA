@@ -1,1 +1,67 @@
 Question Link : https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
+
+*   We need the k-th smallest absolute difference among all pairs (i < j).
+
+*   Brute force:
+        Generate all n*(n-1)/2 distances and sort
+        → too slow and memory heavy.
+
+*   Key observation:
+        If a distance D has at least k pairs with difference <= D,
+        then the k-th smallest distance is <= D.
+
+    This monotonic behavior allows Binary Search on the ANSWER (distance).
+
+*   Binary search range:
+
+        Minimum distance = 0
+        Reason:
+            Equal elements produce distance 0
+
+        Maximum distance = max(nums) - min(nums)
+        Reason:
+            Farthest possible pair
+
+*   For a candidate distance D:
+        Count how many pairs have difference <= D.
+
+*   Efficient counting using Two Pointers:
+
+        Since array is sorted:
+
+        Fix j as right pointer
+        Move i forward until nums[j] - nums[i] <= D
+
+        Then:
+            All indices from i to j-1 form valid pairs with j
+            Number of valid pairs = j - i
+
+    Reason:
+        As i increases, difference decreases
+        Sorted order guarantees monotonic window
+
+*   Feasibility check:
+
+        - If count >= k:
+              D is valid → try smaller distance
+
+        - If count < k:
+              D is too small → try larger distance
+
+*   Binary search goal:
+        Find the SMALLEST D such that
+        at least k pairs have distance <= D.
+
+*   This works because:
+        - Pair count increases monotonically as D increases
+        - Two-pointer counting runs in linear time
+
+*   Time Complexity:
+        Sorting                      → O(n log n)
+        Each feasibility check       → O(n)
+        Binary search steps          → O(log(maxDistance))
+
+        Total → O(n log n + n log maxDistance)
+
+*   Space Complexity:
+        O(1)

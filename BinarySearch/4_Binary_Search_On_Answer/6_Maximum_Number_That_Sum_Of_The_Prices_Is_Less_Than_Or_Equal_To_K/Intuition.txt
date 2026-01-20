@@ -1,0 +1,86 @@
+Question Link : https://leetcode.com/problems/maximum-number-that-sum-of-the-prices-is-less-than-or-equal-to-k/description/
+
+*   We are given:
+        k = maximum allowed special set bits
+        x = we only count set bits at positions multiple of x
+
+*   For a number N:
+        Consider all numbers from 1 to N
+        Count how many set bits appear at positions:
+              x-1, 2x-1, 3x-1, ...
+
+*   Goal:
+        Find the LARGEST N such that this total count <= k.
+
+*   Brute force counting bits from 1 to N is impossible.
+
+*   Key observation:
+        As N increases, the total count of such set bits
+        increases monotonically.
+
+    So:
+        If N is valid, any smaller number is also valid.
+
+    → Binary Search on the ANSWER (N)
+
+*   Binary search range:
+
+        Minimum = 0
+        Maximum = 2^50 - 1
+        Reason:
+            Bit positions are considered up to 50
+
+*   For a candidate N:
+        We efficiently count how many special set bits exist in [1 ... N].
+
+*   Counting set bits at one bit position i:
+
+        Bit pattern repeats every 2^(i+1):
+
+            First 2^i numbers   → bit = 0
+            Next  2^i numbers   → bit = 1
+
+        In each full window:
+            set bits = 2^i
+
+*   For range [0 ... N]:
+
+        Full windows:
+            (N+1) / 2^(i+1)  windows
+            Contribution = windows * 2^i
+
+        Partial window:
+            remainder = (N+1) % 2^(i+1)
+
+            If remainder <= 2^i:
+                no extra set bits
+            Else:
+                extra = remainder - 2^i
+
+*   We only evaluate bit positions:
+        i = x-1, 2x-1, 3x-1, ...
+
+    Reason:
+        Only these positions are counted as “special”.
+
+*   Feasibility check:
+
+        - If total special set bits <= k:
+              N is valid → try larger N
+
+        - Else:
+              N too large → try smaller N
+
+*   This works because:
+        - Special bit count grows monotonically with N
+        - Bit contribution can be computed in O(1) per bit position
+        - Only ~50 / x positions are checked
+
+*   Time Complexity:
+        Binary search steps         → O(log(2^50)) ≈ 50
+        Per check (bit counting)   → O(50 / x)
+
+        Total → O(50 * 50) ≈ constant time
+
+*   Space Complexity:
+        O(1)

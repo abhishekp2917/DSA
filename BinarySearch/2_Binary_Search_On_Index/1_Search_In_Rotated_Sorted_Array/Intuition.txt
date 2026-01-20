@@ -1,1 +1,54 @@
 Question Link : https://leetcode.com/problems/search-in-rotated-sorted-array/description/
+
+*   The array is originally sorted but rotated at an unknown pivot.
+
+*   We must find target in O(log n), so linear search is not allowed.
+
+*   Key observation:
+        At any index mid, ONE of the two halves is always SORTED.
+
+*   We use modified binary search:
+        - At every step, identify which half is sorted
+        - Check whether target lies inside that sorted half
+        - Discard the other half
+
+*   How to detect sorted half:
+
+        If nums[mid] >= nums[0] AND nums[mid] > nums[last]:
+            mid lies in LEFT SORTED PART
+
+        Else:
+            mid lies in RIGHT SORTED PART
+
+    Reason:
+        After rotation:
+            Left part contains values >= nums[0]
+            Right part contains values <= nums[last]
+
+*   If mid is in LEFT sorted part:
+
+        Sorted range = [nums[0] ... nums[mid]
+
+        If target lies inside this range:
+              search LEFT
+        Else:
+              search RIGHT
+
+*   If mid is in RIGHT sorted part:
+
+        Sorted range = nums[mid] ... nums[last]]
+
+        If target lies inside this range:
+              search RIGHT
+        Else:
+              search LEFT
+
+*   This works because:
+        - One side is always sorted
+        - We can always decide which half can safely be discarded
+
+*   Time Complexity:
+        O(log n)
+
+*   Space Complexity:
+        O(1)

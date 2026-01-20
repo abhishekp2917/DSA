@@ -1,1 +1,67 @@
 Question Link : https://leetcode.com/problems/find-k-closest-elements/description/
+
+*   We need to find k elements that are closest to x.
+    The result must be sorted and come from a CONTIGUOUS subarray.
+
+*   Because the array is already sorted,
+    the k closest elements must form a continuous window of length k.
+
+*   Instead of selecting k elements one by one,
+    we search for the BEST starting index of a window of size k.
+
+*   Possible window start positions:
+        0 to (n - k)
+
+*   Key observation:
+        Compare two neighboring windows:
+            Window starting at i
+            Window starting at i + 1
+
+        Only the EXTREME elements matter:
+            arr[i]         (left boundary of first window)
+            arr[i + k]     (right boundary of second window)
+
+    Internal elements overlap, so they do not affect comparison.
+
+*   Comparison logic:
+
+        If:
+            x - arr[i] > arr[i + k] - x
+
+        Then:
+            Left boundary is farther from x than new right boundary
+            → shift window RIGHT
+
+        Else:
+            Current window is better or equal
+            → keep it and move LEFT
+
+*   This comparison is MONOTONIC over window positions.
+
+    Reason:
+        As window shifts right:
+            - Left boundary increases
+            - Right boundary increases
+            - Distances change in one direction only
+
+    So binary search is valid on window start index.
+
+*   Binary search goal:
+        Find the SMALLEST index 'left' such that
+        the window starting there is optimal.
+
+*   Final answer:
+        arr[left ... left + k - 1]
+
+*   This works because:
+        - Sorted order guarantees closest elements are contiguous
+        - Window quality improves monotonically as we shift
+
+*   Time Complexity:
+        Binary search on window start → O(log(n - k))
+        Extract k elements           → O(k)
+
+        Total → O(log n + k)
+
+*   Space Complexity:
+        O(k) for output list

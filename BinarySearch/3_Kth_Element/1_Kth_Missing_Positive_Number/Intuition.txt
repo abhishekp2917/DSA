@@ -1,1 +1,60 @@
 Question Link : https://leetcode.com/problems/kth-missing-positive-number/description/
+
+*   We are given a strictly increasing array of positive integers.
+    Some positive numbers are missing.
+    We must find the k-th missing positive number.
+
+*   Brute force scanning and counting missing numbers is O(n),
+    but we can solve in O(log n) using Binary Search.
+
+*   Key observation:
+        At index i, the expected value without missing is:
+              i + 1
+
+        Actual value is:
+              arr[i]
+
+        So number of missing positives before arr[i] =
+              arr[i] - (i + 1)
+
+*   This missing count is MONOTONIC increasing with index.
+
+    Reason:
+        As we move right, values grow faster than indices,
+        so missing count never decreases.
+
+*   Binary search goal:
+        Find the FIRST index where:
+              missing >= k
+
+*   Binary search logic:
+
+        - Compute missing = arr[mid] - mid - 1
+
+        - If missing < k:
+              k-th missing is still on the RIGHT side → move right
+
+        - Else:
+              k-th missing is on the LEFT side → move left
+
+*   After binary search:
+        'start' = number of elements in arr that are BEFORE the answer
+
+*   Final answer formula:
+        answer = start + k
+
+    Reason:
+        Among numbers 1 ... answer:
+            start numbers are present in the array
+            k numbers are missing
+        So answer = start + k
+
+*   This works because:
+        - Missing count grows monotonically
+        - Binary search finds exact boundary where k-th missing lies
+
+*   Time Complexity:
+        O(log n)
+
+*   Space Complexity:
+        O(1)

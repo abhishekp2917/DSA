@@ -1,1 +1,50 @@
 Question Link : http://leetcode.com/problems/find-peak-element/description/
+
+*   We need to find any index i such that:
+        nums[i] > nums[i-1] AND nums[i] > nums[i+1]
+
+*   Linear scan works, but we must solve in O(log n).
+
+*   Key observation:
+        If we look at the "slope" direction at any index:
+
+        - If nums[mid] < nums[mid+1]:
+              slope is increasing to the right
+              → there MUST be a peak somewhere on the right
+
+        - If nums[mid] > nums[mid+1]:
+              slope is decreasing to the right
+              → there MUST be a peak somewhere on the left (or at mid)
+
+*   This is guaranteed because:
+        - The array ends with -∞ at both boundaries conceptually
+        - Any increasing sequence must eventually fall, forming a peak
+
+*   Binary search logic:
+
+        (1) If nums[mid] is greater than both neighbors:
+               mid is a peak → return it
+
+        (2) If nums[mid] < nums[mid+1]:
+               move RIGHT
+               Reason:
+                   A peak must exist on the increasing side
+
+        (3) Else:
+               move LEFT
+               Reason:
+                   A peak must exist on the decreasing side
+
+*   Edge handling:
+        Treat out-of-bound neighbors as -infinity
+        so first and last elements can also be peaks.
+
+*   This works because:
+        - At least one peak always exists
+        - Each step discards half the array based on slope direction
+
+*   Time Complexity:
+        O(log n)
+
+*   Space Complexity:
+        O(1)

@@ -1,1 +1,68 @@
 Question Link : https://leetcode.com/problems/find-a-peak-element-ii/description/
+
+Question Link : https://leetcode.com/problems/find-a-peak-element-ii/
+
+*   We need to find any cell (r, c) such that:
+        mat[r][c] > all 4 neighbors
+
+*   Brute force scanning all cells costs O(n*m), which is too slow.
+
+*   Key idea:
+        Apply Binary Search on COLUMNS to reduce one dimension.
+
+*   Observation:
+        In any chosen column,
+        a peak (if exists) must lie at the MAXIMUM element of that column.
+
+    Reason:
+        Only the maximum element can be greater than its vertical neighbors.
+
+*   Binary search strategy:
+
+        - Pick a middle column
+        - Find the row where this column has its maximum value
+        - Compare this cell with its LEFT and RIGHT neighbors only
+
+*   Why only left and right comparison is enough:
+
+        - Up and down neighbors are already smaller
+          because this is the maximum in the column
+
+        - So only horizontal neighbors matter
+
+*   Decision logic:
+
+        (1) If curr > left AND curr > right:
+               This cell is greater than all 4 neighbors
+               → we found a valid peak
+
+        (2) If curr < left:
+               There is a larger value on the LEFT side
+               → a peak MUST exist in the LEFT half
+               → move search left
+
+        (3) Else (curr < right):
+               There is a larger value on the RIGHT side
+               → a peak MUST exist in the RIGHT half
+               → move search right
+
+*   Why a peak must exist on the chosen side:
+
+        Moving in the direction of a larger neighbor guarantees
+        that we are climbing uphill, and every uphill path must
+        eventually reach a peak.
+
+*   This works because:
+        - One direction always contains a strictly larger neighbor
+        - Binary search always discards half the columns
+        - A peak is guaranteed to exist in the matrix
+
+*   Time Complexity:
+        Each step:
+            scan one column → O(n)
+        Binary search on columns → O(log m)
+
+        Total → O(n log m)
+
+*   Space Complexity:
+        O(1)

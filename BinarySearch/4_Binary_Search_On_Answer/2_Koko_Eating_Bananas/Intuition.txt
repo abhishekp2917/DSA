@@ -1,1 +1,60 @@
 Question Link : https://leetcode.com/problems/koko-eating-bananas/description/
+
+*   Koko eats at a constant speed K (bananas per hour).
+    Each hour she eats from only one pile.
+    We need the MINIMUM speed such that all bananas are eaten within h hours.
+
+*   Brute force checking all speeds is inefficient.
+
+*   Key observation:
+        If speed K is sufficient to finish within h hours,
+        then any larger speed is also sufficient.
+
+    This monotonic behavior allows Binary Search on the ANSWER (speed).
+
+*   Binary search range:
+
+        Minimum speed = 1
+        Reason:
+            Koko must eat at least 1 banana per hour.
+
+        Maximum speed = max(piles)
+        Reason:
+            Eating faster than the largest pile size is unnecessary.
+
+*   For a candidate speed K:
+        Compute how many hours are REQUIRED:
+
+        For each pile with size p:
+            Time needed = ceil(p / K)
+
+    Reason:
+        In one hour, Koko can eat at most K bananas from one pile,
+        and partial piles still take a full hour.
+
+*   Total hours = sum of all ceil(p / K)
+
+*   Feasibility check:
+
+        - If required hours > h:
+              speed too slow → increase speed
+
+        - If required hours <= h:
+              speed works → try smaller speed
+
+*   Binary search goal:
+        Find the SMALLEST speed such that
+        total hours required <= h.
+
+*   This works because:
+        - Required hours decreases monotonically as speed increases
+        - Ceiling division correctly models per-pile time
+
+*   Time Complexity:
+        Each feasibility check   → O(n)
+        Binary search steps      → O(log(maxPile))
+
+        Total → O(n log(maxPile))
+
+*   Space Complexity:
+        O(1)
