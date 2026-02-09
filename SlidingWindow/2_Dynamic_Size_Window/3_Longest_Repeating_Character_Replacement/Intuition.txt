@@ -1,0 +1,53 @@
+Question Link : https://leetcode.com/problems/longest-repeating-character-replacement/description/
+
+*   We need the longest substring such that
+    we can replace at most k characters
+    to make all characters in the substring identical.
+
+*   Key observation:
+
+        In a window of size L,
+        if the most frequent character appears maxFreq times,
+        then we need:
+
+            L - maxFreq replacements
+
+        to make all characters equal.
+
+*   So window is VALID if:
+
+            (window_size - maxFreq) <= k
+
+*   Sliding Window strategy:
+
+        - Expand right pointer
+        - Track frequency of each character
+        - Maintain maxFreq inside window
+
+*   If window becomes invalid:
+
+        (window_size - maxFreq) > k
+
+        → shrink from left
+
+*   Important trick:
+
+        We do NOT recompute maxFreq when shrinking.
+
+        Reason:
+            Even if maxFreq becomes slightly outdated,
+            it never causes incorrect results.
+            It only delays shrinking slightly,
+            but correctness is preserved.
+
+*   Why this works:
+
+        - Each character enters window once
+        - Each character leaves window once
+        - We maintain longest valid window at each step
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)  (since 26 letters only)

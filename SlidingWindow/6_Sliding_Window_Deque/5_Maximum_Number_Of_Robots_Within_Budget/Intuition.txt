@@ -1,0 +1,72 @@
+Question Link : https://leetcode.com/problems/maximum-number-of-robots-within-budget/description/
+
+MAXIMUM ROBOTS WITHIN BUDGET
+
+*   Problem:
+        Choose longest subarray such that:
+
+        max(chargeTimes in window)
+        +
+        windowSize * sum(runningCosts)
+        ≤ budget
+
+*   Brute force:
+        Try all subarrays.
+        Compute max + sum each time.
+        Too slow: O(n^2)
+
+*   Key observations:
+
+        (1) We need dynamic maximum of chargeTimes.
+        (2) We need dynamic sum of runningCosts.
+        (3) Window must shrink when budget exceeded.
+
+*   So we use:
+
+        - Monotonic Deque for max(chargeTime)
+        - Running sum for runningCosts
+        - Sliding window for length control
+
+*   Why monotonic deque?
+        Because we need max in O(1).
+
+*   Deque invariant:
+        Maintains decreasing chargeTimes.
+        Front always = maximum chargeTime.
+
+*   For each new robot at index end:
+
+        STEP 1:
+            Maintain decreasing order.
+            Remove smaller chargeTimes from back.
+
+        STEP 2:
+            Add runningCosts[end] to sum.
+
+        STEP 3:
+            Compute total cost:
+                maxChargeTime
+                +
+                windowSize * runningCostSum
+
+*   If cost > budget:
+        Shrink window from left.
+
+*   While shrinking:
+        - Remove chargeTime if it exits window.
+        - Subtract runningCosts[start].
+        - Recompute cost.
+
+*   Why this works:
+        Window only expands and shrinks once.
+        Each element:
+            Added once
+            Removed once
+
+        → O(n)
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n) for deque

@@ -1,0 +1,61 @@
+Question Link : https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/description/
+
+*   We need to count substrings that contain ALL THREE characters:
+        'a', 'b', and 'c'.
+
+*   Directly counting such substrings is tricky.
+
+*   Key observation (complementary counting):
+
+        Any substring either:
+            - contains all 3 characters
+            OR
+            - contains at most 2 distinct characters
+
+        These two sets are disjoint and cover all substrings.
+
+*   So:
+        substrings_with_all_3 =
+            total_substrings
+            -
+            substrings_with_at_most_2_distinct_characters
+
+*   Total number of substrings in a string of length n:
+
+        n * (n + 1) / 2
+
+*   Now the problem reduces to:
+        Count substrings with AT MOST 2 distinct characters.
+
+*   Counting substrings with at most K distinct characters:
+
+        Use Sliding Window + Frequency Map.
+
+        Maintain window [start ... end].
+
+        Expand end:
+            add character to map.
+
+        If map size > K:
+            shrink from start until valid again.
+
+*   Counting trick:
+
+        Once window is valid,
+        all substrings ending at 'end'
+        and starting from start to end are valid.
+
+        Count added = (end - start + 1)
+
+*   Why this works:
+
+        - Sliding window maintains constraint efficiently
+        - Complement approach avoids complex exact counting
+        - Each character enters and leaves window once
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)
+        (only 3 characters possible)

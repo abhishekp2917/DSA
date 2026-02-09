@@ -1,0 +1,95 @@
+Question Link : https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-ii/description/
+
+*   Problem:
+        For every window of size k,
+        compute sum of top X frequent elements
+        where contribution = number * frequency.
+
+*   Brute force idea:
+        For every window:
+            Build frequency map
+            Sort by frequency
+            Pick top X
+        Too slow: O(n * k log k)
+
+*   Key challenge:
+        Window slides.
+        Frequencies change dynamically.
+        We must update top X efficiently.
+
+*   Core idea:
+        Maintain two ordered sets:
+
+        minHeap → stores top X elements
+        maxHeap → stores remaining elements
+
+*   Why two sets?
+        Because we must dynamically:
+            - Add elements
+            - Remove elements
+            - Maintain top X
+            - Maintain running sum
+
+*   minHeap invariant:
+        Contains exactly X best elements
+        (highest frequency, tie by number)
+
+*   maxHeap:
+        Contains all other elements
+
+*   Why minHeap sorted ascending by frequency?
+        So smallest among top X is at front.
+        If a better candidate appears,
+        we can easily remove weakest one.
+
+*   Why maxHeap sorted descending?
+        So strongest candidate outside top X
+        is at front.
+
+*   On adding element:
+        (1) Remove old pair
+        (2) Increase frequency
+        (3) Reinsert
+
+*   Why remove before updating?
+        Because TreeSet ordering depends on frequency.
+        Modifying in place breaks ordering.
+
+*   We maintain running sum:
+        sum += number * frequency
+        for elements in minHeap only.
+
+*   When window grows beyond k:
+        Decrease frequency of outgoing element.
+        Rebalance heaps if needed.
+
+*   After update:
+        If minHeap size > X:
+            Move weakest from minHeap → maxHeap
+            Adjust sum.
+
+*   If minHeap size < X:
+            Move strongest from maxHeap → minHeap
+            Adjust sum.
+
+*   What are we protecting?
+        (1) minHeap always contains top X elements.
+        (2) sum always equals contribution of top X.
+        (3) Both heaps remain correctly ordered.
+
+*   Why this works:
+        We separate:
+            - Top X region
+            - Remaining region
+
+        Sliding window only modifies
+        frequencies of two elements at a time.
+        Rebalancing keeps top X correct.
+
+*   Time Complexity:
+        Each insert/remove = O(log k)
+        Total = O(n log k)
+
+*   Space Complexity:
+        Frequency map + heaps
+        O(k)

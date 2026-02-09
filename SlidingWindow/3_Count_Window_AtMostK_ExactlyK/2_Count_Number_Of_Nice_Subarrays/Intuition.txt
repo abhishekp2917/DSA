@@ -1,0 +1,53 @@
+Question Link : https://leetcode.com/problems/count-number-of-nice-subarrays/description/
+
+*   We need the number of subarrays with EXACTLY k odd numbers.
+
+*   Directly counting exactly k is hard.
+
+*   Key trick:
+
+        exactly(k) = atMost(k) - atMost(k-1)
+
+    Reason:
+        Subarrays with exactly k odds
+        =
+        (subarrays with <= k odds)
+        -
+        (subarrays with <= k-1 odds)
+
+*   So problem reduces to counting subarrays
+    with AT MOST k odd numbers.
+
+*   Sliding Window strategy:
+
+        Maintain:
+            oddNumCount inside window
+
+        Expand window by moving end.
+
+        If oddNumCount > k:
+            shrink from left
+            until oddNumCount <= k
+
+*   Counting trick:
+
+        Once window [start ... end] is valid,
+        all subarrays ending at 'end'
+        and starting from start to end are valid.
+
+        Number of such subarrays =
+              (end - start + 1)
+
+*   Add this to total count.
+
+*   Why this works:
+
+        - Constraint (oddNumCount <= k) is monotonic
+        - Sliding window ensures O(n) processing
+        - Counting trick avoids nested loops
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)

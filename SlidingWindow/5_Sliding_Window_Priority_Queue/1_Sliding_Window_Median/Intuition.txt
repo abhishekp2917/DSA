@@ -1,0 +1,132 @@
+Question Link : https://leetcode.com/problems/sliding-window-median/description/
+
+*   We need the median for every contiguous subarray of size k.
+
+*   Median definition:
+        If k is odd → middle element after sorting.
+        If k is even → average of two middle elements.
+
+*   Brute force idea:
+        For every window:
+            Copy k elements
+            Sort them
+            Take median
+        Time = O(n * k log k)
+        Too slow for large n.
+
+*   Key insight:
+        Median does NOT require full sorting.
+        We only need:
+            - Largest element of lower half
+            - Smallest element of upper half
+
+*   So instead of sorting entire window,
+        we maintain two halves dynamically.
+
+*   We divide window into:
+        maxHeap → stores smaller half
+        minHeap → stores larger half
+
+*   Why maxHeap for smaller half?
+        Because we want fast access to
+        the largest element in the smaller half.
+        That element may become the median.
+
+*   Why minHeap for larger half?
+        Because we want fast access to
+        the smallest element in larger half.
+
+*   Core invariant (MOST IMPORTANT):
+        maxHeap size = ceil(k/2)
+        minHeap size = floor(k/2)
+
+*   Why this exact size rule?
+        Case 1: k is odd
+            maxHeap has one extra element
+            → That extra element is the median
+
+        Case 2: k is even
+            Both halves equal
+            → Median = average of boundary elements
+
+*   So the median is ALWAYS:
+        If odd:
+            maxHeap.top()
+        If even:
+            (maxHeap.top() + minHeap.top()) / 2
+
+*   Why always insert into maxHeap first?
+        Because we maintain smaller half first,
+        then move element if size exceeds allowed.
+        This keeps balancing logic simple.
+
+*   After inserting into maxHeap:
+        If maxHeap size exceeds required:
+            Move largest element
+            from maxHeap → minHeap
+
+        Why largest?
+            Because it no longer belongs
+            in the smaller half.
+
+*   Sliding window adds one element
+        and removes one element.
+
+*   Adding element:
+        O(log k) insert
+        Possibly O(log k) rebalance
+
+*   Removing element:
+        Must remove arbitrary element.
+
+*   Why PriorityQueue alone fails?
+        Because removing arbitrary element
+        takes O(k) time.
+
+*   Why TreeMap works?
+        It acts like a sorted multiset:
+            - Maintains order
+            - Supports duplicates
+            - Insert O(log k)
+            - Remove O(log k)
+            - Access smallest/largest in O(log k)
+
+*   While sliding:
+        After computing median,
+        we remove outgoing element.
+
+*   If outgoing element is in maxHeap:
+        Remove from maxHeap.
+        Then we may need to rebalance
+        by moving smallest from minHeap to maxHeap.
+
+*   Why rebalance?
+        Because removing element may break
+        the size invariant.
+
+*   If outgoing element is in minHeap:
+        Remove from minHeap.
+        Usually no rebalance needed
+        unless size invariant breaks.
+
+*   What are we always protecting?
+        1. Correct size balance
+        2. All elements in maxHeap <= all elements in minHeap
+        3. Median lies at heap boundary
+
+*   Why this works conceptually:
+        We are maintaining a dynamically sorted window,
+        but only at the middle split point.
+
+        Instead of full sorting,
+        we maintain just enough order
+        to extract median in O(1).
+
+*   Time Complexity:
+        Each insert/remove = O(log k)
+        Total windows = n
+        So total = O(n log k)
+
+*   Space Complexity:
+        We store at most k elements
+        → O(k)

@@ -1,0 +1,46 @@
+Question Link : https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+
+*   We need the longest substring with NO repeating characters.
+
+*   Since substring must be contiguous, Sliding Window is the natural approach.
+
+*   We maintain two pointers:
+
+        i → start of window
+        j → end of window
+
+*   Use a HashSet to track characters inside the current window.
+
+*   Expand window by moving j:
+
+        If s[j] is NOT in set:
+              Add it and continue expanding.
+
+        If s[j] is already in set:
+              Duplicate detected.
+              We must shrink window from the left
+              until duplicate is removed.
+
+*   Why shrinking works:
+
+        Removing characters from left
+        ensures window always contains unique characters.
+
+*   At every step:
+        Window [i ... j] is the longest valid substring
+        ending at index j.
+
+        Update maximum length.
+
+*   Each character is:
+
+        - Added to set once
+        - Removed from set once
+
+    So total operations are linear.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(min(n, charset_size))

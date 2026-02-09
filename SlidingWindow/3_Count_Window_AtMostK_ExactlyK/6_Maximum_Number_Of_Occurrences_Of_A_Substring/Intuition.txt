@@ -1,0 +1,53 @@
+Question Link : https://leetcode.com/problems/maximum-number-of-occurrences-of-a-substring/description/
+
+*   We need the maximum frequency of a substring such that:
+        length is between minSize and maxSize
+        distinct characters <= maxLetters
+
+*   First key observation:
+        We only need to check substrings of length = minSize.
+
+*   Why only minSize?
+        If a longer substring appears X times,
+        then its prefix of length minSize
+        must also appear at least X times.
+        So checking larger lengths cannot improve frequency.
+
+*   So problem reduces to:
+        Count valid substrings of size exactly minSize.
+
+*   Since we are checking all substrings of fixed size,
+        Sliding Window is the best approach.
+
+*   Maintain a window of size minSize.
+
+*   Track:
+        charCount[26] → frequency of characters in window
+        distinct → number of distinct characters
+
+*   When adding a character:
+        if its previous frequency was 0 → distinct++
+        then increase frequency.
+
+*   When window size exceeds minSize:
+        remove left character.
+        if its frequency becomes 0 → distinct--
+
+*   When window size == minSize
+        and distinct <= maxLetters:
+            substring is valid.
+
+*   Store substring frequency in hashmap.
+
+*   Track maximum frequency seen.
+
+*   Why this works:
+        - Each substring of size minSize is processed once.
+        - Distinct count maintained in O(1).
+        - We reduced search space using minSize insight.
+
+*   Time Complexity:
+        O(n * minSize) due to substring creation.
+
+*   Space Complexity:
+        O(n) for hashmap.

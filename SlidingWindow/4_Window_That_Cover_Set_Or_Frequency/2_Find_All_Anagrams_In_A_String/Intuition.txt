@@ -1,0 +1,77 @@
+Question Link : https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
+
+*   We need to find all starting indices in s
+    where substring is an anagram of p.
+
+*   Anagram means:
+        Same characters with same frequencies.
+
+*   First step:
+        Build frequency map of p.
+
+    Why?
+        Because every valid substring must match
+        these exact character counts.
+
+*   We use Sliding Window over s.
+
+    Why?
+        We are looking for contiguous substrings
+        and frequency constraints must be maintained dynamically.
+
+*   Maintain:
+        sFreqMap → frequency of current window
+        pFreqMap → required frequency
+        pDistinctCharCount → number of distinct chars in p
+        sDistinctCharCount → number of chars whose frequency matches exactly
+
+    Why track distinct match count?
+        Instead of comparing all 26 characters each time,
+        we only track how many characters currently match exactly.
+
+*   When expanding window (moving end):
+
+        If character not present in p:
+            reset window.
+
+    Why reset?
+        Because any substring containing this character
+        can never be a valid anagram.
+
+*   If character is valid:
+        Add it to sFreqMap.
+
+*   If its frequency now equals required frequency:
+        increment sDistinctCharCount.
+
+    Why?
+        Because this character now fully satisfies requirement.
+
+*   If frequency exceeds required frequency:
+        shrink window from left
+        until frequency becomes valid again.
+
+    Why shrink?
+        An anagram cannot have extra occurrences
+        beyond what p allows.
+
+*   When:
+        sDistinctCharCount == pDistinctCharCount
+
+    It means:
+        All required characters have exact matching frequency.
+
+    So current window is an anagram.
+
+*   Add start index to result.
+
+*   Why this works:
+        - Window always maintains valid frequency bounds.
+        - We only reset when character invalid.
+        - Every valid anagram window is detected.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)

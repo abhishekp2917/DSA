@@ -1,0 +1,57 @@
+Question Link : https://leetcode.com/problems/longest-turbulent-subarray/description/
+
+*   A turbulent subarray must alternate between:
+        > < > < > ...
+    OR
+        < > < > < ...
+
+*   Since the first comparison direction is unknown,
+    we must consider BOTH possible starting patterns.
+
+*   Approach:
+
+        Treat the array like a sliding window.
+
+        For each pattern:
+            - Expand right pointer
+            - Check whether expected comparison holds
+            - If pattern breaks, restart window at current index
+            - Track maximum window length
+
+*   Pattern 1 assumption:
+
+        If index is even:
+            expect arr[i] > arr[i-1]
+
+        If index is odd:
+            expect arr[i] < arr[i-1]
+
+*   Pattern 2 assumption:
+
+        If index is even:
+            expect arr[i] < arr[i-1]
+
+        If index is odd:
+            expect arr[i] > arr[i-1]
+
+*   If comparison fails:
+        Reset left pointer to current index
+        because turbulent property must restart.
+
+*   Why we check both patterns:
+
+        Turbulence depends on the direction
+        of the first comparison.
+        So we simulate both possibilities.
+
+*   Why this works:
+
+        - Each element processed once per pass
+        - Window resets only when alternation breaks
+        - Covers both alternating possibilities
+
+*   Time Complexity:
+        O(n)  (two linear passes)
+
+*   Space Complexity:
+        O(1)

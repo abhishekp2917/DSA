@@ -1,0 +1,72 @@
+Question Link : https://leetcode.com/problems/continuous-subarrays/description/
+
+*   Problem:
+        Count number of subarrays
+        where max(element) - min(element) ≤ 2.
+
+*   Brute force:
+        Check all subarrays.
+        Compute min and max each time.
+        Time = O(n^2)
+        Too slow.
+
+*   Key observation:
+        We must dynamically maintain:
+            - Current window maximum
+            - Current window minimum
+
+*   So we use TWO monotonic deques:
+
+        minQueue → increasing order
+                   front = smallest element
+
+        maxQueue → decreasing order
+                   front = largest element
+
+*   Invariant:
+        nums[maxQueue.front] = max in window
+        nums[minQueue.front] = min in window
+
+*   When adding nums[end]:
+
+        STEP 1:
+            Maintain increasing order in minQueue.
+            Remove elements ≥ current from back.
+
+        STEP 2:
+            Maintain decreasing order in maxQueue.
+            Remove elements ≤ current from back.
+
+*   If window becomes invalid:
+        max - min > limit
+
+        Shrink window from left.
+
+        While shrinking:
+            Remove outdated indexes
+            from front of deques.
+
+*   KEY COUNTING TRICK:
+
+        If window [start ... end] is valid,
+        then ALL subarrays ending at end
+        and starting from any index in
+        [start ... end] are valid.
+
+*   Number of valid subarrays ending at end:
+        end - start + 1
+
+*   So we add:
+        count += end - start + 1
+
+*   Why this works:
+        Sliding window ensures:
+            - Each element added once
+            - Each element removed once
+        Total operations O(n)
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n) worst case for deque

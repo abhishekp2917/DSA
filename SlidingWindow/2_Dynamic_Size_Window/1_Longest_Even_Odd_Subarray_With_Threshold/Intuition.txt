@@ -1,0 +1,51 @@
+Question Link : https://leetcode.com/problems/longest-even-odd-subarray-with-threshold/description/
+
+*   We need the longest contiguous subarray satisfying:
+
+        (1) All elements <= threshold
+        (2) First element is EVEN
+        (3) Parity alternates (even, odd, even, odd...)
+
+*   Since this is a contiguous segment problem,
+    Sliding Window is the natural approach.
+
+*   We maintain two pointers:
+        left → start of window
+        right → expanding end
+
+*   While expanding:
+
+        If nums[right] > threshold:
+              This element cannot be part of any valid subarray
+              → reset window: left = right + 1
+
+*   Alternation rule:
+
+        If nums[right] and nums[right-1] have same parity:
+              Alternation breaks
+              → restart window from right
+
+*   First element must be EVEN:
+
+        After adjustments,
+        ensure nums[left] is even.
+        If odd, move left forward.
+
+*   At each step:
+        Window [left ... right] is the longest valid window
+        ending at index right.
+
+        Update maximum length.
+
+*   Why this works:
+
+        - We only move left forward (never backward)
+        - Each element is processed at most twice
+        - Constraints are maintained greedily
+
+*   Time Complexity:
+        O(n)
+        Each element enters and leaves window once.
+
+*   Space Complexity:
+        O(1)

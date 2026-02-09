@@ -1,0 +1,69 @@
+Question Link : https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii/description/
+
+*   We need substrings that:
+        - contain all 5 vowels (a, e, i, o, u)
+        - contain exactly k consonants
+
+*   Counting "exactly k" directly is hard.
+
+*   So we use the standard trick:
+        exactly(k) = atLeast(k) - atLeast(k + 1)
+
+*   Why does this work?
+        Substrings with at least k consonants
+        minus
+        substrings with at least (k + 1) consonants
+        leaves substrings with exactly k consonants.
+
+*   So we only need to build a function:
+        atLeastK(word, k)
+
+*   Now the problem becomes:
+        Count substrings that:
+            - contain all 5 vowels
+            - have at least k consonants
+
+*   Since we are dealing with contiguous substrings
+        and maintaining frequency constraints,
+        Sliding Window is ideal.
+
+*   Maintain:
+        vowelCount map → to track distinct vowels in window
+        consonantCount → number of consonants in window
+
+*   Expand window by moving end:
+        - If vowel → update map
+        - Else → increment consonantCount
+
+*   Window becomes VALID when:
+        vowelCount.size() == 5
+        AND
+        consonantCount >= k
+
+*   Important counting trick:
+        Once window is valid at position 'end',
+        all substrings starting at 'start'
+        and ending at any index >= end
+        will also be valid.
+
+*   Why?
+        Because extending the window
+        only increases consonant count
+        and keeps vowels satisfied.
+
+*   So we add:
+        word.length() - end
+
+*   Then shrink from left:
+        to find the next smaller valid window.
+
+*   Continue expanding and shrinking.
+
+*   Finally:
+        exactly(k) = atLeast(k) - atLeast(k+1)
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)

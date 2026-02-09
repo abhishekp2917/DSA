@@ -1,0 +1,83 @@
+Question Link : https://leetcode.com/problems/max-value-of-equation/description/
+
+MAX VALUE OF EQUATION
+
+*   Problem:
+        Maximize:
+
+            yi + yj + |xi - xj|
+
+        with constraint:
+            |xi - xj| ≤ k
+
+*   Since points sorted by x and j > i:
+
+        |xi - xj| = xj - xi
+
+*   Rewrite equation:
+
+        yi + yj + (xj - xi)
+
+*   Rearranged:
+
+        = (yi - xi) + (yj + xj)
+
+*   Key insight:
+        For each j,
+        we need maximum (yi - xi)
+        such that xj - xi ≤ k.
+
+*   So problem becomes:
+
+        Sliding window on x
+        +
+        Maintain maximum (yi - xi)
+
+*   Why sliding window?
+        Because xj - xi must be ≤ k.
+
+*   Why monotonic deque?
+        Because we need max (yi - xi)
+        efficiently.
+
+*   Deque invariant:
+        Stores indices i
+        in decreasing order of (yi - xi).
+
+        Front = best candidate.
+
+*   For each j:
+
+        STEP 1:
+            Remove indices from front
+            if xj - xi > k.
+
+        STEP 2:
+            If deque not empty,
+            compute:
+
+                answer =
+                (yi - xi) + (yj + xj)
+
+        STEP 3:
+            Maintain decreasing order.
+            Remove from back while:
+
+                (yl - xl) ≤ (yj - xj)
+
+            Because those candidates
+            will never be optimal.
+
+*   Why removing dominated points works:
+        If new point has larger (y - x),
+        it is strictly better for all future j.
+
+*   Each element:
+        Added once
+        Removed once
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)

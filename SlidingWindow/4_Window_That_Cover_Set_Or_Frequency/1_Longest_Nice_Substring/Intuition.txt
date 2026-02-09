@@ -1,0 +1,74 @@
+Question Link : https://leetcode.com/problems/longest-nice-substring/description/
+
+*   A substring is "nice" if:
+        For every letter present,
+        both lowercase and uppercase versions appear.
+
+*   Example:
+        If 'a' appears → 'A' must also appear.
+        If 'B' appears → 'b' must also appear.
+
+*   We need the longest such substring.
+
+*   Brute force idea:
+        Try every possible substring.
+        For each substring,
+        check whether it satisfies the condition.
+
+*   Since constraints are small,
+        O(n^2) substring enumeration is acceptable.
+
+*   Key idea to check condition efficiently:
+
+        Use two bitmasks:
+            lowerCaseMask
+            upperCaseMask
+
+*   Each bit position represents one letter:
+        bit 0 → 'a' or 'A'
+        bit 1 → 'b' or 'B'
+        ...
+        bit 25 → 'z' or 'Z'
+
+*   When we see:
+        lowercase letter:
+            set bit in lowerCaseMask
+
+        uppercase letter:
+            set bit in upperCaseMask
+
+*   Why bitmask?
+        It allows:
+            - constant time updates
+            - constant time comparison
+
+*   Important observation:
+
+        A substring is nice if:
+            lowerCaseMask == upperCaseMask
+
+*   Why does equality work?
+
+        If a lowercase letter exists,
+            its bit is set in lowerCaseMask.
+
+        If uppercase version also exists,
+            same bit is set in upperCaseMask.
+
+        So both masks must match exactly.
+
+*   For each start index:
+        Extend end pointer.
+        Update masks dynamically.
+
+*   Whenever masks become equal:
+        Current substring is nice.
+
+*   Update longest substring if length is greater.
+
+*   Time Complexity:
+        O(n^2)
+
+*   Space Complexity:
+        O(1)
+        (only two integers used)

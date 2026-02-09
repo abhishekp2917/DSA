@@ -1,0 +1,99 @@
+Question Link : https://leetcode.com/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-ii/
+
+*   We need to count substrings of word1 that contain
+    all characters of word2 with at least the same frequency.
+
+*   Direct approach would be:
+        For every substring,
+        check if it satisfies the frequency condition.
+
+    That would be O(n^2), which is too slow.
+
+*   So we reverse the thinking.
+
+    Every substring either:
+        - Fully contains word2 (valid)
+        OR
+        - Does NOT fully contain word2 (invalid)
+
+    These two groups cover all substrings and do not overlap.
+
+*   So instead of directly counting valid substrings,
+    we count INVALID substrings
+    and subtract from total substrings.
+
+*   Total substrings in a string of length n:
+
+        n * (n + 1) / 2
+
+*   Now the problem becomes:
+        Count substrings that DO NOT fully satisfy word2’s frequency.
+
+*   To do this efficiently,
+    we use Sliding Window.
+
+*   Why Sliding Window works here:
+
+        We are checking a frequency-based condition
+        on a contiguous substring.
+
+        As we expand the window,
+        character frequencies increase.
+
+        When window becomes fully valid,
+        we shrink it until it becomes invalid again.
+
+*   We maintain:
+
+        word2FreqMap → required frequencies
+        word1FreqMap → current window frequencies
+
+        word2UnqChars → number of distinct required characters
+        sameCountChars → how many distinct characters
+                          currently meet required frequency
+
+*   As we expand the window (move end pointer):
+
+        Add the current character to frequency.
+
+        If this character’s frequency
+        becomes equal to required frequency,
+        we increase sameCountChars.
+
+*   When sameCountChars == word2UnqChars:
+
+        That means window now fully contains word2.
+
+        But remember —
+        we are counting INVALID substrings.
+
+        So we must shrink the window from the left
+        until it becomes invalid again.
+
+*   Why shrink?
+
+        Because any larger window containing this one
+        would also be valid.
+        We want to stop counting valid windows.
+
+*   After shrinking:
+
+        Window [start ... end] is INVALID again.
+
+        Now,
+        ALL substrings ending at 'end'
+        and starting anywhere between start and end
+        are invalid.
+
+        Count += (end - start + 1)
+
+*   Finally:
+
+        valid_substrings =
+            total_substrings - invalid_substrings
+
+*   Why this approach works:
+
+        - Frequency constraints are monotonic
+        - Sliding window guarantees O(n)
+        - Complement counting avoids complex direct counting

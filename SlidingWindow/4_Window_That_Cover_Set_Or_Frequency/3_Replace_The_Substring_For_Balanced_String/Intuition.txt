@@ -1,0 +1,70 @@
+Question Link : https://leetcode.com/problems/replace-the-substring-for-balanced-string/description/
+
+*   We need the minimum length substring
+    that can be replaced to make the string balanced.
+
+*   Balanced means:
+        Each of Q, W, E, R appears exactly n/4 times.
+
+*   First step:
+        Count total frequency of each character.
+
+    Why?
+        To know which characters exceed required count.
+
+*   Second step:
+        Compute EXTRA count:
+            count[ch] = max(0, totalCount - required)
+
+    Why?
+        Only extra characters need to be fixed.
+        Required ones are already fine.
+
+*   If no character has extra count:
+        Return 0.
+
+    Why?
+        String is already balanced.
+
+*   Now problem becomes:
+        Find smallest substring
+        that contains all extra characters.
+
+    Why?
+        If we replace that substring,
+        the remaining string will automatically be balanced.
+
+*   Use Sliding Window.
+
+    Why?
+        We need smallest contiguous substring
+        covering certain required counts.
+
+*   When expanding window (moving end):
+        Decrease count[ch].
+
+    Why?
+        This character is now inside window,
+        meaning we are covering one extra occurrence.
+
+*   Window becomes valid when:
+        All extra counts <= 0.
+
+    Why?
+        That means window contains
+        enough occurrences of every extra character.
+
+*   Once valid:
+        Try shrinking from left
+        to minimize window size.
+
+    Why?
+        We want minimum possible replacement length.
+
+*   Continue scanning entire string.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)

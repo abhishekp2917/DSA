@@ -1,0 +1,41 @@
+Question Link : https://leetcode.com/problems/maximum-average-subarray-i/description/
+
+*   We need to find the maximum average
+    among all contiguous subarrays of size k.
+
+*   Since subarray size is FIXED,
+    Sliding Window is ideal.
+
+*   Key observation:
+        Instead of computing sum for every subarray from scratch,
+        we can reuse previous window sum.
+
+*   Step 1:
+        Compute sum of first k elements.
+        This forms the initial window.
+
+*   Step 2:
+        Slide the window one element at a time:
+
+            New sum =
+                Previous sum
+                - element leaving window
+                + element entering window
+
+    Reason:
+        This avoids recomputing k elements every time.
+
+*   For each window:
+        Compute average = sum / k
+        Update maximum.
+
+*   Why this works:
+        - Every valid subarray of size k is examined exactly once
+        - Each step updates sum in O(1) time
+
+*   Time Complexity:
+        O(n)
+        Each element enters and leaves window once.
+
+*   Space Complexity:
+        O(1)

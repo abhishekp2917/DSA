@@ -1,0 +1,79 @@
+Question Link : https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/description/
+
+*   Problem:
+        Find longest subarray where:
+            max(element) - min(element) ≤ limit.
+
+*   Brute force:
+        For each start,
+        expand and track max & min.
+        Time = O(n^2)
+        Too slow.
+
+*   Key observation:
+        We must maintain:
+            - Current window maximum
+            - Current window minimum
+
+        Efficiently and dynamically.
+
+*   So we use TWO monotonic deques:
+
+        minQueue → increasing order
+                   front = smallest element
+
+        maxQueue → decreasing order
+                   front = largest element
+
+*   Why store indexes?
+        To:
+            - Remove outdated elements
+            - Access values using nums[index]
+
+*   Invariant:
+        minQueue front → minimum in window
+        maxQueue front → maximum in window
+
+*   When adding new element nums[end]:
+
+        STEP 1:
+            Maintain increasing order in minQueue.
+            Remove from back while ≥ current.
+
+            Why?
+                Bigger elements behind current
+                can never become minimum.
+
+        STEP 2:
+            Maintain decreasing order in maxQueue.
+            Remove from back while ≤ current.
+
+            Why?
+                Smaller elements behind current
+                can never become maximum.
+
+*   Window validity condition:
+        nums[maxQueue.front] - nums[minQueue.front] ≤ limit
+
+*   If invalid:
+        Shrink window from left.
+
+*   While shrinking:
+        Increase start pointer.
+        Remove elements from front
+        if they fall out of window.
+
+*   Why this works:
+        At any moment:
+            We know min and max in O(1).
+            Each element is added once,
+            removed once.
+
+*   So total complexity:
+        O(n)
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(k) worst case

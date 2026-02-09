@@ -1,0 +1,71 @@
+Question Link : https://leetcode.com/problems/sliding-window-maximum/description/
+
+*   We need maximum of every window of size k.
+
+*   Brute force:
+        For each window,
+        scan all k elements.
+        Time = O(n * k)
+        Too slow.
+
+*   Key observation:
+        We do NOT need all elements.
+        We only need candidates
+        that can possibly become maximum.
+
+*   Important idea:
+        If a bigger element comes after
+        a smaller element,
+        the smaller one becomes useless.
+
+*   Why useless?
+        Because:
+            - It is smaller.
+            - It appears earlier.
+            - It will leave window earlier.
+        So it can never be maximum.
+
+*   So we maintain a MONOTONIC DECREASING deque.
+
+*   Deque stores INDEXES, not values.
+
+*   Why store indexes?
+        (1) To check if element is out of window.
+        (2) To access values using nums[index].
+
+*   Invariant:
+        Values in deque are in decreasing order.
+        Front always holds maximum.
+
+*   For each new element nums[end]:
+
+        STEP 1:
+            Remove front element
+            if it is outside window.
+
+        STEP 2:
+            Remove elements from back
+            while they are smaller than current element.
+
+            Why?
+                They can never become max
+                in this or future windows.
+
+        STEP 3:
+            Add current index at back.
+
+*   When window size >= k:
+        Maximum = nums[deque.front]
+
+*   Why this works:
+        Each element is:
+            Added once
+            Removed once
+
+        So total operations = O(n)
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(k)

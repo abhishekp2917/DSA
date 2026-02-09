@@ -1,0 +1,74 @@
+Question Link : https://leetcode.com/problems/count-the-number-of-good-subarrays/description/
+
+*   A subarray is GOOD if it contains
+        at least k equal pairs.
+
+*   Counting directly "at least k" is difficult.
+
+*   Key trick (complement counting):
+
+        good_subarrays =
+            total_subarrays
+            -
+            subarrays_with_at_most_(k-1)_pairs
+
+*   Total substrings in array of length n:
+
+        n * (n + 1) / 2
+
+*   Now the problem reduces to:
+        Count subarrays with AT MOST k equal pairs.
+
+*   How to count equal pairs dynamically?
+
+        If a number appears f times in window,
+        number of equal pairs formed by this number:
+
+            f * (f - 1) / 2
+
+        But instead of recomputing this formula,
+        we track pairs incrementally.
+
+*   When adding nums[end]:
+
+        If its current frequency is f,
+        adding one more creates f new pairs.
+
+        So:
+            pairCount += f
+
+*   When removing nums[start]:
+
+        After decreasing frequency to f-1,
+        number of pairs reduces by (f-1).
+
+        So:
+            pairCount -= (new frequency)
+
+*   Sliding window logic:
+
+        Expand end pointer
+        Maintain pairCount
+
+        If pairCount > k:
+            shrink from left
+
+*   Counting trick:
+
+        Once window [start ... end] has <= k pairs,
+        all subarrays ending at 'end'
+        and starting from start to end are valid.
+
+        Count += (end - start + 1)
+
+*   Why this works:
+
+        - Pair count grows monotonically when expanding
+        - Shrinking restores validity
+        - Complement approach simplifies "at least k" condition
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n) in worst case (frequency map)

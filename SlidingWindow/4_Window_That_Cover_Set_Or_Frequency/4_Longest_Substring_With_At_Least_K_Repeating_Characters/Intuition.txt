@@ -1,0 +1,61 @@
+Question Link : https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/description/
+
+*   We need the longest substring
+    where every character appears at least k times.
+
+*   Direct brute force is too slow,
+    because checking all substrings is O(n^2).
+
+*   Key observation:
+        A valid substring must have:
+            some number of distinct characters,
+            and each of them must appear ≥ k times.
+
+*   So instead of guessing substring boundaries,
+        we fix the number of distinct characters.
+
+*   Why fix distinct count?
+        Because total possible distinct characters ≤ 26.
+        We can try all possibilities from 1 to 26.
+
+*   For each possible distinct count:
+        Use Sliding Window.
+
+*   Maintain:
+        charCount[26] → frequency in window
+        unqChars → how many distinct characters we still allow
+        reqChars → how many distinct characters still need to reach k
+
+*   When adding a character:
+        If it’s new → reduce available distinct slots.
+        If its frequency becomes k → reduce reqChars.
+
+*   If distinct characters exceed allowed:
+        Shrink window from left.
+
+    Why?
+        Because we must maintain exactly the chosen
+        number of distinct characters.
+
+*   When:
+        unqChars == 0
+        AND
+        reqChars == 0
+
+    It means:
+        - Window has exactly required distinct characters.
+        - Each appears at least k times.
+
+*   Update maximum length.
+
+*   Why this works:
+        - We convert variable distinct problem
+          into fixed distinct problem.
+        - Sliding window ensures linear processing per distinct count.
+        - Total distinct possibilities are small (26).
+
+*   Time Complexity:
+        O(26 * n)
+
+*   Space Complexity:
+        O(1)

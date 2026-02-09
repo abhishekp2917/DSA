@@ -1,0 +1,54 @@
+Question Link : https://leetcode.com/problems/count-substrings-that-satisfy-k-constraint-i/description/
+
+*   We need to count substrings where:
+        NOT (ones > k AND zeros > k)
+
+    Meaning:
+        At least one of them must be <= k.
+
+*   Brute force:
+        Check all substrings → O(n^2)
+        Too slow.
+
+*   Key observation:
+
+        A substring becomes INVALID only when:
+              onesCount > k AND zerosCount > k
+
+*   So we use Sliding Window:
+
+        start → left pointer
+        end   → right pointer
+
+*   Expand window by moving end:
+
+        Update onesCount / zeroesCount
+
+*   If window becomes invalid:
+        Shrink from left
+        until at least one of them <= k
+
+*   Important counting trick:
+
+        Once window [start ... end] is valid,
+        ALL substrings ending at 'end'
+        and starting from any index between start and end
+        are valid.
+
+        Number of such substrings =
+              (end - start + 1)
+
+*   Add this to total count.
+
+*   Why this works:
+
+        - Each character enters window once
+        - Each character leaves window once
+        - Constraint violation is monotonic
+        - Counting trick avoids nested loops
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)

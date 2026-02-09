@@ -1,0 +1,49 @@
+Question Link : https://leetcode.com/problems/get-equal-substrings-within-budget/description/
+
+*   We are given two strings s and t of equal length.
+    Converting character s[i] to t[i] costs:
+        |s[i] - t[i]|
+
+*   We need the longest contiguous substring
+    whose total conversion cost is <= maxCost.
+
+*   Since substring must be contiguous,
+    and we maintain a SUM constraint,
+    Sliding Window is the perfect approach.
+
+*   Maintain two pointers:
+
+        left → start of window
+        right → expanding end
+
+*   As we expand right:
+
+        Add cost of new index:
+            cost += |s[right] - t[right]|
+
+*   If cost exceeds maxCost:
+
+        Shrink from left:
+            subtract cost of s[left] -> t[left]
+            move left forward
+
+        Repeat until cost <= maxCost
+
+*   At every step:
+        Window [left ... right] is the longest valid
+        substring ending at index right.
+
+        Update maximum length.
+
+*   Why this works:
+
+        - Each index enters window once
+        - Each index leaves window once
+        - Total cost is maintained incrementally
+        - Constraint is monotonic while shrinking
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)
