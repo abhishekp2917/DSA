@@ -1,0 +1,101 @@
+Question Link : https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/description/
+
+*   Problem:
+
+        Given array of size n,
+        divide it into two groups of size n/2 each
+        such that difference of their sums is minimum.
+
+*   Brute force:
+
+        Choose n/2 elements from n.
+        Complexity:
+            C(n, n/2) ≈ 2^n / sqrt(n)
+        For n = 30 → too large.
+
+*   Core Idea: Meet-in-the-Middle
+
+        Split array into two halves.
+
+        Generate all subset sums for each half.
+
+        For each subset store:
+            (sum, size)
+
+        Because we must ensure:
+            leftSize + rightSize = n/2
+
+*   Why store subsetSize?
+
+        Unlike normal subset sum,
+        we cannot choose arbitrary number of elements.
+
+        We must choose EXACTLY n/2 elements.
+
+*   Key transformation:
+
+        Let firstHalfSum = chosen subset sum.
+
+        secondHalfSum = totalSum - firstHalfSum.
+
+        We want:
+            minimize |firstHalfSum - secondHalfSum|
+
+        Which is equivalent to:
+            minimize |2*firstHalfSum - totalSum|
+
+*   Why sorting by size then sum?
+
+        Sorting groups subsets by size.
+        This helps us combine only valid size pairs.
+
+*   Two pointer logic:
+
+        left[i] + right[j] gives candidate firstHalfSum.
+
+        If sum too big:
+                decrease right side.
+
+        If sum too small:
+                increase left side.
+
+        But we must also ensure:
+                leftSize + rightSize = n/2
+
+*   Important invariant:
+
+        At every combination:
+            size constraint is maintained.
+
+        Pointer movement always tries to move
+        toward balancing totalSum/2.
+
+*   Time Complexity:
+
+        Subset generation:
+            O(2^(n/2))
+
+        Sorting:
+            O(2^(n/2) log 2^(n/2))
+
+        Two pointer traversal:
+            O(2^(n/2))
+
+        Overall:
+            O(2^(n/2))
+
+*   Space Complexity:
+
+        O(2^(n/2))
+
+*   Core Insight to Remember:
+
+        When:
+            n ≤ 30 or 40
+            brute force 2^n is too big
+            but n/2 manageable
+
+        Think:
+            Meet-in-the-Middle
+            Store (sum, size)
+            Combine intelligently

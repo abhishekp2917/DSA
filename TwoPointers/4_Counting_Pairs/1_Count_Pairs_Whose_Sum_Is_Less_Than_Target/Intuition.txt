@@ -1,0 +1,67 @@
+Question Link : https://leetcode.com/problems/count-pairs-whose-sum-is-less-than-target/description/
+
+*   We are given a list of integers.
+    We must count number of pairs (i, j)
+    such that:
+
+        i < j
+        nums[i] + nums[j] < target
+
+*   Brute force:
+        Try all pairs → O(n²)
+
+    Optimized solution:
+        Sort + Two Pointers → O(n log n)
+
+*   Key observation:
+
+        After sorting:
+
+            If nums[left] + nums[right] < target,
+
+        then for that fixed left:
+
+            nums[left] + nums[k] < target
+            for ALL k between (left+1 ... right)
+
+        Because array is sorted,
+        and any k < right gives smaller sum.
+
+*   Algorithm:
+
+        (1) Sort the array.
+
+        (2) Initialize:
+                left = 0
+                right = n - 1
+                count = 0
+
+        (3) While left < right:
+
+                If sum >= target:
+                        right--
+
+                Else:
+                        count += (right - left)
+                        left++
+
+*   Why we add (right - left):
+
+        Fix left.
+        All indices between left+1 and right
+        form valid pairs with left.
+
+        So we count them in one step.
+
+*   Important invariant:
+
+        Array is sorted.
+        Moving right decreases sum.
+        Moving left increases sum.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Two pointer traversal → O(n)
+
+*   Space Complexity:
+        O(1) (ignoring sort space)

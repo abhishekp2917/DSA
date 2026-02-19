@@ -1,0 +1,71 @@
+Question Link : https://leetcode.com/problems/k-diff-pairs-in-an-array/description/
+
+*   We are given an array nums and an integer k.
+    We must count number of unique pairs (i, j)
+    such that:
+
+        i < j
+        nums[j] - nums[i] = k
+
+*   Brute force:
+        Try all pairs → O(n²)
+
+    Optimized solution:
+        Sort + Two Pointers → O(n log n)
+
+*   Key observation:
+
+        After sorting:
+
+            nums[right] - nums[left]
+
+        increases if:
+            right moves forward
+        decreases if:
+            left moves forward
+
+*   Strategy:
+
+        (1) Sort the array.
+
+        (2) Use two pointers:
+                left = 0
+                right = 0
+
+        (3) While both pointers are valid:
+
+                If left == right
+                   OR difference < k:
+                        right++
+
+                If difference > k:
+                        left++
+
+                If difference == k:
+                        count++
+                        left++
+                        skip duplicates
+
+*   Why skip duplicates?
+
+        Problem asks for unique pairs.
+
+        If same value repeats,
+        we must not count same pair again.
+
+*   Important invariant:
+
+        Array is sorted.
+        Moving right increases difference.
+        Moving left decreases difference.
+
+        Each pair is processed only once.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Two pointer traversal → O(n)
+
+        Overall → O(n log n)
+
+*   Space Complexity:
+        O(1)

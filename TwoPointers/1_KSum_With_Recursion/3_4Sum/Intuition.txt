@@ -1,0 +1,86 @@
+Question Link : https://leetcode.com/problems/4sum/description/
+
+*   We are given an integer array.
+    We must find all UNIQUE quadruplets such that:
+        nums[a] + nums[b] + nums[c] + nums[d] = target
+
+*   Brute force tries all 4 combinations → O(n^4).
+    We optimize to O(n^3) using sorting + two pointers.
+
+*   Key observation:
+        If we fix two elements,
+        the remaining problem becomes 2Sum.
+
+        So 4Sum reduces to:
+            2 nested loops + 2 pointer search.
+
+*   Sorting is essential because:
+        - Enables two pointer technique.
+        - Helps eliminate duplicates.
+        - Ensures monotonic movement.
+
+*   Algorithm Steps:
+
+        (1) Sort the array.
+
+        (2) Fix first index i from 0 to n-4.
+
+        (3) Fix second index j from i+1 to n-3.
+
+        (4) Now search for two numbers using:
+                left = j + 1
+                right = n - 1
+
+        (5) While left < right:
+                sum = nums[i] + nums[j] + nums[left] + nums[right]
+
+                If sum == target:
+                        Store quadruplet
+                        Skip duplicates for left
+                        Skip duplicates for right
+                        Move both inward
+
+                If sum < target:
+                        Move left++
+
+                If sum > target:
+                        Move right--
+
+*   Why duplicate skipping is required:
+
+        Without skipping duplicates for i, j, left, right,
+        we would generate identical quadruplets.
+
+        Sorting ensures duplicates are consecutive,
+        so we can skip them safely.
+
+*   Why two pointer works:
+
+        After fixing i and j,
+        the remaining subarray is sorted.
+
+        Moving left increases sum.
+        Moving right decreases sum.
+
+*   Why long is used:
+
+        Sum of four integers can overflow int.
+        Casting to long prevents overflow errors.
+
+*   Important invariant:
+
+        For fixed (i, j),
+        search space between left and right
+        shrinks monotonically.
+
+        We never revisit a pair.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Outer loops → O(n^2)
+        Two pointer → O(n)
+        Overall → O(n^3)
+
+*   Space Complexity:
+        O(1) extra space
+        (excluding output list)

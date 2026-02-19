@@ -1,0 +1,62 @@
+Question Link : https://leetcode.com/problems/is-subsequence/description/
+
+*   We are given two strings:
+        s (shorter string)
+        t (longer string)
+
+    We must check if s is a subsequence of t.
+
+*   Definition of subsequence:
+
+        Characters of s must appear in t
+        in the same order,
+        but not necessarily contiguously.
+
+*   Key observation:
+
+        We only need to verify
+        whether we can match all characters of s
+        while scanning t once.
+
+*   Algorithm:
+
+        Use two pointers:
+            i → pointer for s
+            j → pointer for t
+
+        While i < length(s) and j < length(t):
+
+            If s[i] == t[j]:
+                    Move both pointers
+                    (one character matched)
+
+            Else:
+                    Move j only
+                    (try next character in t)
+
+*   Why this works:
+
+        We scan t once.
+        Every time we find a matching character,
+        we lock it in and move forward.
+
+        Order is automatically preserved
+        because we only move forward.
+
+*   Important invariant:
+
+        At any moment,
+        characters s[0 ... i-1]
+        have been successfully matched in order.
+
+*   Final condition:
+
+        If i == length(s),
+        we matched all characters of s.
+
+*   Time Complexity:
+        O(m)
+        (We traverse t once)
+
+*   Space Complexity:
+        O(1)

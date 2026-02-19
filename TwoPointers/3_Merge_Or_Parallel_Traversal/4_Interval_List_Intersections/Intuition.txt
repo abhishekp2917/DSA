@@ -1,0 +1,64 @@
+Question Link : https://leetcode.com/problems/interval-list-intersections/description/
+
+*   We are given two lists of intervals.
+    Each list is:
+        - Sorted by start time
+        - Non-overlapping within itself
+
+    We must find intersections between them.
+
+*   Key observation:
+
+        Two intervals overlap if:
+
+            max(start1, start2) <= min(end1, end2)
+
+        Because:
+            The later starting interval must start
+            before the earlier ending interval ends.
+
+*   Strategy:
+
+        Use two pointers:
+            ptr1 → firstList
+            ptr2 → secondList
+
+*   Algorithm:
+
+        While both pointers are valid:
+
+            Let interval1 = [start1, end1]
+            Let interval2 = [start2, end2]
+
+            If they overlap:
+                    Add intersection:
+                        [max(start1, start2),
+                         min(end1, end2)]
+
+            Move pointer of interval
+            that ends first.
+
+*   Why move the interval that ends first?
+
+        Suppose end1 < end2:
+
+            interval1 cannot intersect
+            with any future interval of secondList
+            because it already ended.
+
+        So we move ptr1.
+
+*   Important invariant:
+
+        At every step,
+        all intervals before ptr1 and ptr2
+        have been completely processed.
+
+        No possible intersection is missed.
+
+*   Time Complexity:
+        O(n + m)
+        Each pointer moves at most once per interval.
+
+*   Space Complexity:
+        O(min(n, m)) for storing intersections.

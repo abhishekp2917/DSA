@@ -1,0 +1,160 @@
+Question Link : https://leetcode.com/problems/3sum/description/
+
+Solution1:
+
+*   We are given an integer array.
+    We must find all UNIQUE triplets such that:
+        nums[i] + nums[j] + nums[k] = 0
+
+*   Brute force tries all triplets → O(n³).
+    We can optimize to O(n²) using sorting + two pointers.
+
+*   Key observation:
+        If we fix one element nums[i],
+        the problem reduces to:
+
+            Find two numbers in the remaining array
+            whose sum = -nums[i]
+
+    This becomes a classic 2-sum in sorted array.
+
+*   Sorting is essential because:
+        - Enables two pointer approach.
+        - Makes duplicate elimination easy.
+        - Ensures monotonic pointer movement.
+
+*   Algorithm Steps:
+
+        (1) Sort the array.
+
+        (2) Fix index i from 0 to n-3.
+
+        (3) For each i:
+                left = i + 1
+                right = n - 1
+
+        (4) While left < right:
+                sum = nums[i] + nums[left] + nums[right]
+
+                If sum > 0:
+                        Move right-- (need smaller sum)
+
+                If sum < 0:
+                        Move left++ (need larger sum)
+
+                If sum == 0:
+                        Store triplet
+                        Skip duplicates for left
+                        Skip duplicates for right
+                        Move both inward
+
+*   Why duplicate skipping is required:
+
+        If we don't skip:
+            Same value at i or left or right
+            will generate identical triplets.
+
+        Since array is sorted,
+            duplicates appear consecutively,
+            so we can skip them easily.
+
+*   Important invariant:
+
+        For a fixed i:
+            Search space between left and right
+            shrinks monotonically.
+            We never revisit a pair.
+
+*   Why moving pointers works:
+
+        Because array is sorted:
+            Moving left increases sum.
+            Moving right decreases sum.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Outer loop → O(n)
+        Inner two-pointer → O(n)
+        Overall → O(n²)
+
+*   Space Complexity:
+        O(1) extra space
+        (excluding output list)
+
+Solution2:
+
+*   We are given an integer array.
+    We must find all UNIQUE triplets such that:
+        nums[i] + nums[j] + nums[k] = 0
+
+*   Instead of writing separate logic for 3Sum,
+    we generalize the solution into a reusable kSum framework.
+
+*   Key Idea:
+        kSum reduces to (k-1)Sum recursively.
+
+        When k becomes 2,
+        we solve using two pointers in sorted array.
+
+*   Sorting is essential because:
+        - Enables two-pointer solution for 2Sum.
+        - Makes duplicate skipping easy.
+        - Ensures monotonic pointer movement.
+
+*   Recursive Structure:
+
+        kSum(start, k, target)
+
+        If k == 2:
+            Solve classic 2-sum using two pointers.
+
+        Else:
+            For each index i from start to n-k:
+                Fix nums[i]
+                Recursively solve:
+                    kSum(i+1, k-1, target - nums[i])
+
+                Combine nums[i] with all returned combinations.
+
+*   Why recursion works:
+
+        Fixing one element reduces problem size.
+        We gradually reduce k until it becomes 2.
+        2Sum is efficiently solvable in O(n).
+
+*   Duplicate Handling:
+
+        - Skip duplicates while fixing index i.
+        - Skip duplicates inside 2Sum.
+        - This guarantees unique combinations.
+
+*   Important invariant:
+
+        At each recursion level:
+            We only search elements AFTER the fixed index.
+            This ensures:
+                - No reuse of same element.
+                - No permutation duplicates.
+                - Strictly increasing index order.
+
+*   Why target changes:
+
+        If nums[i] is fixed,
+        remaining numbers must sum to:
+            target - nums[i]
+
+        So target is reduced at each recursion.
+
+*   Time Complexity:
+
+        For 3Sum:
+            O(n²)
+
+        For general kSum:
+            O(n^(k-1))
+
+*   Space Complexity:
+
+        Recursion stack depth = k
+        So auxiliary space = O(k)
+        (excluding output storage)

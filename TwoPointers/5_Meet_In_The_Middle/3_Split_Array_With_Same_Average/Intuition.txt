@@ -1,0 +1,106 @@
+Question Link : https://leetcode.com/problems/split-array-with-same-average/description/
+
+*   Problem:
+
+        Determine whether array can be split
+        into two non-empty parts
+        such that both parts have same average.
+
+*   Mathematical Insight:
+
+        Let chosen subset have:
+            sum = S
+            size = k
+
+        Remaining part:
+            sum = totalSum - S
+            size = n - k
+
+        Condition:
+
+            S / k = (totalSum - S) / (n - k)
+
+        Cross multiply:
+
+            S * (n - k) = (totalSum - S) * k
+
+        Simplifies to:
+
+            S * n = totalSum * k
+
+        So we must find subset of size k
+        whose sum satisfies:
+
+            S = (totalSum * k) / n
+
+*   Why Meet-in-the-Middle?
+
+        n ≤ 30.
+
+        Full subset generation:
+            O(2^n) → too large.
+
+        Split into two halves:
+
+            Each half → O(2^(n/2))
+
+        Manageable.
+
+*   Why group sums by subset size?
+
+        Because equality condition depends on k.
+
+        We must match:
+            leftSize + rightSize = k
+
+*   Why sort each subset list?
+
+        Enables two pointer search:
+            Efficiently combine left and right sums.
+
+*   Two Pointer Logic:
+
+        Combine:
+            leftSum + rightSum = S
+
+        Compare averages instead of checking formula directly.
+
+        If firstAvg too big:
+            decrease sum.
+
+        If firstAvg too small:
+            increase sum.
+
+*   Important invariant:
+
+        At every step:
+            subset size constraint maintained.
+            pointers move monotonically.
+
+*   Time Complexity:
+
+        Subset generation:
+            O(2^(n/2))
+
+        Sorting:
+            O(2^(n/2) log 2^(n/2))
+
+        Combination search:
+            O(2^(n/2))
+
+        Overall:
+            O(2^(n/2))
+
+*   Space Complexity:
+
+        O(2^(n/2))
+
+*   Core Insight:
+
+        When condition involves:
+            sum AND subset size
+
+        Always:
+            Transform equation algebraically.
+            Use meet-in-the-middle.
+            Group by subset size.

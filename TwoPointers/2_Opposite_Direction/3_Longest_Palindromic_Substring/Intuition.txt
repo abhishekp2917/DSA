@@ -1,0 +1,66 @@
+Question Link : https://leetcode.com/problems/longest-palindromic-substring/description/
+
+*   We are given a string.
+    We must find the longest palindromic substring.
+
+*   Brute force:
+        Check all substrings and test palindrome → O(n³).
+
+    Better approach:
+        Expand Around Center → O(n²).
+
+*   Key observation:
+
+        A palindrome expands symmetrically
+        around its center.
+
+        Every palindrome has a center:
+            - Odd length → one character center
+            - Even length → gap between two characters
+
+*   So for each index i,
+        we try two expansions:
+
+        1) Odd length:
+                left = i
+                right = i
+
+        2) Even length:
+                left = i
+                right = i + 1
+
+*   While expanding:
+
+        As long as:
+            left >= 0
+            right < n
+            s[left] == s[right]
+
+        we keep expanding outward.
+
+*   During expansion:
+
+        If current palindrome length
+        is greater than previous best,
+        update start and end.
+
+*   Why this works:
+
+        Every palindrome must have a center.
+        By trying all possible centers,
+        we guarantee finding the longest one.
+
+*   Important invariant:
+
+        At each step of expansion,
+        substring between left and right
+        is always a valid palindrome.
+
+*   Time Complexity:
+        Outer loop → n
+        Each expansion → O(n)
+        Overall → O(n²)
+
+*   Space Complexity:
+        O(1)
+

@@ -1,0 +1,73 @@
+Question Link : https://leetcode.com/problems/valid-triangle-number/description/
+
+*   We are given an array of integers.
+    We must count number of triplets
+    that can form a valid triangle.
+
+*   Triangle condition:
+
+        For sides a, b, c:
+
+            a + b > c
+            a + c > b
+            b + c > a
+
+    After sorting (a ≤ b ≤ c),
+    only need to check:
+
+            a + b > c
+
+*   Key observation:
+
+        After sorting,
+        if we fix the largest side (c),
+        we only need to find pairs (a, b)
+        such that:
+
+            nums[left] + nums[right] > nums[i]
+
+*   Strategy:
+
+        (1) Sort the array.
+
+        (2) Fix largest side at index i
+           (iterate from n-1 down to 2).
+
+        (3) Use two pointers:
+                left = 0
+                right = i - 1
+
+        (4) While left < right:
+
+                If nums[left] + nums[right] <= nums[i]:
+                        left++
+
+                Else:
+                        count += (right - left)
+                        right--
+
+*   Why count += (right - left)?
+
+        If nums[left] + nums[right] > nums[i],
+        then for ALL indices k between left and right-1:
+
+                nums[k] + nums[right] > nums[i]
+
+        Because array is sorted,
+        and nums[k] >= nums[left].
+
+*   Important invariant:
+
+        Sorted order ensures:
+            Moving left increases sum.
+            Moving right decreases sum.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Outer loop → O(n)
+        Two pointer → O(n)
+
+        Overall → O(n²)
+
+*   Space Complexity:
+        O(1)

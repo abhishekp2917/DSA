@@ -1,0 +1,62 @@
+Question Link : https://leetcode.com/problems/friends-of-appropriate-ages/description/
+
+*   We are given ages of people.
+    A person A will NOT send request to B if:
+
+        age[B] <= 0.5 * age[A] + 7
+        age[B] > age[A]
+        age[B] > 100 AND age[A] < 100
+
+    We must count total valid friend requests.
+
+*   Key observation:
+
+        After sorting ages,
+        valid sender ages form a continuous range.
+
+        For a fixed receiver age A,
+        valid B must satisfy:
+
+            B > 0.5*A + 7
+            B <= A
+
+*   Strategy:
+
+        (1) Sort ages.
+
+        (2) Use two pointers:
+                left → smallest valid sender
+                right → current receiver
+
+        (3) For each distinct age at right:
+
+                Move left until:
+                    ages[left] > 0.5*ages[right] + 7
+
+                Valid senders are between left and right-1.
+
+        (4) Multiply by frequency of that age.
+
+*   Why grouping duplicates works:
+
+        If multiple people have same age,
+        they share identical valid sender range.
+
+        So we compute once and multiply by frequency.
+
+*   Important invariant:
+
+        left only moves forward.
+        right only moves forward.
+
+        Window always represents valid sender range.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Two pointer traversal → O(n)
+
+        Overall → O(n log n)
+
+*   Space Complexity:
+        O(1)
+        (frequency array size is constant 121)

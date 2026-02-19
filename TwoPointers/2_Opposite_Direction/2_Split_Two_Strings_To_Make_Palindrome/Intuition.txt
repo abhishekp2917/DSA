@@ -1,0 +1,68 @@
+Question Link : https://leetcode.com/problems/split-two-strings-to-make-palindrome/description/
+
+*   We are given two strings a and b of equal length.
+    We can split both strings at the same index and form:
+
+        prefix of a + suffix of b
+    OR
+        prefix of b + suffix of a
+
+    We must check if any such combination forms a palindrome.
+
+*   Brute force:
+        Try all split points and construct strings → O(n²).
+
+    Optimized solution:
+        Two pointer greedy check → O(n).
+
+*   Key observation:
+
+        For prefix(a) + suffix(b) to be palindrome:
+
+            a[left] must match b[right]
+
+        We move inward while this condition holds.
+
+*   Critical insight:
+
+        Once mismatch occurs at (left, right),
+        the remaining substring must be palindrome
+        in either original string.
+
+        So we check:
+            isPalindrome(a, left, right)
+            OR
+            isPalindrome(b, left, right)
+
+*   Why this works:
+
+        Up to first mismatch,
+        cross characters are already symmetric.
+
+        After mismatch,
+        we are forced to choose remaining part
+        entirely from one string.
+
+*   Why we check both directions:
+
+        Because palindrome could form from:
+            prefix(a) + suffix(b)
+        OR
+            prefix(b) + suffix(a)
+
+        So we call checkCross twice.
+
+*   Important invariant:
+
+        While cross characters match,
+        palindrome property is maintained.
+
+        After first mismatch,
+        only one continuous substring remains to verify.
+
+*   Time Complexity:
+        O(n)
+        Each pointer moves at most n times.
+
+*   Space Complexity:
+        O(1)

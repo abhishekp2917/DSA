@@ -1,0 +1,83 @@
+Question Link : https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/description/
+
+*   We are given an array nums.
+    We must count number of non-empty subsequences
+    such that:
+
+        minimum + maximum <= target
+
+*   Brute force:
+        Generate all subsequences → O(2^n)
+
+    Optimized approach:
+        Sort + Two Pointers + Combinatorics → O(n log n)
+
+*   Key observation:
+
+        After sorting:
+
+            nums[left] = minimum
+            nums[right] = maximum
+
+        If nums[left] + nums[right] <= target,
+
+        then ANY subset of elements between
+        left and right can be chosen.
+
+*   Why 2^(right - left)?
+
+        Fix nums[left] as minimum.
+
+        Elements between left+1 and right
+        can either:
+            - be included
+            - be excluded
+
+        Total choices:
+            2^(right - left)
+
+*   Algorithm:
+
+        (1) Sort array.
+
+        (2) Precompute powers of 2.
+
+        (3) Use two pointers:
+                left = 0
+                right = n - 1
+
+        (4) While left <= right:
+
+                If nums[left] + nums[right] > target:
+                        right--
+
+                Else:
+                        count += 2^(right - left)
+                        left++
+
+*   Why moving pointers works:
+
+        If sum too large:
+                reduce maximum → right--
+
+        If sum valid:
+                count all combinations
+                increase minimum → left++
+
+*   Important invariant:
+
+        Sorted order guarantees:
+            Decreasing right decreases sum.
+            Increasing left increases sum.
+
+        Every subsequence is counted exactly once.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Two pointer traversal → O(n)
+        Power computation → O(n)
+
+        Overall → O(n log n)
+
+*   Space Complexity:
+        O(n) for power array

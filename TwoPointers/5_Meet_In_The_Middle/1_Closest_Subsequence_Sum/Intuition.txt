@@ -1,0 +1,123 @@
+Question Link : https://leetcode.com/problems/closest-subsequence-sum/description/
+
+*   We are given an array nums (n ≤ 40).
+    We must find a subset whose sum is closest to goal.
+
+*   Brute force:
+
+        Generate all subset sums → O(2^n)
+        For n = 40 → 2^40 ≈ 10^12 (impossible)
+
+*   Core idea: Meet-in-the-Middle
+
+        Split array into two halves.
+
+        First half size ≈ n/2
+        Second half size ≈ n/2
+
+        Generate subset sums separately.
+
+        Each half has at most:
+            2^(n/2) ≈ 2^20 ≈ 10^6
+        which is manageable.
+
+*   Why this works:
+
+        Any subset of full array can be viewed as:
+
+            subset_from_left_half
+            +
+            subset_from_right_half
+
+        So total sum =
+            leftSubsetSum[i] + rightSubsetSum[j]
+
+*   Step 1: Generate subset sums for both halves.
+
+        Using recursion:
+            For each element:
+                include it
+                exclude it
+
+        This generates all combinations.
+
+*   Step 2: Sort both lists.
+
+        Sorting allows efficient searching
+        instead of checking all pairs (O(n^2)).
+
+*   Step 3: Two pointer search
+
+        We want:
+            leftSum + rightSum ≈ goal
+
+        Initialize:
+            i = 0 (smallest left sum)
+            j = last index (largest right sum)
+
+        At each step:
+
+            sum = left[i] + right[j]
+
+            If sum > goal:
+                    decrease j
+                    (reduce total sum)
+
+            If sum < goal:
+                    increase i
+                    (increase total sum)
+
+            If sum == goal:
+                    perfect match → stop
+
+*   Why two pointer works:
+
+        Because both lists are sorted.
+
+        Increasing i increases total sum.
+        Decreasing j decreases total sum.
+
+        This creates monotonic movement toward goal.
+
+*   Important invariant:
+
+        At each step,
+        we eliminate one combination safely.
+
+        No pair is revisited.
+        Search space shrinks deterministically.
+
+*   Why we track absolute difference:
+
+        We do not need exact match.
+        We want minimum |goal - sum|.
+
+*   Time Complexity:
+
+        Subset generation:
+            O(2^(n/2))
+
+        Sorting:
+            O(2^(n/2) log 2^(n/2))
+
+        Two pointer:
+            O(2^(n/2))
+
+        Overall:
+            O(2^(n/2))
+
+*   Space Complexity:
+
+        O(2^(n/2))
+        for storing subset sums.
+
+*   Key Insight to Remember:
+
+        When n ≤ 40 and brute force is impossible,
+        always think:
+
+            Split array into two halves
+            Generate subset sums
+            Combine smartly
+
+        This is classic Meet-in-the-Middle.

@@ -1,0 +1,66 @@
+Question Link : https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/
+
+*   We are given a SORTED array in non-decreasing order.
+    We must find two numbers such that:
+        nums[i] + nums[j] = target
+
+*   Brute force would take O(n²).
+    Using HashMap would take O(n) time but O(n) space.
+
+*   Since the array is already SORTED,
+    we can use Two Pointers and solve in O(n) time and O(1) space.
+
+*   Core Idea (Two Pointer Logic):
+
+        Start:
+            i = 0         (smallest element)
+            j = n - 1     (largest element)
+
+        At every step:
+            sum = nums[i] + nums[j]
+
+*   Key Observation:
+
+        If sum < target:
+            Current sum is too small.
+            To increase sum → move left pointer right.
+            (Because array is sorted, nums[i] increases.)
+
+        If sum > target:
+            Current sum is too large.
+            To decrease sum → move right pointer left.
+            (Because nums[j] decreases.)
+
+        If sum == target:
+            We found the answer.
+
+*   Why this works:
+
+        - Array is sorted.
+        - Increasing left pointer increases sum.
+        - Decreasing right pointer decreases sum.
+        - We eliminate impossible pairs each step.
+        - Search space shrinks monotonically.
+
+*   Important Invariant:
+
+        At any time:
+            All pairs outside (i, j) are already eliminated.
+            We never revisit a pair.
+
+*   Why moving the wrong pointer fails:
+
+        If sum < target and we move j left:
+            sum decreases further → worse.
+
+        If sum > target and we move i right:
+            sum increases further → worse.
+
+*   This is a Monotonic Shrinking Search Space pattern.
+
+*   Time Complexity:
+        O(n)
+        Each pointer moves at most n times.
+
+*   Space Complexity:
+        O(1)

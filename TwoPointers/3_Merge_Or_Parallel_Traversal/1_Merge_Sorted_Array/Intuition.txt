@@ -1,0 +1,51 @@
+Question Link : https://leetcode.com/problems/merge-sorted-array/description/
+
+*   We are given two sorted arrays:
+
+        nums1 (size m + n)
+            - First m elements are valid.
+            - Last n elements are placeholders.
+
+        nums2 (size n)
+            - All elements are valid and sorted.
+
+    We must merge nums2 into nums1 in sorted order.
+
+*   Key observation:
+
+        This is identical to merge step of Merge Sort.
+
+        We use two pointers:
+            i → nums1 (0 to m-1)
+            j → nums2 (0 to n-1)
+
+*   Algorithm Steps:
+
+        (1) Create temporary array mergedArr.
+
+        (2) While either array still has elements:
+                Compare current elements.
+                Insert smaller one.
+                Move corresponding pointer.
+
+        (3) Copy mergedArr back into nums1.
+
+*   Why we use Integer.MAX_VALUE:
+
+        If one array is exhausted,
+        we treat its value as infinity
+        so remaining elements from other array get copied.
+
+*   Important invariant:
+
+        At every step,
+        mergedArr[0...ptr-1] is sorted.
+
+        We always pick the smallest available element.
+
+*   Time Complexity:
+        O(m + n)
+
+*   Space Complexity:
+        O(m + n)
+        (Due to temporary array)

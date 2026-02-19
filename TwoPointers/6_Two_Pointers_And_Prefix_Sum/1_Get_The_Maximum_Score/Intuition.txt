@@ -1,0 +1,93 @@
+Question Link : https://leetcode.com/problems/get-the-maximum-score/description/
+
+*   Problem:
+
+        Two sorted arrays.
+        You start from beginning of either array.
+        You may switch arrays only at common elements.
+        Maximize total sum collected.
+
+*   Key Insight:
+
+        Between two common elements,
+        switching is NOT allowed.
+
+        So for each segment,
+        you must choose:
+
+            sum from nums1 segment
+            OR
+            sum from nums2 segment
+
+        Whichever is larger.
+
+*   Why prefix sum?
+
+        To compute segment sums in O(1).
+
+        Instead of summing repeatedly,
+        we precompute cumulative sums.
+
+*   Why store common indices?
+
+        Because switching is allowed ONLY at common elements.
+
+        So common elements partition arrays into segments.
+
+*   Why add virtual boundaries?
+
+        Add (-1, -1):
+            Handles first segment.
+
+        Add (n1-1, n2-1):
+            Handles last segment.
+
+        This avoids special edge-case logic.
+
+*   Algorithm Flow:
+
+        1) Compute prefix sums.
+
+        2) Use two pointers to find common elements.
+
+        3) Store all common index pairs.
+
+        4) For each consecutive pair:
+                compute sum in nums1 segment
+                compute sum in nums2 segment
+                add maximum to answer
+
+*   Why greedy works?
+
+        Between two switch points,
+        we cannot partially switch.
+
+        So optimal choice is always:
+            take the larger segment sum.
+
+        This is independent per segment.
+
+*   Important invariant:
+
+        At every stage,
+        maxSum stores optimal sum
+        for all processed segments.
+
+*   Time Complexity:
+
+        Prefix computation → O(n1 + n2)
+        Two pointer traversal → O(n1 + n2)
+        Segment processing → O(number_of_common)
+
+        Overall → O(n1 + n2)
+
+*   Space Complexity:
+
+        O(n1 + n2) for prefix arrays
+        O(common elements) for list
+
+*   Core Insight to Remember:
+
+        When switching is allowed only at specific points,
+        break problem into independent segments.
+        Solve each segment greedily.

@@ -1,0 +1,67 @@
+Question Link : https://leetcode.com/problems/swap-adjacent-in-lr-string/description/
+
+*   We are given two strings s and t.
+    Allowed moves:
+
+        "XL" → "LX"
+        "RX" → "XR"
+
+    Meaning:
+        L can only move LEFT.
+        R can only move RIGHT.
+        X is just empty space.
+
+    We must check if s can transform into t.
+
+*   Key observations:
+
+        (1) Relative order of L and R must remain same.
+           We cannot reorder L and R.
+
+        (2) Only their positions relative to X can change.
+
+*   Strategy:
+
+        Use two pointers:
+            i → traverse s
+            j → traverse t
+
+        Skip all 'X' characters in both strings.
+
+        Compare only L and R characters.
+
+*   Conditions to verify:
+
+        If s[i] != t[j]:
+                return false
+
+        If character is 'R':
+                j must be >= i
+                (R can only move right)
+
+        If character is 'L':
+                j must be <= i
+                (L can only move left)
+
+*   Why this works:
+
+        We align non-X characters in order.
+        Then we verify whether movement direction
+        is allowed based on index positions.
+
+*   Final step:
+
+        After traversal,
+        remaining characters (if any)
+        must all be 'X'.
+
+*   Important invariant:
+
+        Order of L and R never changes.
+        We only validate movement direction.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)

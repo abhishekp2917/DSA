@@ -1,0 +1,77 @@
+Question Link : https://leetcode.com/problems/most-profit-assigning-work/description/
+
+*   We are given:
+
+        difficulty[i] → difficulty of job
+        profit[i]     → profit of job
+        worker[j]     → ability of worker
+
+    Each worker can do any job where:
+        difficulty <= worker ability
+
+    We must maximize total profit.
+
+*   Key observation:
+
+        For a given worker ability,
+        we need the maximum profit among
+        all jobs with difficulty <= ability.
+
+*   Brute force:
+
+        For each worker,
+        scan all jobs → O(n * m)
+
+    Optimized solution:
+        Sort both jobs and workers → O(n log n + m log m)
+
+*   Strategy:
+
+        (1) Combine difficulty and profit into Job objects.
+
+        (2) Sort jobs by difficulty ascending.
+
+        (3) Sort workers by ability ascending.
+
+        (4) Use two pointers:
+                i → jobs
+                j → workers
+
+        (5) Maintain a running maximum profit.
+
+*   Algorithm:
+
+        For each worker (in increasing ability):
+
+            While jobs[i].difficulty <= worker ability:
+                    Update maxProfit
+                    Move job pointer
+
+            Add maxProfit to totalProfit
+
+*   Why running maximum works:
+
+        Since workers are processed in increasing ability,
+        future workers can do all jobs
+        previous workers could do.
+
+        So we never reset maxProfit.
+        It only increases.
+
+*   Important invariant:
+
+        At any moment,
+        maxProfit stores the best job
+        that current worker can perform.
+
+        Job pointer never moves backward.
+
+*   Time Complexity:
+        Sorting jobs → O(n log n)
+        Sorting workers → O(m log m)
+        Two pointer traversal → O(n + m)
+
+        Overall → O(n log n + m log m)
+
+*   Space Complexity:
+        O(n) for Job array

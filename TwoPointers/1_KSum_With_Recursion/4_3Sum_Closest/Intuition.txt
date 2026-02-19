@@ -1,0 +1,81 @@
+Question Link : https://leetcode.com/problems/3sum-closest/description/
+
+*   We are given an integer array and a target.
+    We must find three numbers whose sum is closest to target.
+
+*   Brute force tries all triplets → O(n³).
+    We can optimize to O(n²) using sorting + two pointers.
+
+*   Key observation:
+        If we fix one element nums[i],
+        remaining problem becomes:
+
+            Find two numbers whose sum is closest to:
+                target - nums[i]
+
+        This can be solved using two pointers in sorted array.
+
+*   Sorting is essential because:
+        - Enables two pointer technique.
+        - Ensures predictable movement:
+                left++ → sum increases
+                right-- → sum decreases
+
+*   Algorithm Steps:
+
+        (1) Sort the array.
+
+        (2) Initialize:
+                closestDiff = infinity
+                closestSum = 0
+
+        (3) Fix index i from 0 to n-3.
+
+        (4) For each i:
+                left = i + 1
+                right = n - 1
+
+        (5) While left < right:
+                sum = nums[i] + nums[left] + nums[right]
+                diff = |target - sum|
+
+                If diff < closestDiff:
+                        Update closestDiff
+                        Update closestSum
+
+                If sum < target:
+                        Move left++
+
+                Else:
+                        Move right--
+
+*   Why this works:
+
+        Because array is sorted:
+            Increasing left increases sum.
+            Decreasing right decreases sum.
+
+        This allows us to gradually approach the target.
+
+*   Important invariant:
+
+        For a fixed i,
+        search space between left and right
+        shrinks monotonically.
+
+        We explore all possible pairs efficiently.
+
+*   Why we track difference instead of exact match:
+
+        Problem does not require exact equality.
+        We must minimize |target - sum|.
+        So we keep updating whenever we find a better candidate.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Outer loop → O(n)
+        Inner two pointer → O(n)
+        Overall → O(n²)
+
+*   Space Complexity:
+        O(1)

@@ -1,0 +1,72 @@
+Question Link : https://leetcode.com/problems/container-with-most-water/description/
+
+*   We are given an array where height[i] represents
+    a vertical line at index i.
+
+    We must choose two lines such that they form
+    a container with maximum water.
+
+*   Brute force:
+        Try all pairs → O(n²)
+
+    Optimized solution:
+        Two pointers → O(n)
+
+*   Key observation:
+
+        Area formed by two lines:
+            area = width × min(height[left], height[right])
+
+        width = right - left
+        height is limited by the shorter line.
+
+*   Important insight:
+
+        If we move the taller line inward:
+            width decreases
+            min height remains same or decreases
+            → area cannot increase
+
+        So we must move the shorter line,
+        hoping to find a taller line.
+
+*   Algorithm Steps:
+
+        1) Initialize:
+                left = 0
+                right = n - 1
+                maxArea = 0
+
+        2) While left < right:
+                width = right - left
+                height = min(height[left], height[right])
+                area = width × height
+                Update maxArea
+
+                If height[left] < height[right]:
+                        left++
+                Else:
+                        right--
+
+*   Why moving smaller pointer works:
+
+        Area depends on:
+            width (always shrinking)
+            minimum height
+
+        Since width decreases each step,
+        we can only compensate by increasing
+        the smaller height.
+
+*   Important invariant:
+
+        We always eliminate the smaller height,
+        because keeping it cannot produce
+        a larger area with reduced width.
+
+*   Time Complexity:
+        O(n)
+        Each pointer moves at most n times.
+
+*   Space Complexity:
+        O(1)

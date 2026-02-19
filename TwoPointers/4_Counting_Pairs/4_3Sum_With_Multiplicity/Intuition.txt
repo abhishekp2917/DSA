@@ -1,0 +1,73 @@
+Question Link : https://leetcode.com/problems/3sum-with-multiplicity/description/
+
+*   We are given an array nums.
+    We must count number of triplets (i, j, k)
+    such that:
+
+        i < j < k
+        nums[i] + nums[j] + nums[k] = target
+
+    Duplicates are allowed.
+    We must count multiplicity.
+
+*   Brute force:
+        Try all triplets → O(n³)
+
+    Optimized approach:
+        Sort + Two Pointers + Frequency Counting → O(n²)
+
+*   Key idea:
+
+        Fix one element nums[i].
+        Reduce problem to finding:
+
+            nums[left] + nums[right] = target - nums[i]
+
+*   Why frequency map is used:
+
+        Since values range from 0 to 100,
+        we can track how many times each value appears.
+
+        This allows us to count combinations
+        without iterating each duplicate individually.
+
+*   Important detail:
+
+        When fixing nums[i],
+        decrease its frequency first.
+        This ensures we don't reuse same index.
+
+*   Counting logic when sum == target:
+
+        Case 1: leftNum != rightNum
+                ways = freq(leftNum) * freq(rightNum)
+
+        Case 2: leftNum == rightNum
+                ways = C(freq(leftNum), 2)
+                     = freq * (freq - 1) / 2
+
+*   Why duplicate skipping is required:
+
+        After counting for a value pair,
+        we skip equal adjacent elements
+        so that same value pair is not processed again.
+
+*   Important invariant:
+
+        Array is sorted.
+        Moving left increases sum.
+        Moving right decreases sum.
+
+        freqMap always reflects
+        remaining usable elements.
+
+*   Time Complexity:
+        Sorting → O(n log n)
+        Outer loop → O(n)
+        Inner two pointer → O(n)
+
+        Overall → O(n²)
+
+*   Space Complexity:
+        O(1)
+        (frequency array size is constant 101)

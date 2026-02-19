@@ -1,0 +1,65 @@
+Question Link : https://leetcode.com/problems/maximum-distance-between-a-pair-of-values/description/
+
+*   We are given two non-increasing arrays:
+        nums1
+        nums2
+
+    We must find maximum distance (j - i) such that:
+
+        i <= j
+        nums1[i] <= nums2[j]
+
+*   Brute force:
+        Try all pairs → O(n²)
+
+    Optimized solution:
+        Two pointers → O(n)
+
+*   Key observation:
+
+        Arrays are sorted in descending order.
+
+        As index increases:
+            values decrease or stay same.
+
+*   Strategy:
+
+        Use two pointers:
+            ptr1 → nums1
+            ptr2 → nums2
+
+        Maintain invariant:
+            ptr2 >= ptr1
+
+*   Algorithm:
+
+        While both pointers are in bounds:
+
+            If ptr2 < ptr1:
+                    Move ptr2 forward.
+
+            If nums2[ptr2] >= nums1[ptr1]:
+                    Valid pair.
+                    Update maxDist.
+                    Move ptr2 to try larger distance.
+
+            Else:
+                    Move ptr1 forward.
+
+*   Why moving ptr1 works:
+
+        If nums2[ptr2] < nums1[ptr1],
+        since arrays are non-increasing,
+        increasing ptr1 decreases nums1[ptr1],
+        making condition easier to satisfy.
+
+*   Important invariant:
+
+        ptr2 never moves backward.
+        Each pointer moves at most n times.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(1)
