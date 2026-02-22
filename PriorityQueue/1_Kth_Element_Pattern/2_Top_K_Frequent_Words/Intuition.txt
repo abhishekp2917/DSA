@@ -1,0 +1,66 @@
+Question Link : https://leetcode.com/problems/top-k-frequent-words/description/
+
+*   Problem:
+        Return top k frequent words.
+        If frequencies tie → lexicographically smaller word comes first.
+
+*   Step 1:
+        Count frequency of each word using HashMap.
+
+*   Why count first?
+        Because ranking is based on frequency.
+        We need frequency lookup in O(1).
+
+*   Key observation:
+        We only need top k words.
+        We do NOT need full sorting of all words.
+
+*   Core idea:
+        Use a MIN HEAP of size k.
+
+*   Why MIN heap?
+        Because we want to remove the lowest priority word
+        whenever heap size exceeds k.
+
+*   What defines priority?
+        1. Higher frequency = higher priority.
+        2. If same frequency:
+                lexicographically smaller word = higher priority.
+
+*   Important heap trick:
+        Since this is a MIN heap,
+        the element with lowest priority must be at top.
+
+*   Comparator logic:
+        - Compare frequencies normally (ascending).
+        - If equal frequency:
+                reverse lexicographical comparison.
+
+*   Why reverse lexicographical comparison?
+        Because among equal frequency words,
+        lexicographically larger word should be removed first.
+        So we treat it as smaller in heap.
+
+*   Heap invariant:
+        Heap always contains the k highest priority words.
+
+*   Process:
+        For each unique word:
+            1. Insert into heap.
+            2. If heap size > k:
+                    remove smallest priority word.
+
+*   After traversal:
+        Heap contains exactly k best words.
+
+*   Why reverse final answer?
+        Because heap pops lowest priority first.
+        But required order is highest frequency first.
+
+*   Time Complexity:
+        Let n = total words
+        Let m = unique words
+        O(n + m log k)
+
+*   Space Complexity:
+        O(m + k)

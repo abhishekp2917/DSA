@@ -1,0 +1,52 @@
+Question Link : https://leetcode.com/problems/swim-in-rising-water/description/
+
+*   We need to find the minimum time t such that we can move from (0,0) to (n-1,n-1).
+
+*   At time t:
+        We can step only on cells where: grid[i][j] <= t
+
+*   So problem becomes:
+        Find minimum t such that a path exists using only cells <= t.
+
+*   Key Observation:
+        If a path is possible at time t, then it is also possible at any time > t.
+        Because higher time allows more cells.
+
+        This gives MONOTONIC behavior.
+
+*   Since feasibility is monotonic, we can Binary Search on time.
+
+*   Binary search range:
+        Minimum time = 0
+        Maximum time = n*n
+
+*   For a candidate time = mid:
+        Check if we can reach destination
+        using only cells <= mid.
+
+*   Feasibility check:
+        Run DFS (or BFS)
+        starting from (0,0)
+
+        Allowed moves:
+            - inside grid
+            - not visited
+            - grid[x][y] <= mid
+
+*   If we reach (n-1,n-1): mid is feasible
+
+*   If feasible, store mid as answer and try smaller time
+
+*   If not feasible, try larger time
+
+*   This works because, feasibility only expands as time increases.
+
+*   Time Complexity:
+        Binary Search → O(log(n²)) = O(log n)
+        Each DFS → O(n²)
+
+        Total → O(n² log n)
+
+*   Space Complexity:
+        Visited matrix → O(n²)
+        Recursion stack → O(n²) worst case

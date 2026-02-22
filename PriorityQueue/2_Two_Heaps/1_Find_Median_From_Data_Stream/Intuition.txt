@@ -1,0 +1,63 @@
+Question Link : https://leetcode.com/problems/find-median-from-data-stream/description/
+
+*   Problem:
+        Design a data structure that supports:
+            addNum()
+            findMedian()
+        in efficient time.
+
+*   Key observation:
+        Median splits numbers into two halves:
+            - Smaller half
+            - Larger half
+
+*   Core idea:
+        Use TWO HEAPS.
+
+*   Why two heaps?
+        Because:
+            We need quick access to:
+                - Largest element of smaller half
+                - Smallest element of larger half
+
+*   Data structure design:
+        maxHeap → stores smaller half
+        minHeap → stores larger half
+
+*   Invariant 1 (Ordering):
+        Every element in maxHeap <= every element in minHeap
+
+*   Invariant 2 (Size):
+        maxHeap.size() >= minHeap.size()
+        Size difference is at most 1.
+
+*   Why maintain size like this?
+        Because:
+            If total count is odd:
+                maxHeap holds one extra element
+                → median is maxHeap.peek()
+
+            If total count is even:
+                median is average of:
+                    maxHeap.peek()
+                    minHeap.peek()
+
+*   Add number logic:
+        1. Insert into maxHeap.
+        2. Move largest element from maxHeap to minHeap.
+        3. If size imbalance occurs:
+                move one element back.
+
+*   Why always insert into maxHeap first?
+        Keeps logic simple and consistent.
+        Ordering invariant is restored immediately.
+
+*   Why move element after insertion?
+        Ensures correct partition between halves.
+
+*   Time Complexity:
+        addNum() → O(log n)
+        findMedian() → O(1)
+
+*   Space Complexity:
+        O(n)

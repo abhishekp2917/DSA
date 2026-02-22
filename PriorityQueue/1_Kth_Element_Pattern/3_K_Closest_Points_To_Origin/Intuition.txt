@@ -1,0 +1,50 @@
+Question Link : https://leetcode.com/problems/k-closest-points-to-origin/description/
+
+*   Problem:
+        Return k closest points to origin (0,0).
+
+*   Distance formula:
+        Euclidean distance = sqrt(x² + y²)
+
+*   Important optimization:
+        We do NOT compute square root.
+        Because:
+            sqrt is monotonic.
+            Comparing x²+y² is enough.
+
+*   Key observation:
+        We only need k closest points.
+        We do NOT need to sort entire array.
+
+*   Core idea:
+        Maintain a MAX HEAP of size k.
+
+*   Why MAX heap?
+        Because:
+            We want to remove the farthest point
+            whenever heap size exceeds k.
+
+*   Heap invariant:
+        Heap always contains k closest points seen so far.
+
+*   Process:
+        For each point:
+            1. Insert into heap.
+            2. If heap size > k:
+                    remove farthest point.
+
+*   Why does this work?
+        Because if we have k+1 points,
+        the farthest among them cannot be in final k closest.
+
+*   After traversal:
+        Heap contains exactly k closest points.
+
+*   Why store indices instead of arrays?
+        To avoid copying arrays and simplify comparator logic.
+
+*   Time Complexity:
+        O(n log k)
+
+*   Space Complexity:
+        O(k)

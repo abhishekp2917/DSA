@@ -1,0 +1,56 @@
+Question Link : https://leetcode.com/problems/find-the-kth-largest-integer-in-the-array/description/
+
+*   Problem:
+        Find kth largest number where numbers are given as strings.
+
+*   Important constraint:
+        Numbers can be very large.
+        We must NOT convert them into integers.
+
+*   Key observation:
+        Numeric comparison of strings can be done by:
+            1. Comparing lengths
+            2. If equal length → lexicographical comparison
+
+*   Why length comparison works?
+        A number with more digits is always larger.
+
+        Example:
+            1000 > 999
+            Because 4 digits > 3 digits
+
+*   Why lexicographical comparison works when lengths are equal?
+        Because digit-by-digit comparison matches numeric comparison.
+
+*   Core idea:
+        Maintain a MIN HEAP of size k.
+
+*   Why MIN heap?
+        We want to keep only the k largest numbers.
+        The smallest among them is the kth largest.
+
+*   Heap invariant:
+        Heap always contains the k largest numbers seen so far.
+
+*   Process:
+        For each number:
+            1. Insert into heap.
+            2. If heap size > k:
+                    remove smallest.
+
+*   Why remove smallest?
+        Because if we have k+1 numbers,
+        the smallest cannot be part of top k.
+
+*   After full traversal:
+        Heap contains exactly k largest numbers.
+
+*   The root of heap:
+        Smallest among those k.
+        That is the kth largest overall.
+
+*   Time Complexity:
+        O(n log k)
+
+*   Space Complexity:
+        O(k)
