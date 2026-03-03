@@ -1,1 +1,56 @@
 Question Link : https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/description/
+
+*   Problem:
+        Given k sorted lists,
+        find the smallest range that includes
+        at least one number from each list.
+
+*   Key observation:
+        We must always maintain exactly one element
+        from each list inside our window.
+
+*   Core idea:
+        Use a MIN HEAP to simulate merging k sorted lists.
+
+*   Important tracking:
+        Maintain:
+            - current minimum (from heap)
+            - current maximum (tracked separately)
+
+*   Why track max separately?
+        Because heap only gives minimum efficiently.
+        We need both min and max to compute range.
+
+*   Initialization:
+        Insert first element from each list.
+        Compute initial maxValue.
+
+*   Heap invariant:
+        Heap always contains exactly one element
+        from each list.
+
+*   Current range:
+        [minValue, maxValue]
+
+*   Strategy:
+        1. Extract the minimum element.
+        2. Update best range.
+        3. Insert next element from same list.
+
+*   Why move pointer only in list that gave minimum?
+        Because:
+            To shrink the range,
+            we must increase the minimum.
+            Moving any other list would only increase max
+            or keep min unchanged.
+
+*   Termination condition:
+        Stop when any list is exhausted.
+        Because we can no longer form a valid range.
+
+*   Time Complexity:
+        Let N = total number of elements.
+        O(N log k)
+
+*   Space Complexity:
+        O(k)

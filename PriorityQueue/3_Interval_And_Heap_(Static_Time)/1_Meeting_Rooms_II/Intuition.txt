@@ -1,1 +1,51 @@
 Question Link : https://www.geeksforgeeks.org/problems/attend-all-meetings-ii/1
+
+*   Problem:
+        Given meeting start and end times,
+        find minimum number of meeting rooms required.
+
+*   Key observation:
+        This is equivalent to finding
+        the maximum number of overlapping meetings.
+
+*   Why?
+        Because each overlapping meeting
+        requires a separate room.
+
+*   Core idea:
+        Sort meetings by start time.
+
+*   Data structure:
+        Use a MIN HEAP to store end times
+        of meetings currently occupying rooms.
+
+*   Heap meaning:
+        Each element represents a room
+        and when it becomes free.
+
+*   Process:
+        For each meeting:
+            1. Check earliest finishing meeting.
+            2. If it ends <= current start:
+                    reuse that room.
+            3. Otherwise:
+                    allocate new room.
+            4. Add current end time to heap.
+
+*   Why check <= start?
+        Because a meeting ending at time t
+        frees the room for meeting starting at time t.
+
+*   Important invariant:
+        Heap size represents
+        number of rooms currently in use.
+
+*   Final answer:
+        Maximum heap size during processing
+        equals minimum rooms required.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

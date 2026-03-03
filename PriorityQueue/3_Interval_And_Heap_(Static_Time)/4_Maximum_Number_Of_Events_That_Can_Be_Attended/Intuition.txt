@@ -1,1 +1,50 @@
 Question Link : https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/description/
+
+*   Problem:
+        Each event has a start day and end day.
+        You can attend at most one event per day.
+        Return maximum number of events attended.
+
+*   Key observation:
+        This is a greedy scheduling problem.
+
+*   Core greedy strategy:
+        Always attend the event that ends earliest.
+
+*   Why earliest end?
+        Because finishing earlier
+        leaves more future days free.
+
+*   Step 1:
+        Sort events by start day.
+
+*   Data structure:
+        Use a MIN HEAP to store end days
+        of currently available events.
+
+*   Simulation:
+        Iterate day by day.
+
+*   For each day:
+        1. Remove expired events (end < currDay).
+        2. Add events starting today.
+        3. If any event available:
+                attend the one that ends earliest.
+
+*   Why remove expired events first?
+        Because events that already ended
+        cannot be attended.
+
+*   Important invariant:
+        Heap contains end days
+        of all events available on current day.
+
+*   Why does greedy work?
+        Choosing earliest finishing event
+        maximizes remaining scheduling space.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

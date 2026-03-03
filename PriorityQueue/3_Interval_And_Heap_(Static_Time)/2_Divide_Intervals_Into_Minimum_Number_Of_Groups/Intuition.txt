@@ -1,1 +1,54 @@
 Question Link : https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/description/
+
+*   Problem:
+        Divide intervals into minimum number of groups
+        such that intervals in the same group do not overlap.
+
+*   Key observation:
+        This is equivalent to finding
+        the maximum number of overlapping intervals.
+
+*   Why?
+        Because each overlapping interval
+        requires a separate group.
+
+*   Core idea:
+        Sort intervals by start time.
+
+*   Why sort?
+        So we process intervals in chronological order.
+
+*   Data structure:
+        Use a MIN HEAP to store end times
+        of currently active groups.
+
+*   Heap meaning:
+        Each element represents
+        when a group becomes free.
+
+*   Process:
+        For each interval:
+            1. Check earliest ending group.
+            2. If it ends before current start:
+                    reuse that group.
+            3. Otherwise:
+                    create new group.
+            4. Push current end into heap.
+
+*   Why check minEndHeap.peek() < start?
+        Because intervals are inclusive.
+        If end == start,
+        they still overlap.
+
+*   Important invariant:
+        Heap size = number of active overlapping intervals.
+
+*   Final answer:
+        Heap size after processing all intervals
+        equals minimum groups required.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,0 +1,59 @@
+Question Link : https://leetcode.com/problems/design-twitter/description/
+
+*   Problem:
+        Design Twitter with:
+            postTweet
+            getNewsFeed
+            follow
+            unfollow
+
+*   Key insight:
+        Each user's tweets are naturally ordered by time.
+
+*   Data modeling:
+        Store tweets as linked list per user.
+        New tweets inserted at head.
+
+*   Why linked list?
+        Because:
+            - Efficient insertion at head (O(1))
+            - Naturally sorted by timestamp.
+
+*   News feed requirement:
+        Return 10 most recent tweets
+        from:
+            - User itself
+            - All followed users
+
+*   Core idea for getNewsFeed:
+        This is merging k sorted lists.
+
+*   Data structure:
+        Use MAX HEAP ordered by timestamp.
+
+*   Process:
+        1. Add head tweet of each followed user.
+        2. Extract most recent tweet.
+        3. Add its next tweet.
+        4. Repeat until 10 tweets collected.
+
+*   Why efficient?
+        We never push entire tweet lists.
+        Only at most 10 pops occur.
+        Heap size ≤ number of followed users.
+
+*   Important invariant:
+        Heap always contains
+        the next most recent tweet
+        from each followed user.
+
+*   Time Complexity:
+        postTweet()  → O(1)
+        follow()     → O(1)
+        unfollow()   → O(1)
+        getNewsFeed() → O(F log F)
+            where F = number of followed users
+
+*   Space Complexity:
+        O(T)
+        where T = total number of tweets

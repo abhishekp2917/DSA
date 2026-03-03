@@ -9,9 +9,7 @@ class Solution {
         //
         // Therefore:
         // We must compare them WITHOUT converting to integers.
-
-        int n = nums.length;
-
+        
         // We use a MIN HEAP of size k.
         //
         // Just like the integer version of kth largest,

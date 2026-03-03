@@ -1,1 +1,50 @@
 Question Link : https://leetcode.com/problems/maximum-number-of-eaten-apples/description/
+
+*   Problem:
+        Each day apples grow.
+        Each apple batch has expiry after certain days.
+        Eat at most one apple per day.
+        Maximize apples eaten.
+
+*   Key observation:
+        Apples have different expiry times.
+        If we don't eat early expiring apples first,
+        they may rot.
+
+*   Core greedy rule:
+        Always eat apple that expires earliest.
+
+*   Data structure:
+        Use MIN HEAP ordered by expiry day.
+
+*   What heap stores:
+        Indices of days when apples were grown.
+        Comparator sorts by expiryDay = growDay + days[growDay].
+
+*   Simulation:
+        Iterate day by day.
+
+*   For each day:
+        1. Add new apple batch (if any).
+        2. Remove expired batches.
+        3. If heap not empty:
+                eat one apple from earliest expiry batch.
+                decrease its count.
+                remove batch if count becomes zero.
+
+*   Why remove expired before eating?
+        Because expired apples cannot be eaten.
+
+*   Important invariant:
+        Heap always contains
+        only valid, non-expired apple batches.
+
+*   Loop continues until:
+        No apples left
+        and no more apples will grow.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

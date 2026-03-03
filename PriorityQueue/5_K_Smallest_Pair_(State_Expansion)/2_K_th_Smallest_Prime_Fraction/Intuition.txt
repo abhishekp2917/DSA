@@ -1,1 +1,58 @@
 Question Link : https://leetcode.com/problems/k-th-smallest-prime-fraction/description/
+
+*   Problem:
+        Given sorted prime array nums,
+        return kth smallest fraction nums[i] / nums[j]
+        where i < j.
+
+*   Key observation:
+        For fixed numerator index u:
+            Fractions form a sorted sequence
+            when denominator moves from right to left.
+
+*   Why?
+        Because nums is sorted.
+        Decreasing denominator increases fraction value.
+
+*   Structure visualization:
+        Imagine a grid:
+            rows = numerator index u
+            columns = denominator index v
+
+        Each row is sorted by fraction value.
+
+*   Core idea:
+        Treat this like merging multiple sorted lists.
+
+*   Data structure:
+        Use MIN HEAP ordered by fraction value.
+
+*   Fraction comparison trick:
+        Instead of dividing,
+        compare a/b and c/d using:
+            a*d < c*b
+
+        Avoids floating precision errors.
+
+*   Initialization:
+        Insert (u, n-1) for each u.
+        These are smallest fractions in each row.
+
+*   Process:
+        1. Extract smallest fraction.
+        2. Move to next fraction in same row:
+                decrease denominator index.
+        3. Push back into heap if valid.
+
+*   After removing k-1 elements:
+        Top of heap is kth smallest fraction.
+
+*   Important invariant:
+        Heap always contains
+        next smallest candidate from each row.
+
+*   Time Complexity:
+        O(k log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,1 +1,52 @@
 Question Link : https://leetcode.com/problems/maximum-subsequence-score/description/
+
+*   Problem:
+        Choose k indices such that:
+            score = (sum of nums1 at chosen indices)
+                    * (minimum nums2 at chosen indices)
+        Maximize score.
+
+*   Key observation:
+        The minimum nums2 in chosen set
+        determines the multiplier.
+
+*   Important idea:
+        If we fix a candidate as minimum nums2,
+        we want the largest possible sum of nums1.
+
+*   Strategy:
+        Sort pairs by nums1 in descending order.
+
+*   Why descending nums1?
+        So we accumulate larger nums1 first,
+        maximizing sum component.
+
+*   Data structure:
+        Use MIN HEAP ordered by nums2.
+
+*   Heap meaning:
+        Contains current selected elements.
+        The smallest nums2 in heap
+        is the multiplier.
+
+*   Process:
+        1. Add element.
+        2. Maintain running sum of nums1.
+        3. When heap size reaches k:
+                compute score.
+                remove element with smallest nums2.
+                subtract its nums1 from sum.
+
+*   Why remove smallest nums2?
+        Because it is the weakest multiplier.
+        Removing it allows exploring better combinations.
+
+*   Important invariant:
+        Heap contains at most k elements.
+        num1Sum equals sum of heap elements.
+
+*   Time Complexity:
+        O(n log k)
+
+*   Space Complexity:
+        O(k)

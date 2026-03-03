@@ -1,0 +1,67 @@
+Question Link : https://leetcode.com/problems/stock-price-fluctuation/description/
+
+*   Problem:
+        Maintain stock price with:
+            update(timestamp, price)
+            current()
+            maximum()
+            minimum()
+
+*   Key difficulty:
+        Timestamps may be updated (corrected).
+        So we must handle overwriting prices.
+
+*   Core idea:
+        Maintain two data structures.
+
+*   Map 1:
+        timestampPriceMap:
+            timestamp → price
+
+        Purpose:
+            1. Retrieve current price.
+            2. Detect previous price during correction.
+
+*   Map 2:
+        priceFreqMap (TreeMap):
+            price → frequency
+
+        Purpose:
+            1. Maintain sorted prices.
+            2. Quickly get:
+                    maximum → lastKey()
+                    minimum → firstKey()
+
+*   Why frequency?
+        Because multiple timestamps
+        can share same price.
+
+*   update(timestamp, price):
+        1. Update currentTimestamp.
+        2. If timestamp existed:
+                reduce frequency of old price.
+                remove if count becomes zero.
+        3. Insert new price.
+        4. Increase frequency.
+
+*   current():
+        Return price at largest timestamp.
+
+*   maximum():
+        Return largest price in TreeMap.
+
+*   minimum():
+        Return smallest price in TreeMap.
+
+*   Important invariant:
+        priceFreqMap always reflects
+        prices of all active timestamps.
+
+*   Time Complexity:
+        update()  → O(log n)
+        current() → O(1)
+        maximum() → O(log n)
+        minimum() → O(log n)
+
+*   Space Complexity:
+        O(n)

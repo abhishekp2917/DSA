@@ -1,1 +1,56 @@
 Question Link : https://leetcode.com/problems/the-number-of-the-smallest-unoccupied-chair/description/
+
+*   Problem:
+        Friends arrive and leave at certain times.
+        Each friend takes the smallest available chair.
+        Return the chair assigned to targetFriend.
+
+*   Key observation:
+        We must simulate arrival and leaving events
+        in chronological order.
+
+*   Core idea:
+        Use two heaps.
+
+*   Heap 1 (minLeaveTimeHeap):
+        Stores {leaveTime, chairNumber}
+        Sorted by leaveTime.
+
+        Purpose:
+            Quickly free chairs when someone leaves.
+
+*   Heap 2 (minEmptyChairHeap):
+        Stores available chair numbers.
+        Sorted so smallest chair is assigned first.
+
+*   Initialization:
+        All chairs 0 to n-1 are initially empty.
+
+*   Why sort by arrival time?
+        Because simulation must process
+        events in chronological order.
+
+*   Process for each arriving friend:
+        1. Free all chairs where leaveTime <= arrivalTime.
+        2. If friend is targetFriend:
+                answer is smallest available chair.
+        3. Otherwise:
+                assign smallest chair.
+                push {leaveTime, chair} into leave heap.
+
+*   Why free chairs before assignment?
+        Because chairs vacated at arrival time
+        are immediately reusable.
+
+*   Important invariant:
+        minEmptyChairHeap always contains
+        all currently free chairs.
+
+        minLeaveTimeHeap contains
+        all currently occupied chairs.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

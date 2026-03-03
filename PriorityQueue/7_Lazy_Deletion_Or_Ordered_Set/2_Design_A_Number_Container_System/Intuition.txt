@@ -1,1 +1,58 @@
 Question Link : https://leetcode.com/problems/design-a-number-container-system/description/
+
+*   Problem:
+        Support two operations:
+            change(index, number)
+            find(number) → smallest index with that number
+
+*   Key observation:
+        We need bidirectional tracking:
+            index → number
+            number → sorted indices
+
+*   Why two maps?
+        Because when index changes:
+            we must remove it
+            from its previous number’s set.
+
+*   Data structures:
+        1. indexMap:
+                index → number
+        2. numberMap:
+                number → TreeSet of indices
+
+*   Why TreeSet?
+        Because:
+            - Maintains sorted order.
+            - first() gives smallest index in O(log n).
+
+*   change(index, number):
+        Case 1: index already exists
+            - If number changes:
+                    remove index from old number's set
+                    add to new number's set
+            - If same number:
+                    do nothing
+        Case 2: index does not exist
+            - Simply insert into maps
+
+*   Why remove number entry if set becomes empty?
+        To avoid storing useless empty sets.
+
+*   find(number):
+        If number exists:
+            return smallest index
+        Else:
+            return -1
+
+*   Important invariant:
+        numberMap[number] always contains
+        all indices currently mapped to that number,
+        in sorted order.
+
+*   Time Complexity:
+        change → O(log n)
+        find   → O(log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,1 +1,48 @@
 Question Link : https://leetcode.com/problems/single-threaded-cpu/description/
+
+*   Problem:
+        Single-threaded CPU processes tasks.
+        Each task has enqueue time and processing time.
+        CPU always picks task with:
+            1. Shortest processing time
+            2. Smaller index if tie
+
+*   Key observation:
+        This is event-time simulation.
+
+*   Core idea:
+        1. Sort tasks by enqueue time.
+        2. Use a MIN HEAP to select next task to process.
+
+*   Why sort first?
+        Because tasks must be added
+        to available pool in arrival order.
+
+*   Heap ordering:
+        Primary: processingTime
+        Secondary: index
+
+*   Why heap?
+        Because at any time,
+        CPU chooses shortest available task.
+
+*   Simulation variables:
+        currTime → current CPU time
+        taskPtr → pointer to next unprocessed task
+
+*   For each step:
+        1. Add all tasks with enqueueTime <= currTime.
+        2. If heap empty:
+                jump currTime to next task's enqueue time.
+        3. Pick shortest task from heap.
+        4. Increase currTime by processingTime.
+
+*   Important invariant:
+        Heap always contains all tasks
+        that have arrived but not yet processed.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

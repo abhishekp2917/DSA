@@ -1,1 +1,63 @@
 Question Link : https://leetcode.com/problems/exam-room/description/
+
+*   Problem:
+        Students sit such that
+        each new student maximizes
+        distance to nearest occupied seat.
+
+*   Key observation:
+        Instead of tracking empty seats individually,
+        track empty ranges between occupied seats.
+
+*   Representation:
+        Each empty segment represented as:
+            (start, end)
+        where start and end are occupied seats.
+
+*   Use virtual boundaries:
+        -1 and n
+        to simplify edge cases.
+
+*   Core idea:
+        Use TreeSet ordered by:
+            1. Maximum minimum distance (descending)
+            2. Smaller seat index (ascending)
+
+*   Why?
+        Because at each seat() call,
+        we must pick range that gives
+        maximum possible distance.
+
+*   How to compute best seat in range:
+        If middle range:
+            seat = (start + end)/2
+        If left boundary:
+            seat = 0
+        If right boundary:
+            seat = n-1
+
+*   seat() operation:
+        1. Remove best range.
+        2. Compute seat.
+        3. Split into two new ranges.
+        4. Insert them back.
+
+*   leave(p) operation:
+        1. Find left and right occupied neighbors.
+        2. Remove two adjacent ranges.
+        3. Merge into one larger range.
+        4. Insert merged range.
+
+*   Important invariant:
+        seatRanges always contains
+        all maximal empty segments.
+
+        occupiedSeats always contains
+        all currently occupied seats.
+
+*   Time Complexity:
+        seat()  → O(log n)
+        leave() → O(log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,1 +1,54 @@
 Question Link : https://leetcode.com/problems/process-tasks-using-servers/description/
+
+*   Problem:
+        Assign tasks to servers.
+        Each task arrives at time i.
+        Always assign to:
+            1. Smallest weight server.
+            2. If tie, smaller index.
+
+*   Key observation:
+        This is event-time simulation
+        with resource allocation.
+
+*   Core idea:
+        Use two heaps.
+
+*   Heap 1 (availableServers):
+        Sorted by:
+            weight → index
+        Contains all currently free servers.
+
+*   Heap 2 (unavailableServers):
+        Sorted by:
+            finishing time → weight → index
+        Contains busy servers.
+
+*   For each task at time i:
+        1. Free all servers with finishTime <= i.
+        2. If available heap not empty:
+                assign best server.
+           Else:
+                wait for earliest finishing server.
+
+*   Why wait for earliest finishing server?
+        Because task must be processed
+        in arrival order.
+        We cannot skip it.
+
+*   Important invariant:
+        availableServers contains only free servers.
+        unavailableServers contains only busy servers.
+
+*   When assigning:
+        If server was free:
+            finishTime = i + taskDuration
+        If server was busy and we waited:
+            finishTime += taskDuration
+
+*   Time Complexity:
+        O(n log m)
+        where m = number of servers
+
+*   Space Complexity:
+        O(m)

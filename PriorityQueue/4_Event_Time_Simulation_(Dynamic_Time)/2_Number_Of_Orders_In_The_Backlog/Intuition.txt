@@ -1,1 +1,55 @@
 Question Link : https://leetcode.com/problems/number-of-orders-in-the-backlog/description/
+
+*   Problem:
+        Simulate stock exchange order matching.
+        Return total backlog orders remaining.
+
+*   Key observation:
+        Orders must be matched greedily
+        based on best available price.
+
+*   Core idea:
+        Use two heaps:
+            1. Max heap for BUY orders.
+            2. Min heap for SELL orders.
+
+*   Why max heap for buy?
+        Because highest buy price
+        should match first.
+
+*   Why min heap for sell?
+        Because lowest sell price
+        should match first.
+
+*   Matching rules:
+        Buy matches if:
+            sellPrice <= buyPrice
+
+        Sell matches if:
+            buyPrice >= sellPrice
+
+*   Matching process:
+        While matching possible and quantity > 0:
+            1. Take best available opposite order.
+            2. Match minimum quantity.
+            3. Reduce quantities.
+            4. Remove order if exhausted.
+
+*   Why greedy works?
+        Because matching best prices first
+        maximizes future matching possibilities.
+
+*   If quantity remains after matching:
+        Add to respective heap (backlog).
+
+*   After processing all orders:
+        Sum remaining quantities in both heaps.
+
+*   Use long for accumulation:
+        Because total quantity may exceed int range.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

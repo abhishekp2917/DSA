@@ -1,1 +1,52 @@
 Question Link : https://leetcode.com/problems/furthest-building-you-can-reach/description/
+
+*   Problem:
+        Move across buildings.
+        To climb up:
+            use bricks equal to height difference
+            OR use one ladder.
+        Return furthest building reachable.
+
+*   Key observation:
+        Ladders are more valuable on larger climbs.
+
+*   Core greedy idea:
+        Always try to use bricks first.
+        If bricks run out,
+        replace the largest previous brick usage
+        with a ladder.
+
+*   Why?
+        Because ladder covers any height difference equally.
+        So using ladder on largest climb
+        saves maximum bricks.
+
+*   Data structure:
+        Use MAX HEAP to store all climbs.
+
+*   Process:
+        For each positive height difference:
+            1. Add climb to heap.
+            2. Try to use bricks.
+            3. If not enough bricks:
+                    If ladders available:
+                        Replace largest climb with ladder.
+                        Refund bricks.
+                        Use bricks for current climb.
+                    Else:
+                        Stop.
+
+*   Important invariant:
+        Heap contains all climbs so far.
+        Bricks represent total bricks used
+        after optimal replacements.
+
+*   Why this greedy works?
+        Because replacing the largest climb
+        maximizes brick savings.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,1 +1,45 @@
 Question Link : https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/
+
+*   Problem:
+        Given a matrix where each row is sorted, return the kth smallest element.
+
+*   Key observation: Each row behaves like a sorted list.
+
+*   Important pattern: This is equivalent to merging k sorted lists.
+
+*   Core idea: Use a MIN HEAP to simulate merge process.
+
+*   Why insert only first column initially?
+        Because first element of each row
+        is the smallest element in that row.
+
+*   Heap invariant:
+        Heap always contains the next smallest candidate
+        from each row currently under consideration.
+
+*   Process:
+        1. Insert first element of each row.
+        2. Repeat k times:
+                - Extract smallest element.
+                - Insert next element from same row.
+
+*   Why insert next element from same row?
+        Because rows are sorted.
+        After removing (row, col),
+        the next possible candidate from that row
+        is (row, col+1).
+
+*   Why does this work?
+        Because at any moment,
+        heap contains the smallest unprocessed element
+        from each row.
+
+*   Optimization:
+        Only insert min(n, k) rows initially.
+        Because we never need more than k rows.
+
+*   Time Complexity:
+        O(k log n)
+
+*   Space Complexity:
+        O(n)

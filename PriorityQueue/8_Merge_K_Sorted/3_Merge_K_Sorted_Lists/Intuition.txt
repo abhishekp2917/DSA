@@ -1,1 +1,49 @@
 Question Link : https://leetcode.com/problems/merge-k-sorted-lists/description/
+
+*   Problem:
+        Merge k sorted linked lists into one sorted list.
+
+*   Key observation:
+        Each list is already sorted.
+
+*   Important pattern:
+        This is equivalent to merging k sorted lists.
+
+*   Core idea:
+        Use a MIN HEAP to always extract
+        the smallest current node among k lists.
+
+*   Why insert only heads initially?
+        Because head is the smallest element
+        in each sorted list.
+
+*   Heap invariant:
+        Heap always contains
+        the smallest unprocessed node
+        from each list.
+
+*   Process:
+        1. Insert head of each list.
+        2. Extract smallest node.
+        3. Attach it to result.
+        4. Insert its next node (if exists).
+
+*   Why insert next node after polling?
+        Because after removing current smallest,
+        the next candidate from that list
+        becomes available.
+
+*   Why use dummy node?
+        To simplify edge cases
+        while building merged list.
+
+*   Why disconnect curr.next = null?
+        To prevent unintended links
+        from original lists.
+
+*   Time Complexity:
+        Let N = total number of nodes.
+        O(N log k)
+
+*   Space Complexity:
+        O(k)

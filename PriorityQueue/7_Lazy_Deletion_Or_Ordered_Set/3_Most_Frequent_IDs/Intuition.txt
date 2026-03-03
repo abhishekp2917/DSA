@@ -1,1 +1,52 @@
 Question Link : https://leetcode.com/problems/most-frequent-ids/description/
+
+*   Problem:
+        After each update of an ID’s frequency,
+        return the current maximum frequency.
+
+*   Key observation:
+        Frequencies change dynamically,
+        and updates may increase or decrease counts.
+
+*   Core idea:
+        Maintain two mappings.
+
+*   Map 1:
+        idToFreqMap:
+            ID → current frequency
+
+        Purpose:
+            Track latest frequency of each ID.
+
+*   Map 2:
+        freqToIdMap (TreeMap):
+            frequency → set of IDs
+
+        Purpose:
+            Maintain sorted frequencies.
+            Allows quick retrieval of maximum frequency.
+
+*   Why TreeMap?
+        Because:
+            lastKey() gives maximum frequency in O(log n).
+
+*   Update process:
+        1. Get current frequency.
+        2. Compute new frequency.
+        3. Add ID to new frequency bucket.
+        4. Remove ID from old frequency bucket.
+        5. Remove old frequency key if empty.
+
+*   Important invariant:
+        freqToIdMap always reflects
+        accurate grouping of IDs by frequency.
+
+*   After each update:
+        Maximum frequency is:
+            freqToIdMap.lastKey()
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

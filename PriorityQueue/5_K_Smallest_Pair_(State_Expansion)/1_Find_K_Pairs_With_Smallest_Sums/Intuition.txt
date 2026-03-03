@@ -1,1 +1,51 @@
 Question Link : https://leetcode.com/problems/find-k-pairs-with-smallest-sums/description/
+
+*   Problem:
+        Given two sorted arrays,
+        return k pairs with smallest sums.
+
+*   Key observation:
+        If arrays are sorted,
+        increasing either index increases sum.
+
+*   Core idea:
+        Treat this like merging k sorted lists.
+
+*   Think of structure:
+        For each index u in nums1:
+            pairs formed as:
+                (u,0), (u,1), (u,2), ...
+        This forms a sorted list by sum.
+
+*   So problem becomes:
+        Merge multiple sorted lists
+        and extract k smallest elements.
+
+*   Data structure:
+        Use MIN HEAP ordered by pair sum.
+
+*   Initialization:
+        Insert (u,0) for all u.
+        These are smallest pairs for each row.
+
+*   Process:
+        1. Extract smallest pair.
+        2. Add it to result.
+        3. Push next pair in same row:
+                (u, v+1)
+
+*   Why push only (u, v+1)?
+        Because:
+            That is next larger pair
+            in sorted order for that row.
+
+*   Important invariant:
+        Heap always contains
+        the next smallest candidate
+        from each row.
+
+*   Time Complexity:
+        O(k log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,1 +1,56 @@
 Question Link : https://leetcode.com/problems/task-scheduler/description/
+
+*   Problem:
+        Given tasks with cooldown n,
+        schedule tasks to minimize total intervals.
+
+*   Key observation:
+        The most frequent task determines structure of schedule.
+
+*   Core greedy rule:
+        Always execute task with highest remaining frequency.
+
+*   Why?
+        Because delaying high-frequency task
+        increases risk of idle slots later.
+
+*   Data structures used:
+        1. Max heap → select task with highest count.
+        2. Queue → store tasks in cooldown period.
+
+*   Heap meaning:
+        Contains tasks that are currently available.
+
+*   Queue meaning:
+        Contains tasks waiting for cooldown to expire.
+
+*   Simulation:
+        Iterate time unit by time unit.
+
+*   For each time:
+        1. Move cooldown-expired tasks back to heap.
+        2. If heap not empty:
+                execute most frequent task.
+        3. If task still has remaining count:
+                push into cooldown queue
+                with next valid time.
+
+*   Why nextValidTime = curr + n + 1 ?
+        Because after executing at time t,
+        n intervals must pass
+        before same task runs again.
+
+*   Important invariant:
+        Heap contains only executable tasks.
+        Queue contains only cooling tasks.
+
+*   Loop continues until:
+        All tasks executed
+        and no cooling tasks remain.
+
+*   Time Complexity:
+        O(T log 26)
+        where T = total intervals
+
+*   Space Complexity:
+        O(26)
