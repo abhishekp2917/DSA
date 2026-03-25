@@ -1,0 +1,92 @@
+Question Link : https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
+
+*   Problem:
+        For each query,
+        find maximum number of elements
+        such that their sum ≤ query.
+
+*   Key observation:
+        Order of elements does not matter.
+
+        Only goal:
+            maximize count under sum constraint.
+
+*   Greedy insight:
+        Always pick smallest elements first.
+
+        Why?
+            Smaller elements allow more elements
+            within same sum.
+
+*   Therefore:
+        Sort array.
+
+*   After sorting:
+
+        nums = [small → large]
+
+        Optimal subset is always prefix.
+
+*   Prefix sum idea:
+
+        prefixSum[i] = sum of first i elements
+
+        So problem reduces to:
+
+            Find maximum i such that:
+                prefixSum[i] ≤ query
+
+*   Why prefix sum?
+        To avoid recomputing sums repeatedly.
+
+*   Query transformation:
+
+        Instead of subset selection:
+            just find prefix length.
+
+*   Core problem becomes:
+
+        Find rightmost index where:
+
+            prefixSum[i] ≤ query
+
+*   Data structure:
+        prefixSum array (monotonic increasing)
+
+*   Why binary search works?
+        Because prefixSum is sorted.
+
+*   Binary search goal:
+
+        Find largest i such that:
+
+            prefixSum[i] ≤ target
+
+*   Important detail:
+
+        We are not finding exact match.
+
+        We are finding:
+            RIGHTMOST VALID POSITION
+
+*   Process:
+
+        If prefixSum[mid] > target:
+            move left
+
+        Else:
+            store answer
+            move right
+
+*   Result meaning:
+
+        lowerBound = number of elements we can pick
+
+*   Time Complexity:
+
+        Sorting: O(n log n)
+        Queries: O(q log n)
+
+*   Space Complexity:
+
+        O(n)

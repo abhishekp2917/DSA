@@ -1,0 +1,79 @@
+Question Link : https://leetcode.com/problems/random-pick-with-weight/description/
+
+*   Problem:
+        Randomly pick an index such that
+        probability of picking index i ∝ weight[i]
+
+*   Key challenge:
+        Need NON-UNIFORM random selection.
+
+*   Key idea:
+        Convert weights into ranges.
+
+*   Example:
+
+        weights = [2, 3, 5]
+
+        prefix sum = [2, 5, 10]
+
+        ranges:
+
+            index 0 → [0,2)
+            index 1 → [2,5)
+            index 2 → [5,10)
+
+*   Why this works:
+
+        Range size = weight
+
+        Larger weight → larger interval → higher probability
+
+*   Process:
+
+        1. Generate random number in [0, totalWeight-1]
+        2. Find which range this number falls into
+
+*   Mapping problem:
+
+        Given random number r,
+        find smallest index i such that:
+
+            prefixSum[i] > r
+
+*   Why ">" and not ">="?
+
+        Because ranges are defined as:
+
+            [0,2), [2,5), [5,10)
+
+        Example:
+            r = 2 → belongs to index 1
+
+        So:
+            we need first prefix > r
+
+*   Binary search:
+
+        Find FIRST index where:
+
+            prefixSum[i] > target
+
+*   Why binary search?
+
+        prefixSum is sorted.
+
+        So we can find range in O(log n)
+
+*   Important invariant:
+
+        prefixWeightSum defines cumulative ranges
+        covering entire interval [0, totalWeight)
+
+*   Time Complexity:
+
+        Constructor → O(n)
+        pickIndex  → O(log n)
+
+*   Space Complexity:
+
+        O(n)

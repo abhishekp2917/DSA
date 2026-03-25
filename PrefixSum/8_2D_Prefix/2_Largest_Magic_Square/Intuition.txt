@@ -1,0 +1,83 @@
+Question Link : https://leetcode.com/problems/largest-magic-square/description
+
+*   Problem:
+        Find largest square where:
+            - all row sums equal
+            - all column sums equal
+            - both diagonals equal
+
+*   Core challenge:
+
+        Many overlapping submatrix checks
+
+*   Key idea:
+
+        Precompute ALL types of sums:
+            - row
+            - column
+            - diagonal (\)
+            - diagonal (/)
+
+*   Why so many prefix arrays?
+
+        Because:
+            each constraint needs O(1) query
+
+*   Without prefix:
+
+        Each square check = O(k^2)
+
+*   With prefix:
+
+        Each square check = O(k)
+
+*   Further optimization:
+
+        Check diagonals first → O(1)
+
+        If fails → skip expensive checks
+
+*   Diagonal pruning:
+
+        Most squares fail early
+
+        → huge optimization in practice
+
+*   Strategy:
+
+        For each square:
+            1. Check diagonals (fast)
+            2. Check rows (medium)
+            3. Check columns (medium)
+
+*   Important invariant:
+
+        All sums must match same value
+
+*   Prefix usage:
+
+        Row:
+            rowPref[i][j+1] - rowPref[i][j]
+
+        Column:
+            colPref[i+1][j] - colPref[i][j]
+
+        Diagonal:
+            subtract previous prefix
+
+*   Why store earliest prefix?
+
+        Not needed here
+        (different from hashmap prefix problems)
+
+*   Time Complexity:
+
+        Worst:
+            O(n * m * k^2)
+
+        Practical:
+            Much faster due to pruning
+
+*   Space Complexity:
+
+        O(n * m)

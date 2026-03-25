@@ -1,0 +1,81 @@
+Question Link : https://leetcode.com/problems/contiguous-array/description/
+
+*   Problem:
+        Find longest subarray with equal number of 0s and 1s.
+
+*   Key difficulty:
+
+        Condition is not directly sum-based.
+
+*   Key transformation:
+
+        Convert problem into prefix sum problem.
+
+*   Transformation:
+
+        0 → -1
+        1 → +1
+
+*   Why this works:
+
+        Equal number of 0s and 1s means:
+
+            (#1s - #0s) = 0
+
+        After transformation:
+
+            subarray sum = 0
+
+*   Prefix sum relation:
+
+        prefix[j] - prefix[i] = 0
+
+*   Rearranged:
+
+        prefix[j] == prefix[i]
+
+*   Core idea:
+
+        Find two indices having same prefix sum.
+
+        Their difference gives valid subarray.
+
+*   Data structure:
+
+        HashMap:
+            prefixSum → earliest index
+
+*   Why earliest index?
+
+        Because we want LONGEST subarray.
+
+*   Initialization:
+
+        prefixSum[0] = -1
+
+        Why?
+
+            To allow subarrays starting from index 0
+
+*   Process:
+
+        For each index:
+
+            1. Update prefix sum
+            2. Check if seen before
+            3. Compute length
+            4. Update max
+            5. Store prefix if first occurrence
+
+*   Important invariant:
+
+        Map always stores earliest occurrence
+        of each prefix sum.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

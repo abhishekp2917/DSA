@@ -1,0 +1,52 @@
+Question Link : https://leetcode.com/problems/find-pivot-index/description/
+
+*   Problem:
+        Find index such that:
+
+            sum(left elements) == sum(right elements)
+
+*   Key observation:
+
+        Pivot element is NOT included in either side
+
+*   Brute force:
+
+        For each index:
+            compute left sum
+            compute right sum
+
+        Time Complexity:
+            O(n^2)
+
+*   Core idea:
+
+        Precompute one side,
+        compute other side on the fly
+
+*   Approach used:
+
+        suffixSum[i] = sum of elements to right of i
+
+        prefix sum computed dynamically
+
+*   Pivot condition:
+
+        prefixSum == suffixSum[i]
+
+*   Why prefix updated AFTER check?
+
+        Because pivot element should not be included
+
+*   Important invariant:
+
+        sum = sum of elements strictly left of i
+
+        suffixSum[i] = sum of elements strictly right of i
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

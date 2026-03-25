@@ -1,0 +1,51 @@
+Question Link : https://leetcode.com/problems/describe-the-painting/description/
+
+*   Problem:
+        Multiple colored segments overlap.
+        Return resulting non-overlapping segments
+        with total color sum.
+
+*   Key observation:
+        Color only changes at segment boundaries.
+
+*   Core idea:
+        Use sweep line with difference array logic.
+
+*   Event transformation:
+        For segment [start, end, color]:
+
+            events[start] += color
+            events[end]   -= color
+
+*   Why?
+        Because color contribution begins at start
+        and stops at end.
+
+*   Data structure:
+        TreeMap storing:
+            position → color change
+
+*   Why TreeMap?
+        To process events in sorted order.
+
+*   Sweep process:
+        Traverse positions in ascending order.
+
+*   Maintain:
+        currColorSum = current active color value.
+
+*   For each event position:
+        1. Interval from previous position to current
+           has constant color sum.
+        2. Record interval if color sum > 0.
+        3. Update currColorSum using event value.
+
+*   Important invariant:
+        currColorSum represents
+        total active color at current sweep position.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

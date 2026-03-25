@@ -1,0 +1,74 @@
+Question Link : https://leetcode.com/problems/construct-product-matrix/description/
+
+*   Problem:
+        For each cell:
+            compute product of ALL elements
+            except itself (mod 12345)
+
+*   Key difficulty:
+
+        Division not allowed
+        (because modulo + zero handling)
+
+*   Core idea:
+
+        Use prefix and suffix products
+
+*   Key transformation:
+
+        Convert 2D matrix → 1D array
+
+        Why?
+
+            Simplifies logic
+            reduces to standard problem
+
+*   Prefix definition:
+
+        prefix[i] =
+            product of all elements before index i
+
+*   Suffix definition:
+
+        suffix[i] =
+            product of all elements after index i
+
+*   Final answer:
+
+        ans[i] = prefix[i] * suffix[i]
+
+*   Why this works:
+
+        Combines all elements except current
+
+*   Important detail:
+
+        prefix[i] is stored BEFORE multiplication
+
+        Why?
+
+            To exclude current element
+
+*   Why modulo at each step?
+
+        Prevent overflow
+        and keep numbers within range
+
+*   Process:
+
+        Step 1:
+            Build prefix product
+
+        Step 2:
+            Build suffix product
+
+        Step 3:
+            Multiply both
+
+*   Time Complexity:
+
+        O(n * m)
+
+*   Space Complexity:
+
+        O(n * m)

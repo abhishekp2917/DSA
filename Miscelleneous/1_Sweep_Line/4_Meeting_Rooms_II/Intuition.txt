@@ -1,0 +1,76 @@
+Question Link : https://www.geeksforgeeks.org/problems/attend-all-meetings-ii/1
+
+*   Problem:
+        Given meeting start and end times,
+        find minimum number of meeting rooms required.
+
+*   Key observation:
+        This is equivalent to finding
+        maximum number of overlapping meetings.
+
+*   Why?
+        Because each overlapping meeting
+        requires its own room.
+
+*   Core idea:
+        Use sweep line algorithm on time axis.
+
+*   Event representation:
+
+        For each meeting:
+
+            start → +1 (meeting begins)
+            end   → -1 (meeting ends)
+
+*   Why event-based approach?
+
+        Instead of checking all pairs of intervals,
+        we process only critical time points
+        where state changes.
+
+*   Data structure:
+
+        TreeMap:
+            time → list of events
+
+        Why TreeMap?
+            Because it keeps times sorted automatically.
+
+*   Active state:
+
+        Use a Set to track currently active meetings.
+
+*   Sweep process:
+
+        For each time point:
+
+            1. Process all events:
+                    start → add meeting
+                    end   → remove meeting
+
+            2. Active meetings count =
+                    number of rooms needed
+
+            3. Track maximum value
+
+*   Important invariant:
+
+        activeMeetings contains exactly
+        those meetings that overlap current time.
+
+*   Final answer:
+
+        Maximum size of activeMeetings
+        during sweep.
+
+*   Time Complexity:
+
+        Building events: O(n)
+
+        TreeMap iteration: O(n log n)
+
+        Overall: O(n log n)
+
+*   Space Complexity:
+
+        O(n)

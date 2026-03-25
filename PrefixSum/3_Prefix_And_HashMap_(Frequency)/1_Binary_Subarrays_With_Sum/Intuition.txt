@@ -1,0 +1,87 @@
+Question Link : https://leetcode.com/problems/binary-subarrays-with-sum/description/
+
+*   Problem:
+        Count number of subarrays
+        whose sum equals goal.
+
+*   Key observation:
+        Use prefix sum technique.
+
+*   Prefix sum definition:
+
+        prefixSum[i] = sum of elements from 0 to i
+
+*   Subarray sum formula:
+
+        sum(i+1 … j) = prefixSum[j] - prefixSum[i]
+
+*   For subarray sum = goal:
+
+        prefixSum[j] - prefixSum[i] = goal
+
+*   Rearranged:
+
+        prefixSum[i] = prefixSum[j] - goal
+
+*   Core idea:
+
+        While processing index j,
+        count how many times
+        (prefixSum[j] - goal)
+        appeared before.
+
+*   Data structure:
+
+        HashMap:
+            prefixSum → frequency
+
+*   Why frequency (not index)?
+
+        Because:
+            multiple occurrences of same prefix sum
+            create multiple valid subarrays.
+
+*   Example:
+
+        nums = [1,0,1,0,1], goal = 2
+
+        prefix sums:
+            1,1,2,2,3
+
+        prefix sum "1" appears twice →
+        contributes multiple subarrays.
+
+*   Initialization trick:
+
+        prefixSumFreq[0] = 1
+
+        Why?
+
+            To count subarrays starting at index 0.
+
+*   Process:
+
+        For each element:
+
+            1. Update prefix sum
+            2. Check (sum - goal) in map
+            3. Add its frequency to count
+            4. Store current prefix sum
+
+*   Important invariant:
+
+        Map always contains frequencies
+        of prefix sums seen so far.
+
+*   Why count before inserting?
+
+        Because:
+            current prefix should not match itself.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

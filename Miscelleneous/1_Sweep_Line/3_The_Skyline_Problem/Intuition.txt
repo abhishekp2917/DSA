@@ -1,0 +1,153 @@
+Question Link : https://leetcode.com/problems/the-skyline-problem/description/
+
+*   Problem:
+        Given buildings represented by:
+            [left, right, height]
+
+        Return the skyline formed by these buildings.
+
+*   What skyline means:
+
+        Skyline is the outer contour of all buildings.
+
+        Example:
+
+              █████
+          ██████████
+      ███████████████
+
+        Skyline points represent
+        where height changes.
+
+*   Key observation:
+
+        Skyline only changes at building boundaries.
+
+        These boundaries are:
+            building start (x1)
+            building end (x2)
+
+*   Therefore:
+
+        Instead of scanning every x coordinate,
+        we only process these boundary events.
+
+*   Core technique:
+
+        Sweep Line Algorithm.
+
+        Sweep from left → right
+        and maintain active buildings.
+
+*   Event representation:
+
+        For building [x1, x2, h]:
+
+            Start event → (x1, +h)
+            End event   → (x2, -h)
+
+*   Why negative height for end event?
+
+        It helps distinguish start vs end
+        during event processing.
+
+*   Sorting events rule:
+
+        Primary sort:
+            x ascending
+
+        Secondary sort:
+
+            start events first
+            taller buildings first
+
+        Why?
+
+            When buildings start at same x,
+            taller one must dominate skyline.
+
+*   Active buildings structure:
+
+        TreeMap:
+            height → frequency
+
+*   Why TreeMap?
+
+        We must quickly find the current maximum height.
+
+        TreeMap.lastKey() gives largest height.
+
+*   Why store frequency?
+
+        Multiple buildings may share same height.
+
+*   Sweep process:
+
+        For each event:
+
+            If building starts:
+                add height
+
+            If building ends:
+                remove height
+
+            Compute new maximum height.
+
+            If max height changes:
+                record skyline point.
+
+*   Why skyline changes only when max height changes?
+
+        Because skyline represents outer boundary.
+
+        Only tallest building matters.
+
+*   Important invariant:
+
+        activeBuilding TreeMap always contains
+        heights of currently active buildings.
+
+*   Skyline point:
+
+        (x, newHeight)
+
+        Means skyline changed at position x.
+
+*   Example:
+
+        Buildings:
+
+            [2,9,10]
+            [3,7,15]
+            [5,12,12]
+
+        Skyline:
+
+            (2,10)
+            (3,15)
+            (7,12)
+            (12,0)
+
+*   Time Complexity:
+
+        Event creation: O(n)
+
+        Sorting events: O(n log n)
+
+        Sweep operations: O(n log n)
+
+        Total: O(n log n)
+
+*   Space Complexity:
+
+        O(n)
+
+*   Key insight:
+
+        Skyline is determined only by
+        tallest active building.
+
+*   Therefore problem reduces to:
+
+        Maintain dynamic maximum height
+        while sweeping events.

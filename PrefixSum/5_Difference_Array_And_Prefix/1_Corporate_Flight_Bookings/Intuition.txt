@@ -1,0 +1,65 @@
+Question Link : https://leetcode.com/problems/corporate-flight-bookings/description/
+
+*   Problem:
+        Each booking adds seats to a range of flights.
+
+        Return total seats booked for each flight.
+
+*   Brute force:
+
+        For each booking:
+            update all indices in range
+
+        Time Complexity:
+            O(n * bookings) → too slow
+
+*   Key observation:
+
+        Range updates can be optimized.
+
+*   Core idea:
+
+        Use DIFFERENCE ARRAY.
+
+*   Difference array concept:
+
+        Instead of updating entire range,
+        update only boundaries:
+
+            diff[start] += val
+            diff[end+1] -= val
+
+*   Why this works:
+
+        Prefix sum reconstructs actual values.
+
+*   Example:
+
+        booking = [2,4,10]
+
+        diff[2] += 10
+        diff[5] -= 10
+
+        After prefix sum:
+            indices 2 to 4 get +10
+
+*   Process:
+
+        Step 1:
+            Apply difference updates
+
+        Step 2:
+            Compute prefix sum
+
+*   Important invariant:
+
+        diff array stores changes,
+        prefix sum gives actual values.
+
+*   Time Complexity:
+
+        O(n + bookings)
+
+*   Space Complexity:
+
+        O(n)

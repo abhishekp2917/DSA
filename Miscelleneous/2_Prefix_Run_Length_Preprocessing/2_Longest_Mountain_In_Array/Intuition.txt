@@ -1,0 +1,67 @@
+Question Link : https://leetcode.com/problems/longest-mountain-in-array/description/
+
+*   Problem:
+        Find longest subarray that forms a mountain:
+
+            strictly increasing
+            then strictly decreasing
+
+*   Key difficulty:
+
+        Need BOTH increasing and decreasing parts
+
+*   Brute force:
+
+        For each index:
+            expand left and right
+
+        Time Complexity:
+            O(n^2) → too slow
+
+*   Core idea:
+
+        Precompute increasing and decreasing lengths
+
+*   left[i]:
+
+        Length of strictly increasing sequence ending at i
+
+*   right[i]:
+
+        Length of strictly decreasing sequence starting at i
+
+*   Why this works:
+
+        For each index i:
+            we know how far it extends on both sides
+
+*   Peak condition:
+
+        left[i] > 1 AND right[i] > 1
+
+*   Why?
+
+        Must have at least:
+            1 increasing step
+            1 decreasing step
+
+*   Mountain length:
+
+        left[i] + right[i] - 1
+
+*   Why subtract 1?
+
+        Because peak is counted twice
+
+*   Important invariant:
+
+        left[i] captures uphill
+        right[i] captures downhill
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

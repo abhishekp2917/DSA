@@ -1,0 +1,75 @@
+Question Link : https://leetcode.com/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/description/
+
+*   Problem:
+        Find maximum number of NON-OVERLAPPING subarrays
+        whose sum = target.
+
+*   Key difficulty:
+
+        Two constraints:
+            1. subarray sum = target
+            2. subarrays must NOT overlap
+
+*   Step 1: Convert to prefix sum problem
+
+        subarray sum = target
+
+        ⇒ prefix[j] - prefix[i] = target
+
+        ⇒ prefix[i] = prefix[j] - target
+
+*   Step 2: Use HashMap
+
+        prefixSum → index
+
+*   Step 3: Greedy idea
+
+        Always pick earliest finishing subarray.
+
+        Why?
+
+            Picking shorter/earlier subarray
+            leaves more space for future subarrays.
+
+*   Step 4: Non-overlapping condition
+
+        Let lastSubarrIdx = end of last chosen subarray
+
+        For new subarray:
+
+            start index > lastSubarrIdx
+
+        Since start = nearestIdx + 1:
+
+            nearestIdx ≥ lastSubarrIdx
+
+*   Step 5: Process
+
+        For each index i:
+
+            1. Compute prefix sum
+            2. Check if (sum - target) exists
+            3. If exists:
+                    check non-overlap condition
+                    update count
+            4. Update prefix map
+
+*   Why store latest index?
+
+        Because:
+            we want nearest valid start
+            → gives smallest subarray
+            → maximizes count
+
+*   Important invariant:
+
+        prefixSumIdx always contains
+        latest index of each prefix sum
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

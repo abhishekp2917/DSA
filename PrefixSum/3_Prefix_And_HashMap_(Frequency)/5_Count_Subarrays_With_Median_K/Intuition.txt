@@ -1,0 +1,86 @@
+Question Link : https://leetcode.com/problems/count-subarrays-with-median-k/
+
+*   Problem:
+        Count subarrays where median = k.
+
+*   Key difficulty:
+        Median is NOT a sum-based property.
+        Cannot directly apply prefix sum.
+
+*   Key transformation:
+
+        Convert problem into balance problem.
+
+*   Transformation:
+
+        nums[i] < k → -1
+        nums[i] > k → +1
+        nums[i] = k →  0
+
+*   Why this works:
+
+        Median = k means:
+
+            #elements > k ≈ #elements < k
+
+        So balance should be:
+
+            0  → equal counts
+            1  → one extra larger element
+
+*   Prefix sum meaning:
+
+        prefix[i] =
+            (#elements > k) - (#elements < k)
+
+*   Subarray condition:
+
+        prefix[r] - prefix[l] ∈ {0, 1}
+
+*   Why must subarray include k?
+
+        Because median must be k.
+
+        Without k,
+        median cannot be k.
+
+*   Strategy:
+
+        Split array at position of k.
+
+*   Left side:
+
+        Store prefix frequencies.
+
+*   Right side:
+
+        For each prefix,
+        count matching left prefixes.
+
+*   Matching conditions:
+
+        Case 1:
+            prefix[r] == prefix[l]
+
+        Case 2:
+            prefix[r] == prefix[l] + 1
+
+*   Why two cases?
+
+        Even length subarray → difference = 0
+        Odd length subarray  → difference = 1
+
+*   Important invariant:
+
+        prefixFreq stores prefix values
+        only BEFORE k.
+
+        So all counted subarrays include k.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

@@ -1,0 +1,76 @@
+Question Link : https://leetcode.com/problems/subarray-sum-equals-k/description/
+
+*   Problem:
+        Count number of subarrays
+        whose sum equals k.
+
+*   Key observation:
+
+        Subarray sum can be expressed using prefix sums.
+
+*   Prefix sum definition:
+
+        prefixSum[i] = sum of elements from 0 → i
+
+*   Subarray sum formula:
+
+        sum(i+1 … j) = prefix[j] - prefix[i]
+
+*   Condition:
+
+        prefix[j] - prefix[i] = k
+
+*   Rearranged:
+
+        prefix[i] = prefix[j] - k
+
+*   Core idea:
+
+        While processing index j,
+        count how many prefix[i] exist
+        such that prefix[i] = prefix[j] - k
+
+*   Data structure:
+
+        HashMap:
+            prefixSum → frequency
+
+*   Why frequency?
+
+        Because:
+            multiple prefix sums can match,
+            each contributes to a valid subarray.
+
+*   Initialization trick:
+
+        prefixSumFreq[0] = 1
+
+        Why?
+
+            To count subarrays starting at index 0.
+
+*   Process:
+
+        For each element:
+
+            1. Update prefix sum
+            2. Check (sum - k) in map
+            3. Add its frequency to count
+            4. Store current prefix sum
+
+*   Important invariant:
+
+        Map stores frequencies of prefix sums
+        seen so far.
+
+*   Why count before insert?
+
+        To avoid counting zero-length subarray.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

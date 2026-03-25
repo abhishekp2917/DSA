@@ -1,0 +1,82 @@
+Question Link : https://leetcode.com/problems/maximum-good-subarray-sum/description/
+
+*   Problem:
+        Find maximum subarray sum such that:
+
+            |nums[i] - nums[j]| == k
+
+*   Key difficulty:
+
+        Condition depends on VALUES,
+        not directly on sum or indices.
+
+*   Core idea:
+
+        Combine:
+            prefix sum
+            +
+            value-based lookup
+
+*   Prefix sum concept:
+
+        subarray sum = prefix[j] - prefix[i]
+
+*   Condition:
+
+        nums[j] - nums[i] = ±k
+
+*   Rearranged:
+
+        nums[i] = nums[j] - k
+        OR
+        nums[i] = nums[j] + k
+
+*   Strategy:
+
+        While processing nums[j],
+        look for earlier nums[i] satisfying condition.
+
+*   Data structure:
+
+        Map:
+            value → minimum prefix sum before that value
+
+*   Why minimum prefix sum?
+
+        Because:
+
+            max subarray sum =
+                prefix[j] - smallest prefix[i]
+
+*   Process:
+
+        For each element num:
+
+            1. Update prefix sum
+            2. Compute target values:
+                    num-k and num+k
+            3. Check if these values exist
+            4. Compute candidate subarray sum
+            5. Update answer
+            6. Store current prefix sum for this value
+
+*   Important invariant:
+
+        prefixMinSum[val] stores
+        minimum prefix sum seen before that value
+
+*   Why +target in formula?
+
+        Because:
+            prefixSum includes current element
+            but stored prefix excludes it
+
+        Adjustment needed to align boundaries
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

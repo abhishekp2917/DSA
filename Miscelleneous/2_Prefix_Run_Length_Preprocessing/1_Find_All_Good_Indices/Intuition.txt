@@ -1,0 +1,66 @@
+Question Link : https://leetcode.com/problems/find-all-good-indices/description/
+
+*   Problem:
+        Find indices such that:
+
+            left k elements → non-increasing
+            right k elements → non-decreasing
+
+*   Brute force:
+
+        For each index:
+            check k elements left
+            check k elements right
+
+        Time Complexity:
+            O(n * k) → too slow
+
+*   Key observation:
+
+        We repeatedly check monotonic sequences
+
+*   Core idea:
+
+        Precompute monotonic lengths
+
+*   left[i]:
+
+        Length of non-increasing sequence ending at i
+
+        Example:
+            nums = [5,4,4,6]
+
+            left = [1,2,3,1]
+
+*   right[i]:
+
+        Length of non-decreasing sequence starting at i
+
+*   Why this helps:
+
+        Instead of checking k elements,
+        we just check ONE value:
+
+            left[i-1] >= k
+            right[i+1] >= k
+
+*   Key condition:
+
+        For index i:
+
+            left[i-1] >= k
+            AND
+            right[i+1] >= k
+
+*   Important invariant:
+
+        left[i] and right[i]
+        store continuous valid lengths
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

@@ -1,0 +1,83 @@
+Question Link : https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/description/
+
+*   Problem:
+        Find shortest subarray
+        whose sum ≥ k.
+
+*   Why normal sliding window fails?
+        Because array may contain negatives.
+        Sum is not monotonic.
+        Expanding window doesn't guarantee larger sum.
+
+*   So we use PREFIX SUM.
+
+*   prefixSum[i] = sum of first i elements.
+
+*   Subarray sum from j to i-1:
+        prefixSum[i] - prefixSum[j]
+
+*   We need:
+        prefixSum[i] - prefixSum[j] ≥ k
+        AND
+        minimize (i - j)
+
+*   Rearranged:
+        prefixSum[j] ≤ prefixSum[i] - k
+
+*   So for each i,
+        we want smallest j
+        such that condition holds.
+
+*   Key idea:
+        Maintain a deque of prefix indices
+        with INCREASING prefix sums.
+
+*   Why increasing?
+        Because:
+
+        If prefixSum[j1] ≥ prefixSum[j2]
+        and j1 < j2
+
+        Then j1 is useless.
+
+        Why?
+            Using j2 gives:
+                Larger difference
+                Smaller subarray length.
+
+*   So we remove larger prefix sums from back.
+
+*   For each i:
+
+        STEP 1:
+            While current prefixSum[i]
+            - prefixSum[deque.front] ≥ k
+
+            Update answer:
+                length = i - deque.front
+
+            Remove front.
+
+            Why remove?
+                Because any future i
+                will produce longer subarray.
+
+*   STEP 2:
+            Maintain increasing prefix sums.
+            Remove from back while
+                prefixSum[last] ≥ prefixSum[i]
+
+*   STEP 3:
+            Add current index to deque.
+
+*   Why this works:
+        Each index:
+            Added once
+            Removed once
+        → O(n)
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)

@@ -1,0 +1,93 @@
+Question Link : https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/description/
+
+*   Problem:
+        Find maximum subarray sum
+        such that subarray length % k == 0.
+
+*   Key observation:
+
+        Length constraint → NOT value-based
+        → cannot use normal Kadane directly.
+
+*   Core idea:
+
+        Use prefix sum + modulo grouping.
+
+*   Prefix sum:
+
+        prefix[i] = sum of elements from 0 → i-1
+
+*   Subarray sum:
+
+        sum(i → j) = prefix[j+1] - prefix[i]
+
+*   Length of subarray:
+
+        length = (j - i + 1)
+
+*   Condition:
+
+        length % k == 0
+
+*   Rewrite condition:
+
+        (j + 1) % k == i % k
+
+*   Key transformation:
+
+        Two prefix indices must have SAME modulo.
+
+*   Core strategy:
+
+        Group prefix sums based on:
+
+            (index + 1) % k
+
+*   For each group:
+
+        Find maximum difference:
+
+            currPrefix - minimumPrefix
+
+*   Why minimum prefix?
+
+        Because:
+
+            max sum = curr - smallest prefix
+
+*   Data structure:
+
+        prefixModLen[r] =
+            minimum prefix sum for remainder r
+
+*   Initialization:
+
+        prefixModLen[0] = 0
+
+        Why?
+
+            Represents empty prefix
+
+*   Process:
+
+        For each index i:
+
+            1. Compute prefix sum
+            2. Compute mod = (i+1) % k
+            3. Check best previous prefix
+            4. Update answer
+            5. Update minimum prefix
+
+*   Important invariant:
+
+        prefixModLen[r] always stores
+        minimum prefix sum seen so far
+        for that remainder
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(k)

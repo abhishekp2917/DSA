@@ -1,0 +1,81 @@
+Question Link : https://leetcode.com/problems/shifting-letters-ii/description/
+
+*   Problem:
+        Apply multiple range-based shifts on a string.
+
+        Each shift:
+            [start, end, direction]
+
+*   Brute force:
+
+        For each shift:
+            update all characters in range
+
+        Time Complexity:
+            O(n * shifts) → too slow
+
+*   Key observation:
+
+        Range updates can be optimized.
+
+*   Core idea:
+
+        Use DIFFERENCE ARRAY.
+
+*   Difference array logic:
+
+        For each shift:
+
+            if direction = +1:
+                diff[start] += 1
+                diff[end+1] -= 1
+
+            if direction = -1:
+                diff[start] -= 1
+                diff[end+1] += 1
+
+*   Why this works:
+
+        Prefix sum reconstructs total shift at each index.
+
+*   Process:
+
+        Step 1:
+            Apply boundary updates
+
+        Step 2:
+            Build prefix sum
+
+        Step 3:
+            Apply shifts to characters
+
+*   Important detail:
+
+        Shift values can be large (many operations)
+
+        So reduce:
+
+            shift % 26
+
+*   Why handle negative modulo?
+
+        Because Java % can give negative values
+
+        Fix:
+
+            ((x % 26) + 26) % 26
+
+*   Character shift logic:
+
+        'a' → 0, ..., 'z' → 25
+
+        newChar =
+            ('a' + (oldIndex + shift) % 26)
+
+*   Time Complexity:
+
+        O(n + shifts)
+
+*   Space Complexity:
+
+        O(n)

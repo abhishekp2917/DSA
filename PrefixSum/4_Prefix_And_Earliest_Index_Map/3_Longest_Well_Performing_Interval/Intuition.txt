@@ -1,0 +1,108 @@
+Question Link : https://leetcode.com/problems/longest-well-performing-interval/description/
+
+*   Problem:
+        Find longest interval where:
+
+            #tiring days > #non-tiring days
+
+*   Key difficulty:
+
+        Condition is NOT sum-based directly.
+
+*   Key transformation:
+
+        Convert problem into prefix sum.
+
+*   Transformation:
+
+        hours[i] > 8 → +1
+        hours[i] ≤ 8 → -1
+
+*   Why this works:
+
+        Now condition becomes:
+
+            subarray sum > 0
+
+*   Prefix sum relation:
+
+        subarraySum = prefix[j] - prefix[i]
+
+*   Condition:
+
+        prefix[j] - prefix[i] > 0
+
+*   Rearranged:
+
+        prefix[i] < prefix[j]
+
+*   Core idea:
+
+        For each j,
+        find earliest i such that:
+
+            prefix[i] < prefix[j]
+
+*   Special case:
+
+        If prefix[j] > 0:
+
+            entire prefix (0 → j) is valid
+
+*   General case:
+
+        Find smallest prefix[i]
+        such that:
+
+            prefix[i] < prefix[j]
+
+        Equivalent to:
+
+            prefix[i] ≤ prefix[j] - 1
+
+*   Implementation trick:
+
+        Search for:
+
+            currDiff - 1
+
+*   Data structure:
+
+        HashMap:
+            prefixDiff → earliest index
+
+*   Why earliest index?
+
+        Because we want longest interval.
+
+*   Initialization:
+
+        prefixDiff[0] = -1
+
+        Why?
+
+            allows intervals starting from index 0
+
+*   Process:
+
+        For each index:
+
+            1. Convert value (+1 / -1)
+            2. Update prefix diff
+            3. Check if entire prefix valid
+            4. Else find earlier smaller prefix
+            5. Compute length
+            6. Update answer
+            7. Store prefix if first occurrence
+
+*   Important invariant:
+
+        Map stores earliest index of each prefix diff
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

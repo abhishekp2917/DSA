@@ -1,0 +1,98 @@
+Question Link : https://leetcode.com/problems/number-of-wonderful-substrings/description/
+
+*   Problem:
+        Count substrings where:
+            at most ONE character has odd frequency.
+
+*   Key difficulty:
+
+        Condition is on FREQUENCY PARITY,
+        not on sum or direct values.
+
+*   Key transformation:
+
+        Track parity (even/odd) of characters.
+
+*   Representation:
+
+        Use bitmask:
+
+            bit i = 1 → character i has odd count
+            bit i = 0 → character i has even count
+
+*   Example:
+
+        mask = 0101
+        → char0 odd, char1 even, char2 odd, char3 even
+
+*   Why bitmask?
+
+        Efficient representation of parity state.
+
+*   Prefix idea:
+
+        If two prefixes have same mask:
+
+            substring between them has all even counts
+
+*   Why?
+
+        Because parity cancels out.
+
+*   Condition for wonderful substring:
+
+        At most one character has odd frequency.
+
+*   Two valid cases:
+
+        Case 1:
+            All characters even
+            → mask1 == mask2
+
+        Case 2:
+            Exactly one character odd
+            → masks differ by exactly ONE bit
+
+*   How to check "differ by one bit"?
+
+        Flip each bit once:
+
+            newMask = currentMask ^ (1 << i)
+
+*   Core idea:
+
+        For each position:
+
+            1. Update mask
+            2. Count same mask occurrences
+            3. Count masks differing by one bit
+            4. Update frequency
+
+*   Data structure:
+
+        Array of size 2^10 (1024)
+
+*   Why array instead of map?
+
+        Mask space is small and fixed.
+
+*   Initialization:
+
+        stateFreq[0] = 1
+
+        Why?
+
+            Empty prefix has all even counts
+
+*   Important invariant:
+
+        stateFreq[mask] stores
+        number of prefixes with that parity state
+
+*   Time Complexity:
+
+        O(n * 10)
+
+*   Space Complexity:
+
+        O(2^10)

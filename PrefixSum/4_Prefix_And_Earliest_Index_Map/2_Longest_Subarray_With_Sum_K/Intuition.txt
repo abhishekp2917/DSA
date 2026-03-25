@@ -1,0 +1,56 @@
+Question Link : https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1
+
+*   Problem:
+        Find the longest subarray
+        whose sum equals k.
+
+*   Key observation:
+        Use prefix sums.
+
+*   Prefix sum definition:
+        prefixSum[i] = sum of elements from 0 to i.
+
+*   Subarray sum formula:
+        sum(i+1 … j) = prefixSum[j] - prefixSum[i]
+
+*   For subarray sum = k:
+        prefixSum[j] - prefixSum[i] = k
+
+*   Rearranged:
+        prefixSum[i] = prefixSum[j] - k
+
+*   Core idea:
+        While scanning index j,
+        check if (prefixSum[j] - k)
+        appeared earlier.
+
+*   Data structure:
+        HashMap storing:
+            prefixSum → earliest index
+
+*   Why store earliest index?
+        Because we want longest subarray.
+
+*   Initialization trick:
+        prefixSum = 0 at index -1.
+
+        Why?
+        So subarrays starting from index 0
+        can be counted.
+
+*   Process:
+        1. Compute running prefix sum.
+        2. Check if (sum - k) exists in map.
+        3. If yes:
+                update longest length.
+        4. Store prefix sum if first occurrence.
+
+*   Important invariant:
+        Map always stores earliest index
+        for each prefix sum.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)

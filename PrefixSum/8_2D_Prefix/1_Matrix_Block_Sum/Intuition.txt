@@ -1,0 +1,81 @@
+Question Link : https://leetcode.com/problems/matrix-block-sum/description/
+
+*   Problem:
+        For each cell (i,j),
+        compute sum of all elements within k distance.
+
+*   Brute force:
+
+        For each cell:
+            scan k*k neighborhood
+
+        Time Complexity:
+            O(n * m * k^2) → too slow
+
+*   Key observation:
+
+        We need fast submatrix sum queries.
+
+*   Core idea:
+
+        Use 2D PREFIX SUM.
+
+*   Prefix sum definition:
+
+        prefix[i][j] =
+            sum of elements from (0,0) to (i-1,j-1)
+
+*   2D prefix formula:
+
+        prefix[i][j] =
+            mat[i-1][j-1]
+            + prefix[i-1][j]
+            + prefix[i][j-1]
+            - prefix[i-1][j-1]
+
+*   Why subtract top-left?
+
+        It gets counted twice.
+
+*   Query formula:
+
+        Sum of rectangle (r1,c1) → (r2,c2):
+
+            prefix[r2+1][c2+1]
+            - prefix[r2+1][c1]
+            - prefix[r1][c2+1]
+            + prefix[r1][c1]
+
+*   Boundary handling:
+
+        Clamp indices:
+
+            top = max(0, i-k)
+            left = max(0, j-k)
+            bottom = min(n-1, i+k)
+            right = min(m-1, j+k)
+
+*   Why +1 indexing?
+
+        Simplifies boundary cases and avoids extra checks.
+
+*   Process:
+
+        Step 1:
+            Build prefix sum matrix
+
+        Step 2:
+            Query each cell in O(1)
+
+*   Important invariant:
+
+        prefix matrix stores cumulative sums
+        enabling constant-time queries.
+
+*   Time Complexity:
+
+        O(n * m)
+
+*   Space Complexity:
+
+        O(n * m)

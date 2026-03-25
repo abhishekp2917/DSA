@@ -1,0 +1,79 @@
+Question Link : https://leetcode.com/problems/subarray-sums-divisible-by-k/description/
+
+*   Problem:
+        Count number of subarrays
+        whose sum is divisible by k.
+
+*   Key observation:
+
+        Subarray sum divisible by k means:
+
+            subarraySum % k == 0
+
+*   Prefix sum relation:
+
+        subarraySum = prefix[j] - prefix[i]
+
+*   Taking modulo:
+
+        (prefix[j] - prefix[i]) % k == 0
+
+*   Rearranged:
+
+        prefix[j] % k == prefix[i] % k
+
+*   Core idea:
+
+        Count pairs of prefix sums
+        having SAME remainder.
+
+*   Data structure:
+
+        HashMap:
+            remainder → frequency
+
+*   Why frequency?
+
+        Because if remainder appears f times,
+        it contributes:
+
+            f choose 2 subarrays
+
+        But we compute incrementally.
+
+*   Initialization:
+
+        remainder 0 → frequency 1
+
+        Why?
+
+            To count subarrays starting at index 0
+
+*   Process:
+
+        For each element:
+
+            1. Update prefix sum modulo k
+            2. Normalize modulo (handle negative)
+            3. Count how many times this remainder appeared
+            4. Add to answer
+            5. Update frequency
+
+*   Important invariant:
+
+        Map stores count of each remainder
+        seen so far.
+
+*   Why same remainder works?
+
+        Because:
+
+            difference of equal remainders = multiple of k
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(k)

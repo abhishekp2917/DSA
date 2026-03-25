@@ -1,0 +1,73 @@
+Question Link : https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/description/
+
+*   Problem:
+        Count submatrices with sum = target.
+
+*   Key difficulty:
+
+        2D submatrix → too many possibilities
+
+        Brute force:
+            O(n^2 * m^2) → too slow
+
+*   Core idea:
+
+        Reduce 2D → multiple 1D problems
+
+*   Key transformation:
+
+        Fix two rows:
+            startRow, endRow
+
+        Collapse rows into 1D array:
+            colPrefixSum[c]
+
+*   Why this works:
+
+        Any submatrix between these rows
+        becomes a subarray problem on columns
+
+*   Now problem reduces to:
+
+        Count subarrays with sum = target
+
+*   Use standard pattern:
+
+        prefix sum + hashmap
+
+*   Formula:
+
+        prefix[j] - prefix[i] = target
+
+        ⇒ prefix[i] = prefix[j] - target
+
+*   Strategy:
+
+        For each (startRow, endRow):
+            1. Build colPrefixSum
+            2. Apply subarray sum = target logic
+
+*   Important invariant:
+
+        colPrefixSum[c] stores
+        sum of column c between chosen rows
+
+*   Why prefixFreqMap?
+
+        To count how many previous prefix sums match
+
+*   Initialization:
+
+        prefixFreqMap[0] = 1
+
+        Why?
+
+            To count subarrays starting at column 0
+
+*   Time Complexity:
+
+        O(n^2 * m)
+
+*   Space Complexity:
+
+        O(m)

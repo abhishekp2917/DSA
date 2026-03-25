@@ -1,0 +1,93 @@
+Question Link : https://leetcode.com/problems/make-sum-divisible-by-p/description/
+
+*   Problem:
+        Remove smallest subarray such that
+        remaining array sum is divisible by p.
+
+*   Key observation:
+
+        Let totalSum % p = remainder
+
+        If remainder == 0:
+            no removal needed
+
+*   Core transformation:
+
+        We need:
+
+            (totalSum - subarraySum) % p = 0
+
+        Rearranged:
+
+            subarraySum % p = remainder
+
+*   Prefix sum relation:
+
+        subarraySum = prefix[j] - prefix[i]
+
+*   Taking modulo:
+
+        (prefix[j] - prefix[i]) % p = remainder
+
+*   Rearranged:
+
+        prefix[i] % p =
+            (prefix[j] - remainder) % p
+
+*   Core idea:
+
+        While iterating j,
+        find earlier i such that:
+
+            prefix[i] % p == target
+
+*   Target formula:
+
+        target =
+            (currentPrefix - remainder) % p
+
+        Add +p before mod to avoid negative values.
+
+*   Data structure:
+
+        HashMap:
+            prefixMod → index
+
+*   Why store latest index?
+
+        Because:
+            we want smallest subarray length
+
+            i should be as close to j as possible
+
+*   Initialization:
+
+        prefixMod[0] = -1
+
+        Why?
+
+            Allows removing prefix starting at index 0
+
+*   Process:
+
+        For each index j:
+
+            1. Compute prefix sum
+            2. Compute modulo
+            3. Compute target modulo
+            4. If target exists:
+                    update min length
+            5. Store current modulo index
+
+*   Important invariant:
+
+        Map stores latest occurrence
+        of each prefix modulo
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(min(n, p))

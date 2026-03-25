@@ -1,0 +1,136 @@
+Question Link : https://leetcode.com/problems/rectangle-area-ii/description/
+
+*   Problem:
+        Given multiple rectangles,
+        compute the total area covered by them.
+
+        Overlapping regions must be counted only once.
+
+*   Key difficulty:
+        Rectangles can overlap in complex ways.
+
+        Naively adding areas leads to double counting.
+
+*   Key geometric observation:
+
+        Area can be computed by sweeping across X axis.
+
+        If we fix an x-interval:
+            [x1 , x2]
+
+        then vertical coverage does NOT change
+        between these two x positions.
+
+        So area contributed is:
+
+            width * verticalCoverage
+
+*   Sweep line concept:
+
+        Imagine a vertical line moving from left → right.
+
+        At certain x-coordinates,
+        rectangles start or end.
+
+        These positions are called EVENTS.
+
+*   Event representation:
+
+        For rectangle [x1,y1,x2,y2]:
+
+            event at x1 → ADD interval [y1,y2]
+            event at x2 → REMOVE interval [y1,y2]
+
+*   Why this works:
+
+        When sweep line passes x1,
+        rectangle begins contributing to area.
+
+        When sweep line passes x2,
+        rectangle stops contributing.
+
+*   Data structure used:
+
+        TreeMap<x, List<events>>
+
+        Why TreeMap?
+            Because sweep line must process
+            events in sorted x order.
+
+*   Active intervals:
+
+        Maintain list of y-intervals of rectangles
+        currently intersecting the sweep line.
+
+        This represents vertical coverage
+        for the current x region.
+
+*   Sweep algorithm:
+
+        For each event position currX:
+
+            width = currX - prevX
+
+            height = union length of active y intervals
+
+            area += width * height
+
+            update active intervals using events
+
+            prevX = currX
+
+*   Computing vertical coverage:
+
+        active intervals may overlap.
+
+        Example:
+
+            [1,5]
+            [3,8]
+
+        naive sum = 4 + 5 = 9 (incorrect)
+
+        merged interval = [1,8] → length = 7
+
+*   Therefore:
+
+        Sort intervals by start
+        Merge overlapping intervals
+        Sum merged lengths
+
+*   Important invariant:
+
+        activeRectangle always contains
+        all rectangles intersecting current sweep strip.
+
+*   Area accumulation logic:
+
+        Area is accumulated BEFORE updating events.
+
+        Because the interval [prevX , currX]
+        corresponds to previous active rectangles.
+
+*   Time Complexity:
+
+        Event generation:
+            O(n)
+
+        Sweep events:
+            O(n)
+
+        Height computation each step:
+            O(n log n)
+
+        Overall worst case:
+            O(n² log n)
+
+*   Space Complexity:
+
+        O(n)
+
+*   Why modulo?
+
+        Area may exceed integer range.
+
+        So problem requires returning
+        result modulo 1e9+7.

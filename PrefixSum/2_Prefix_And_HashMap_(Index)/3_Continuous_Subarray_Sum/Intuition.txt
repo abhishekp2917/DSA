@@ -1,0 +1,84 @@
+Question Link : https://leetcode.com/problems/continuous-subarray-sum/description/
+
+*   Problem:
+        Check if there exists a subarray
+        of length ≥ 2
+        whose sum is divisible by k.
+
+*   Key observation:
+
+        Subarray sum divisible by k means:
+
+            subarraySum % k == 0
+
+*   Prefix sum relation:
+
+        subarraySum = prefix[j] - prefix[i]
+
+*   Taking modulo:
+
+        (prefix[j] - prefix[i]) % k == 0
+
+*   Rearranged:
+
+        prefix[j] % k == prefix[i] % k
+
+*   Core idea:
+
+        If same prefix modulo appears twice,
+        the subarray between them is divisible by k.
+
+*   Data structure:
+
+        HashMap:
+            prefixMod → earliest index
+
+*   Why earliest index?
+
+        Because:
+            we need subarray length ≥ 2
+
+            earlier index gives larger length
+
+*   Initialization:
+
+        prefixMod[0] = -1
+
+        Why?
+
+            Allows subarrays starting at index 0
+
+*   Process:
+
+        For each index i:
+
+            1. Compute prefix modulo
+            2. If same modulo seen before:
+                    check length
+            3. If length ≥ 2 → return true
+            4. Otherwise store modulo if first time
+
+*   Important invariant:
+
+        Map stores earliest occurrence
+        of each prefix modulo
+
+*   Why use putIfAbsent?
+
+        To preserve earliest index
+
+*   Why handle negative modulo?
+
+        Because Java's % can produce negative values
+
+        So normalize:
+
+            mod = (mod + k) % k
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(min(n, k))

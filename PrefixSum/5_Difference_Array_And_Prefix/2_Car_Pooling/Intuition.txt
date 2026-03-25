@@ -1,0 +1,68 @@
+Question Link : https://leetcode.com/problems/car-pooling/description/
+
+*   Problem:
+        Each trip adds passengers in a range [from, to)
+
+        Check if capacity is exceeded at any point.
+
+*   Brute force:
+
+        For each trip:
+            update all locations in range
+
+        Time Complexity:
+            O(n * range) → inefficient
+
+*   Key observation:
+
+        We only need to track changes at boundaries.
+
+*   Core idea:
+
+        Use DIFFERENCE ARRAY.
+
+*   Difference array logic:
+
+        For each trip:
+
+            passengers[from] += count
+            passengers[to]   -= count
+
+*   Why subtract at 'to'?
+
+        Because range is [from, to)
+        → passengers leave at 'to'
+
+*   After all updates:
+
+        Prefix sum gives actual passengers at each point.
+
+*   Process:
+
+        Step 1:
+            Apply all boundary updates
+
+        Step 2:
+            Compute prefix sum
+
+        Step 3:
+            Check if passengers exceed capacity
+
+*   Important invariant:
+
+        passengers[i] stores change at point i
+
+        After prefix sum:
+            passengers[i] = total passengers at location i
+
+*   Why prefix sum works:
+
+        It accumulates all active trips at that point.
+
+*   Time Complexity:
+
+        O(n + maxLocation)
+
+*   Space Complexity:
+
+        O(maxLocation)

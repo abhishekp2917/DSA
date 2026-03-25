@@ -1,0 +1,90 @@
+Question Link : https://leetcode.com/problems/count-of-interesting-subarrays/description
+
+*   Problem:
+        Count subarrays where:
+
+            (# of elements satisfying condition) % modulo == k
+
+*   Key difficulty:
+
+        Condition is NOT directly on values,
+        but on COUNT of certain elements.
+
+*   Key transformation:
+
+        Convert array into binary form:
+
+            nums[i] % modulo == k → 1
+            otherwise            → 0
+
+*   Why this works:
+
+        Now problem becomes:
+
+            Count subarrays where sum % modulo == k
+
+*   Prefix sum relation:
+
+        subarraySum = prefix[j] - prefix[i]
+
+*   Modulo condition:
+
+        (prefix[j] - prefix[i]) % modulo == k
+
+*   Rearranged:
+
+        prefix[i] % modulo =
+            (prefix[j] - k) % modulo
+
+*   Core idea:
+
+        While processing j,
+        count how many prefix[i] exist
+        such that:
+
+            prefix[i] == target
+
+*   Target formula:
+
+        target = (currentPrefix - k + modulo) % modulo
+
+*   Data structure:
+
+        HashMap:
+            prefixMod → frequency
+
+*   Why frequency?
+
+        Because multiple prefix values
+        contribute multiple subarrays.
+
+*   Initialization:
+
+        prefixMod[0] = 1
+
+        Why?
+
+            To count subarrays starting at index 0
+
+*   Process:
+
+        For each index:
+
+            1. Convert value to 0/1
+            2. Update prefix modulo
+            3. Compute target prefix
+            4. Add frequency of target
+            5. Store current prefix
+
+*   Important invariant:
+
+        Map stores frequencies of prefix mod values
+        seen so far.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(modulo)

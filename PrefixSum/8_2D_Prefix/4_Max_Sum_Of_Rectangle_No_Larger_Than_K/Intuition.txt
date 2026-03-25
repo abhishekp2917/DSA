@@ -1,0 +1,80 @@
+Question Link : https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/description/
+
+*   Problem:
+        Find maximum submatrix sum ≤ k.
+
+*   Key difficulty:
+
+        NOT exact sum,
+        but "closest ≤ k"
+
+*   Brute force:
+
+        Check all submatrices
+        → O(n^2 * m^2) → too slow
+
+*   Core idea:
+
+        Convert 2D → multiple 1D problems
+
+*   Step 1:
+
+        Fix rowStart and rowEnd
+
+        Collapse matrix into 1D array:
+            prefixColSum
+
+*   Step 2:
+
+        Now problem becomes:
+
+            Find max subarray sum ≤ k
+
+*   Why normal prefix map doesn't work?
+
+        Because:
+            we need closest ≤ k,
+            not exact match
+
+*   Key transformation:
+
+        prefix[j] - prefix[i] ≤ k
+
+*   Rearranged:
+
+        prefix[i] ≥ prefix[j] - k
+
+*   Core idea:
+
+        For each prefix[j],
+        find smallest prefix[i] ≥ (prefix[j] - k)
+
+*   Data structure:
+
+        TreeSet (sorted)
+
+*   Why TreeSet?
+
+        Supports:
+            ceiling(x) → smallest ≥ x
+
+*   Process:
+
+        For each prefix:
+
+            1. Add previous prefix to set
+            2. Compute current prefix
+            3. Find ceiling(prefix - k)
+            4. Update answer
+
+*   Important invariant:
+
+        TreeSet stores all prefix sums seen so far
+
+*   Time Complexity:
+
+        O(n^2 * m log m)
+
+*   Space Complexity:
+
+        O(m)

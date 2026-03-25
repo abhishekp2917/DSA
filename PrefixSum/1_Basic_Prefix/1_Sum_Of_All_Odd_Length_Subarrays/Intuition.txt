@@ -1,0 +1,89 @@
+Question Link : https://leetcode.com/problems/sum-of-all-odd-length-subarrays/description/
+
+*   Problem:
+        Find sum of all subarrays
+        having odd length.
+
+*   Brute force idea:
+
+        Generate all subarrays
+        → filter odd length
+        → compute sum
+
+*   Optimization 1:
+
+        Use prefix sum to compute
+        subarray sum in O(1)
+
+*   Prefix sum definition:
+
+        prefix[i] = sum of elements from 0 → i-1
+
+*   Subarray sum:
+
+        sum(start → end) =
+            prefix[end+1] - prefix[start]
+
+*   Approach:
+
+        1. Iterate over odd lengths
+        2. For each length,
+           try all starting indices
+        3. Compute sum using prefix
+
+*   Complexity:
+
+        Total subarrays ≈ O(n²)
+        Each sum O(1)
+
+        Total = O(n²)
+
+*   Space Complexity:
+
+        O(n)
+
+*   Key limitation:
+
+        Still quadratic time
+
+*   Important observation:
+
+        Each element contributes to
+        multiple subarrays.
+
+*   Optimized insight:
+
+        Instead of iterating subarrays,
+        count contribution of each element.
+
+*   Contribution idea:
+
+        For index i:
+
+            total subarrays containing i =
+                (i+1) * (n-i)
+
+*   Out of these,
+        odd length subarrays =
+
+            (total + 1) / 2
+
+*   Why?
+
+        Half of subarrays are odd length
+        (plus one if total is odd)
+
+*   Final optimized formula:
+
+        contribution of nums[i] =
+
+            nums[i] *
+            ((i+1)*(n-i) + 1) / 2
+
+*   Time Complexity (optimized):
+
+        O(n)
+
+*   Space Complexity:
+
+        O(1)

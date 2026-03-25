@@ -1,0 +1,80 @@
+Question Link : https://leetcode.com/problems/count-the-number-of-beautiful-subarrays/description/
+
+*   Problem:
+        Count subarrays where:
+            bitwise operations can make all elements zero.
+
+*   Key observation:
+
+        This condition reduces to:
+
+            subarray XOR = 0
+
+*   Why?
+
+        Because XOR represents parity of bits.
+
+        If XOR = 0:
+            all bits cancel out → can become zero
+
+*   Prefix XOR definition:
+
+        prefixXor[i] = nums[0] ^ nums[1] ^ ... ^ nums[i]
+
+*   Subarray XOR formula:
+
+        subarrayXor(i+1 → j) =
+            prefixXor[j] ^ prefixXor[i]
+
+*   Condition:
+
+        prefixXor[j] ^ prefixXor[i] = 0
+
+*   Rearranged:
+
+        prefixXor[j] == prefixXor[i]
+
+*   Core idea:
+
+        Count pairs of indices
+        having same prefix XOR
+
+*   Data structure:
+
+        Array / Map:
+            xor → frequency
+
+*   Why frequency?
+
+        Because each occurrence contributes
+        multiple subarrays.
+
+*   Initialization:
+
+        xorCount[0] = 1
+
+        Why?
+
+            To count subarrays starting at index 0
+
+*   Process:
+
+        For each element:
+
+            1. Update prefix XOR
+            2. Count how many times this XOR appeared
+            3. Add to answer
+            4. Store current XOR
+
+*   Important invariant:
+
+        xorCount[x] stores number of prefixes
+        with XOR = x
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(2^20)
