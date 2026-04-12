@@ -1,0 +1,52 @@
+Question Link : https://leetcode.com/problems/smallest-k-length-subsequence-with-occurrences-of-a-letter/description/
+
+*   Problem:
+        Find lexicographically smallest subsequence of length k
+        with at least 'repetition' occurrences of 'letter'
+
+*   Key difficulty:
+
+        Multiple constraints:
+            1. subsequence size = k
+            2. lexicographically smallest
+            3. must include 'letter' at least repetition times
+
+*   Core idea:
+
+        Monotonic stack + constraint tracking
+
+*   Variables:
+
+        toRemove:
+            how many elements we can drop
+
+        letterNeeded:
+            how many required letters still needed
+
+        letterToRemove:
+            how many 'letter' we can safely remove
+
+*   Greedy removal condition:
+
+        Remove stack.top if:
+            stack.top > current
+            AND we can remove
+            AND removing doesn't break letter constraint
+
+*   Inclusion condition:
+
+        Add character if:
+            - it is required letter
+            OR
+            - enough slots remain for required letters
+
+*   Key formula:
+
+        remaining slots = k - stack.size()
+
+        must ensure:
+            remaining slots >= letterNeeded
+
+*   Important invariant:
+
+        stack always represents best valid prefix

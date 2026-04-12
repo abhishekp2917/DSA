@@ -1,0 +1,67 @@
+Question Link : https://leetcode.com/problems/decode-string/description/
+
+*   Problem:
+        Decode string with pattern:
+            k[encoded_string]
+
+*   Example:
+        "3[a2[c]]" → "accaccacc"
+
+*   Key difficulty:
+
+        Nested patterns
+
+*   Core idea:
+
+        Use STACK to simulate recursion
+
+*   Why stack?
+
+        Because nested brackets behave like function calls
+
+*   Two stacks:
+
+        stack1 → stores strings
+        stack2 → stores counts
+
+*   Workflow:
+
+        1. Digit:
+            build number (handle multi-digit)
+
+        2. '[':
+            start new substring
+            push empty StringBuilder
+
+        3. ']':
+            pop substring
+            repeat it
+            append to previous level
+
+        4. Character:
+            append to current string
+
+*   Important insight:
+
+        Each '[' creates a new "context"
+
+*   Nested example:
+
+        "3[a2[c]]"
+
+        stack1 evolution:
+            ""
+            "a"
+            "c"
+            "cc"
+            "acc"
+            "accaccacc"
+
+*   Time Complexity:
+
+        O(n * k)
+        (k = repetition factor)
+
+*   Space Complexity:
+
+        O(n)

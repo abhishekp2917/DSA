@@ -1,0 +1,76 @@
+Question Link : https://leetcode.com/problems/daily-temperatures/description/
+
+*   Problem:
+        For each day, find how many days until
+        a warmer temperature.
+
+*   Key difficulty:
+
+        Need nearest greater element to the RIGHT
+
+*   Brute force:
+
+        For each day:
+            scan forward
+
+        Time Complexity:
+            O(n^2)
+
+*   Core idea:
+
+        Use MONOTONIC STACK
+
+*   Why stack?
+
+        Efficiently tracks candidates
+        for next greater element
+
+*   Stack property:
+
+        Maintains decreasing temperatures
+
+*   Why store indices?
+
+        Because we need distance:
+            (next index - current index)
+
+*   Traversal direction:
+
+        Right → Left
+
+*   Why?
+
+        So future elements are already processed
+
+*   Core logic:
+
+        While stack top temperature ≤ current:
+            pop
+
+        Why?
+
+            Because smaller or equal values
+            can never be next warmer day
+
+*   Answer:
+
+        If stack not empty:
+            next warmer day = stack top
+
+        Else:
+            no warmer day → 0
+
+*   Important invariant:
+
+        Stack contains indices of
+        strictly increasing temperatures (from bottom to top)
+
+*   Time Complexity:
+
+        O(n)
+
+        Each element pushed and popped once
+
+*   Space Complexity:
+
+        O(n)

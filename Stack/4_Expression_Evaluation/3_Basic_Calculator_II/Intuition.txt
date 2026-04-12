@@ -1,0 +1,60 @@
+Question Link : https://leetcode.com/problems/basic-calculator-ii/description/
+
+*   Problem:
+        Evaluate expression with +, -, *, /
+
+*   Key difficulty:
+
+        Operator precedence
+
+*   Brute force idea:
+
+        Convert to postfix and evaluate
+
+*   Optimized idea:
+
+        Handle precedence inline
+
+*   Core trick:
+
+        Immediately evaluate:
+            * and /
+
+        Delay:
+            + and -
+
+*   Key transformation:
+
+        a - b  → a + (-b)
+
+*   Why?
+
+        Reduces problem to only addition
+
+*   Stack usage:
+
+        stack1 → numbers
+        stack2 → operators
+
+*   Flow:
+
+        1. Read number
+        2. If previous op is * or /:
+               evaluate immediately
+        3. If previous op is -:
+               push negative number
+        4. Else:
+               push number
+
+*   Final step:
+
+        Only '+' remains
+        → sum all numbers
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

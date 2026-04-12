@@ -1,0 +1,58 @@
+Question Link : https://leetcode.com/problems/asteroid-collision/description/
+
+*   Problem:
+        Simulate asteroid collisions
+
+        Positive → moving right
+        Negative → moving left
+
+*   Collision condition:
+
+        Only when:
+            left asteroid > 0
+            right asteroid < 0
+
+*   Core idea:
+
+        Use STACK to simulate collisions
+
+*   Why stack?
+
+        Only nearest previous asteroid matters
+
+*   Logic:
+
+        If asteroid > 0:
+            push
+
+        If asteroid < 0:
+            resolve collisions:
+
+                while stack top is smaller positive:
+                    pop
+
+*   Cases after loop:
+
+        1. stack empty:
+            push current
+
+        2. equal size:
+            pop top (both destroyed)
+
+        3. top negative:
+            push current (same direction)
+
+        4. top bigger positive:
+            current destroyed
+
+*   Important invariant:
+
+        stack always stores valid configuration
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

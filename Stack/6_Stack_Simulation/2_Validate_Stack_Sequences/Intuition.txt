@@ -1,0 +1,41 @@
+Question Link : https://leetcode.com/problems/validate-stack-sequences/description/
+
+*   Problem:
+        Given pushed[] and popped[]
+        Check if popped is valid stack sequence
+
+*   Core idea:
+
+        Simulate actual stack
+
+*   Why simulation works?
+
+        Stack behavior is deterministic
+
+*   Algorithm:
+
+        Use two pointers:
+            i → pushed
+            j → popped
+
+        For each step:
+
+            If stack top == popped[j]:
+                pop
+
+            Else:
+                push pushed[i]
+
+*   When invalid?
+
+        If:
+            can't push anymore
+            AND top != popped[j]
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

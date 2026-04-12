@@ -1,0 +1,70 @@
+Question Link : https://leetcode.com/problems/maximal-rectangle/description/
+
+*   Problem:
+        Find largest rectangle of '1's in a binary matrix.
+
+*   Key difficulty:
+
+        2D rectangle problem
+
+*   Core idea:
+
+        Convert 2D → multiple 1D histogram problems
+
+*   Transformation:
+
+        For each row:
+            build histogram of consecutive 1's
+
+*   Why histogram works?
+
+        Rectangle of 1's in matrix
+        = rectangle in histogram
+
+*   Example:
+
+        Matrix:
+            1 0 1
+            1 1 1
+
+        Histogram at row 2:
+            2 1 2
+
+*   Step 1:
+
+        Build histogram row by row
+
+*   Step 2:
+
+        Solve largest rectangle in histogram
+
+*   Histogram solution idea:
+
+        For each bar:
+            find nearest smaller left (NSL)
+            find nearest smaller right (NSR)
+
+*   Why NSL/NSR?
+
+        They define max width
+        where bar is minimum height
+
+*   Width formula:
+
+        width = NSR - NSL - 1
+
+*   Area:
+
+        height * width
+
+*   Important invariant:
+
+        Stack maintains increasing heights
+
+*   Time Complexity:
+
+        O(n * m)
+
+*   Space Complexity:
+
+        O(m)

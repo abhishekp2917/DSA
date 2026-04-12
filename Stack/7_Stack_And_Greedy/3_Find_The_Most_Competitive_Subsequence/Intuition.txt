@@ -1,0 +1,58 @@
+Question Link : https://leetcode.com/problems/find-the-most-competitive-subsequence/description/
+
+*   Problem:
+        Find lexicographically smallest subsequence of size k
+
+*   Example:
+        nums = [3,5,2,6], k=2 → [2,6]
+
+*   Key difficulty:
+
+        Choose k elements while maintaining order
+
+*   Core idea:
+
+        Greedy + Monotonic Stack
+
+*   Key intuition:
+
+        If earlier element is bigger than later element,
+        we should remove it (if allowed)
+
+*   Why?
+
+        Earlier position has higher lexicographic weight
+
+*   Important constraint:
+
+        We must end with EXACTLY k elements
+
+*   So we track:
+
+        toRemove = n - k
+
+*   Algorithm:
+
+        For each number:
+
+            while:
+                stack.top > current
+                AND we can remove
+
+            → remove top
+
+            push current
+
+*   After traversal:
+
+        If still removals left:
+            remove from end
+
+*   Why from end?
+
+        Remaining sequence is increasing,
+        so tail is worst part
+
+*   Important invariant:
+
+        stack always contains best possible prefix

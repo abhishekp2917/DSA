@@ -1,0 +1,78 @@
+Question Link : https://leetcode.com/problems/maximum-width-ramp/description/
+
+*   Problem:
+        Find max width ramp:
+            i < j AND nums[i] <= nums[j]
+
+*   Brute force:
+
+        Try all pairs
+        → O(n^2)
+
+*   Core idea:
+
+        Use MONOTONIC STACK
+
+*   Key observation:
+
+        We need:
+            smallest possible i (left)
+            largest possible j (right)
+
+*   Strategy:
+
+        Step 1:
+            Build candidates for LEFT indices
+
+        Step 2:
+            Try to match from RIGHT
+
+*   Step 1 (stack building):
+
+        Keep indices where values are strictly decreasing
+
+*   Why decreasing?
+
+        Smaller values are BETTER candidates
+
+*   Why discard larger values?
+
+        Because:
+            - larger value → harder condition
+            - later index → smaller width
+
+        → dominated candidate
+
+*   Step 2 (right to left):
+
+        Try largest j first
+
+        → maximize width
+
+*   Matching condition:
+
+        nums[left] <= nums[right]
+
+*   While condition:
+
+        Keep popping while valid
+
+        Why?
+
+            Because once matched,
+            this left index cannot produce
+            a better width later
+
+*   Important invariant:
+
+        Stack contains best LEFT candidates
+
+*   Time Complexity:
+
+        O(n)
+
+        Each element pushed and popped once
+
+*   Space Complexity:
+
+        O(n)

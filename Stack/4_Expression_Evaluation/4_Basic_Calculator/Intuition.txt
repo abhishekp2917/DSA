@@ -1,0 +1,80 @@
+Question Link : https://leetcode.com/problems/basic-calculator/description/
+
+*   Problem:
+        Evaluate expression with:
+            +, -, parentheses
+
+*   Example:
+        "(1 + (2 - 3))"
+
+*   Key difficulty:
+
+        Nested parentheses
+
+*   Core idea:
+
+        Use STACK to simulate recursion
+
+*   Key trick:
+
+        Maintain:
+            current result
+            current sign
+
+*   Stack meaning:
+
+        stack stores:
+            previous result
+            sign before bracket
+
+*   Flow:
+
+        1. Number:
+            apply sign
+            add to current result
+
+        2. '-':
+            update sign
+
+        3. '(':
+            push:
+                sign
+                new result = 0
+
+        4. ')':
+            pop:
+                current result
+                sign before bracket
+
+            merge:
+                prev + sign * current
+
+*   Important invariant:
+
+        Each bracket creates a new context
+
+*   Why push sign?
+
+        Because:
+            -( ... )
+            must invert entire bracket
+
+*   Example:
+
+        "1 - (2 + 3)"
+
+        stack:
+            [1]
+            push -1
+            push 0
+            evaluate (2+3)=5
+            merge:
+                1 + (-1)*5 = -4
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

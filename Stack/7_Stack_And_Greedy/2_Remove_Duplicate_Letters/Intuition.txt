@@ -1,0 +1,64 @@
+Question Link : https://leetcode.com/problems/remove-duplicate-letters/description/
+
+*   Problem:
+        Remove duplicate letters such that:
+            1. Each character appears once
+            2. Result is lexicographically smallest
+
+*   Example:
+        "bcabc" → "abc"
+        "cbacdcbc" → "acdb"
+
+*   Key difficulty:
+
+        Tradeoff between:
+            uniqueness
+            lexicographical order
+
+*   Core idea:
+
+        Greedy + Monotonic Stack
+
+*   Key insight:
+
+        If current char is smaller than previous,
+        AND previous appears later,
+        → we should remove previous
+
+*   WHY?
+
+        Smaller char earlier gives smaller lexicographic result
+
+*   Condition for removal:
+
+        while:
+            stack.top >= current
+            AND top appears later
+
+*   Why check "appears later"?
+
+        Because we must not lose that character forever
+
+*   Data structures:
+
+        stack → builds result
+        set → ensures uniqueness
+        freq → ensures safe removal
+
+*   Important invariant:
+
+        stack always:
+            - contains unique chars
+            - is lexicographically optimal so far
+
+*   Time Complexity:
+
+        O(n)
+
+        Each character:
+            pushed once
+            popped once
+
+*   Space Complexity:
+
+        O(1) (since 26 chars max)

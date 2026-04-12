@@ -1,0 +1,54 @@
+Question Link : https://leetcode.com/problems/remove-k-digits/description/
+
+*   Problem:
+        Remove k digits to form smallest number
+
+*   Example:
+        "1432219", k=3 → "1219"
+
+*   Key difficulty:
+
+        Choosing which digits to remove
+
+*   Core idea:
+
+        GREEDY + MONOTONIC STACK
+
+*   Key intuition:
+
+        If left digit > right digit
+        → remove left digit
+
+*   Why?
+
+        Smaller digit at front → smaller number
+
+*   Strategy:
+
+        Maintain increasing stack
+
+        For each digit:
+            while top > current AND k > 0:
+                remove top
+
+*   After traversal:
+
+        If k still > 0:
+            remove from end
+
+*   Why end?
+
+        Remaining digits are increasing
+        → tail has largest digits
+
+*   Important detail:
+
+        Skip leading zeros
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

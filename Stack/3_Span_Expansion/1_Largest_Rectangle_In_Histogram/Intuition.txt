@@ -1,0 +1,75 @@
+Question Link : https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+
+*   Problem:
+        Find largest rectangle in histogram.
+
+*   Brute force:
+
+        For each bar:
+            expand left and right
+
+        Time Complexity:
+            O(n^2)
+
+*   Key observation:
+
+        For each bar:
+            treat it as minimum height
+
+        Find:
+            nearest smaller to left
+            nearest smaller to right
+
+*   Why?
+
+        Because rectangle can only extend
+        until a smaller bar appears
+
+*   Core idea:
+
+        Use MONOTONIC INCREASING STACK
+
+*   Stack stores:
+
+        indices of bars
+
+*   Stack property:
+
+        heights[stack[i]] increasing
+
+*   Main logic:
+
+        When current height < stack top:
+
+            → we found right boundary
+
+            → pop and compute area
+
+*   Width formula:
+
+        width =
+            rightSmallerIndex - leftSmallerIndex - 1
+
+*   Why -1?
+
+        Because boundaries are exclusive
+
+*   Important invariant:
+
+        Stack always contains indices
+        whose next smaller element is unknown
+
+*   Final step:
+
+        Remaining stack elements:
+            assume right boundary = n
+
+*   Time Complexity:
+
+        O(n)
+
+        Each element pushed and popped once
+
+*   Space Complexity:
+
+        O(n)

@@ -1,0 +1,77 @@
+Question Link : https://leetcode.com/problems/subarray-with-elements-greater-than-varying-threshold/description/
+
+*   Problem:
+        Find subarray size k such that:
+
+            min(subarray) * k > threshold
+
+*   Key difficulty:
+
+        Condition involves BOTH:
+            subarray minimum
+            subarray length
+
+*   Brute force:
+
+        Check all subarrays
+        → O(n^2)
+
+*   Key observation:
+
+        For each element,
+        treat it as minimum of subarray
+
+*   Core idea:
+
+        Use MONOTONIC STACK (like histogram)
+
+*   Why?
+
+        Stack helps find:
+            nearest smaller to left (NSL)
+            nearest smaller to right (NSR)
+
+*   Meaning:
+
+        For each element nums[i]:
+
+            it is minimum in range:
+                (NSL+1) → (NSR-1)
+
+*   Subarray length:
+
+        k = NSR - NSL - 1
+
+*   Condition:
+
+        nums[i] * k > threshold
+
+*   Strategy:
+
+        For each element:
+            compute its maximum valid range
+            check if condition satisfied
+
+*   Important trick:
+
+        Use multiplication instead of division
+
+*   Why?
+
+        Avoid floating point / precision issues
+
+*   Stack invariant:
+
+        Maintains increasing elements
+
+*   When popping:
+
+        We finalize that element's contribution
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

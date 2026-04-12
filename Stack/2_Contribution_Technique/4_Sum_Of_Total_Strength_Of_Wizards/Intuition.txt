@@ -1,0 +1,81 @@
+Question Link : https://leetcode.com/problems/sum-of-total-strength-of-wizards/description/
+
+*   Problem:
+        Sum of total strength of all subarrays
+
+        total strength = min(subarray) * sum(subarray)
+
+*   Key difficulty:
+
+        Both:
+            minimum
+            AND sum of subarray
+
+*   Brute force:
+
+        For each subarray:
+            compute min and sum
+
+        → O(n^2) → too slow
+
+*   Core idea:
+
+        Treat each element as MINIMUM
+
+*   Step 1:
+
+        Find range where element is minimum
+
+        Using monotonic stack:
+            left[i]  = nearest smaller left
+            right[i] = nearest smaller right
+
+*   Step 2:
+
+        For each i:
+            calculate sum of all subarrays
+            where i is minimum
+
+*   Key challenge:
+
+        Efficiently compute:
+            sum of ALL subarray sums
+
+*   Trick:
+
+        Use DOUBLE PREFIX SUM
+
+*   Why double prefix?
+
+        Single prefix:
+            gives sum of one subarray
+
+        Double prefix:
+            gives sum of MANY subarrays
+
+*   Formula idea:
+
+        Split into:
+            left part contribution
+            right part contribution
+
+*   Final formula:
+
+        contribution =
+            (rightSum * leftCount)
+            - (leftSum * rightCount)
+
+*   Multiply by strength[i]
+
+*   Important invariant:
+
+        Each element contributes
+        only in range where it is minimum
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

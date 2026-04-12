@@ -1,0 +1,56 @@
+Question Link : https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/description/
+
+*   Problem:
+        Each '(' needs TWO ')'
+
+        Find minimum insertions to make valid
+
+*   Example:
+
+        "(()))" → already valid
+        "())"   → needs 1 insertion
+
+*   Key difficulty:
+
+        ')' must appear in pairs
+
+*   Core idea:
+
+        Track how many ')' we NEED
+
+*   Variable:
+
+        openBraces → number of ')' required
+
+*   Logic:
+
+        '(':
+            needs 2 ')'
+
+        ')':
+            consumes 1 requirement
+
+*   Special cases:
+
+        1. If openBraces is ODD:
+            → we need to insert one ')'
+
+        2. If openBraces becomes NEGATIVE:
+            → too many ')'
+            → need to insert '('
+
+*   End condition:
+
+        If openBraces > 0:
+            add remaining
+
+        If openBraces < 0:
+            fix extra ')'
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(1)

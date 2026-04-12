@@ -1,0 +1,81 @@
+Question Link : https://leetcode.com/problems/sum-of-subarray-ranges/description/
+
+*   Problem:
+        Sum of (max - min) for all subarrays.
+
+*   Brute force:
+
+        For each subarray:
+            find max and min
+
+        Time Complexity:
+            O(n^2)
+
+*   Key observation:
+
+        Instead of iterating subarrays,
+        count contribution of each element.
+
+*   Core idea:
+
+        For each element nums[i]:
+
+            count how many subarrays:
+                - it is MAX
+                - it is MIN
+
+*   Final formula:
+
+        answer =
+            SUM(contribution as MAX)
+            - SUM(contribution as MIN)
+
+*   Contribution logic:
+
+        For nums[i]:
+
+            left choices  = i - nearestLeft
+            right choices = nearestRight - i
+
+        total subarrays =
+            left * right
+
+*   Why multiplication?
+
+        Each left boundary can combine
+        with each right boundary
+
+*   Need to find:
+
+        nearest smaller/greater elements
+
+*   Data structure:
+
+        Monotonic stack
+
+*   Stack types:
+
+        minStack → increasing (for minimum)
+        maxStack → decreasing (for maximum)
+
+*   Important detail:
+
+        Handle duplicates carefully:
+
+            Left:
+                strict (< or >)
+
+            Right:
+                non-strict (<= or >=)
+
+*   Why?
+
+        To avoid double counting
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

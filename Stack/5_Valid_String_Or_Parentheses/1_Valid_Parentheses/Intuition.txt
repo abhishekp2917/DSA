@@ -1,0 +1,47 @@
+Question Link : https://leetcode.com/problems/valid-parentheses/description/
+
+*   Problem:
+        Check if brackets are valid
+
+*   Conditions:
+
+        1. Every opening has matching closing
+        2. Correct order
+        3. Proper nesting
+
+*   Example:
+
+        "([])" → valid
+        "(]"   → invalid
+
+*   Core idea:
+
+        Use STACK
+
+*   Why stack?
+
+        LIFO matches nested structure
+
+*   Algorithm:
+
+        For each char:
+
+            If opening:
+                push to stack
+
+            If closing:
+                check stack top matches
+                pop if valid
+                else return false
+
+*   Final condition:
+
+        stack must be empty
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

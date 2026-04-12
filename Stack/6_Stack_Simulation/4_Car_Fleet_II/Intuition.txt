@@ -1,0 +1,54 @@
+Question Link : https://leetcode.com/problems/car-fleet-ii/description/
+
+*   Problem:
+        Each car may collide with next car
+
+        After collision → forms fleet
+        speed becomes equal
+
+*   Goal:
+        Find FIRST collision time for each car
+
+*   Key difficulty:
+
+        Chain collisions
+
+        Car ahead may change behavior BEFORE we reach it
+
+*   Core idea:
+
+        Use MONOTONIC STACK from right → left
+
+*   Why right → left?
+
+        Because collisions depend on cars ahead
+
+*   Stack meaning:
+
+        Stores candidate cars to collide with
+
+*   Removal conditions:
+
+        1. Cannot catch up:
+            speed[i] <= speed[j]
+
+        2. Front car collides earlier:
+            time(i→j) > res[j]
+
+            → j changes before we reach
+
+*   Compute time:
+
+        time = (pos[j] - pos[i]) / (speed[i] - speed[j])
+
+*   Important invariant:
+
+        Stack only contains VALID future targets
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

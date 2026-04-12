@@ -1,0 +1,73 @@
+Question Link : https://leetcode.com/problems/sum-of-subarray-minimums/description/
+
+*   Problem:
+        Find sum of minimums of all subarrays.
+
+*   Brute force:
+
+        For each subarray:
+            find minimum
+
+        Time Complexity:
+            O(n^2)
+
+*   Core idea:
+
+        Count contribution of each element as MIN
+
+*   Key insight:
+
+        Each element contributes to multiple subarrays
+
+*   Contribution formula:
+
+        contribution =
+            (# choices on left) *
+            (# choices on right)
+
+*   Why?
+
+        Each left boundary can pair
+        with each right boundary
+
+*   Need to find:
+
+        nearest smaller to left (NSL)
+        nearest smaller to right (NSR)
+
+*   Subarray range:
+
+        (NSL+1) → (NSR-1)
+
+*   Count:
+
+        leftCount  = i - NSL
+        rightCount = NSR - i
+
+*   Total subarrays:
+
+        leftCount * rightCount
+
+*   Multiply with value:
+
+        nums[i] * total_subarrays
+
+*   Handling duplicates:
+
+        LEFT:
+            strictly smaller (>)
+
+        RIGHT:
+            smaller or equal (>=)
+
+*   Why?
+
+        Avoid double counting
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

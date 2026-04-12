@@ -1,0 +1,60 @@
+Question Link : https://leetcode.com/problems/valid-parenthesis-string/description/
+
+*   Problem:
+        String contains:
+            '(', ')', '*'
+
+        '*' can act as:
+            '(' OR ')' OR empty
+
+        Check if valid parentheses possible
+
+*   Key difficulty:
+
+        '*' has 3 possible roles
+
+*   Brute force:
+
+        Try all combinations
+        → exponential
+
+*   Core idea:
+
+        GREEDY VALIDATION
+
+*   Why greedy works?
+
+        We only need to check feasibility,
+        not actual construction
+
+*   Two-pass strategy:
+
+        PASS 1 (left → right):
+            Ensure no excess ')'
+
+            Treat '*' as '('
+
+        PASS 2 (right → left):
+            Ensure no excess '('
+
+            Treat '*' as ')'
+
+*   Condition:
+
+        openBraces + star >= 0 always
+
+*   Why?
+
+        star can compensate imbalance
+
+*   If violated:
+
+        Impossible to fix → return false
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(1)

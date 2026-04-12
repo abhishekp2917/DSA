@@ -1,0 +1,50 @@
+Question Link : https://leetcode.com/problems/longest-valid-parentheses/description/
+
+*   Problem:
+        Find length of longest valid parentheses substring
+
+*   Example:
+
+        "()(()" → 2
+        ")()())" → 4
+
+*   Key difficulty:
+
+        Need longest contiguous valid segment
+
+*   Core idea:
+
+        Track VALID segments using stack
+
+*   Your approach:
+
+        Use 2 stacks:
+
+            stack → tracks structure
+            countStack → tracks valid length per level
+
+*   Why countStack?
+
+        To accumulate lengths across nested structures
+
+*   Key logic:
+
+        '(':
+            start new layer
+
+        ')':
+            if valid:
+                pop layer
+                add 2
+                merge with previous
+
+            if invalid:
+                reset everything
+
+*   Important invariant:
+
+        countStack top = current valid length
+
+*   Reset condition:
+
+        unmatched ')'

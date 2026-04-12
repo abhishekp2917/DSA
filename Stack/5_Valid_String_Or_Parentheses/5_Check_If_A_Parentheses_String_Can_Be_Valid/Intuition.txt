@@ -1,0 +1,56 @@
+Question Link : https://leetcode.com/problems/check-if-a-parentheses-string-can-be-valid/description/
+
+*   Problem:
+        Given:
+            s (parentheses string)
+            locked (0/1 string)
+
+        locked[i] == 0 → can change s[i]
+        locked[i] == 1 → fixed
+
+        Check if we can make valid parentheses
+
+*   Key difficulty:
+
+        Some positions are flexible, some fixed
+
+*   Core idea:
+
+        Greedy validation using flexibility
+
+*   Step 0:
+
+        Length must be even
+
+*   Step 1 (left → right):
+
+        Ensure no excess ')'
+
+        Treat unlocked positions as '(' if needed
+
+*   Step 2 (right → left):
+
+        Ensure no excess '('
+
+        Treat unlocked positions as ')' if needed
+
+*   Variables:
+
+        flipCount → flexible positions
+        openCount → current balance
+
+*   Condition:
+
+        flipCount + openCount >= 0 always
+
+*   Why?
+
+        flips can compensate imbalance
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(1)

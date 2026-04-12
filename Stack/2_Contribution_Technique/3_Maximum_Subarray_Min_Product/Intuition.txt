@@ -1,0 +1,70 @@
+Question Link : https://leetcode.com/problems/maximum-subarray-min-product/description/
+
+*   Problem:
+        Maximize:
+            (minimum of subarray) * (sum of subarray)
+
+*   Key difficulty:
+
+        Both MIN and SUM involved
+
+*   Brute force:
+
+        Try all subarrays
+        → O(n^2)
+
+*   Core idea:
+
+        Treat each element as MINIMUM
+
+*   Why?
+
+        For each nums[i]:
+            find maximum range where it is minimum
+
+*   Use monotonic stack:
+
+        To find:
+            nearest smaller to left (NSL)
+            nearest smaller to right (NSR)
+
+*   Range:
+
+        (NSL+1) → (NSR-1)
+
+*   Key insight:
+
+        This range gives MAX sum
+        where nums[i] remains minimum
+
+*   Why maximum?
+
+        Because expanding range increases sum
+        and nums[i] is still minimum
+
+*   Need prefix sum:
+
+        To compute subarray sum in O(1)
+
+*   Formula:
+
+        sum = prefix[right] - prefix[left]
+
+*   Final computation:
+
+        For each i:
+            sum * nums[i]
+
+*   Take maximum
+
+*   Important invariant:
+
+        nums[i] is minimum in its valid range
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

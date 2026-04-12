@@ -1,0 +1,79 @@
+Question Link : https://leetcode.com/problems/132-pattern/description/
+
+*   Problem:
+        Find if there exists:
+            i < j < k
+            nums[i] < nums[k] < nums[j]
+
+        → called 132 pattern
+
+*   Key difficulty:
+
+        Need to check 3 conditions simultaneously
+
+*   Brute force:
+
+        Try all triples
+        → O(n^3) → too slow
+
+*   Optimization idea:
+
+        Fix middle element (nums[j])
+
+*   Step 1:
+
+        Precompute minLeft[i]
+
+        Why?
+
+            nums[i] should be smallest on left
+
+*   Step 2:
+
+        Traverse from right
+
+        Why?
+
+            To efficiently find nums[k]
+
+*   Stack purpose:
+
+        Store candidates for nums[k]
+
+*   Important condition:
+
+        nums[k] > nums[i] (minLeft)
+
+*   So we remove:
+
+        stack elements ≤ minLeft[i]
+
+*   Valid pattern:
+
+        minLeft[i] < nums[k] < nums[i]
+
+*   Why stack works?
+
+        It keeps possible nums[k]
+        in decreasing order of usefulness
+
+*   Strategy:
+
+        For each nums[j]:
+
+            1. Ensure it can be middle
+            2. Remove invalid k candidates
+            3. Check if valid k exists
+            4. Add current to stack
+
+*   Important invariant:
+
+        Stack stores possible nums[k]
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

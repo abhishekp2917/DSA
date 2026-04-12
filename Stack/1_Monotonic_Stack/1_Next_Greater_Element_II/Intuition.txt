@@ -1,0 +1,83 @@
+Question Link : https://leetcode.com/problems/next-greater-element-ii/description/
+
+*   Problem:
+        Find next greater element in a circular array.
+
+*   Key difficulty:
+
+        Circular nature:
+            elements at end can look at beginning
+
+*   Brute force:
+
+        For each element:
+            scan forward (wrap around)
+
+        Time Complexity:
+            O(n^2)
+
+*   Core idea:
+
+        Use MONOTONIC STACK
+
+*   Why stack?
+
+        Helps efficiently find next greater element
+
+*   Monotonic property:
+
+        Maintain decreasing stack
+
+        Top = nearest greater candidate
+
+*   Key trick:
+
+        Traverse from RIGHT to LEFT
+
+*   Why right to left?
+
+        Because:
+            we want "next greater"
+            → future elements must be processed first
+
+*   Circular handling:
+
+        Traverse array twice:
+
+            i = 2*n - 1 → 0
+
+*   Why 2 passes?
+
+        First pass:
+            build stack
+
+        Second pass:
+            assign answers
+
+*   Core logic:
+
+        While stack top ≤ current:
+            pop
+
+        Why?
+
+            Because smaller elements are useless
+
+*   Answer:
+
+        stack top = next greater
+
+*   Push current element after processing
+
+*   Important invariant:
+
+        Stack always contains
+        potential next greater elements
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)
