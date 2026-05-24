@@ -1,0 +1,50 @@
+Question Link : https://leetcode.com/problems/count-of-range-sum/description/
+
+*   We need to count subarrays whose sum lies in range: [lower, upper]
+
+*   Using Prefix Sum: subarraySum(i...j) = prefixSum[j+1] - prefixSum[i]
+
+*   Therefore condition becomes: lower <= prefixSum[j] - prefixSum[i] <= upper
+
+*   Rearranging: (prefixSum[j] - upper) <= prefixSum[i] <= (prefixSum[j] - lower)
+
+*   For every current prefix sum, we need count of previous prefix sums lying inside this range.
+
+*   Brute force checks all previous prefix sums and takes O(n^2).
+
+*   Key observation:
+        While processing current prefix sum, we only need frequency counts of previous prefix sums.
+
+*   Fenwick Tree helps because it supports: frequency updates and prefix count queries in O(log n).
+
+*   Prefix sums can become very large or negative, so we first apply Coordinate Compression.
+
+*   We compress:
+        prefixSum[i]
+        prefixSum[i] - lower
+        prefixSum[i] - upper
+
+    because all participate in BIT queries.
+
+*   We process prefix sums from LEFT to RIGHT.
+
+*   WHY? While processing current prefix sum, BIT already contains all previous prefix sums.
+
+*   For current prefix sum:
+        valid previous prefix sums lie in: [(prefixSum[i] - upper), (prefixSum[i] - lower)]
+
+*   query(rankUpper) gives: count <= upper bound
+
+*   query(rankLower - 1) removes: counts smaller than lower bound
+
+*   Their difference gives: count of valid previous prefix sums.
+
+*   After querying, insert current prefix sum into BIT so future prefix sums can use it.
+
+*   Fenwick Tree stores frequencies of processed prefix sums.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

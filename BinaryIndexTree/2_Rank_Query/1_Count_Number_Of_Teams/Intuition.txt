@@ -1,0 +1,53 @@
+Question Link : https://leetcode.com/problems/count-number-of-teams/description/
+
+*   We need to count teams of size 3 such that:
+        increasing: left < middle < right
+        OR
+        decreasing: left > middle > right
+
+*   Brute force tries all triplets and takes O(n^3).
+
+*   Key observation:
+        If we fix the middle soldier, we only need counts of smaller/greater elements
+        on left and right sides.
+
+*   For every middle soldier:
+        increasing teams = smaller on left × greater on right
+        decreasing teams = greater on left × smaller on right
+
+*   So the problem reduces to efficiently counting smaller/greater elements on both sides.
+
+*   Fenwick Tree helps because it supports frequency updates and prefix count queries in O(log n).
+
+*   Ratings may be very large, so we first apply Coordinate Compression.
+
+*   Coordinate Compression converts ratings into ranks while preserving relative ordering.
+
+    Example:
+        ratings = [100, 500, 200]
+        ranks   = [1, 3, 2]
+
+*   We maintain two Fenwick Trees:
+        leftBIT: stores frequencies of elements left of current index
+        rightBIT: stores frequencies of elements right of current index
+
+*   Initially:
+        left side contains index 0
+        right side contains index 2...n-1
+
+*   query(rank - 1) gives:
+        count of smaller elements than current rank.
+
+*   Greater count can be derived using: totalCount - smallerOrEqualCount
+
+*   For every middle soldier, calculate increasing + decreasing team using left/right counts.
+
+*   After processing current middle, move current element into leftBIT and remove next element from rightBIT.
+
+*   Fenwick Tree operations work in O(log n), so total complexity becomes O(n log n).
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

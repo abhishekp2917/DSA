@@ -1,0 +1,151 @@
+Question Link : https://leetcode.com/problems/range-sum-query-mutable/description/
+
+*   We need a data structure that supports both:
+        1. updating an element
+        2. finding range sums
+
+*   A normal array gives fast updates,
+    but range sum queries become slow
+    because we may need to iterate over many elements.
+
+*   A prefix sum array gives fast queries,
+    but updates become expensive
+    because changing one value affects all future prefix sums.
+
+*   Fenwick Tree balances both operations efficiently
+    by storing partial prefix sums instead of complete prefix sums.
+
+*   The main idea is:
+        Instead of storing every prefix explicitly,
+        we store prefix information in binary-sized chunks.
+
+*   Every BIT node stores the sum of a specific range.
+
+    That range is determined using:
+
+        lowbit(i) = i & -i
+
+*   The expression:
+
+        i & -i
+
+    extracts the LAST SET BIT of i.
+
+*   Example:
+
+        i = 12
+
+        binary:
+            1100
+
+        lowbit:
+            0100 = 4
+
+    This means:
+        fenwickTree[12] stores a range of size 4.
+
+*   Therefore:
+
+        fenwickTree[12]
+
+    stores:
+
+        [9...12]
+
+    because:
+        12 - 4 + 1 = 9
+
+*   Fenwick Tree uses 1-indexing
+    because binary parent-child jumps become much simpler.
+
+*   During a prefix sum query,
+    we repeatedly move upward toward smaller prefix ranges.
+
+*   At every step:
+
+        i -= lowbit(i)
+
+    removes the last set bit
+    and jumps to the next parent prefix chunk.
+
+*   Example:
+
+        query(13)
+
+    moves like:
+
+        13 -> 12 -> 8 -> 0
+
+*   The collected ranges become:
+
+        [13]
+        [9...12]
+        [1...8]
+
+    Together,
+    they form the complete prefix:
+
+        [1...13]
+
+*   This works because the ranges are NON-OVERLAPPING
+    and together exactly cover the prefix.
+
+*   During an update operation,
+    we must update every BIT node whose range contains the updated index.
+
+*   At every step:
+
+        i += lowbit(i)
+
+    jumps to the next larger range
+    that also includes the current index.
+
+*   Example:
+
+        updating index 5
+
+    affects nodes:
+
+        5 -> 6 -> 8 -> 16 ...
+
+*   This happens because all these nodes store ranges
+    that include index 5.
+
+*   The query operation works in O(log n)
+    because every jump removes one set bit.
+
+*   The update operation also works in O(log n)
+    because we move through logarithmically many parent ranges.
+
+*   Fenwick Tree can also be built in O(n) time.
+
+*   The optimized build works because
+    each node pushes its accumulated contribution upward exactly once.
+
+*   The most important intuition is:
+
+        Fenwick Tree is essentially
+        a binary decomposition of prefix sums.
+
+*   A useful mental model is:
+
+        query:
+            collect binary prefix chunks
+
+        update:
+            update all binary chunks containing index
+
+*   Time Complexity:
+
+        update:
+            O(log n)
+
+        query:
+            O(log n)
+
+        build:
+            O(n)
+
+*   Space Complexity:
+
+        O(n)

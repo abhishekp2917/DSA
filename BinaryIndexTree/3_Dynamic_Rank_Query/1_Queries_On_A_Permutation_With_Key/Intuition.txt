@@ -1,0 +1,61 @@
+Question Link : https://leetcode.com/problems/queries-on-a-permutation-with-key/description/
+
+*   We are given a permutation: [1,2,3...m]
+
+    For every query:
+        1. find index of queried number
+        2. move that number to front
+
+*   Brute force shifting elements takes O(n*m).
+
+*   Key observation:
+        We do NOT need actual shifting.
+        We only need relative positions.
+
+*   We reserve first n positions as empty space for future "move to front" operations.
+
+*   Initial layout becomes:
+
+        [empty...empty][1,2,3...m]
+
+*   Whenever a number moves to front,
+        we place it into next available front position.
+
+*   This avoids physically shifting elements.
+
+*   rankMap[num] stores:
+        current position of each number.
+
+*   Fenwick Tree stores:
+        frequency of occupied positions.
+
+*   Position value:
+        1 -> occupied
+        0 -> empty
+
+*   query(oldRank - 1) gives:
+        number of occupied positions before current position.
+
+*   That directly equals current index of queried number.
+
+*   After querying:
+        remove number from old position
+        insert it at new front position
+
+*   Fenwick Tree helps because:
+        it supports:
+            frequency updates
+            prefix count queries
+        in O(log n).
+
+*   Front positions keep decreasing:
+
+        n, n-1, n-2 ...
+
+    because front grows backward inside reserved space.
+
+*   Time Complexity:
+        O((n + m) log(n + m))
+
+*   Space Complexity:
+        O(n + m)

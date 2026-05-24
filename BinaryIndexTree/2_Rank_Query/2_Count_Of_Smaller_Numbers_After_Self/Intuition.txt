@@ -1,0 +1,46 @@
+Question Link : https://leetcode.com/problems/count-of-smaller-numbers-after-self/description/
+
+*   For every index i, we need to count how many smaller elements exist on its RIGHT side.
+
+*   Brute force checks all elements to the right for every index and takes O(n^2).
+
+*   Key observation:
+        If we process elements from RIGHT to LEFT, then all processed elements automatically belong to the "right side".
+
+*   While processing nums[i], we need count of already processed elements smaller than nums[i].
+
+*   Fenwick Tree is useful because:
+        it supports:
+            1. frequency updates
+            2. prefix count queries
+        in O(log n).
+
+*   Fenwick Tree works best on compact ranges, but nums may contain large or negative values.
+
+*   So we first apply Coordinate Compression.
+
+*   Coordinate Compression converts values into ranks while preserving ordering.
+
+    Example:
+        nums  = [100, 500, 200]
+        ranks = [1, 3, 2]
+
+*   We process array from RIGHT to LEFT.
+
+*   For current number, query(rank - 1) gives count of smaller elements already inserted into BIT.
+
+*   After calculating answer for current index, we insert current rank into Fenwick Tree.
+
+*   Fenwick Tree stores frequencies of processed ranks.
+
+*   query(rank) gives count of numbers having rank <= current rank.
+
+*   update(rank) increases frequency of current rank.
+
+*   Processing from RIGHT to LEFT ensures BIT always contains elements to the right of current index.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

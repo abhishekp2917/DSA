@@ -1,0 +1,57 @@
+Question Link : https://leetcode.com/problems/count-good-triplets-in-an-array/description/
+
+*   We need to count triplets (x, y, z) such that their relative ordering is same in both arrays.
+
+*   Key observation:
+        Instead of comparing both arrays directly, we can convert nums1 into positions of nums2.
+
+*   Example:
+
+        nums1 = [2,0,1,3]
+        nums2 = [0,1,2,3]
+
+        positions in nums2:
+            0 -> 1
+            1 -> 2
+            2 -> 3
+            3 -> 4
+
+        transformed nums1:
+            [3,1,2,4]
+
+*   Now problem becomes:
+        count increasing subsequences of length 3.
+
+*   Treat every element as middle element of triplet.
+
+*   For every middle element:
+        valid triplets = smaller elements on left * larger elements on right
+
+*   Brute force counting left/right elements takes O(n^2).
+
+*   Fenwick Tree helps because it supports:
+        frequency updates
+        prefix count queries
+        in O(log n).
+
+*   query(rank - 1) gives: count of smaller ranks already processed on LEFT side.
+
+*   Total processed elements = i.
+
+*   Therefore, larger ranks on left = (i - smaller ranks on left)
+
+*   Total larger ranks in whole array is (n - rank)
+
+*   So, larger ranks on right = total larger ranks - larger ranks already used on left
+
+*   Valid triplets formed by current middle element = smaller on left * larger on right
+
+*   After processing current element, insert its rank into BIT so future elements can use it as LEFT element.
+
+*   Fenwick Tree stores frequencies of processed ranks.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

@@ -1,0 +1,40 @@
+Question Link : https://leetcode.com/problems/number-of-pairs-satisfying-inequality/description/
+
+*   We need to count pairs (i, j) such that: (nums1[i] - nums1[j]) <= (nums2[i] - nums2[j]) + diff
+
+*   Rearranging the equation: (nums1[i] - nums2[i]) <= (nums1[j] - nums2[j]) + diff
+
+*   Define numsDiff[i] = (nums1[i] - nums2[i]), then condition becomes -> numsDiff[i] <= numsDiff[j] + diff
+
+*   For every current index j, we need count of previous i values satisfying -> numsDiff[i] <= numsDiff[j] + diff
+
+*   Brute force checks all previous indices and takes O(n^2).
+
+*   Key observation:
+        While processing current index, we only need frequency count of previous values.
+
+*   Fenwick Tree helps because:
+        it supports:
+            1. frequency updates
+            2. prefix count queries
+        in O(log n).
+
+*   numsDiff values can be large or negative, so we first apply Coordinate Compression.
+
+*   We compress both: numsDiff[i] and (numsDiff[i] + diff), because both values participate in BIT queries.
+
+*   We process array from LEFT to RIGHT.
+
+*   WHY? because while processing current index j, BIT already contains all previous i values.
+
+*   query(diffRank) gives count of previous values satisfying -> numsDiff[i] <= numsDiff[j] + diff
+
+*   After querying, we insert current numsDiff into BIT so future indices can use it.
+
+*   Fenwick Tree stores frequencies of processed ranks.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)
