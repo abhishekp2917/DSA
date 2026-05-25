@@ -1,0 +1,66 @@
+Question Link : https://leetcode.com/problems/peaks-in-array/description/
+
+*   A peak element satisfies:
+
+        nums[i] > nums[i-1]
+        AND
+        nums[i] > nums[i+1]
+
+*   We need to support two operations efficiently:
+
+        1. count peaks in range
+        2. update array value
+
+*   Brute force recalculating peaks for every query takes O(n*q).
+
+*   Key observation:
+        Whether index i is peak depends ONLY on:
+            nums[i-1]
+            nums[i]
+            nums[i+1]
+
+*   Therefore, updating nums[idx] can only affect:
+
+        idx-1
+        idx
+        idx+1
+
+*   We create a peak[] array:
+
+        peak[i] = 1 if i is peak
+        peak[i] = 0 otherwise
+
+*   Now problem becomes:
+        dynamic range sum query on peak frequencies.
+
+*   Fenwick Tree helps because it supports:
+        point updates
+        prefix/range sum queries
+        in O(log n).
+
+*   Fenwick Tree stores frequency of peaks.
+
+*   For range query, valid peak positions are [left+1 ... right-1], because boundary elements cannot become peaks.
+
+*   Therefore, peaks in range = query(right-1) - query(left)
+
+*   During update, recalculate peak state for -> idx-1, idx and idx+1
+
+*   delta = newPeak - oldPeak, tells how peak frequency changed.
+
+*   Update Fenwick Tree using delta.
+
+*   BIT query gives, count of peaks upto index.
+
+*   BIT update modifies all parent binary ranges containing index.
+
+*   Time Complexity:
+
+        range query:
+            O(log n)
+
+        update query:
+            O(log n)
+
+*   Space Complexity:
+        O(n)
