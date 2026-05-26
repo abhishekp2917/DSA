@@ -1,1 +1,86 @@
 Question Link : https://leetcode.com/problems/my-calendar-iii/description/
+
+*   We need to support interval bookings.
+
+*   After every booking,
+        return maximum number of overlapping intervals.
+
+*   Coordinate range is huge:
+
+        [0 ... 1e9]
+
+*   Normal Segment Tree cannot be built directly
+        because memory would explode.
+
+*   So we use:
+        Dynamic Segment Tree.
+
+*   Dynamic Segment Tree creates nodes ONLY when needed.
+
+*   Core idea:
+        Every booking increases overlap count
+        on interval range.
+
+*   We need:
+        range increment updates
+        and global maximum overlap query.
+
+*   Segment Tree node stores:
+
+        max:
+            maximum overlap inside segment
+
+        lazy:
+            pending increment for descendants
+
+*   Lazy Propagation is required because:
+        range updates would otherwise touch too many nodes.
+
+*   Instead of immediately updating all descendants,
+        we postpone updates using lazy values.
+
+*   Complete overlap:
+
+        current segment fully covered.
+
+    So:
+        increment current node max
+        increment lazy value
+
+*   lazy means:
+        children should eventually receive this update.
+
+*   Before recursion,
+        pending lazy updates must be pushed downward.
+
+*   WHY push is necessary?
+
+    Because child values must remain correct
+        before deeper updates happen.
+
+*   push(node) propagates pending increment
+        into child max and child lazy.
+
+*   After recursion:
+        merge child answers using:
+
+            max(left.max, right.max)
+
+*   Root node always stores:
+        maximum overlap across whole timeline.
+
+*   Important: problem intervals are [start, end), meaning end is exclusive.
+
+*   So update range becomes:[start, end-1]
+
+*   Dynamic Segment Tree + Lazy Propagation is ideal when:
+
+            coordinate range is huge
+            updates are interval based
+            queries need aggregated answers
+
+*   Time Complexity:
+        approximately O(log RANGE) per booking
+
+*   Space Complexity:
+        proportional to created nodes

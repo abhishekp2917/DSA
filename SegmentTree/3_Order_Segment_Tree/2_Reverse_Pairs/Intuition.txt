@@ -1,1 +1,74 @@
 Question Link : https://leetcode.com/problems/reverse-pairs/description/
+
+*   Reverse pair condition:
+
+        i < j
+        AND
+        nums[i] > 2 * nums[j]
+
+*   Brute force checks all pairs
+        and takes O(n^2).
+
+*   Key observation:
+        while processing current number,
+        we only need count of previous numbers
+        greater than 2 * currentNumber.
+
+*   Segment Tree stores:
+        frequency of previously processed numbers.
+
+*   Coordinate Compression is required because:
+        numbers may be large or negative.
+
+*   IMPORTANT:
+        compression must include BOTH:
+
+            num
+            2 * num
+
+*   WHY?
+
+    Because query boundary depends on:
+
+        2 * currentNum
+
+*   Without compressing doubled values,
+        rank lookup becomes impossible.
+
+*   While iterating left to right:
+
+        current num acts as nums[j]
+
+*   We need previous numbers satisfying:
+
+        previousNum > 2 * currentNum
+
+*   Therefore query range becomes:
+
+        ranks strictly greater than:
+            2 * currentNum
+
+*   Query operation returns:
+        count of previous elements inside rank range.
+
+*   After querying:
+        insert current number into Segment Tree.
+
+*   Segment Tree update:
+        increases frequency of current rank.
+
+*   Segment Tree merge operation:
+
+        leftCount + rightCount
+
+*   Coordinate Compression preserves ordering,
+        which is enough for inequality comparisons.
+
+*   Segment Tree height is O(log n),
+        so each query/update remains logarithmic.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

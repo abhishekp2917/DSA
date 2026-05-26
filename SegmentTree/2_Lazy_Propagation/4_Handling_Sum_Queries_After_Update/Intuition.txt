@@ -1,1 +1,107 @@
 Question Link : https://leetcode.com/problems/handling-sum-queries-after-update/description/
+
+*   We need to process 3 query types:
+
+        1. flip nums1 bits in range
+        2. add p * nums1[i] into nums2[i]
+        3. report total nums2 sum
+
+*   Brute force flipping ranges repeatedly becomes too slow.
+
+*   Key observation:
+        nums1 contains only binary values:
+            0 or 1
+
+*   Query type 2 becomes:
+
+        totalSum += p * countOfOnes
+
+*   Therefore:
+        we only need number of 1s in nums1,
+        not exact array values.
+
+*   Segment Tree stores:
+
+        onesCount:
+            number of 1s inside segment
+
+*   Range flip operation is ideal for:
+        Lazy Propagation.
+
+*   Flipping bits changes ones count as:
+
+        newOnes =
+            segmentLength - oldOnes
+
+*   Example:
+
+        length = 5
+        ones = 2
+
+    after flip:
+
+        ones = 3
+
+*   Lazy Propagation is required because:
+        repeatedly flipping huge ranges
+        would otherwise touch too many nodes.
+
+*   pendingFlip means:
+        descendants should eventually be flipped.
+
+*   Important property:
+
+        double flip cancels itself.
+
+*   Therefore lazy propagation uses toggling:
+
+        false -> true
+        true -> false
+
+*   Complete overlap:
+        directly update onesCount
+        and toggle pendingFlip.
+
+*   Before partial recursion:
+        pending lazy flips must be pushed downward.
+
+*   WHY push is necessary?
+
+    Because child counts must become correct
+        before deeper updates happen.
+
+*   push() propagates:
+        flip state
+        and updated onesCount
+        into children.
+
+*   Merge operation:
+
+        parent.onesCount =
+            left.onesCount + right.onesCount
+
+*   Root node always stores:
+        total number of 1s in nums1.
+
+*   Query type 2 becomes O(1):
+
+        sum += p * root.onesCount
+
+*   Segment Tree + Lazy Propagation
+        is ideal for:
+            range flip updates
+            aggregate count queries
+
+*   Time Complexity:
+
+        build:
+            O(n)
+
+        flip query:
+            O(log n)
+
+        other queries:
+            O(1)
+
+*   Space Complexity:
+        O(n)

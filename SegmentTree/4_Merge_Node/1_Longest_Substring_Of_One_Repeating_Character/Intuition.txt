@@ -1,0 +1,87 @@
+Question Link : https://leetcode.com/problems/longest-substring-of-one-repeating-character/description/
+
+*   We need to support:
+        character updates
+        and longest repeating substring queries.
+
+*   Brute force rebuilding longest substring after every update takes O(n*q).
+
+*   Key observation:
+        longest repeating substring information can be merged from child segments.
+
+*   Segment Tree is useful because:
+        updates affect only one root-to-leaf path.
+
+*   Every Segment Tree node stores:
+
+        1. longest repeating prefix length
+        2. longest repeating suffix length
+        3. prefix character
+        4. suffix character
+        5. longest repeating substring length
+
+*   WHY do we need prefix/suffix information?
+
+    Because repeating substring may cross midpoint during merge.
+
+*   Example:
+
+        left  = "aaa"
+        right = "aaab"
+
+    midpoint repeating substring becomes:
+
+        "aaaaaa"
+
+*   Merge condition:
+
+        left.suffixChar == right.prefixChar
+
+    means:
+        repeating substring can extend across midpoint.
+
+*   combinedLen becomes:
+
+        left.suffixLen + right.prefixLen
+
+*   longestLen may come from:
+
+        1. left child
+        2. right child
+        3. midpoint crossing substring
+
+*   Prefix merge rule:
+
+        if entire left segment is repeating,
+        prefix can extend into right prefix.
+
+*   Suffix merge rule:
+
+        if entire right segment is repeating,
+        suffix can extend into left suffix.
+
+*   During update:
+        only one leaf node changes.
+
+*   After updating leaf,
+        all parent nodes are recomputed while backtracking.
+
+*   Root node always stores:
+        answer for complete string.
+
+*   Segment Tree height is O(log n),
+        so update complexity remains logarithmic.
+
+*   Time Complexity:
+
+        build:
+            O(n)
+
+        each update:
+            O(log n)
+
+        total:
+            O(n + q log n)
+
+*   Space Complexity:
+        O(4n)

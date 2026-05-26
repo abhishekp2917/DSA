@@ -1,0 +1,79 @@
+Question Link : https://leetcode.com/problems/count-integers-in-intervals/description/
+
+*   We need to support:
+
+        1. add interval [left, right]
+        2. count total unique covered integers
+
+*   Coordinate range is huge:
+
+        [0 ... 1e9]
+
+*   Normal Segment Tree cannot be built directly
+        because memory would explode.
+
+*   Key observation:
+        only few ranges are actually updated.
+
+*   So we use:
+        Dynamic Segment Tree.
+
+*   Dynamic Segment Tree creates nodes ONLY when needed.
+
+*   This avoids building entire tree upfront.
+
+*   Every node represents:
+        a segment range.
+
+*   node.count stores:
+        how many integers inside this segment are covered.
+
+*   During update:
+
+        1. No overlap:
+            ignore segment
+
+        2. Complete overlap:
+            mark entire segment as covered
+
+        3. Partial overlap:
+            recurse into children
+
+*   Important optimization:
+
+        if(node.count == segment length)
+
+    means:
+        current segment already fully covered.
+
+*   Therefore:
+        no need to recurse further.
+
+*   This optimization avoids repeated traversal
+        on already covered intervals.
+
+*   For complete overlap:
+
+        node.count = segment length
+
+    because every integer inside this segment is covered.
+
+*   After recursive updates:
+        merge child results using:
+
+            left.count + right.count
+
+*   Root node stores:
+        total covered integers across entire range.
+
+*   Dynamic Segment Tree is ideal when:
+        coordinate range is huge
+        but updates are sparse.
+
+*   Time Complexity:
+        approximately O(log RANGE) per update
+
+    because every recursion halves segment range.
+
+*   Space Complexity:
+        proportional to number of created nodes.

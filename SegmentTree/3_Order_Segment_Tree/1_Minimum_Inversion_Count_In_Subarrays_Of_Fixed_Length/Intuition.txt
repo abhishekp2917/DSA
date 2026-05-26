@@ -1,1 +1,77 @@
 Question Link : https://leetcode.com/problems/minimum-inversion-count-in-subarrays-of-fixed-length/description/
+
+*   We need minimum inversion count among all subarrays of size k.
+
+*   Inversion means:
+
+        i < j
+        AND
+        nums[i] > nums[j]
+
+*   Brute force checks all pairs inside every window
+        and takes O(n*k^2).
+
+*   Key observation:
+        While sliding window,
+        inversion count changes incrementally.
+
+*   We can:
+        remove contribution of outgoing element
+        add contribution of incoming element
+
+*   Segment Tree stores:
+        frequency of ranks inside current window.
+
+*   Coordinate Compression is required because:
+        numbers may be large or negative.
+
+*   Compression converts values into compact ranks
+        while preserving ordering.
+
+*   Equal values receive same rank
+        because inversions require STRICT greater comparison.
+
+*   For incoming element:
+
+        inversions added =
+            count of existing elements greater than it
+
+*   So query range becomes:
+
+        [rank+1 ... maxRank]
+
+*   For outgoing element:
+
+        inversions removed =
+            count of smaller elements still inside window
+
+*   So query range becomes:
+
+        [0 ... rank-1]
+
+*   IMPORTANT:
+        outgoing element must be removed FIRST.
+
+*   WHY?
+
+    Because outgoing element itself should not participate
+        in inversion removal query.
+
+*   Segment Tree query gives:
+        count of elements inside rank range.
+
+*   Segment Tree update:
+        adds/removes rank frequency.
+
+*   Sliding Window allows:
+        reusing previous inversion count
+        instead of recomputing from scratch.
+
+*   Segment Tree height is O(log n),
+        so each add/remove/query remains logarithmic.
+
+*   Time Complexity:
+        O(n log n)
+
+*   Space Complexity:
+        O(n)

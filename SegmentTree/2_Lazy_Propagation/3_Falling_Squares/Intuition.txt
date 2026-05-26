@@ -1,1 +1,108 @@
 Question Link : https://leetcode.com/problems/falling-squares/description/
+
+*   We drop squares one by one on x-axis.
+
+*   Each square falls vertically until:
+        it hits ground
+        OR
+        lands on another square.
+
+*   After every square,
+        return maximum stack height.
+
+*   Coordinate range is huge:
+
+        [0 ... 1e9]
+
+*   Normal Segment Tree cannot be built directly,
+        so we use:
+        Dynamic Segment Tree.
+
+*   Dynamic Segment Tree creates nodes ONLY when needed.
+
+*   Core idea:
+        every interval stores:
+        maximum height over that range.
+
+*   For every square:
+
+        1. find tallest height under its interval
+        2. place square on top
+        3. update interval with new height
+
+*   Example:
+
+        existing base height = 5
+        square length = 3
+
+    new height becomes:
+
+        5 + 3 = 8
+
+*   getBaseHeight():
+        queries maximum height inside interval.
+
+*   update():
+        assigns new height to covered interval.
+
+*   Segment Tree node stores:
+
+        maxHeight:
+            tallest stack inside segment
+
+        pending:
+            lazy propagation height
+
+*   Lazy Propagation is required because:
+        interval updates may cover huge ranges.
+
+*   Instead of updating all descendants immediately,
+        updates are postponed using pending value.
+
+*   Complete overlap:
+        current segment fully covered.
+
+    So:
+        directly assign new height
+        and store lazy value.
+
+*   Before recursion:
+        pending lazy updates must be pushed downward.
+
+*   WHY push is necessary?
+
+    Because child segments must reflect correct heights
+        before partial queries/updates happen.
+
+*   push(node) propagates:
+        pending height into children.
+
+*   During merge:
+        parent maxHeight becomes:
+
+            max(left.maxHeight, right.maxHeight)
+
+*   Root is not directly used for answer.
+
+*   Instead:
+        globalMaxHeight tracks highest stack formed so far.
+
+*   Important:
+        square interval is:
+
+            [start, start + length - 1]
+
+    because interval is inclusive.
+
+*   Dynamic Segment Tree + Lazy Propagation
+        is ideal when:
+
+            coordinate range is huge
+            updates are interval assignments
+            queries ask range maximum
+
+*   Time Complexity:
+        approximately O(log RANGE) per square
+
+*   Space Complexity:
+        proportional to created nodes

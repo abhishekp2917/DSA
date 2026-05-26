@@ -1,1 +1,112 @@
 Question Link : https://leetcode.com/problems/range-module/description/
+
+*   We need to support:
+
+        1. addRange(left, right)
+        2. removeRange(left, right)
+        3. queryRange(left, right)
+
+*   Coordinate range is huge:
+
+        [0 ... 1e9]
+
+*   Normal Segment Tree cannot be built directly,
+        so we use:
+        Dynamic Segment Tree.
+
+*   Dynamic Segment Tree creates nodes ONLY when needed.
+
+*   Problem intervals are:
+
+        [left, right)
+
+    meaning:
+        right is exclusive.
+
+*   Therefore:
+        actual inclusive update range becomes:
+
+            [left, right-1]
+
+*   Each Segment Tree node represents:
+        a segment range.
+
+*   node.isTracked means:
+        entire current segment is fully tracked.
+
+*   node.pending stores lazy propagation state:
+
+        1  -> fully tracked
+        -1 -> fully untracked
+        0  -> no pending update
+
+*   Lazy Propagation is required because:
+        interval updates may affect huge ranges.
+
+*   Instead of updating all descendants immediately,
+        we postpone updates using pending state.
+
+*   Complete overlap:
+
+        current segment fully inside update range.
+
+    So:
+        directly mark entire segment as:
+            tracked OR untracked
+
+*   During partial overlap:
+        recurse into left and right halves.
+
+*   Before recursion:
+        pending lazy updates must be pushed downward.
+
+*   WHY push is necessary?
+
+    Because children must reflect correct states
+        before partial updates happen.
+
+*   push(node) propagates:
+        tracking state
+        and lazy marker
+        into children.
+
+*   Current segment becomes fully tracked only if:
+
+        left child tracked
+        AND
+        right child tracked
+
+*   Query operation checks:
+        whether EVERY point inside range is tracked.
+
+*   Therefore query merge operation uses:
+
+        logical AND
+
+*   No overlap returns TRUE.
+
+*   WHY TRUE?
+
+    Because:
+        query uses AND merge.
+
+    TRUE behaves as neutral identity element.
+
+*   Pending state allows early stopping during query.
+
+*   Example:
+        if whole segment already marked tracked,
+        no need to recurse deeper.
+
+*   Dynamic Segment Tree + Lazy Propagation
+        is ideal when:
+
+            coordinate range is huge
+            updates are interval based
+            queries ask full coverage
+
+*   Time Complexity:
+        approximately O(log RANGE) per operation
+
+*   Space Complexity:
+        proportional to created nodes
