@@ -1,0 +1,59 @@
+Question Link : https://leetcode.com/problems/maximum-sum-queries/description/
+
+*   For every query [x, y], we need maximum: nums1[i] + nums2[i]
+
+    such that: nums1[i] >= x and nums2[i] >= y
+
+*   Brute force checks all pairs for every query and takes O(n*q).
+
+*   Key observation: Queries are independent, so we can process them offline after sorting.
+
+*   Sort pairs in descending nums1 order.
+
+*   Sort queries in descending x order.
+
+*   While processing query x, all processed pairs automatically satisfy (nums1 >= x)
+
+*   So remaining problem becomes -> among processed pairs, find maximum value satisfying: nums2 >= y
+
+*   Fenwick Tree helps because it supports efficient prefix queries in O(log n).
+
+*   But, query condition is suffix based: (nums2 >= y) and BIT naturally supports prefix queries.
+
+*   Key trick: use INVERSE RANKING.
+
+*   Inverse ranking means: larger nums2 -> smaller rank
+
+*   Example:
+
+        normal ranks:
+            1 -> 1
+            5 -> 2
+            10 -> 3
+
+        inverse ranks:
+            1 -> 3
+            5 -> 2
+            10 -> 1
+
+*   Now condition (nums2 >= y) becomes (inverseRank <= yRank). Which becomes normal BIT prefix query.
+
+*   Fenwick Tree here stores: maximum nums1[i] + nums2[i] instead of frequency/sum.
+
+*   update(rank, val) updates maximum value for all parent ranges.
+
+*   query(rank) returns maximum value among all ranks inside prefix.
+
+*   While processing query, insert all pairs satisfying nums1 >= x into BIT.
+
+*   Then, query(yRank) which gives maximum value satisfying (nums2 >= y)
+
+*   Coordinate Compression is required because nums2 and query y values may be large.
+
+*   We compress both: 'nums2' values and query 'y' values, because both participate in BIT operations.
+
+*   Time Complexity:
+        O((n + q) log(n + q))
+
+*   Space Complexity:
+        O(n + q)
