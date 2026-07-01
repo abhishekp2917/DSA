@@ -12,15 +12,13 @@ class Solution
 {
     public static Node reverseCLL(Node head)
     {
-        Node tail = head, prev = null, curr = head, next;
-        do {
+        Node prev = null, curr = head, next;
+        while(curr!=null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
-        }while(curr!=head);
-        
-        tail.next = prev;
-        return prev;
+        }
+        return prev.next;
     }
 }

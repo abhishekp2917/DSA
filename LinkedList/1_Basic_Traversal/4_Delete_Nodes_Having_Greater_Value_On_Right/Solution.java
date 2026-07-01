@@ -13,14 +13,12 @@ class Solution
     Node compute(Node head)
     {
         head = reverse(head);
-        Node prev = head, curr = head.next;
-        
-        while(curr!=null) {
-            if(prev.data>curr.data) {
-                prev.next = curr.next;
+        Node curr = head;
+        while(curr.next!=null) {
+            if(curr.data>curr.next.data) {
+                curr.next = curr.next.next;
             }
-            else prev = curr;
-            curr = curr.next;
+            else curr = curr.next;
         }
         head = reverse(head);
         return head;
