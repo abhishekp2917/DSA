@@ -1,0 +1,68 @@
+Question Link : https://leetcode.com/problems/can-i-win/description/
+
+* Two players take turns picking a unique number from 1 to maxChoosableInteger.
+
+* Each picked number is added to a running total.
+
+* The player who causes the running total to reach or exceed desiredTotal wins.
+
+* Both players play optimally, so the game can be modeled using minimax-style recursion.
+
+* The key idea is to simulate the game state using recursion.
+
+* A game state is completely determined by which numbers are still available.
+
+* A bitmask is used to represent the available numbers:
+
+  * Bit i = 1 means number i is still available.
+  * Bit i = 0 means number i has already been selected.
+
+* currTotal represents the sum of all numbers selected so far.
+
+* currTotal is uniquely determined by the available-number bitmask because the mask tells us exactly which numbers have already been selected.
+
+* Therefore, currTotal does not need to be part of the memoization state.
+
+* currTotal is passed as a recursive parameter only to avoid recomputing the sum of all previously selected numbers in every recursive call.
+
+* The DP/memoization state is:
+
+  ```
+    dp[availNumsMask]
+  ```
+
+* dp[availNumsMask] answers:
+
+  ```
+    "Can the current player force a win given the numbers that are still available?"
+  ```
+
+* For every available number, the current player tries selecting it.
+
+* After selecting a number:
+
+  - the number is removed from the available-number bitmask
+  - the number is added to currTotal
+  - the opponent becomes the current player in the next recursive call
+
+* If currTotal has already reached or exceeded desiredTotal at the start of a player's turn, the previous player has won and the current player loses.
+
+* If there exists at least one move that forces the opponent into a losing state, the current player can force a win.
+
+* If every available move allows the opponent to force a win, the current player loses.
+
+* Memoization is crucial because different move orders can lead to the same set of remaining numbers.
+
+* Since currTotal is uniquely determined by availNumsMask, all such paths represent the same DP state and can reuse the same memoized result.
+
+* The recursion answers one question:
+
+  ```
+    "Can the current player force a win from this available-number state?"
+  ```
+
+* The initial recursive call determines whether the first player can force a win.
+
+* Time Complexity  : O(N * 2^N)
+
+* Space Complexity : O(2^N)

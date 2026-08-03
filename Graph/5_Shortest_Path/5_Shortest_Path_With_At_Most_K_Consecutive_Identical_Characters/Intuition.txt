@@ -1,0 +1,62 @@
+Question Link : https://leetcode.com/problems/shortest-path-with-at-most-k-consecutive-identical-characters/description/
+
+*   We need the minimum weight path from node 0 to node n-1.
+
+*   Constraint: no more than k consecutive nodes can have the same label.
+
+*   Normal Dijkstra cannot be applied directly.
+
+*   WHY? Because reaching the same node with different consecutive label streak lengths affects 
+    future valid moves.
+
+*   Example:
+
+        Path A:
+            node = 5
+            streak = 1
+
+        Path B:
+            node = 5
+            streak = 3
+
+    Even if both have the same cost, future transitions are different.
+
+*   Therefore state becomes: (node, currentConsecutiveLabelCount) instead of only: (node)
+
+*   minWeights[node][streak] stores: minimum weight to reach node with current consecutive
+    label streak equal to streak.
+
+*   Min Heap stores: {node, totalWeight, streakLength}
+
+*   Heap is ordered by minimum path weight, exactly like Dijkstra.
+
+*   While moving to neighbour:
+
+        if labels match:
+            streak increases by 1
+
+        otherwise:
+            streak resets to 1
+
+*   If new streak exceeds k, that path becomes invalid.
+
+*   Relaxation step:
+
+        if newWeight is cheaper than previously know for the same (node, streak),
+        update DP table and push into heap.
+
+*   Heap may contain stale states.
+
+*   WHY? Because a better path to the same (node, streak) may have been inserted later.
+
+*   Therefore ignore heap entries whose weight no longer matches minWeights[][].
+
+*   Destination may be reached with different valid streak lengths.
+
+*   Final answer is minimum over minWeights[n-1][1...k]
+
+*   Time Complexity:
+        O((V + E) log(V * k))
+
+*   Space Complexity:
+        O(V * k + E)

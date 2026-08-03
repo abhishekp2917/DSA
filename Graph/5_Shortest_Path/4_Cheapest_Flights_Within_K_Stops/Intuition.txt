@@ -1,0 +1,62 @@
+Question Link : https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
+
+*   We need the minimum cost path from src to dst using at most k stops.
+
+*   Brute force explores all possible paths and becomes exponential.
+
+*   Normal Dijkstra cannot be used directly.
+
+*   WHY? Because reaching the same node with different numbers of flights are different states.
+
+*   Example:
+
+        Path A:
+            cost = 50
+            flights = 3
+
+        Path B:
+            cost = 70
+            flights = 1
+
+    Although Path B is costlier, it has more remaining flight budget and may produce the optimal answer.
+
+*   Therefore state becomes: (node, flightsUsed) instead of only: (node)
+
+*   minPrices[node][flightsUsed] stores: minimum cost to reach 'node' using exactly 'flightsUsed' flights.
+
+*   Min Heap stores: {node, totalCost, flightsUsed}
+
+*   Heap is ordered by minimum total cost, just like standard Dijkstra.
+
+*   From every state: try every outgoing flight.
+
+*   Moving to neighbour increases: flightsUsed by 1 and totalCost by flight price
+
+*   Ignore paths exceeding: k + 1 flights
+
+    because: k stops = k + 1 flights
+
+*   Relaxation step:
+        if newCost is cheaper than previously known for the same (node, flightsUsed), 
+        update DP table and push into heap.
+
+*   Heap may contain stale states.
+
+*   WHY?
+
+    Because a better path to the same
+        (node, flightsUsed)
+        may have been inserted later.
+
+*   Therefore ignore heap entries whose cost
+        no longer matches minPrices[][].
+
+*   Destination can be reached using different valid numbers of flights.
+
+*   So final answer is minimum over minPrices[dst][0...k+1]
+
+*   Time Complexity:
+        O((V + E) log(V * (k+1)))
+
+*   Space Complexity:
+        O(V * (k+1) + E)
