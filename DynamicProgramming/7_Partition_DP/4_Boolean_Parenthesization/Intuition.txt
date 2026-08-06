@@ -1,1 +1,91 @@
 Question Link : https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1
+
+*   We need to count the number of ways to parenthesize the expression so that it evaluates to TRUE.
+
+*   Every operand is either T or F.
+
+*   Every operator is one of:
+
+        &
+
+        |
+
+        ^
+
+*   Different parenthesizations may produce different results.
+
+*   The final operator applied must be one of the operators already present in the expression.
+
+*   Therefore, every operator can be treated as a partition point.
+
+*   Choosing one operator divides the expression into:
+
+        Left subexpression
+
+        Right subexpression
+
+*   Both subexpressions are completely independent.
+
+*   For every subexpression, we must know:
+
+        Number of TRUE evaluations
+
+        Number of FALSE evaluations
+
+*   DP State:
+
+        dp[start][end][0]
+
+    stores the number of FALSE evaluations.
+
+*   DP State:
+
+        dp[start][end][1]
+
+    stores the number of TRUE evaluations.
+
+*   Base case:
+
+        Single operand
+
+*   'T' contributes:
+
+        TRUE = 1
+
+        FALSE = 0
+
+*   'F' contributes:
+
+        TRUE = 0
+
+        FALSE = 1
+
+*   Try every operator as the final partition.
+
+*   Solve the left and right subexpressions independently.
+
+*   Combine their TRUE/FALSE counts using the operator's truth table.
+
+*   '&' becomes TRUE only when both sides are TRUE.
+
+*   '|' becomes FALSE only when both sides are FALSE.
+
+*   '^' becomes TRUE only when exactly one side is TRUE.
+
+*   Store both TRUE and FALSE counts because future partitions require both values.
+
+*   Memoization computes every interval only once.
+
+*   Tabulation builds smaller intervals before larger intervals.
+
+*   Number of DP states:
+
+        O(n²)
+
+*   Every state tries every operator inside the interval.
+
+*   Time Complexity:
+        O(n³)
+
+*   Space Complexity:
+        O(n²)

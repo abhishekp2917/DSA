@@ -1,1 +1,87 @@
 Question Link : https://leetcode.com/problems/palindrome-partitioning-ii/description/
+
+*   We need to partition the string so every partition is a palindrome.
+
+*   Our goal is to minimize the number of cuts.
+
+*   Every cut divides the remaining suffix into two independent parts.
+
+*   Therefore, after fixing the first palindrome, the remaining suffix becomes a smaller subproblem.
+
+*   DP State:
+
+        dp[start]
+
+    stores the minimum cuts required for the suffix starting at index start.
+
+*   At every position, try every possible ending index.
+
+*   Only palindrome substrings are valid partitions.
+
+*   Therefore, precompute palindrome information once.
+
+*   Palindrome State:
+
+        isPalindrome[start][end]
+
+    tells whether substring(start,end) is a palindrome.
+
+*   A substring is a palindrome if:
+
+        Boundary characters match
+
+        AND
+
+        Inner substring is also a palindrome.
+
+*   Single characters are always palindromes.
+
+*   Build the palindrome table from smaller substrings to larger substrings.
+
+*   If substring(start,end) is chosen as the first partition,
+
+        One cut is made
+
+        Then solve the remaining suffix.
+
+*   Transition:
+
+        dp[start]
+
+        =
+
+        minimum
+
+        of
+
+        1 + dp[end+1]
+
+        for every palindrome starting at start.
+
+*   Base case:
+
+        start == n
+
+*   Return -1 because the last palindrome partition should not add an extra cut.
+
+*   Memoization computes every suffix only once.
+
+*   Tabulation builds suffixes from right to left.
+
+*   Precomputing palindrome table:
+
+        Time : O(n²)
+
+        Space : O(n²)
+
+*   DP Time Complexity:
+
+        O(n²)
+
+*   Overall Time Complexity:
+
+        O(n²)
+
+*   Overall Space Complexity:
+
+        O(n²)

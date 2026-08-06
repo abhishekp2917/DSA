@@ -1,1 +1,53 @@
 Question Link : https://leetcode.com/problems/minimum-number-of-work-sessions-to-finish-the-tasks/description/
+
+*   Every task must be assigned to exactly one work session.
+
+*   The total duration inside one session cannot exceed sessionTime.
+
+*   We are free to schedule the remaining tasks in any order.
+
+*   DP State:
+
+        dp[mask][taskHrs]
+
+    stores the minimum additional sessions required after scheduling the remaining tasks represented by mask, when the current session already contains taskHrs hours.
+
+*   Each bit represents one task.
+
+*   Bit value 1 means the task is still unscheduled.
+
+*   Bit value 0 means the task has already been assigned.
+
+*   For every state, try scheduling every remaining task next.
+
+*   If the task fits into the current session, continue filling the same session.
+
+*   Otherwise, close the current session and start a new one containing that task.
+
+*   Transition:
+
+        If task fits:
+
+            dp[newMask][taskHrs + task]
+
+        Otherwise:
+
+            1 + dp[newMask][task]
+
+*   The answer counts only sessions opened after the current one.
+
+*   Therefore, one extra session is added initially to account for the very first session.
+
+*   Number of DP states:
+
+        O(2ⁿ × sessionTime)
+
+*   Every state tries every remaining task.
+
+*   Time Complexity:
+
+        O(n × 2ⁿ × sessionTime)
+
+*   Space Complexity:
+
+        O(2ⁿ × sessionTime)

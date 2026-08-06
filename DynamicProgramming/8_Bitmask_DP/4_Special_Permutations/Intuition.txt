@@ -1,1 +1,67 @@
 Question Link : https://leetcode.com/problems/special-permutations/description/
+
+*   We need to count permutations where every adjacent pair satisfies:
+
+        a % b == 0
+
+        OR
+
+        b % a == 0
+
+*   The first element can be chosen freely because it has no previous neighbour.
+
+*   After choosing one number, the next number depends only on:
+
+        The previous number.
+
+        The set of remaining numbers.
+
+*   DP State:
+
+        dp[mask][prevIdx]
+
+    stores the number of valid permutations that can be formed using the remaining numbers represented by mask when the previously chosen number is nums[prevIdx].
+
+*   Each bit of the mask represents one number.
+
+*   Bit value 1 means the number is still available.
+
+*   Bit value 0 means the number has already been used.
+
+*   For every state, try placing every remaining number next.
+
+*   A transition is allowed only if the divisibility condition is satisfied.
+
+*   Transition:
+
+        dp[mask][prevIdx]
+
+        =
+
+        Σ dp[newMask][nextIdx]
+
+        for every valid next number.
+
+*   When no numbers remain, one complete valid permutation has been formed.
+
+*   Therefore:
+
+        dp[0][*] = 1
+
+*   Memoization computes every state only once.
+
+*   Tabulation builds states from smaller masks to larger masks because every transition removes exactly one number.
+
+*   Number of DP states:
+
+        O(n × 2ⁿ)
+
+*   Each state tries every remaining number.
+
+*   Time Complexity:
+
+        O(n² × 2ⁿ)
+
+*   Space Complexity:
+
+        O(n × 2ⁿ)

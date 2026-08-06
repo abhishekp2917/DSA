@@ -1,1 +1,83 @@
 Question Link : https://leetcode.com/problems/partition-array-for-maximum-sum/description/
+
+*   We may partition the array into contiguous subarrays.
+
+*   Every partition can contain at most k elements.
+
+*   Every element inside one partition is replaced by the maximum element of that partition.
+
+*   The contribution of one partition is:
+
+        Maximum element
+
+        ×
+
+        Partition length
+
+*   After choosing the first partition, the remaining suffix becomes an independent subproblem.
+
+*   DP State:
+
+        dp[start]
+
+    stores the maximum sum obtainable from the suffix starting at index start.
+
+*   At every index, try every possible partition length from 1 to k.
+
+*   While extending the partition, maintain the current maximum element.
+
+*   Maintaining the maximum incrementally avoids rescanning the partition every time.
+
+*   If the partition ends at end,
+
+        Current contribution
+
+        =
+
+        max element × partition length
+
+*   The remaining suffix contributes:
+
+        dp[end + 1]
+
+*   Transition:
+
+        dp[start]
+
+        =
+
+        maximum
+
+        of
+
+        partition contribution
+
+        +
+
+        dp[end + 1]
+
+*   Base case:
+
+        start == n
+
+*   No elements remain.
+
+*   Therefore the contribution is 0.
+
+*   Memoization computes every suffix only once.
+
+*   Tabulation builds suffixes from right to left.
+
+*   Number of DP states:
+
+        O(n)
+
+*   Every state tries at most k partition lengths.
+
+*   Time Complexity:
+
+        O(n × k)
+
+*   Space Complexity:
+
+        O(n)

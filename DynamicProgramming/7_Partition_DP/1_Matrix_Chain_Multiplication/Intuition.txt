@@ -1,1 +1,81 @@
 Question Link : https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1
+
+*   We are given the dimensions of consecutive matrices.
+
+*   Matrix i has dimensions:
+
+        matrices[i] × matrices[i+1]
+
+*   We need to determine the order of multiplication that minimizes the total number of scalar multiplications.
+
+*   Matrix multiplication is associative.
+
+*   Therefore, only the parenthesization changes, not the final result.
+
+*   Different parenthesizations produce different computation costs.
+
+*   DP State:
+
+        dp[start][end]
+
+    stores the minimum scalar multiplications needed to multiply all matrices represented by dimensions from matrices[start] to matrices[end].
+
+*   Base case:
+
+        end - start == 1
+
+*   This represents exactly one matrix.
+
+*   A single matrix requires no multiplication.
+
+*   Try every possible partition between start and end.
+
+*   Each partition divides the chain into:
+
+        Left sub-chain
+
+        Right sub-chain
+
+*   Solve both sub-chains independently.
+
+*   Finally multiply the two resulting matrices.
+
+*   Cost of combining them:
+
+        matrices[start] × matrices[partitionIdx] × matrices[end]
+
+*   Transition:
+
+        dp[start][end]
+
+        =
+
+        minimum over every partition of
+
+        left cost
+
+        +
+
+        right cost
+
+        +
+
+        multiplication cost
+
+*   Memoization computes every interval only once.
+
+*   Tabulation builds intervals from smaller lengths to larger lengths.
+
+*   Number of DP states:
+
+        O(n²)
+
+*   Every state tries every partition.
+
+*   Time Complexity:
+
+        O(n³)
+
+*   Space Complexity:
+
+        O(n²)

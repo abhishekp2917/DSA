@@ -1,1 +1,81 @@
 Question Link : https://leetcode.com/problems/burst-balloons/description/
+
+*   We need to maximize the total coins obtained after bursting every balloon.
+
+*   Bursting balloon i earns:
+
+        left × nums[i] × right
+
+*   The neighbours keep changing after every burst.
+
+*   Choosing the first balloon is difficult because future neighbours are unknown.
+
+*   Instead, think in reverse.
+
+*   Assume one balloon is burst LAST inside every interval.
+
+*   When balloon i is the last remaining balloon in an interval, all other balloons inside that interval have already disappeared.
+
+*   Therefore, its neighbours become the balloons immediately outside the interval.
+
+*   This makes the left and right intervals completely independent.
+
+*   DP State:
+
+        dp[start][end]
+
+    stores the maximum coins obtainable by bursting every balloon inside interval [start,end].
+
+*   Base case:
+
+        start > end
+
+*   No balloons remain.
+
+*   Therefore the answer is 0.
+
+*   Try every balloon as the last balloon.
+
+*   Coins earned are:
+
+        left neighbour × current balloon × right neighbour
+
+*   Plus the optimal answer of the left interval.
+
+*   Plus the optimal answer of the right interval.
+
+*   Transition:
+
+        dp[start][end]
+
+        =
+
+        maximum over every last balloon
+
+        of
+
+        current coins
+
+        +
+
+        left interval
+
+        +
+
+        right interval
+
+*   Memoization computes every interval only once.
+
+*   Tabulation builds smaller intervals before larger intervals.
+
+*   Number of DP states:
+
+        O(n²)
+
+*   Every state tries every possible last balloon.
+
+*   Time Complexity:
+        O(n³)
+
+*   Space Complexity:
+        O(n²)

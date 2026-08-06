@@ -1,1 +1,81 @@
 Question Link : https://leetcode.com/problems/partition-to-k-equal-sum-subsets/description/
+
+*   We need to partition every number into exactly k subsets having equal sum.
+
+*   If the total sum is not divisible by k, the answer is immediately false.
+
+*   Every subset must therefore have:
+
+        targetSum = total / k
+
+*   Instead of tracking subsets explicitly, we build one subset at a time.
+
+*   DP State:
+
+        dp[mask]
+
+    stores whether the remaining available numbers represented by mask can successfully complete all remaining subsets.
+
+*   Each bit represents one number.
+
+*   Bit value 1 means the number is still available.
+
+*   Bit value 0 means the number has already been assigned to some subset.
+
+*   The current subset sum is uniquely determined by the mask.
+
+*   Therefore, currSum does not need to be part of the DP state.
+
+*   We compute:
+
+        currSum = (sum of already used numbers) % targetSum
+
+*   The modulo automatically resets the running sum to zero whenever one subset becomes complete.
+
+*   For every state, try placing every available number into the current subset.
+
+*   A number can be chosen only if it does not make the current subset exceed targetSum.
+
+*   Transition:
+
+        dp[mask]
+
+        =
+
+        OR(
+
+            dp[newMask]
+
+        )
+
+*   where newMask is obtained after removing one chosen number.
+
+*   The base case is:
+
+        dp[0] = true
+
+    because every number has already been assigned successfully.
+
+*   Number of DP states:
+
+        O(2ⁿ)
+
+*   Each state tries every number.
+
+*   Time Complexity:
+
+        Memoization:
+
+            O(n × 2ⁿ)
+
+*   Time Complexity:
+
+        Tabulation:
+
+            O(n² × 2ⁿ)
+
+    because currSum is recomputed for every mask.
+
+*   Space Complexity:
+
+        O(2ⁿ)

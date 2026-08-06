@@ -1,1 +1,59 @@
 Question Link : https://leetcode.com/problems/minimum-moves-to-spread-stones-over-grid/description/
+
+*   Every cell must finally contain exactly one stone.
+
+*   Cells containing more than one stone contribute extra stones.
+
+*   Cells containing zero stones become destinations.
+
+*   Each extra stone can be moved independently to any empty cell.
+
+*   Therefore, the problem becomes assigning every extra stone to a unique empty cell with minimum total movement cost.
+
+*   DP State:
+
+        dp[i][mask]
+
+    stores the minimum remaining cost after assigning extra stones starting from index i while the empty cells represented by mask are still available.
+
+*   Each bit of the mask represents one empty cell.
+
+*   Bit value 1 means the empty cell is still available.
+
+*   Bit value 0 means the empty cell has already been assigned.
+
+*   For every state, try assigning the current extra stone to every available empty cell.
+
+*   After assigning one destination, remove it from the mask.
+
+*   Transition:
+
+        dp[i][mask]
+
+        =
+
+        minimum(
+
+            movementCost + dp[i+1][newMask]
+
+        )
+
+*   The movement cost between two cells is their Manhattan distance because each move changes either the row or the column by one.
+
+*   When every extra stone has been assigned, no additional cost is required.
+
+*   Number of DP states:
+
+        O(E × 2^E)
+
+        where E is the number of extra stones (equal to the number of empty cells).
+
+*   Each state tries every available destination.
+
+*   Time Complexity:
+
+        O(E² × 2^E)
+
+*   Space Complexity:
+
+        O(E × 2^E)
