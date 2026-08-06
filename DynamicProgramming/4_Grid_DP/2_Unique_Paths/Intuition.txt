@@ -1,1 +1,80 @@
 Question Link : https://leetcode.com/problems/unique-paths/description/
+
+*   We need to count the number of unique paths
+        from the top-left cell
+        to the bottom-right cell.
+
+*   Allowed moves are:
+
+        Right
+
+        Down
+
+*   Key observation:
+        The last move completely determines
+        where we came from.
+
+*   To reach any cell (row, col):
+
+        either we came from
+
+            (row-1, col)
+
+        by moving DOWN
+
+        OR
+
+            (row, col-1)
+
+        by moving RIGHT.
+
+*   Therefore:
+
+        paths(row, col) =
+            paths(row-1, col)
+            +
+            paths(row, col-1)
+
+*   DP State:
+
+        dp[row][col]
+
+    stores the number of unique paths
+        from the starting cell
+        to (row, col).
+
+*   Base Cases:
+
+        First row:
+
+            only RIGHT moves are possible.
+
+        Therefore every cell
+            has exactly one path.
+
+*   Similarly,
+
+        First column:
+
+            only DOWN moves are possible.
+
+        Therefore every cell
+            has exactly one path.
+
+*   Fill the DP table
+        from top-left towards bottom-right,
+        because every state depends only on
+        already computed states.
+
+*   Final answer is stored in:
+
+        dp[n-1][m-1]
+
+*   Time Complexity:
+        O(n × m)
+
+*   Space Complexity:
+        O(n × m)
+
+    (Can be optimized to O(m)
+     since only the previous row is required.)

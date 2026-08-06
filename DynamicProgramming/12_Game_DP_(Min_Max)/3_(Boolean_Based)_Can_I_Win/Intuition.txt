@@ -63,6 +63,8 @@ Question Link : https://leetcode.com/problems/can-i-win/description/
 
 * The initial recursive call determines whether the first player can force a win.
 
-* Time Complexity  : O(N * 2^N)
+* Time Complexity: 
+      O(N * 2^N)
 
-* Space Complexity : O(2^N)
+* Space Complexity: 
+      O(2^N)

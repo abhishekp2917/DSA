@@ -1,1 +1,51 @@
 Question Link : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/
+
+*   We may perform at most k complete transactions.
+
+*   Every transaction consists of one BUY followed later by one SELL.
+
+*   Since a transaction always begins with BUY, this solution decrements the transaction count during BUY instead of SELL.
+
+*   Therefore, the state must track:
+
+        Current day
+
+        Whether we currently own a stock
+
+        Remaining BUY operations
+
+*   DP State:
+
+        dp[day][hasStock][buyCountRemain]
+
+*   If we currently own a stock, we have two choices:
+
+        Sell today
+
+        OR
+
+        Continue holding.
+
+*   Selling does not decrease the remaining transaction count because the transaction was already counted when the stock was bought.
+
+*   If we do not own a stock, we again have two choices:
+
+        Buy today
+
+        OR
+
+        Skip today.
+
+*   Buying consumes one remaining transaction because it starts a new transaction.
+
+*   Memoization computes every state only once.
+
+*   Tabulation processes days from left to right while reusing previously computed states.
+
+*   The final answer is the maximum profit among all states where no stock is held because any unsold stock does not contribute to realised profit.
+
+*   Time Complexity:
+        O(n × k)
+
+*   Space Complexity:
+        O(n × k)

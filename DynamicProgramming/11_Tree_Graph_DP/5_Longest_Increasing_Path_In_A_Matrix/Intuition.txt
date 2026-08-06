@@ -1,1 +1,45 @@
 Question Link : https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
+
+*   We need to find the longest path such that every next cell has a strictly larger value.
+
+*   We may start from any cell.
+
+*   Brute force runs DFS from every cell.
+
+*   Problem: the same increasing paths get explored repeatedly, leading to exponential work.
+
+*   Key observation: once we know the longest increasing path starting from a cell, it will always remain the same.
+
+*   WHY? The answer depends only on the current cell and its larger neighbours, not on how we reached this cell.
+
+*   DP State:
+
+        dp[row][col]
+
+    stores the length of the longest increasing path starting from that cell.
+
+*   From every cell, try moving in all four directions.
+
+*   Move only if the neighbour's value is greater than the current value.
+
+*   Every valid neighbour becomes the next DP state.
+
+*   Transition:
+
+        dp[row][col] = 1 + maximum(dp of every increasing neighbour)
+
+*   If no larger neighbour exists, the path ends at the current cell.
+
+*   Therefore, the answer for such a cell is 1 (the cell itself).
+
+*   Memoization stores every cell's answer only once.
+
+*   Since every cell is computed only once, repeated DFS work is eliminated.
+
+*   Time Complexity:
+
+        O(n × m)
+
+*   Space Complexity:
+
+        O(n × m) for memoization + O(n × m) recursion stack in the worst case.

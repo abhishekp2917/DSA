@@ -1,1 +1,84 @@
 Question Link : https://leetcode.com/problems/house-robber/description/
+
+*   We need to maximize the amount of money robbed.
+
+*   Constraint:
+        two adjacent houses cannot both be robbed.
+
+*   Key observation:
+        At every house, we have exactly two choices:
+
+        rob current house
+
+        OR
+
+        skip current house
+
+*   If we rob the current house,
+        we cannot rob the previous house.
+
+*   Therefore we continue from:
+
+        currentHouse - 2
+
+*   If we skip the current house,
+        the answer becomes whatever maximum
+        was already possible till the previous house.
+
+*   Therefore:
+
+        maxMoney(i) =
+            max(
+                nums[i] + maxMoney(i-2),
+                maxMoney(i-1)
+            )
+
+*   Base Case:
+
+        maxMoney(-1) = 0
+
+    because no houses remain to rob.
+
+*   DP State:
+
+        dp[i]
+
+    stores the maximum money that can be robbed
+        considering houses from 0 to i.
+
+*   Memoization:
+        stores answers for previously solved houses,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        computes answers from left to right.
+
+*   Every state depends only on:
+
+        previous house
+
+        and
+
+        house before previous.
+
+*   This is a classic
+        "take or skip" optimization DP.
+
+*   Time Complexity:
+
+        Memoization:
+            O(n)
+
+        Tabulation:
+            O(n)
+
+*   Space Complexity:
+
+        Memoization:
+            O(n)
+
+        Tabulation:
+            O(n)
+
+    (Can be optimized to O(1)
+     since only previous two states are required.)

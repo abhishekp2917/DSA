@@ -73,36 +73,104 @@ class Solution1 {
 class Solution2 {
 
     public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+
+        // If even taking every number
+        // cannot reach the target,
+        // nobody can ever win.
         int sum = maxChoosableInteger * (maxChoosableInteger + 1) / 2;
         if (sum < desiredTotal) return false;
+
+        // If the target itself
+        // is already available,
+        // the first player wins immediately.
         if (desiredTotal <= maxChoosableInteger) return true;
 
+        // Bit i = 1 means
+        // number i is still available.
+        //
+        // Initially every number
+        // is available.
         int availNumsMask = (1 << (maxChoosableInteger + 1)) - 1;
+
+        // dp[mask]:
+        // true if the current player
+        // can force a win
+        // starting from this mask.
+        //
+        // The current accumulated total
+        // is uniquely determined by the mask,
+        // so it does not need to be stored
+        // as part of the DP state.
         boolean[] dp = new boolean[availNumsMask+1];
 
+        // Smaller masks have fewer available numbers.
+        //
+        // Their answers are already known
+        // when larger masks are processed,
+        // because every move removes exactly one bit.
         for(int mask=0; mask<=availNumsMask; mask++) {
+
+            // Recover the current accumulated score
+            // from the chosen numbers.
             int currTotal = getTotal(mask, maxChoosableInteger);
+
+            // If the target has already been reached,
+            // this state is never encountered
+            // because the previous player
+            // would have already won.
             if (desiredTotal<=currTotal) continue;
+
+            // Try choosing every available number.
             for (int num = 1; num <= maxChoosableInteger; num++) {
+
                 boolean isNumAvailable = ((mask>>num)&1)==1;
+
                 if (!isNumAvailable) continue;
+
+                // Remove the chosen number
+                // from the available set.
                 int newMask = mask ^ (1<<num);
+
                 int newTotal = currTotal + num;
+
+                // Current player wins if:
+                //
+                // 1. This move reaches the target.
+                //
+                // OR
+                //
+                // 2. Opponent loses
+                //    from the resulting state.
                 if (newTotal>=desiredTotal || !dp[newMask]) {
                     dp[mask] = true;
                     break;
                 }
             }
         }
+
+        // Initially every number
+        // is available.
         return dp[availNumsMask];
     }
 
     private int getTotal(int availNumsMask, int maxChoosableInteger) {
+
         int currTotal = 0;
+
+        // Every unavailable bit
+        // corresponds to a number
+        // that has already been chosen.
+        //
+        // Sum those numbers
+        // to recover
+        // the current accumulated score.
         for (int num = 1; num <= maxChoosableInteger; num++) {
+
             boolean isNumAvailable = ((availNumsMask>>num)&1)==1;
+
             if(!isNumAvailable) currTotal += num;
         }
+
         return currTotal;
     }
 }

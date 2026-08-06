@@ -1,1 +1,99 @@
 Question Link : https://leetcode.com/problems/minimum-path-sum/description/
+
+*   We need the minimum path sum
+        from the top-left cell
+        to the bottom-right cell.
+
+*   Allowed moves are:
+
+        Right
+
+        Down
+
+*   Key observation:
+        The last move completely determines
+        where we came from.
+
+*   To reach any cell (row, col):
+
+        either we came from
+
+            (row-1, col)
+
+        by moving DOWN
+
+        OR
+
+            (row, col-1)
+
+        by moving RIGHT.
+
+*   Therefore:
+
+        minCost(row, col) =
+            grid[row][col]
+            +
+            min(
+                minCost(row-1, col),
+                minCost(row, col-1)
+            )
+
+*   DP State:
+
+        dp[col]
+
+    stores the minimum path sum
+        to reach the current row's cell
+        at column col.
+
+*   Since every state depends only on:
+
+        current row (left)
+
+        previous row (up)
+
+    a 1-D DP array is sufficient.
+
+*   The first row can only be reached
+        by moving RIGHT.
+
+*   Therefore its path sums
+        are simply cumulative sums.
+
+*   A dummy column is added:
+
+        dp[0] = Integer.MAX_VALUE
+
+*   WHY?
+
+    It prevents invalid paths
+        from entering the grid
+        through the left boundary,
+        removing the need for special boundary checks.
+
+*   While processing each cell:
+
+        dp[col+1]
+
+    already stores the cost
+        from ABOVE.
+
+*   And:
+
+        dp[col]
+
+    stores the updated cost
+        from LEFT.
+
+*   Choose the smaller one
+        and add the current cell value.
+
+*   Final answer is stored in:
+
+        dp[m]
+
+*   Time Complexity:
+        O(n × m)
+
+*   Space Complexity:
+        O(m)

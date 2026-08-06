@@ -1,1 +1,79 @@
 Question Link : https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/
+
+*   We need to triangulate the polygon so that the total triangle score is minimum.
+
+*   Every triangle contributes:
+
+        value[a] × value[b] × value[c]
+
+*   Key observation: choosing one triangle immediately divides the remaining polygon into two smaller independent polygons.
+
+*   Therefore, once the first triangle is fixed, the two remaining sub-polygons can be solved independently.
+
+*   DP State:
+
+        dp[start][end]
+
+    stores the minimum triangulation score for the polygon formed by vertices from start to end.
+
+*   For every interval, choose every possible middle vertex.
+
+*   The vertices:
+
+        start
+
+        middle
+
+        end
+
+    form one triangle.
+
+*   This triangle splits the polygon into:
+
+        Left polygon
+
+        Right polygon
+
+*   Total score becomes:
+
+        Current Triangle Score
+
+        +
+
+        Left Polygon Score
+
+        +
+
+        Right Polygon Score
+
+*   Transition:
+
+        dp[start][end]
+
+        =
+
+        min(
+
+            triangleScore + leftScore + rightScore
+
+        )
+
+*   If an interval contains fewer than three vertices, no triangle can be formed, so the score is zero.
+
+*   Memoization computes every interval only once.
+
+*   Tabulation builds answers from smaller intervals to larger intervals because every transition depends only on previously solved smaller polygons.
+
+*   Number of DP states:
+
+        O(n²)
+
+*   Each state tries every possible middle vertex.
+
+*   Time Complexity:
+
+        O(n³)
+
+*   Space Complexity:
+
+        O(n²)

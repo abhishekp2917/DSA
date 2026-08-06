@@ -1,5 +1,7 @@
 Question Link : https://leetcode.com/problems/stone-game-ii/
 
+Approach 1:
+
 *   The game is played by two players taking turns.
 
 *   On each turn, a player can take X piles from the front, where
@@ -32,3 +34,33 @@ Question Link : https://leetcode.com/problems/stone-game-ii/
 
 *   The recursion explores all valid choices of X and picks the best one,
     ensuring optimal play.
+
+*   Time Complexity:
+        O(n³)
+
+*   Space Complexity:
+        O(n²)
+
+Approach 2:
+
+*   Instead of storing actual stones collected, store the score difference between the current player and the opponent.
+
+*   DP State: dp[start][M] stores -> (Current Player Score − Opponent Score)
+
+*   For every valid value of X: scoreDifference = stonesTakenNow − opponentBestDifference
+
+*   Since the opponent also plays optimally, subtracting their best difference automatically models optimal play.
+
+*   Transition: dp[start][M] = max(stonesTakenNow − dp[nextState])
+
+*   Once the final score difference is known:
+        Alice + Bob = Total
+        Alice − Bob = Difference
+
+*   Therefore: Alice = (Total + Difference) / 2
+
+*   Time Complexity:
+        O(n³)
+
+*   Space Complexity:
+        O(n²)

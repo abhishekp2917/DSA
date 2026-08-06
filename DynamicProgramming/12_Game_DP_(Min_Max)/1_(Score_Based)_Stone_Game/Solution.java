@@ -56,31 +56,80 @@ class Solution1 {
 }
 
 class Solution2 {
+
     public boolean stoneGame(int[] piles) {
+
         int n = piles.length;
+
+        // Total stones present in the game.
+        //
+        // After computing Alice's maximum possible score,
+        // we compare it against the remaining stones.
         int totalStones = Arrays.stream(piles).sum();
+
+        // dp[start][end]:
+        // stores the maximum stones the current player
+        // can collect from piles[start...end],
+        // assuming both players play optimally.
         int[][] dp = new int[n+1][n+1];
+
+        // Base Case:
+        // If only one pile remains,
+        // the current player simply takes it.
         for(int start=0; start<n; start++) {
             int end = start;
             dp[start][end] = piles[start];
         }
+
+        // Solve smaller intervals first
+        // so larger intervals can reuse them.
         for(int start=n-1; start>=0; start--) {
             for(int end=start+1; end<n; end++) {
-                int maxStones = Math.max(
+
+                // Option 1:
+                // Take the left pile.
+                //
+                // Opponent now chooses optimally
+                // and tries to minimize
+                // our future score.
+                //
+                // Hence we take the minimum
+                // of the two possible states
+                // the opponent can leave for us.
+                int takeFirst =
                     piles[start] + Math.min(
-                        (start+2<=n)? dp[start+2][end] : 0,
+                        (start+2<=n) ? dp[start+2][end] : 0,
                         dp[start+1][end-1]
-                    ),
+                    );
+
+                // Option 2:
+                // Take the right pile.
+                //
+                // Again,
+                // opponent minimizes
+                // our future gain.
+                int takeLast =
                     piles[end] + Math.min(
-                        (end-2>=0)? dp[start][end-2] : 0,
+                        (end-2>=0) ? dp[start][end-2] : 0,
                         dp[start+1][end-1]
-                    )
+                    );
+
+                // Current player always chooses
+                // the better of the two options.
+                dp[start][end] = Math.max(
+                    takeFirst,
+                    takeLast
                 );
-                dp[start][end] = maxStones;
             }
-        } 
+        }
+
         int aliceStones = dp[0][n-1];
-        return 2*aliceStones>totalStones;
+
+        // Alice wins
+        // if she collects
+        // strictly more than half
+        // of the total stones.
+        return 2*aliceStones > totalStones;
     }
 }
 
@@ -129,27 +178,68 @@ class Solution3 {
 }
 
 class Solution4 {
+
     public boolean stoneGame(int[] piles) {
+
         int n = piles.length;
+
+        // dp[start][end]:
+        // stores the maximum score difference
+        // (Current Player - Opponent)
+        // obtainable from piles[start...end].
+        //
+        // This formulation is simpler because
+        // we no longer need to explicitly model
+        // the opponent's minimizing move.
         int[][] dp = new int[n+1][n+1];
+
+        // Base Case:
+        // With only one pile,
+        // current player gains
+        // exactly that many stones,
+        // while opponent gains zero.
         for(int start=0; start<n; start++) {
             int end = start;
             dp[start][end] = piles[start];
         }
+
+        // Build answers
+        // from smaller intervals
+        // towards larger intervals.
         for(int start=n-1; start>=0; start--) {
             for(int end=start+1; end<n; end++) {
-                int stoneDiffIfTakenFirst = piles[start] - dp[start+1][end];
-                int stoneDiffIfTakenLast = piles[end] - dp[start][end-1];
-                int minDiff = Math.max(
+
+                // Take the left pile.
+                //
+                // After taking it,
+                // players swap roles.
+                //
+                // Therefore the opponent's
+                // best score difference
+                // must be subtracted.
+                int stoneDiffIfTakenFirst =
+                    piles[start] - dp[start+1][end];
+
+                // Take the right pile.
+                //
+                // Again subtract the opponent's
+                // optimal score difference.
+                int stoneDiffIfTakenLast =
+                    piles[end] - dp[start][end-1];
+
+                // Current player chooses
+                // the move giving
+                // the larger score difference.
+                dp[start][end] = Math.max(
                     stoneDiffIfTakenFirst,
                     stoneDiffIfTakenLast
                 );
-                dp[start][end] = minDiff;
             }
-        } 
-        return dp[0][n-1]>0;
+        }
+
+        // Positive score difference means
+        // Alice finishes
+        // with more stones than Bob.
+        return dp[0][n-1] > 0;
     }
 }
-
-
-

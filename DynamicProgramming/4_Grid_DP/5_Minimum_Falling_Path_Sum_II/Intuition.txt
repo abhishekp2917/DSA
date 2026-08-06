@@ -1,1 +1,93 @@
 Question Link : https://leetcode.com/problems/minimum-falling-path-sum-ii/description/
+
+*   We need the minimum falling path sum
+        from the first row
+        to the last row.
+
+*   We must choose exactly one cell
+        from every row.
+
+*   Constraint:
+        consecutive rows cannot choose
+        the same column.
+
+*   Key observation:
+        To compute the answer for a cell,
+        we only need the minimum path
+        from the previous row.
+
+*   However,
+
+        the previous column
+        cannot be the same
+        as the current column.
+
+*   Therefore:
+
+        minCost(row, col) =
+            grid[row][col]
+            +
+            minimum(
+                previousRow[j]
+            )
+
+        where
+
+            j ≠ col
+
+*   DP State:
+
+        dp[col]
+
+    stores the minimum path sum
+        to reach column col
+        in the previous row.
+
+*   Base Case:
+
+        Every cell in the first row
+        can be the starting point.
+
+    Therefore:
+
+        dp[col] = grid[0][col]
+
+*   For every cell
+        in the current row:
+
+        scan every column
+        of the previous row,
+
+        ignore the same column,
+
+        choose the minimum remaining value.
+
+*   Add the current cell value
+        to obtain the new minimum path.
+
+*   After processing a row,
+        replace the previous DP array
+        with the current row's answers.
+
+*   The path may end
+        at any column
+        in the last row.
+
+*   Therefore the final answer is:
+
+        minimum value in dp[]
+
+*   Time Complexity:
+        O(n³)
+
+    because for every cell,
+        all previous columns are scanned.
+
+*   Space Complexity:
+        O(n)
+
+*   Note:
+        This problem has an optimized
+        O(n²) solution by maintaining
+        the smallest and second smallest
+        values of the previous row.

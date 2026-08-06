@@ -1,1 +1,144 @@
 Question Link : https://leetcode.com/problems/coin-change-ii/description/
+
+*   We need to count
+        the number of different combinations
+        that form the given amount.
+
+*   Every coin denomination
+        can be used any number of times.
+
+*   Therefore this is an
+
+        Unbounded Knapsack
+
+    counting problem.
+
+*   Difference from Coin Change I:
+
+        Coin Change I
+
+            minimize number of coins.
+
+        Coin Change II
+
+            count all possible combinations.
+
+*   Every coin type presents two choices:
+
+        Exclude the coin
+
+        OR
+
+        Include the coin.
+
+*   Key observation:
+        After including a coin,
+
+        it is still available
+        because it may be reused.
+
+*   Therefore,
+
+        Include:
+
+            amount decreases
+
+            coin list remains unchanged.
+
+*   DP State:
+
+        dp[arrLen][amount]
+
+    stores the number of combinations
+        to form 'amount'
+        using the first arrLen coin types.
+
+*   Base Cases:
+
+        Amount becomes zero
+
+            exactly one valid combination exists
+
+            choose no more coins.
+
+*   No coin types remain
+        while amount is still positive
+
+            no valid combination exists.
+
+*   Transition:
+
+        Exclude:
+
+            combinations from
+            remaining coin types.
+
+*   Include:
+
+            use current coin
+
+            reduce amount
+
+            continue with
+            the same coin type.
+
+*   Total combinations become:
+
+        exclude
+
+        +
+
+        include
+
+*   Tabulation Optimization:
+
+        Use a 1-D DP array
+
+            dp[amount]
+
+        storing the number of combinations
+        for every amount.
+
+*   Coins are processed
+        one by one.
+
+*   WHY?
+
+        Processing one coin at a time
+        ensures every combination
+        is counted exactly once.
+
+*   Example:
+
+        coins = [1, 2]
+
+        amount = 3
+
+*   Valid combination:
+
+        1 + 2
+
+    is counted only once.
+
+    It is NOT counted again as:
+
+        2 + 1
+
+*   If amounts were processed
+        before coins,
+
+        different orders
+        of the same combination
+        would be counted multiple times.
+
+*   Time Complexity:
+
+        O(n × amount)
+
+*   Space Complexity:
+
+        Memoization:
+            O(n × amount)
+
+        Tabulation:
+            O(amount)

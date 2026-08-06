@@ -1,1 +1,47 @@
 Question Link : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/
+
+*   We may perform unlimited transactions.
+
+*   Every completed transaction requires paying a fixed transaction fee.
+
+*   In this implementation, the fee is charged during BUY instead of SELL.
+
+*   Charging the fee during BUY or SELL is mathematically equivalent because every transaction contains exactly one buy and one sell.
+
+*   Therefore, the state remains identical to the unlimited transactions problem.
+
+*   DP State:
+
+        dp[day][hasStock]
+
+*   If we currently own a stock, we have two choices:
+
+        Sell today
+
+        OR
+
+        Continue holding.
+
+*   Selling simply adds today's stock price because the fee has already been paid while buying.
+
+*   If we do not own a stock, we again have two choices:
+
+        Buy today
+
+        OR
+
+        Skip today.
+
+*   Buying subtracts both the stock price and the transaction fee from the current profit.
+
+*   Memoization computes every (day, state) only once.
+
+*   Tabulation processes trading days from left to right while maintaining the best profit for both holding states.
+
+*   The final answer is dp[n][0] because any stock still being held has not yet been converted into realised profit.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)

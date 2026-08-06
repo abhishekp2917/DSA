@@ -1,1 +1,98 @@
 Question Link : https://leetcode.com/problems/out-of-boundary-paths/description/
+
+*   We need to count the number of paths
+        that move the ball
+        outside the grid.
+
+*   The ball starts from
+        the given starting cell.
+
+*   At every move,
+        it may move in one of four directions:
+
+        Up
+
+        Down
+
+        Left
+
+        Right
+
+*   We may make
+        at most maxMove moves.
+
+*   Key observation:
+        The current state is completely determined by:
+
+        current row
+
+        current column
+
+        remaining moves
+
+*   Therefore DP State becomes:
+
+        dp[row][col][moves]
+
+*   It stores:
+
+        number of paths that move
+        outside the grid
+        starting from (row, col)
+        with at most 'moves' moves remaining.
+
+*   Base Case:
+
+        If the ball has already moved
+        outside the grid,
+
+        we have found one valid path.
+
+*   Therefore return:
+
+        1
+
+*   If no moves remain
+        while the ball is still inside,
+
+        no valid path exists.
+
+*   Therefore return:
+
+        0
+
+*   Transition:
+
+        Try all four possible directions.
+
+*   If a move immediately
+        leaves the grid,
+
+        contribute one valid path.
+
+*   Otherwise,
+
+        continue recursion
+        (or DP transition)
+        with one fewer move.
+
+*   Total answer is the sum
+        of all four directions.
+
+*   Memoization:
+        stores answers for previously solved states,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        builds answers
+        for increasing number of allowed moves.
+
+*   Time Complexity:
+
+        O(n × m × maxMove × 4)
+
+        = O(n × m × maxMove)
+
+*   Space Complexity:
+
+        O(n × m × maxMove)

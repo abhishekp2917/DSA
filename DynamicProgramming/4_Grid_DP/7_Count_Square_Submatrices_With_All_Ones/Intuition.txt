@@ -1,1 +1,117 @@
 Question Link : https://leetcode.com/problems/count-square-submatrices-with-all-ones/description/
+
+*   We need to count every square submatrix
+        consisting entirely of 1s.
+
+*   Solution 1 (Prefix Sum)
+
+*   Key observation:
+        If we know the number of 1s
+        inside any square,
+        we can immediately determine
+        whether the square is completely filled.
+
+*   Build a 2D Prefix Sum matrix.
+
+*   Prefix Sum allows querying
+        the sum of any rectangle
+        in O(1) time.
+
+*   Treat every cell
+        as the bottom-right corner
+        of a possible square.
+
+*   Try every valid side length.
+
+*   If:
+
+        squareSum == side × side
+
+    then every cell inside that square
+        must be 1.
+
+*   Count every such square.
+
+*   Time Complexity:
+        O(n × m × min(n,m))
+
+*   Space Complexity:
+        O(n × m)
+
+--------------------------------------------------
+
+*   Solution 2 (DP)
+
+*   Key observation:
+        Instead of checking every square,
+        compute only the largest square
+        ending at each cell.
+
+*   DP State:
+
+        dp[row][col]
+
+    stores the side length of the
+        largest all-1 square
+        ending at that cell.
+
+*   A cell containing 0
+        cannot end any valid square.
+
+*   To extend a square by one unit,
+        all three neighbouring squares
+        must also support that extension.
+
+*   These neighbours are:
+
+        Top
+
+        Left
+
+        Top-left diagonal
+
+*   Therefore:
+
+        dp[row][col] =
+            1 +
+            min(
+                top,
+                left,
+                diagonal
+            )
+
+*   The smallest neighbour
+        becomes the limiting factor.
+
+*   If the largest square size is x,
+
+        then this cell also contributes
+
+        x different squares
+
+    because it contains:
+
+        1×1
+
+        2×2
+
+        ...
+
+        x×x
+
+    all ending at the same cell.
+
+*   Therefore simply add:
+
+        dp[row][col]
+
+    to the answer.
+
+*   Time Complexity:
+        O(n × m)
+
+*   Space Complexity:
+        O(n × m)
+
+    (Can be optimized to O(m)
+     using rolling rows.)

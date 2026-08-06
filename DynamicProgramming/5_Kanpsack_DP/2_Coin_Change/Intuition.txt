@@ -1,1 +1,125 @@
 Question Link : https://leetcode.com/problems/coin-change/description/
+
+*   We need to form the given amount
+        using the minimum number of coins.
+
+*   Every coin denomination
+        can be used any number of times.
+
+*   Therefore this is an
+
+        Unbounded Knapsack
+
+    problem.
+
+*   Every coin type presents two choices:
+
+        Exclude the coin
+
+        OR
+
+        Include the coin.
+
+*   Key observation:
+        After including a coin,
+
+        the same coin
+        is still available
+        because it may be reused.
+
+*   Therefore,
+
+        Include:
+
+            amount decreases
+
+            but coin list remains unchanged.
+
+*   Unlike 0/1 Knapsack,
+
+        we do NOT move
+        to the next coin
+        after including one.
+
+*   DP State:
+
+        dp[arrLen][amount]
+
+    stores the minimum number of coins
+        needed to form 'amount'
+        using the first arrLen coin types.
+
+*   Base Cases:
+
+        Amount becomes zero
+
+            answer = 0
+
+*   No coin types remain
+        while amount is still positive
+
+            impossible state
+
+*   Transition:
+
+        Exclude:
+
+            solve using
+            remaining coin types.
+
+*   Include:
+
+            use one coin
+
+            reduce amount
+
+            continue with
+            the same coin type.
+
+*   Answer for every state is:
+
+        minimum(
+
+            exclude,
+
+            include
+
+        )
+
+*   Tabulation Optimization:
+
+        Instead of storing
+        all coin indices,
+
+        we only maintain
+
+        dp[amount]
+
+    because each state depends only
+        on smaller amounts.
+
+*   While processing a coin,
+
+        every reachable amount
+        can be improved by
+
+            1 + dp[amount - coin]
+
+*   Since amounts are processed
+        in increasing order,
+
+        the same coin
+        can automatically be reused
+        multiple times.
+
+*   Time Complexity:
+
+        O(n × amount)
+
+*   Space Complexity:
+
+        Memoization:
+            O(n × amount)
+
+        Tabulation:
+            O(amount)

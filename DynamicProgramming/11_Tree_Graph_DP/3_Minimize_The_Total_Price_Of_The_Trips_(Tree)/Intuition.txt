@@ -1,1 +1,144 @@
 Question Link : https://leetcode.com/problems/minimize-the-total-price-of-the-trips/description/
+
+*   Every trip travels
+        along the unique path
+        between its start and end nodes.
+
+*   First objective:
+
+        determine how many times
+        every node is used
+        across all trips.
+
+*   WHY?
+
+        Every visit contributes
+
+            price[node]
+
+        to the final answer.
+
+*   Therefore,
+
+        total contribution of a node is
+
+            price[node]
+            ×
+            frequency[node]
+
+*   DFS is used
+        for every trip
+        to identify its unique path.
+
+*   Once frequencies are known,
+
+        trips no longer matter.
+
+*   The problem becomes:
+
+        Choose some nodes
+        whose prices will be halved.
+
+*   Constraint:
+
+        Adjacent nodes
+        cannot both be halved.
+
+*   This becomes
+        the classic Tree DP
+        similar to House Robber III.
+
+*   DP State:
+
+        dp(node, parentHalfed)
+
+*   where
+
+        parentHalfed = 0
+
+            Parent was NOT halved.
+
+            Current node
+            may either
+
+                halve itself
+
+                OR
+
+                keep full price.
+
+*   parentHalfed = 1
+
+            Parent was halved.
+
+            Therefore current node
+            cannot be halved.
+
+*   At every node
+        evaluate two choices.
+
+*   Choice 1:
+
+        Keep full price.
+
+*   Cost becomes:
+
+        current full contribution
+
+        +
+
+        best answer
+        from every child.
+
+*   Choice 2:
+
+        Halve current node.
+
+*   Possible only when
+
+        parent is not halved.
+
+*   Current contribution becomes
+
+        half of its total cost.
+
+*   Since current node
+        is halved,
+
+        every child
+        is forced
+        to keep full price.
+
+*   Transition:
+
+        answer =
+
+        minimum(
+
+            keep full price,
+
+            halve current node
+
+        )
+
+*   Memoization stores
+        every Tree DP state
+        only once.
+
+*   Time Complexity:
+
+        Frequency computation:
+
+            O(trips × n)
+
+        Tree DP:
+
+            O(n)
+
+*   Overall Time Complexity:
+
+        O(trips × n)
+
+*   Space Complexity:
+
+        O(n)

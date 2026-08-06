@@ -1,1 +1,37 @@
 Question Link : https://leetcode.com/problems/largest-color-value-in-a-directed-graph/description/
+
+*   We need to find the maximum frequency of any color along a valid directed path.
+
+*   If the graph contains a cycle, the answer is -1 because the path can be extended forever.
+
+*   Therefore, the first step is to detect a cycle using Kahn's Topological Sort.
+
+*   Once the graph is confirmed to be a DAG, every path eventually terminates, making DP possible.
+
+*   Key observation: the answer for a node depends only on the answers of its outgoing neighbours.
+
+*   DP State:
+
+        dp[node][color]
+
+    stores the maximum frequency of every color among all paths starting from this node.
+
+*   From every node, recursively compute the DP of all children.
+
+*   For every color, keep the maximum frequency obtained from any child because we are interested in the best possible path.
+
+*   After merging all children, increment the frequency of the current node's own color.
+
+*   WHY? Every path starting from this node must include the current node itself exactly once.
+
+*   Memoization stores the entire frequency array for every node, so each node is processed only once.
+
+*   Finally, examine the DP array of every node and every color to obtain the global maximum.
+
+*   Time Complexity:
+
+        O((V + E) × 26)
+
+*   Space Complexity:
+
+        O(V × 26 + E)

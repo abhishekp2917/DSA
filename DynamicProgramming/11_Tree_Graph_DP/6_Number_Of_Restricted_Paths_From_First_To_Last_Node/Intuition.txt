@@ -1,1 +1,57 @@
-Question Link : https://leetcode.com/problems/maximum-score-after-applying-operations-on-a-tree/description/
+Question Link : https://leetcode.com/problems/number-of-restricted-paths-from-first-to-last-node/
+
+*   A restricted path is a path where the shortest distance to node n strictly decreases after every move.
+
+*   Brute force would generate every possible path and check whether it satisfies the restricted condition.
+
+*   Problem: the number of paths can be exponential.
+
+*   Key observation: the restriction depends only on each node's shortest distance to node n.
+
+*   Therefore, first compute the shortest distance from every node to node n using Dijkstra's algorithm.
+
+*   Once these distances are known, every valid move is uniquely determined.
+
+*   A neighbour can be visited only if:
+
+        shortestDistance[neighbour] < shortestDistance[current]
+
+*   WHY? This is exactly the definition of a restricted path.
+
+*   An important consequence is that every move strictly decreases the distance, so cycles are impossible.
+
+*   Therefore the graph effectively becomes a Directed Acyclic Graph (DAG) where every edge points toward a smaller shortest distance.
+
+*   DP State:
+
+        dp[node]
+
+    stores the number of restricted paths from this node to node n.
+
+*   From every node, recursively try every neighbour satisfying the restricted condition.
+
+*   Transition:
+
+        dp[node] = Σ dp[valid neighbours]
+
+*   Base Case:
+
+        dp[n] = 1
+
+    because reaching node n completes exactly one valid path.
+
+*   Memoization stores the answer for every node only once.
+
+*   Since every node is solved once after Dijkstra, repeated DFS work is eliminated.
+
+*   Time Complexity:
+
+        Dijkstra : O((V + E) log V)
+
+        DFS + DP : O(V + E)
+
+        Overall : O((V + E) log V)
+
+*   Space Complexity:
+
+        O(V + E)

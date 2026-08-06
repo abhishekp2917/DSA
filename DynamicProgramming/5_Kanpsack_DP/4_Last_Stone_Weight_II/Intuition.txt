@@ -1,1 +1,120 @@
-Question Link : https://leetcode.com/problems/last-stone-weight-ii/description/?
+Question Link : https://leetcode.com/problems/last-stone-weight-ii/description/
+
+
+*   We need to minimize
+        the final remaining stone weight.
+
+*   Key observation:
+        The order of smashing stones
+        does not matter.
+
+*   WHY?
+
+        Every smash operation
+        effectively places one stone
+        into one group
+
+        and the other stone
+        into another group.
+
+*   Eventually,
+        every stone belongs
+        to one of two groups.
+
+*   Let:
+
+        Group1 weight = S
+
+        Group2 weight = TotalWeight - S
+
+*   Final remaining weight becomes:
+
+        |Group1 - Group2|
+
+        =
+
+        |TotalWeight - 2 × S|
+
+*   Therefore the problem becomes:
+
+        Partition the stones
+        into two groups
+
+        such that
+
+        their weight difference
+        is minimum.
+
+*   DP State:
+
+        dp[i][sum]
+
+    stores the minimum possible difference
+        after processing stones
+        from index i onward,
+
+        when the first group
+        currently has weight = sum.
+
+*   At every stone
+        there are exactly two choices:
+
+        Put it into Group 1
+
+        OR
+
+        Put it into Group 2
+
+*   If placed into Group 1,
+
+        current sum increases.
+
+*   If placed into Group 2,
+
+        current sum remains unchanged.
+
+*   At the end,
+
+        Group 2's weight is
+
+            TotalWeight - sum
+
+    so the final answer becomes
+
+        |TotalWeight - 2 × sum|
+
+*   Transition:
+
+        answer =
+
+        min(
+
+            include,
+
+            exclude
+
+        )
+
+*   Memoization:
+        stores answers for previously solved states,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        computes states
+        from the last stone
+        towards the first stone.
+
+*   Time Complexity:
+
+        O(n × TotalWeight)
+
+*   Space Complexity:
+
+        Memoization:
+            O(n × TotalWeight)
+
+        Tabulation:
+            O(n × TotalWeight)
+
+    (Can be optimized further
+     using subset-sum DP.)

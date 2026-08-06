@@ -1,1 +1,65 @@
 Question Link : https://leetcode.com/problems/guess-number-higher-or-lower-ii/description/
+
+*   We need to guarantee finding the correct number with the minimum possible cost.
+
+*   Every wrong guess costs exactly the guessed number.
+
+*   Since we do not know where the hidden number is, we must always prepare for the worst-case outcome.
+
+*   DP State:
+
+        dp[start][end]
+
+    stores the minimum money required to guarantee finding the answer within the interval [start...end].
+
+*   For every interval, try every possible first guess.
+
+*   Guessing a number splits the search space into:
+
+        Left interval
+
+        Right interval
+
+*   After guessing, the hidden number can lie in either interval.
+
+*   Since we want a guaranteed strategy, we must assume the more expensive branch always occurs.
+
+*   Therefore:
+
+        worstFutureCost = max(leftCost, rightCost)
+
+*   Total cost for choosing a guess becomes:
+
+        guess + worstFutureCost
+
+*   We try every possible first guess and choose the one with the smallest guaranteed cost.
+
+*   Transition:
+
+        dp[start][end]
+
+        =
+
+        min(
+
+            guess + max(leftCost, rightCost)
+
+        )
+
+*   Memoization computes every interval only once.
+
+*   Tabulation builds answers from shorter intervals to longer intervals because every transition depends only on smaller intervals.
+
+*   Number of DP states:
+
+        O(n²)
+
+*   Each state tries every possible guess.
+
+*   Time Complexity:
+
+        O(n³)
+
+*   Space Complexity:
+
+        O(n²)

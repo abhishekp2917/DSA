@@ -1,1 +1,88 @@
 Question Link : https://www.geeksforgeeks.org/problems/geeks-training/1
+
+*   We need to maximize total points over n days.
+
+*   Every day exactly one activity must be performed.
+
+*   Constraint:
+        the same activity cannot be performed
+        on two consecutive days.
+
+*   Key observation:
+        The only information needed from the previous day
+        is which activity was performed.
+
+*   Therefore DP State becomes:
+
+        dp[day][lastActivity]
+
+*   dp[day][lastActivity] stores:
+        maximum points obtainable till 'day'
+        assuming the previous day's activity
+        is lastActivity.
+
+*   Activity Mapping:
+
+        0 -> Running
+        1 -> Fighting
+        2 -> Learning
+        3 -> No restriction
+
+*   Base Case:
+
+        On day 0,
+        there is no actual previous day.
+
+*   Therefore:
+
+        if previous activity is Running,
+        choose max(Fighting, Learning)
+
+        if previous activity is Fighting,
+        choose max(Running, Learning)
+
+        if previous activity is Learning,
+        choose max(Running, Fighting)
+
+        if there is no restriction,
+        choose the best among all three.
+
+*   For every later day,
+        compute score obtained
+        by choosing each activity.
+
+*   Example:
+
+        runningPoints =
+            runningScoreToday
+            + best answer where yesterday
+              was not Running
+
+*   Similarly compute:
+
+        fightingPoints
+
+        learningPoints
+
+*   Then fill all DP states
+        by excluding the forbidden activity.
+
+*   dp[day][3] stores:
+        best answer when today's activity
+        has no restriction.
+
+*   Final answer is:
+
+        dp[lastDay][3]
+
+*   Every state depends only on
+        the previous day's states.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)
+
+    (Can be optimized to O(1)
+     since only previous day's DP is required.)

@@ -1,1 +1,105 @@
 Question Link : https://leetcode.com/problems/cherry-pickup-ii/description/
+
+*   Two robots start at:
+
+        Robot 1 -> (0, 0)
+
+        Robot 2 -> (0, m-1)
+
+*   Both robots move one row down
+        at every step.
+
+*   Each robot has three possible moves:
+
+        down-left
+
+        down
+
+        down-right
+
+*   Goal:
+        maximize total cherries collected.
+
+*   If both robots reach
+        the same cell,
+
+        cherries are counted only once.
+
+*   Key observation:
+        Both robots always remain
+        on the same row.
+
+*   Therefore the DP state only needs:
+
+        current row
+
+        Robot 1 column
+
+        Robot 2 column
+
+*   DP State:
+
+        dp[row][col1][col2]
+
+    stores the maximum cherries collectible
+        starting from this state.
+
+*   At every state:
+
+        first collect cherries
+        from the current row.
+
+*   If both robots are
+        on different cells,
+
+        collect both values.
+
+*   Otherwise,
+
+        collect the cell only once.
+
+*   Next,
+        both robots independently choose
+        one of three possible moves.
+
+*   Total combinations are:
+
+        3 × 3 = 9
+
+*   Evaluate all 9 combinations
+        and choose the one
+        giving the maximum future cherries.
+
+*   Transition:
+
+        current cherries
+
+        +
+
+        maximum among all
+        valid next states
+
+*   Base Case:
+
+        After the last row,
+
+        no more cherries remain.
+
+*   Memoization:
+        stores answers for previously solved states,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        computes states
+        from the last row
+        towards the first row.
+
+*   Time Complexity:
+
+        O(n × m² × 9)
+
+        = O(n × m²)
+
+*   Space Complexity:
+
+        O(n × m²)

@@ -1,1 +1,67 @@
 Question Link : https://leetcode.com/problems/maximum-subarray-sum-after-multiplier/description/
+
+Question Link : https://leetcode.com/problems/maximum-subarray-sum-after-one-operation/ (State-machine formulation)
+
+*   We need the maximum subarray sum after performing exactly one contiguous modification.
+
+*   The modification is either:
+
+        Multiply every element of one contiguous segment by k
+
+        OR
+
+        Divide every element of one contiguous segment by k
+
+*   Since the modified segment must be contiguous, every position belongs to exactly one of three phases.
+
+*   DP State:
+
+        dp[i][operationType][state]
+
+*   operationType represents:
+
+        0 -> Multiplication
+
+        1 -> Division
+
+*   state represents:
+
+        0 -> Operation has not started yet.
+
+        1 -> Operation is currently active.
+
+        2 -> Operation has already finished.
+
+*   State 0 choices:
+
+        Continue without starting the operation.
+
+        Start the operation here.
+
+        Start later.
+
+        Start and finish immediately.
+
+*   State 1 choices:
+
+        Continue modifying future elements.
+
+        End the modified segment after the current element.
+
+*   State 2 choice:
+
+        Continue normally because the operation cannot be used again.
+
+*   Every state also has the option of starting a brand new subarray from the current index, exactly like Kadane's algorithm.
+
+*   Memoization computes every state only once.
+
+*   Tabulation builds the same recurrence from the end of the array towards the beginning.
+
+*   The global answer is updated at every state because the optimal subarray may begin at any index.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        o(n)

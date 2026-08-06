@@ -1,1 +1,110 @@
 Question Link : https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+*   We need to maximize the total value
+        placed inside the knapsack.
+
+*   Constraint:
+
+        Every item can be chosen
+
+        either once
+
+        or
+
+        not chosen at all.
+
+    Hence the name:
+
+        0/1 Knapsack.
+
+*   Every item presents exactly two choices:
+
+        Include the item
+
+        OR
+
+        Exclude the item
+
+*   Key observation:
+        To make a decision,
+        we only need to know:
+
+        how many items remain
+
+        and
+
+        remaining knapsack capacity.
+
+*   Therefore DP State becomes:
+
+        dp[arrLen][capacity]
+
+*   It stores:
+
+        maximum value obtainable
+        using the first arrLen items
+        with remaining capacity = capacity.
+
+*   Base Cases:
+
+        No items left
+
+        OR
+
+        Capacity becomes zero
+
+    In both cases,
+        no additional value can be obtained.
+
+*   If current item's weight
+        exceeds the remaining capacity,
+
+        the item cannot be included.
+
+*   Otherwise evaluate both choices:
+
+        Exclude:
+
+            solve remaining items
+            with same capacity.
+
+        Include:
+
+            add current value
+
+            reduce remaining capacity
+
+            continue with remaining items.
+
+*   Transition:
+
+        dp =
+            max(
+                exclude,
+                include
+            )
+
+*   Memoization:
+        stores answers for previously solved states,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        builds the DP table
+        by gradually increasing:
+
+        number of items
+
+        and
+
+        knapsack capacity.
+
+*   Time Complexity:
+
+        O(n × capacity)
+
+*   Space Complexity:
+
+        O(n × capacity)
+
+    (Can be optimized to O(capacity)
+     using a single DP array.)

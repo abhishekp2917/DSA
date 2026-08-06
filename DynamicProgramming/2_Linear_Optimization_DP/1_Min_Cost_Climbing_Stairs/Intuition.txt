@@ -1,1 +1,91 @@
 Question Link : https://leetcode.com/problems/min-cost-climbing-stairs/description/
+
+*   We need the minimum total cost to reach the top.
+
+*   Every move allows climbing:
+        1 stair
+        or
+        2 stairs
+
+*   Cost is paid only when stepping onto a stair.
+
+*   Important:
+        the top itself has no cost.
+
+*   We may start from:
+
+        stair 0
+        or
+        stair 1
+
+*   Key observation:
+        The last move completely determines
+        where we came from.
+
+*   To reach stair i:
+
+        either we came from stair (i-1)
+
+        or
+
+        we came from stair (i-2)
+
+*   Therefore:
+
+        minCost(i) =
+            cost[i] +
+            min(
+                minCost(i-1),
+                minCost(i-2)
+            )
+
+*   Base Cases:
+
+        minCost(0) = cost[0]
+
+        minCost(1) = cost[1]
+
+    because we are allowed to start
+        directly from either stair.
+
+*   The destination is NOT the last stair.
+
+*   Instead,
+        the top lies just beyond it.
+
+*   Therefore final answer is:
+
+        min(
+            minCost(last stair),
+            minCost(second last stair)
+        )
+
+*   Memoization:
+        stores minimum cost for every stair,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        computes answers from smaller stairs
+        towards larger stairs.
+
+*   Every state depends only on
+        the previous two states.
+
+*   Time Complexity:
+
+        Memoization:
+            O(n)
+
+        Tabulation:
+            O(n)
+
+*   Space Complexity:
+
+        Memoization:
+            O(n)
+
+        Tabulation:
+            O(n)
+
+    (Can be optimized to O(1)
+     since only previous two states are required.)

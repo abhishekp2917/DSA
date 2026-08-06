@@ -1,1 +1,107 @@
 Question Link : https://leetcode.com/problems/maximum-score-after-applying-operations-on-a-tree/description/
+
+*   We may collect the value
+        of any node.
+
+*   Constraint:
+
+        Every root-to-leaf path
+        must contain
+        at least one node
+        whose value is NOT collected.
+
+*   Therefore every path
+        must preserve
+        at least one non-zero node.
+
+*   Key observation:
+
+        Once some ancestor
+        is already preserved,
+
+        every node below it
+        becomes independent.
+
+*   WHY?
+
+        Because the root-to-leaf path
+        already contains
+        one non-zero node.
+
+        Descendants no longer need
+        to preserve another node.
+
+*   DP State:
+
+        dp(node, isAncestorNonZero)
+
+*   where
+
+        isAncestorNonZero = 0
+
+            No ancestor has been preserved.
+
+            Therefore this subtree
+            must preserve
+            at least one node.
+
+*   isAncestorNonZero = 1
+
+            Some ancestor
+            is already preserved.
+
+            Hence this subtree
+            may freely collect
+            every possible node.
+
+*   At every node
+        there are two possible decisions.
+
+*   Keep current node uncollected.
+
+        Current node becomes
+        the required preserved node.
+
+        Therefore every child
+        now receives
+
+            isAncestorNonZero = 1
+
+*   Collect current node.
+
+        Current node disappears
+        from the preserved path.
+
+        Therefore children
+        inherit the same requirement
+        as the current node.
+
+*   Leaf node:
+
+        If no ancestor
+        has been preserved,
+
+        this leaf itself
+        must remain uncollected.
+
+*   Otherwise,
+
+        its value
+        can be collected safely.
+
+*   Every subtree contributes
+        independently,
+
+        so answers from children
+        are simply added together.
+
+*   Memoization stores
+        every state only once.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)

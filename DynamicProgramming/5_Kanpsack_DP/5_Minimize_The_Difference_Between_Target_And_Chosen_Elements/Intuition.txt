@@ -1,1 +1,105 @@
 Question Link : https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/description/
+
+*   We must choose exactly one element
+        from every row.
+
+*   Goal:
+
+        minimize
+
+        |chosenSum - target|
+
+*   Key observation:
+        The decision made for one row
+        affects only the accumulated sum.
+
+*   Therefore the DP state only needs:
+
+        current row
+
+        current accumulated sum
+
+*   DP State:
+
+        dp[row][currSum]
+
+    stores the minimum possible
+        absolute difference
+        obtainable after processing
+        rows starting from 'row',
+
+        when the accumulated sum
+        so far equals currSum.
+
+*   At every row,
+
+        every element is a valid choice.
+
+*   Therefore,
+
+        try every column,
+
+        add its value
+        to the accumulated sum,
+
+        and continue
+        with the next row.
+
+*   Transition:
+
+        answer =
+
+        minimum over
+
+            all choices
+            in the current row.
+
+*   Base Case:
+
+        All rows have been processed.
+
+*   At this point,
+
+        accumulated sum
+        becomes the final chosen sum.
+
+*   Therefore the remaining answer is:
+
+        |target - currSum|
+
+*   Memoization:
+        stores answers for previously solved states,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        computes states
+        from the last row
+        towards the first row.
+
+*   Why is DP size 4901?
+
+        Constraints guarantee:
+
+            rows ≤ 70
+
+            value ≤ 70
+
+*   Therefore:
+
+        maximum possible sum
+
+            = 70 × 70
+
+            = 4900
+
+*   Time Complexity:
+
+        O(rows × maxSum × columns)
+
+*   Space Complexity:
+
+        Memoization:
+            O(rows × maxSum)
+
+        Tabulation:
+            O(rows × maxSum)

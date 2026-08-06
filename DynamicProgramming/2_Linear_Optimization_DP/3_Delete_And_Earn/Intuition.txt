@@ -1,1 +1,97 @@
 Question Link : https://leetcode.com/problems/delete-and-earn/description/
+
+*   We need to maximize total points.
+
+*   If we take value x,
+        then values:
+
+            x - 1
+            x + 1
+
+    can no longer be chosen.
+
+*   Key observation:
+        Individual occurrences of the same value
+        are never chosen separately.
+
+*   Example:
+
+        nums = [2,2,2,3]
+
+    If we decide to take 2,
+        we should take all three 2's.
+
+*   Therefore preprocess the array into:
+
+        points[x]
+
+    where:
+
+        points[x] =
+            total contribution of value x
+
+*   Example:
+
+        nums = [2,2,2,3]
+
+        points[2] = 6
+        points[3] = 3
+
+*   After preprocessing,
+        the problem becomes identical to
+        House Robber.
+
+*   WHY?
+
+    Taking value x
+        prevents taking value x+1,
+        exactly like robbing one house
+        prevents robbing the adjacent house.
+
+*   DP State:
+
+        dp[i]
+
+    stores maximum points obtainable
+        considering values from i onwards.
+
+*   At every value,
+        we have two choices:
+
+        take current value
+
+        OR
+
+        skip current value
+
+*   If we take value i,
+        we must skip value (i+1).
+
+*   Therefore:
+
+        dp[i] =
+            max(
+                points[i] + dp[i+2],
+                dp[i+1]
+            )
+
+*   Memoization:
+        stores answers for previously solved values,
+        avoiding repeated recursion.
+
+*   Tabulation:
+        computes answers from larger values
+        towards smaller values.
+
+*   This is a direct transformation of
+        the House Robber DP.
+
+*   Time Complexity:
+
+        O(MaxValue)
+
+    Here MaxValue = 10000.
+
+*   Space Complexity:
+
+        O(MaxValue)

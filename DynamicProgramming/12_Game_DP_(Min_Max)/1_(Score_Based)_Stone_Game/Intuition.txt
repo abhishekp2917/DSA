@@ -20,6 +20,12 @@ Approach 1:
 
 *   If Alice can collect more than half of the total stones, she wins.
 
+*   Time Complexity:
+        O(n²)
+
+*   Space Complexity:
+        O(n²)
+
 Approach 2:
 
 *   Instead of tracking Alice and Bob separately, we track the score
@@ -37,3 +43,9 @@ Approach 2:
 
 *   If Alice can guarantee a positive score difference at the start,
     she will end the game with more stones than Bob.
+
+*   Time Complexity:
+        O(n²)
+
+*   Space Complexity:
+        O(n²)

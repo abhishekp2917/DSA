@@ -1,1 +1,87 @@
 Question Link : https://leetcode.com/problems/triangle/description/
+
+*   We need the minimum path sum
+        from the top of the triangle
+        to any cell in the last row.
+
+*   From every cell,
+        we may move only to:
+
+        directly below
+
+        OR
+
+        diagonally below-right.
+
+*   Key observation:
+        The last move completely determines
+        where we came from.
+
+*   To reach cell (row, col):
+
+        either we came from
+
+            (row-1, col)
+
+        OR
+
+            (row-1, col-1)
+
+*   Therefore:
+
+        minCost(row, col) =
+            triangle[row][col]
+            +
+            min(
+                minCost(row-1, col),
+                minCost(row-1, col-1)
+            )
+
+*   DP State:
+
+        dp[row][col]
+
+    stores the minimum path sum
+        to reach cell (row, col).
+
+*   Base Case:
+
+        dp[0][0]
+
+    equals the value of the top element,
+        because it is the starting point.
+
+*   Cells outside the triangle
+        are initialized with:
+
+        Integer.MAX_VALUE
+
+*   WHY?
+
+    Such cells are invalid,
+        so they should never be selected
+        while taking the minimum.
+
+*   Fill the DP table
+        from top to bottom,
+        because every state depends only on
+        the previous row.
+
+*   The path can end
+        at any position
+        in the last row.
+
+*   Therefore the final answer is:
+
+        minimum value among
+
+        dp[lastRow][0...lastColumn]
+
+*   Time Complexity:
+        O(n²)
+
+*   Space Complexity:
+        O(n²)
+
+    (Can be optimized to O(n)
+     using a single DP array.)

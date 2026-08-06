@@ -1,1 +1,53 @@
 Question Link : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
+
+*   We may perform unlimited transactions.
+
+*   At any time, we can either hold at most one stock or hold none.
+
+*   Therefore, the only information needed to describe a state is:
+
+        Current day
+
+        Whether we currently own a stock
+
+*   DP State:
+
+        dp[day][hasStock]
+
+*   If we already own a stock, we have only two choices:
+
+        Sell today
+
+        OR
+
+        Continue holding it.
+
+*   If we do not own a stock, we again have only two choices:
+
+        Buy today
+
+        OR
+
+        Skip today.
+
+*   Every decision moves to the next day, so the problem naturally forms a DP.
+
+*   Memoization computes every (day, state) only once.
+
+*   Tabulation stores:
+
+        dp[day][0] = maximum profit after day while not holding a stock.
+
+        dp[day][1] = maximum profit after day while holding one stock.
+
+*   Holding state can come from: Continuing to hold OR Buying today.
+
+*   Not holding state can come from: Continuing without a stock OR Selling today.
+
+*   The final answer is dp[n][0] because any stock still being held has not yet been converted into realised profit.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)

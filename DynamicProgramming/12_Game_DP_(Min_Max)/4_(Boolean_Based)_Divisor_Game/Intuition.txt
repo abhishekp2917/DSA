@@ -25,3 +25,9 @@ Question Link : https://leetcode.com/problems/divisor-game/description/
 
 *   Memoization is used to avoid recomputing the same game states,
     making the solution efficient.
+
+*   Time Complexity:
+        O(n²)
+
+*   Space Complexity:
+        O(n)

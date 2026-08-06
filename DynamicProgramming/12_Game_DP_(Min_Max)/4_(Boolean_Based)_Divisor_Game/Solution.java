@@ -45,20 +45,47 @@ class Solution1 {
     }
 }
 
-
 class Solution2 {
 
     public boolean divisorGame(int n) {
+
+        // dp[num]:
+        // true if the current player
+        // can force a win
+        // when the remaining number is 'num'.
         boolean[] dp = new boolean[n+1];
+
+        // Compute answers
+        // from smaller numbers
+        // towards larger numbers.
+        //
+        // Every move reduces the number,
+        // so future states
+        // are already known.
         for(int num=2; num<=n; num++) {
+
+            // Try every possible divisor.
             for (int x=1; x<num; x++) {
+
+                // A valid move requires
+                // x to divide num.
                 if (num%x!=0) continue;
+
+                // Choosing x
+                // changes the game state
+                // from num
+                // to num-x.
+                //
+                // If the opponent loses
+                // from that state,
+                // current player wins.
                 if (!dp[num-x]) {
                     dp[num] = true;
                     break;
                 }
             }
         }
+
         return dp[n];
     }
 }

@@ -1,1 +1,164 @@
 Question Link : https://leetcode.com/problems/house-robber-iii/description/
+
+*   Houses are arranged
+        as a binary tree.
+
+*   Constraint:
+
+        If a house is robbed,
+
+        its immediate children
+        cannot be robbed.
+
+*   Goal:
+
+        maximize the total money robbed.
+
+*   Key observation:
+        The decision at every node
+        depends only on whether
+
+        its parent was robbed.
+
+*   Therefore the recursive state becomes:
+
+        current node
+
+        +
+
+        parent robbed or not
+
+--------------------------------------------------
+
+*   Memoization State:
+
+        dp(node, parentRobbed)
+
+    stores the maximum money
+        obtainable from the subtree
+        rooted at node.
+
+*   If parent was robbed,
+
+        current node
+        cannot be robbed.
+
+*   Therefore we must skip it
+        and continue with both children.
+
+*   If parent was NOT robbed,
+
+        we have two choices:
+
+        Skip current node
+
+        OR
+
+        Rob current node.
+
+*   Skip:
+
+        children become free
+        to make their own decisions.
+
+*   Rob:
+
+        children must be skipped.
+
+*   Transition:
+
+        answer =
+
+        max(
+
+            skip current,
+
+            rob current
+
+        )
+
+--------------------------------------------------
+
+*   Optimized Tree DP
+
+*   Instead of passing
+        parent's state,
+
+        every node directly returns
+        answers for both possibilities.
+
+*   DP State:
+
+        result[0]
+
+            maximum money
+            if current node
+            is NOT robbed.
+
+*   DP State:
+
+        result[1]
+
+            maximum money
+            if current node
+            IS robbed.
+
+*   If current node
+        is skipped,
+
+        every child independently chooses
+        whichever option
+        gives more money.
+
+*   Therefore:
+
+        skip =
+
+            max(left)
+
+            +
+
+            max(right)
+
+*   If current node
+        is robbed,
+
+        both children
+        must be skipped.
+
+*   Therefore:
+
+        rob =
+
+            node value
+
+            +
+
+            leftSkip
+
+            +
+
+            rightSkip
+
+*   Each subtree
+        computes both answers
+        only once.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(h)
+
+    where h is the height
+    of the tree.
+
+    Worst case:
+
+        O(n)
+
+    Balanced tree:
+
+        O(log n)

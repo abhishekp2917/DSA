@@ -1,1 +1,63 @@
 Question Link : https://leetcode.com/problems/maximum-number-of-operations-with-the-same-score-ii/description/
+
+*   Every operation removes exactly two elements.
+
+*   After the first operation, every future operation must produce exactly the same score.
+
+*   Therefore, the first move completely determines the target score.
+
+*   Only three first moves are possible:
+
+        Remove first two elements.
+
+        Remove last two elements.
+
+        Remove first and last elements.
+
+*   We solve the DP independently for all three target scores and take the maximum answer.
+
+*   DP State:
+
+        dp[start][end]
+
+    stores the maximum number of operations possible using the subarray nums[start...end] while keeping the target score fixed.
+
+*   At every interval, only three valid removals are possible because the remaining elements must always stay contiguous.
+
+*   Possible transitions:
+
+        Remove first two elements.
+
+        Remove last two elements.
+
+        Remove first and last elements.
+
+*   A transition is allowed only if the removed pair's sum equals the target score.
+
+*   After removing a valid pair, the problem becomes a smaller interval.
+
+*   Transition:
+
+        dp[start][end]
+
+        =
+
+        1 + maximum(valid smaller interval)
+
+*   If fewer than two elements remain, no further operation is possible.
+
+*   If exactly one pair remains, it contributes one operation only if its sum equals the target.
+
+*   Memoization computes every interval only once.
+
+*   Tabulation builds intervals from smaller lengths to larger lengths because every transition depends only on smaller intervals.
+
+*   Number of DP states (per target): O(n²)
+
+*   Each state performs only three constant-time transitions.
+
+*   Time Complexity:
+        O(n²)
+
+*   Space Complexity:
+        O(n²)

@@ -1,1 +1,55 @@
 Question Link : https://leetcode.com/problems/counting-bits/description/
+
+*   We need to find the number of set bits (1s)
+        for every number from 0 to n.
+
+*   Brute force checks every bit of every number
+        and takes O(n log n).
+
+*   Key observation:
+        Every number can be reduced to a smaller number
+        by removing its rightmost set bit.
+
+*   The expression:
+
+        num & (-num)
+
+    gives the value of the rightmost set bit.
+
+*   Example:
+
+        12 = 1100
+
+        rightmost set bit = 0100 = 4
+
+*   After finding the rightmost set bit,
+        subtracting it removes exactly that bit.
+
+*   Example:
+
+        1100 (12)
+      - 0100 (4)
+      ----------
+        1000 (8)
+
+*   Therefore:
+
+        bits(12)
+        = bits(8) + 1
+
+*   DP Relation:
+
+        bits(num) =
+            bits(num - rightmostSetBitValue) + 1
+
+*   Since the remaining number is always smaller,
+        its answer has already been computed.
+
+*   Thus every state is solved in O(1)
+        using a previously computed state.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)

@@ -1,1 +1,54 @@
 Question Link : https://leetcode.com/problems/sum-of-distances-in-tree/description/
+
+*   We need the sum of distances from every node to every other node.
+
+*   Running DFS/BFS from every node would take: O(n²)
+
+*   Key observation:
+
+        If we already know
+        the answer for one node,
+
+        the answer for its child
+        can be computed
+        without recomputing
+        every distance.
+
+*   Phase 1:
+
+        Compute answer
+        only for node 0.
+
+*   During this DFS we also compute: subtree size of every node.
+
+*   DP State: childNodesCount[node] stores the number of nodes in node's subtree.
+
+*   We also accumulate nodesDistance[0] by adding the DFS depth of every node.
+
+*   Phase 2: Rerooting DP
+
+*   Imagine moving the root from parent to one of its children.
+
+*   What changes?
+
+*   Every node inside the child's subtree becomes one edge closer.
+
+*   Therefore total distance decreases by subtreeSize
+
+*   Every node outside the child's subtree becomes one edge farther.
+
+*   Therefore total distance increases by totalNodes - subtreeSize
+
+*   Hence the rerooting formula becomes:
+
+        answer(child) = answer(parent) - subtreeSize(child) + (totalNodes - subtreeSize(child))
+
+*   This computes every answer in O(1) after subtree size are known.
+
+*   Therefore two DFS traversals are sufficient.
+
+*   Time Complexity:
+        O(n)
+
+*   Space Complexity:
+        O(n)
