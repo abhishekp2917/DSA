@@ -1,0 +1,31 @@
+Question Link : https://leetcode.com/problems/find-the-longest-equal-subarray/description/
+
+*   We may delete at most k elements from the array.
+
+*   After deleting those elements, the remaining equal elements become adjacent.
+
+*   Instead of directly deleting elements, maintain a sliding window.
+
+*   Inside every window, choose one value to keep.
+
+*   Every other value inside the window must be deleted.
+
+*   Therefore: Required deletions = Window size - Maximum frequency inside the window
+
+*   If the required deletions exceed k, the window is no longer valid.
+
+*   Shrink the window until it becomes valid again.
+
+*   Maintain the frequency of every number inside the current window.
+
+*   Also maintain the maximum frequency inside the window.
+
+*   The answer is the largest frequency found in any valid window.
+
+*   Time Complexity:
+
+        O(n)
+
+*   Space Complexity:
+
+        O(n)
