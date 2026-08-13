@@ -35,7 +35,8 @@ class CountIntervals {
         // node.count = 10
         //
         // meaning:
-        // entire segment already marked.
+        // entire segment already marked. If we explore this segment again, 
+        // we might reduce its count because current [left, right] query might just partially included this segment 
         //
         // So no need to recurse further.
         if(high<left || right<low || (high-low+1)==node.count) return;
