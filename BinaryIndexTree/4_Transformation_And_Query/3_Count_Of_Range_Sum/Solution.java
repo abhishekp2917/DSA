@@ -12,7 +12,11 @@ class Solution {
         int result = 0;
 
         // rangeSum(i...j) = prefixSum[j+1] - prefixSum[i]
-        // We need: lower <= (prefixSum[j] - prefixSum[i]) <= upper
+        // We need:  (lower)                <=    (prefixSum[j+1]-    <=      (upper)
+        //                                          prefixSum[i])         
+        //           (lower-prefixSum[j+1])   <=    (-prefixSum[i])   <=      (upper-prefixSum[j+1])
+        //          -(lower-prefixSum[j+1])   >=   -(-prefixSum[i])   >=     -(upper-prefixSum[j+1])
+        //           (prefixSum[j+1]-lower)   >=    ( prefixSum[i])   >=      (prefixSum[j+1]-upper)
         long[] prefixSum = new long[n + 1];
 
         for(int i=0; i<n; i++) {
