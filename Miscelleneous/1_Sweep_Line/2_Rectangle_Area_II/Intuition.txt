@@ -1,136 +1,64 @@
 Question Link : https://leetcode.com/problems/rectangle-area-ii/description/
 
-*   Problem:
-        Given multiple rectangles,
-        compute the total area covered by them.
+* Problem:
+  Given multiple rectangles, compute the total area covered by them.
+  Overlapping regions must be counted only once.
 
-        Overlapping regions must be counted only once.
+* Key difficulty:
+  Rectangles can overlap in complex ways, so naively adding their areas causes double counting.
 
-*   Key difficulty:
-        Rectangles can overlap in complex ways.
+* Key geometric observation:
+  Sweep across the X axis. For any x-interval [x1, x2], vertical coverage remains constant, so area = width * verticalCoverage.
 
-        Naively adding areas leads to double counting.
+* Sweep line concept:
+  Imagine a vertical line moving from left -> right. Rectangles start or end at certain x-coordinates called EVENTS.
 
-*   Key geometric observation:
+* Event representation:
+  For rectangle [x1,y1,x2,y2]: x1 -> ADD [y1,y2], x2 -> REMOVE [y1,y2].
 
-        Area can be computed by sweeping across X axis.
+* Why this works:
+  At x1 the rectangle starts contributing to the covered height, and at x2 it stops contributing.
 
-        If we fix an x-interval:
-            [x1 , x2]
+* Event data structure:
+  TreeMap<x, List<events>> is used because events must be processed in sorted x order.
 
-        then vertical coverage does NOT change
-        between these two x positions.
+* Active intervals:
+  Maintain y-intervals of rectangles currently intersecting the sweep line.
+  TreeMap<yInterval, frequency> acts as an ordered multiset.
 
-        So area contributed is:
+* Why TreeMap instead of TreeSet?
+  Multiple rectangles can have the same [y1,y2] interval, so maintain frequency: ADD -> frequency++, REMOVE -> frequency--. Remove the interval only when its frequency becomes 0.
+  TreeMap also keeps intervals sorted by y1, allowing calcHeight() to merge overlapping intervals.
 
-            width * verticalCoverage
+* Important invariant:
+  activeRectangle always contains all rectangles intersecting the current sweep strip, with the correct frequency for duplicate y-intervals.
 
-*   Sweep line concept:
+* Sweep algorithm:
+  For each currX: area += (currX - prevX) * currentHeight; process ADD/REMOVE events; recalculate height; set prevX = currX.
 
-        Imagine a vertical line moving from left → right.
+* Why calculate area before processing events?
+  [prevX, currX] corresponds to the rectangles that were active before reaching currX, so those events must only affect the next strip.
 
-        At certain x-coordinates,
-        rectangles start or end.
+* Computing vertical coverage:
+  Sort active intervals by y1 and merge overlapping intervals.
+  Example: [1,5] and [3,8] have naive length 9, but their union is [1,8] with length 7.
 
-        These positions are called EVENTS.
+* Interval merging:
+  If nextStart > currentEnd, there is a gap, so add the current interval and start a new one; otherwise extend currentEnd.
 
-*   Event representation:
+* Why TreeMap is sufficient:
+  Its ordering lets calcHeight() process active intervals from bottom -> top and calculate their union length.
 
-        For rectangle [x1,y1,x2,y2]:
+* Area accumulation:
+  For every consecutive pair of x-events: area += deltaX * unionOfActiveYIntervals.
 
-            event at x1 → ADD interval [y1,y2]
-            event at x2 → REMOVE interval [y1,y2]
+* Time Complexity: Event generation and TreeMap operations take O(n log n), while calcHeight() scans active intervals at every event.
+        
+        O(n²)
 
-*   Why this works:
+* Space Complexity: 
+        
+        O(n).
 
-        When sweep line passes x1,
-        rectangle begins contributing to area.
-
-        When sweep line passes x2,
-        rectangle stops contributing.
-
-*   Data structure used:
-
-        TreeMap<x, List<events>>
-
-        Why TreeMap?
-            Because sweep line must process
-            events in sorted x order.
-
-*   Active intervals:
-
-        Maintain list of y-intervals of rectangles
-        currently intersecting the sweep line.
-
-        This represents vertical coverage
-        for the current x region.
-
-*   Sweep algorithm:
-
-        For each event position currX:
-
-            width = currX - prevX
-
-            height = union length of active y intervals
-
-            area += width * height
-
-            update active intervals using events
-
-            prevX = currX
-
-*   Computing vertical coverage:
-
-        active intervals may overlap.
-
-        Example:
-
-            [1,5]
-            [3,8]
-
-        naive sum = 4 + 5 = 9 (incorrect)
-
-        merged interval = [1,8] → length = 7
-
-*   Therefore:
-
-        Sort intervals by start
-        Merge overlapping intervals
-        Sum merged lengths
-
-*   Important invariant:
-
-        activeRectangle always contains
-        all rectangles intersecting current sweep strip.
-
-*   Area accumulation logic:
-
-        Area is accumulated BEFORE updating events.
-
-        Because the interval [prevX , currX]
-        corresponds to previous active rectangles.
-
-*   Time Complexity:
-
-        Event generation:
-            O(n)
-
-        Sweep events:
-            O(n)
-
-        Height computation each step:
-            O(n log n)
-
-        Overall worst case:
-            O(n² log n)
-
-*   Space Complexity:
-
-        O(n)
-
-*   Why modulo?
-
-        Area may exceed integer range.
-
-        So problem requires returning
-        result modulo 1e9+7.
+* Why modulo?
+  The total area can exceed the integer range, so the result is maintained modulo 1e9+7.
