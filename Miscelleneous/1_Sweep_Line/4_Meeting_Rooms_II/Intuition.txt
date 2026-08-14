@@ -1,76 +1,60 @@
 Question Link : https://www.geeksforgeeks.org/problems/attend-all-meetings-ii/1
 
-*   Problem:
-        Given meeting start and end times,
-        find minimum number of meeting rooms required.
+* Problem:
+  Given start and end times of meetings, find the minimum number of rooms required so that no overlapping meetings share a room.
 
-*   Key observation:
-        This is equivalent to finding
-        maximum number of overlapping meetings.
+* Key observation:
+  The number of rooms required at any moment equals the number of meetings currently in progress.
 
-*   Why?
-        Because each overlapping meeting
-        requires its own room.
+* Sweep line idea:
+  Represent every meeting using two events: START at its start time and END at its end time.
 
-*   Core idea:
-        Use sweep line algorithm on time axis.
+* Event representation:
+  Meeting [start, end] -> (start, START) and (end, END).
 
-*   Event representation:
+* Why sweep line works:
+  Process events chronologically and maintain the number of currently active meetings.
 
-        For each meeting:
+* Event data structure:
+  TreeMap<int[], Integer> stores events in sorted order and maintains a frequency for identical events.
 
-            start → +1 (meeting begins)
-            end   → -1 (meeting ends)
+* Why TreeMap?
+  Events must be processed from earliest time to latest time, so TreeMap provides the required ordering.
 
-*   Why event-based approach?
+* Why store frequency?
+  Multiple meetings can have the same event time and type, so one TreeMap entry can represent all identical events.
 
-        Instead of checking all pairs of intervals,
-        we process only critical time points
-        where state changes.
+* Event ordering:
+  Events are sorted first by time and then by event type.
 
-*   Data structure:
+* Important consequence:
+  END = -1 is processed before START = 1 when both occur at the same time.
 
-        TreeMap:
-            time → list of events
+* Why process END before START?
+  A meeting ending at time t does not overlap with a meeting starting at time t, so the same room can be reused.
 
-        Why TreeMap?
-            Because it keeps times sorted automatically.
+* activeRooms:
+  Represents the number of meetings currently occupying rooms.
 
-*   Active state:
+* START event:
+  Increase activeRooms by the number of meetings starting at that time.
 
-        Use a Set to track currently active meetings.
+* END event:
+  Decrease activeRooms by the number of meetings ending at that time.
 
-*   Sweep process:
+* maxRooms:
+  Stores the maximum number of simultaneously active meetings encountered during the sweep.
 
-        For each time point:
+* Example:
+  Meetings [1,5] and [5,10] require only 1 room because the first meeting ends exactly when the second begins.
 
-            1. Process all events:
-                    start → add meeting
-                    end   → remove meeting
+* Therefore:
+  Processing END before START at the same timestamp correctly allows the room to be reused.
 
-            2. Active meetings count =
-                    number of rooms needed
+* Time Complexity:
+        
+        O(n log n).
 
-            3. Track maximum value
-
-*   Important invariant:
-
-        activeMeetings contains exactly
-        those meetings that overlap current time.
-
-*   Final answer:
-
-        Maximum size of activeMeetings
-        during sweep.
-
-*   Time Complexity:
-
-        Building events: O(n)
-
-        TreeMap iteration: O(n log n)
-
-        Overall: O(n log n)
-
-*   Space Complexity:
-
+* Space Complexity:
+        
         O(n)

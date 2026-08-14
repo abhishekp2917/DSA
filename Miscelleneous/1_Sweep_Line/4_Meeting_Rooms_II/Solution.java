@@ -1,112 +1,70 @@
-import java.util.*;
+import java.util.TreeMap;
 
 class Solution {
 
-    public int minMeetingRooms(int[] start, int[] end) {
+    // START and END are chosen so that when two events
+    // have the same time, END (-1) is processed before START (1).
+    private static final int START = 1;
+    private static final int END = -1;
 
-        int n = start.length;
+    public int minMeetingRooms(int[] startTimes, int[] endTimes) {
+        int n = startTimes.length;
 
-        // This will store the maximum number of
-        // meetings active at the same time.
-        int minRooms = 0;
-
-        // TreeMap: time → list of events at that time
+        // TreeMap keeps all events sorted by:
+        // 1. event time
+        // 2. event type
         //
-        // Each event = {meetingId, type}
-        //
-        // type:
-        // +1 → meeting starts
-        // -1 → meeting ends
-        //
-        // Why TreeMap?
-        // Because we need to process events
-        // in sorted time order (sweep line).
-        TreeMap<Integer, List<int[]>> eventsMap =
-            new TreeMap<>();
-
-
-        // Set to track currently active meetings
-        //
-        // Why Set?
-        // To maintain which meetings are ongoing.
-        //
-        // Size of this set = number of rooms needed
-        // at that moment.
-        Set<Integer> activeMeetings =
-            new HashSet<>();
-
-
-        // --------------------------------------------------
-        // STEP 1: Convert meetings into events
-        // --------------------------------------------------
-        //
-        // Each meeting produces two events:
-        //
-        // start → +1 (meeting begins)
-        // end   → -1 (meeting ends)
-        //
-        for (int i = 0; i < n; i++) {
-
-            int startTime = start[i];
-            int endTime = end[i];
-
-            int meetingId = i;
-
-            // Add start event
-            List<int[]> events1 =
-                eventsMap.getOrDefault(
-                    startTime, new ArrayList<>());
-
-            events1.add(new int[]{meetingId, 1});
-
-            eventsMap.put(startTime, events1);
-
-
-            // Add end event
-            List<int[]> events2 =
-                eventsMap.getOrDefault(
-                    endTime, new ArrayList<>());
-
-            events2.add(new int[]{meetingId, -1});
-
-            eventsMap.put(endTime, events2);
-        }
-
-
-        // --------------------------------------------------
-        // STEP 2: Sweep through time
-        // --------------------------------------------------
-        //
-        // At each time point:
-        //   process all events
-        //   update active meetings
-        //   track maximum overlap
-        //
-        for (List<int[]> events : eventsMap.values()) {
-
-            for (int[] event : events) {
-
-                int meetingId = event[0];
-                int eventType = event[1];
-
-                // Meeting starts → add to active set
-                if (eventType == 1) {
-                    activeMeetings.add(meetingId);
-                }
-
-                // Meeting ends → remove from active set
-                else {
-                    activeMeetings.remove(meetingId);
-                }
+        // The value stores the frequency because multiple meetings
+        // can generate exactly the same event.
+        TreeMap<int[], Integer> events = new TreeMap<>((event1, event2) -> {
+            int comparison = Integer.compare(event1[0], event2[0]);
+            if (comparison != 0) {
+                return comparison;
             }
 
-            // Number of active meetings at this time
-            // equals number of rooms needed
-            minRooms =
-                Math.max(minRooms,
-                         activeMeetings.size());
+            return Integer.compare(event1[1], event2[1]);
+        });
+
+        for (int i = 0; i < n; i++) {
+            int[] startEvent = {startTimes[i], START};
+            int[] endEvent = {endTimes[i], END};
+
+            // Add the meeting's START event.
+            events.put(
+                startEvent,
+                events.getOrDefault(startEvent, 0) + 1
+            );
+
+            // Add the meeting's END event.
+            events.put(
+                endEvent,
+                events.getOrDefault(endEvent, 0) + 1
+            );
         }
 
-        return minRooms;
+        int activeRooms = 0;
+        int maxRooms = 0;
+
+        // Process events chronologically using a sweep line.
+        for (int[] event : events.keySet()) {
+
+            // START means one or more meetings begin,
+            // so additional rooms are required.
+            if (event[1] == START) {
+                activeRooms += events.get(event);
+            }
+
+            // END means one or more meetings finish,
+            // so those rooms become available.
+            else {
+                activeRooms -= events.get(event);
+            }
+
+            // The maximum number of simultaneously active meetings
+            // determines the minimum number of rooms required.
+            maxRooms = Math.max(maxRooms, activeRooms);
+        }
+
+        return maxRooms;
     }
 }
