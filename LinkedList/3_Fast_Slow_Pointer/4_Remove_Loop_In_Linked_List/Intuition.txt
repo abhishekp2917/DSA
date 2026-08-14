@@ -1,22 +1,35 @@
 Question Link : https://www.geeksforgeeks.org/problems/remove-loop-in-linked-list/1
 
-*   using slow and fast pointer detect if loop is present or not. If fast pointer becomes null 
-    that means loop is not present. If slow and fast pointer points to same node after some iteration
-    then loop is present.
+* Problem:
+  Detect and remove a loop from a linked list without changing the nodes.
 
-*   if loop is present then find out number of nodes present in the loop viz N by moving 
-    fast pointer one node ahead of slow node and then moving fast node forward until fast and 
-    slow becomes equal.
+* Key observation:
+  First detect the cycle using Floyd's slow-fast pointer technique.
 
-*   now make slow and fast pointer point to head of LinkedList and move fast pointer ahead by 
-    N-1 nodes. We are doing this because let say there are M nodes after which there is loop of N nodes
-    then if we move N nodes from head then ((N+M)-N)=M nodes will remain to reach at node where tail
-    of LL connected to (intersection point). 
+* slow moves one step while fast moves two steps.
 
-    once fast pointer will move to that point, then pointer at head (slow) and at fast will be at 
-    M distance from the intersection point which we can find out by movinf both slow and fast pointer
-    ahead by one node at a time until they both point to same node.
+* If fast reaches null, there is no cycle and we return immediately.
 
-*   at last once both the fast and slow pointer meet at same point, make fast prev node's next point 
-    to null
+* If slow and fast meet, a cycle exists.
 
+* To find the first node of the cycle:
+  Reset slow to head and move both slow and fast one step at a time.
+
+* Why does this find the cycle start?
+  The distance from head to the cycle start equals the appropriate remaining distance from the meeting point around the cycle.
+
+* Once slow == fast, both pointers are at the first node of the cycle.
+
+* The cycle cannot simply be removed by setting slow.next = null because slow is the cycle's first node, not necessarily its last node.
+
+* Therefore, keep slow at the cycle start and move fast around the cycle until fast.next == slow.
+
+* fast is then the last node of the cycle.
+
+* Set fast.next = null to break the cycle while preserving the entire linked list.
+
+* Time Complexity:
+  O(n)
+  
+* Space Complexity:
+  O(1)

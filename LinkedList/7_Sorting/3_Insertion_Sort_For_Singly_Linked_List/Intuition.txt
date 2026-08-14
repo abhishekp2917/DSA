@@ -1,13 +1,27 @@
 Question Link : https://www.geeksforgeeks.org/problems/insertion-sort-for-singly-linked-list/1
 
-*   create a Node viz tempHead whose next will be head.
+* Problem:
+  Sort a singly linked list using insertion sort.
 
-*   create pointers curr which will point to head.
+* Key observation:
+  Maintain a sorted portion at the beginning of the list and insert each remaining node into its correct position.
 
-*   while curr is not pointing to null, create another pointer which will always start from tempHead.
-    Move pointer ptr forward until either ptr's data is greater than curr data or ptr point to curr.
+* Initially, the first node is already sorted, so curr starts from the second node.
 
-*   once we find the node which is greater than curr poiinter data, add curr node between ptr and ptr's 
-    prev node and move curr pointer forward.
+* For every curr, scan from the beginning of the sorted portion to find where curr should be inserted.
 
-*   finally return tempHead next node. 
+* The condition curr.data > ptr.next.data keeps moving forward while the next sorted value is smaller than curr.data.
+
+* If ptr.next == curr, curr is already in the correct position, so no pointer changes are needed.
+
+* If ptr.next != curr, curr must be moved before ptr.next.
+
+* prev is needed because removing curr requires changing the previous node's next pointer.
+
+* After moving curr, prev remains where it was because the next unsorted node now becomes prev.next.
+
+* The dummy node allows insertion before the original head without requiring a separate special case.
+
+* Time Complexity: O(n²)
+
+* Space Complexity: O(1)

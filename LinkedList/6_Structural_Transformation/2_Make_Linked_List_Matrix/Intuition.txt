@@ -1,11 +1,21 @@
 Question Link : https://www.geeksforgeeks.org/problems/linked-list-matrix/1
 
-*   create a Node type 2D array of size m+1 and n+1 where m and n are rows and column size of
-    given 2D array.
+* Problem:
+  Convert a 2D array into a linked matrix where each node has right and down pointers.
 
-*   intialize Node type 2D array with nodes with data corespond to row and column of given 2D array. 
+* Key observation:
+  Create one Node for every array element and connect each node to its immediate right and bottom neighbours.
 
-*   now make right and below pointer of each node of the 2D array to point to its next column node and 
-    next row node. In this way, it will connect all the nodes of 2D array
+* matrix[i][j] stores the Node corresponding to arr[i][j].
 
-*   atlast return zeroth row and zeroth column node as it will be the head of the LinkedList matrix.  
+* An extra row and column are created so that boundary nodes can simply point to null without requiring separate boundary checks.
+
+* right points to matrix[i][j+1], representing the next column.
+
+* down points to matrix[i+1][j], representing the next row.
+
+* matrix[0][0] is returned as the entry point to the complete linked matrix.
+
+* Time Complexity: O(n²)
+
+* Space Complexity: O(n²)

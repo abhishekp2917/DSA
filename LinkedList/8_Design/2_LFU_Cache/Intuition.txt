@@ -1,21 +1,72 @@
 Question Link : https://leetcode.com/problems/lfu-cache/description/
 
-*   The intution is to maintain a map whose key will be the key of the value that we want to store in the cache and value 
-    of that map will be the frequency (how many times that key has been accessed)
+* Core intuition:
+  An LFU cache needs to answer two questions in O(1): which key has the lowest frequency, and among keys with the same frequency, which one was least recently used.
 
-*   since for key-value pairs whose frequency are same has to stored as LRU cache, we will create another map whose key 
-    will be frequency and value will be LRU cache object which will hold all the key-value pair whose frequency ae similar 
-    to the key of this second map
+* keyMap:
+  Maintain a map where key = cache key and value = its current frequency (number of accesses).
 
-*   for inserting new key-value pair, we will check the size of the LFU cache, and if it exceeds the limit, we will remove 
-    the last element of the LRU cache whose frequency is least. After checking the size, add the new element to the LRU cache
-    whose frequency is 1.
+* freqMap:
+  Maintain another map where key = frequency and value = an LRU cache containing all key-value pairs having that frequency.
 
-*   for inserting an existing key-value pair, remove the key-value pair from the LRU cache by checking it's frequency in 
-    the first map. After removal, add this key-value pair to the LRU cache whose frequency is 1 more than the current 
-    frequency.
+* Why LRU inside each frequency:
+  LFU first chooses the key with the lowest frequency. If multiple keys have the same frequency, the least recently used key must be evicted.
 
-*   for getting the value from the LFU cache, get the value frequency and based on frequency, get the associated LRU cache
-    and remove that key-value from that LRU cache and add it to the LRU cache whose frequency is 1 more than the current 
-    frequency and at last return that value. If that key doesn't exist in first map, then it means it's not in LFU cache
-    so return -1;
+* minFreq:
+  Track the smallest frequency currently present in the LFU cache so that the corresponding LRU cache can be found directly through freqMap.
+
+* New key insertion:
+  A new key starts with frequency 1, so it is inserted into the LRU cache corresponding to frequency 1.
+
+* New key when cache is full:
+  First find the LRU cache corresponding to minFreq, then remove its rear node because it is the least recently used key among all least-frequently-used keys.
+
+* Existing key insertion:
+  Updating an existing key counts as an access, so first find its current frequency using keyMap, remove it from that frequency's LRU cache, and insert it into the LRU cache whose frequency is one greater.
+
+* get():
+  If the key does not exist in keyMap, it is not present in the LFU cache, so return -1.
+
+* get() for an existing key:
+  Find its frequency from keyMap, find its LRU cache from freqMap, retrieve its value, remove it from the current LRU cache, and move it to the LRU cache corresponding to frequency + 1.
+
+* Why a key moves to the head:
+  Moving a key to the head of its new frequency's LRU cache marks it as the most recently used key at that frequency.
+
+* LRU head:
+  Most recently used key within that frequency.
+
+* LRU rear:
+  Least recently used key within that frequency and therefore the eviction candidate when that frequency is the minimum frequency.
+
+* removeNode():
+  First use keyMap to determine the key's frequency, then remove the key from the corresponding LRU cache.
+
+* Empty frequency bucket:
+  If an LRU cache becomes empty after removing its last key, remove that frequency from freqMap because it is no longer an active frequency.
+
+* Updating minFreq:
+  If the removed frequency was minFreq and its bucket became empty, minFreq must move to the next valid frequency. When a new key is inserted, minFreq becomes 1 because every new key starts with frequency 1.
+
+* Why HashMap inside LRU:
+  The HashMap maps key -> Node, allowing the node to be located in O(1) without traversing the linked list.
+
+* Why doubly linked list inside LRU:
+  Once a node is found through the HashMap, its previous and next pointers allow it to be removed or moved to the head in O(1).
+
+* Why dummy nodes are not required in the LRU:
+  The implementation explicitly handles head, rear, and single-node cases.
+
+* Overall structure:
+  keyMap answers "what is this key's frequency?", freqMap answers "which keys have this frequency?", and each LRU cache answers "which key at this frequency was used least recently?"
+
+* Example:
+  Suppose key 1 has frequency 2 and key 2 has frequency 3. keyMap stores 1 -> 2 and 2 -> 3, while freqMap stores 2 -> LRU containing key 1 and 3 -> LRU containing key 2.
+
+* If key 3 is inserted while the cache is full and minFreq = 2, key 1 is considered before key 2 because frequency 2 is lower than frequency 3.
+
+* If keys 1 and 4 both have frequency 2, their order inside freqMap.get(2) determines which one is evicted: the rear/least-recently-used key is removed.
+
+* Time Complexity: O(1)
+
+* Space Complexity: O(capacity)

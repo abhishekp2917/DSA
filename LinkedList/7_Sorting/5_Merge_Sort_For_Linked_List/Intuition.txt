@@ -1,14 +1,25 @@
 Question Link : https://www.geeksforgeeks.org/problems/sort-a-linked-list/1
 
-*   split the LL from the middle and continue splitting that splitted LL from the middle by
-    recursively calling the method until LL will left with only one node.
+* Problem:
+  Sort a singly linked list using Merge Sort.
 
-    if LL has only one node then just return the head of the LL.
+* Key observation:
+  Split the list into two halves, recursively sort both halves, and merge the two sorted lists.
 
-*   as we are recursively calling the same method two times by passing first and second half of the 
-    LL separately, both the method will return sorted LL.
+* middleNode() uses slow-fast pointers so the list can be split without knowing its length.
 
-*   merge that two sorted LL into one sorted LL and then return the head of that merged LL.
+* fast starts at head.next so slow ends at the last node of the first half.
 
+* mid.next = null disconnects the two halves and makes them independent lists.
 
+* Recursively sort both halves until each sublist contains only one node.
 
+* Merge the sorted halves by repeatedly selecting the smaller current node.
+
+* Existing nodes are reused; no new data nodes are required apart from the dummy node.
+
+* When one half becomes empty, its remaining nodes can be attached directly because they are already sorted.
+
+* Time Complexity: O(n log n)
+
+* Space Complexity: O(log n)

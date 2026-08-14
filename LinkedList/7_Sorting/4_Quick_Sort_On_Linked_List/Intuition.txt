@@ -1,18 +1,28 @@
 Question Link : https://www.geeksforgeeks.org/problems/quick-sort-on-linked-list/1
 
-*   choose a pivot node let say head of LL.
+* Problem:
+  Sort a singly linked list using the QuickSort partitioning idea.
 
-*   segregate LL into three LL viz LL1, LL2 and LL2 in which one LL1 will have nodes value less than pivot value, LL2
-    will have ndoes value equal to pivot value and LL3 will be having nodes with greater than pivot value.
+* Key observation:
+  Choose a pivot and partition the list into values smaller than the pivot, equal to the pivot, and greater than the pivot.
 
-*   after segregating the LL, recursively call the method to segregate LL1 and LL3 around the pivot
-    (head of the LL). This recursive calling of the method by passing LL1 and then LL3 will return 
-    sorted LL1 and LL3.
+* The equal-to-pivot partition is already in its correct relative position, so only the smaller and greater partitions need recursive sorting.
 
-*   replace LL1 and LL3 with the returned value of the method which was recursively called.
+* The first node is used as the pivot value, so no separate pivot node needs to be created.
 
-*   connect LL1, LL2 and LL3 in the order of of their numbering as LL1 and LL3 will be sorted 
-    after recursive calls and will have nodes smaller and greater than LL2 respectively.
+* splitNodesAroundThreshold() physically moves existing nodes into three lists instead of creating new data nodes.
 
-*   finally return the head of the LL1.
+* prev is required to remove curr from the original list because changing prev.next skips curr.
+
+* Each moved node is detached with ptr.next = null so that it does not retain its old connection.
+
+* After recursively sorting the smaller and greater partitions, concatenate them as smaller -> equal -> greater.
+
+* getLastNode() is needed to connect the next partition after the tail of the current partition.
+
+* Dummy nodes simplify both partition construction and final list concatenation.
+
+* Time Complexity: O(n²) worst case, O(n log n) average case
+
+* Space Complexity: O(n) worst case recursion stack + partition lists
 

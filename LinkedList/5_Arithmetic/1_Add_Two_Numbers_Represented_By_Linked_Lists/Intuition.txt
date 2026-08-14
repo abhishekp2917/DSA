@@ -1,22 +1,43 @@
 Question Link : https://www.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1
 
-*   create a node viz ansHead which will be the head of the additon of the two given LinkedList and assign a 
-    pointer to it let say pointer 'curr'.
+* Problem:
+  Add two numbers represented by linked lists where each node contains one digit.
 
-*   reverse both the given LinkedList so that we can start adding nodes value from the ones place.   
+* Key observation:
+  Normal addition starts from the least significant digit, but the linked lists store the most significant digit first.
 
-*   create two another pointers viz ptr1 and ptr2 which will intially point to that given LinkedList
-    create two variables viz sum and carry in which sum will hold sum of ptr1, ptr2 and carry while 
-    carry will hold carry generated after performing summation of ptr1, ptr2 and carry.
+* Therefore, reverse both lists so that addition can be performed from left to right.
 
-*   while ptr1 is not null or ptr2 is not null or carry is not equal to zero, add ptr1 node data is not null, 
-    ptr2 node data if not null and carry and assign the result to varaible sum
+* At every position, add digit1 + digit2 + carry and create one result node.
 
-*   create a new node with value equal to sum%10 (ones place digit value) and make curr pointer next 
-    point to this newly created node and then move curr pointer forward.
+* If one list is shorter, treat its missing digits as 0.
 
-*   assign carry value equal to sum/10
+* tempSum % 10 gives the current digit, while tempSum / 10 gives the carry for the next position.
 
-*   reverse newly created LinkedList with ansHead beign the head of it
+* The loop also checks carry != 0 because an extra digit may be required after both lists are exhausted.
 
-*   finally return ansHead's next node
+* Example:
+  9 -> 9
+  1
+
+  Reverse:
+  9 -> 9
+  1
+
+  Addition:
+  9 + 1 = 10 → digit 0, carry 1
+  9 + 0 + 1 = 10 → digit 0, carry 1
+  Final carry = 1
+
+  Result after reversing:
+  1 -> 0 -> 0
+
+* A dummy node is used so that every result digit can simply be appended using ptr3.next.
+
+* Finally, reverse the result because the digits were generated from least significant to most significant.
+
+* Time Complexity:
+  O(n + m)
+
+* Space Complexity:
+  O(n + m) 

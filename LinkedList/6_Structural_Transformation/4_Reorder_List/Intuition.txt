@@ -1,9 +1,23 @@
 Question Link : https://www.geeksforgeeks.org/problems/reorder-list/1
 
-*   split the LL into two parts from the middle and store bothe the splitted LL in LL1 and LL2
+* Problem:
+  Reorder the list as L0 → Ln → L1 → Ln-1 → L2 → Ln-2 ...
 
-*   reverse the LL2.
+* Key observation:
+  Split the list into two halves, reverse the second half, and then merge both halves alternately.
 
-*   merge LL1 and LL2 alternatively
+* findMiddleNode() finds the last node of the first half using slow-fast pointers.
 
-*   return the head of LL1.
+* midNode.next = null splits the original list into two independent halves.
+
+* The second half is reversed so its nodes appear in the required end-to-start order.
+
+* During merging, ptr1 takes a node from the first half and ptr2 takes the next node from the reversed second half.
+
+* Both next pointers are saved before modifying links because changing a pointer can otherwise lose access to the remaining nodes.
+
+* The first half determines the final head, so firstPartHead is returned.
+
+* Time Complexity: O(n)
+
+* Space Complexity: O(1)

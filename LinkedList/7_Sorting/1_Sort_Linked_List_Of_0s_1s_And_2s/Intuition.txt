@@ -1,17 +1,23 @@
 Question Link : https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1
 
-*   create three tempNodes viz zeroes, ones and twos which will be the head of the LinkedList of 0s,
-    1s and 2s respectively.
+* Problem:
+  Segregate a linked list containing only 0s, 1s and 2s so that all 0s come first, followed by 1s and then 2s.
 
-*   create four pointers viz zero, one, two and curr which will point to zeroes, ones, twos and head
-    of the given LinkedList.
+* Key observation:
+  Since there are only three possible values, maintain three separate linked lists instead of sorting the nodes.
 
-*   move curr pointer forward and if curr data is equal to zero than add that node to zeroes
-    LinkedList by removing it from the given LinkedList, else if curr data is equal to one than add
-    that node to ones LinkedList by removing it from the given LinkedList, else add that node to twos
-    LinkedList by removing it from the given LinkedList.
+* Traverse the original list once and append each node to the corresponding 0s, 1s or 2s list.
 
-*   in this way segregate the given LinkedList into three different LinkedList of 0's, 1's and 2's.
+* Dummy nodes simplify appending because every list has an initial node.
 
-*   atlast connect all the three LinkedList in oreder of zeroes, ones and twos and return zeroes next node.
+* Detach each selected node by setting its next pointer to null so that it does not retain its old connection.
 
+* Finally connect the three lists in the order 0s -> 1s -> 2s.
+
+* If the 1s list is empty, connect the 0s list directly to the 2s list.
+
+* The original nodes are reused; no new nodes are created apart from the dummy nodes.
+
+* Time Complexity: O(n)
+
+* Space Complexity: O(1)

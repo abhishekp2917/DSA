@@ -1,16 +1,41 @@
 Question Link : https://www.geeksforgeeks.org/problems/polynomial-addition/1
 
-*   create a node viz tempHead and a pointer viz curr which will intially point to tempHead.
+* Problem:
+  Add two polynomials represented by linked lists sorted by decreasing power.
 
-*   create two pointers viz ptr1 and ptr2 which will intially point to head1 and head2 repectively.
+* Key observation:
+  Since both lists are sorted by power, the problem is equivalent to merging two sorted linked lists.
 
-*   while ptr1 and ptr2 is not pointing to null, if pow of both the pointer are equal, then add coeff of
-    ptr2 into ptr1 and make curr pointer next poin to ptr1. Then move curr, ptr1 and ptr2 forward.
+* If p1.pow > p2.pow:
+  The p1 term must appear next because it has the larger power.
 
-*   if pow of ptr1 is greater than ptr2, then don't add ptr2 coeff in ptr1 and just make curr pointer 
-    next point to ptr1 and only move pointer curr and pointer ptr1 forward.
+* If p2.pow > p1.pow:
+  The p2 term must appear next for the same reason.
 
-*   else if pow of ptr2 is greater than ptr1, then don't add ptr2 coeff in ptr1 and just make curr pointer 
-    next point to ptr2 and only move pointer curr and pointer ptr2 forward.
+* If p1.pow == p2.pow:
+  Both terms are like terms, so their coefficients must be added.
 
-*   finally return tempHead next node.
+* Example:
+  5x^3 + 4x^2 + 2
+  3x^3 + 7x + 1
+
+  Equal powers:
+  5x^3 + 3x^3 = 8x^3
+
+  Result:
+  8x^3 + 4x^2 + 7x + 3
+
+* We reuse existing nodes instead of creating new nodes for the result, except for the dummy node.
+
+* curr.next = null after selecting a node ensures that the selected node does not retain an unwanted connection to its original list.
+
+* Once either polynomial is exhausted, the remaining nodes of the other polynomial can be appended directly because they are already sorted.
+
+* Dummy node:
+  Makes result construction uniform and avoids separately handling the first term.
+
+* Time Complexity:
+  O(n + m)
+
+* Space Complexity:
+  O(1) 

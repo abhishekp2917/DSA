@@ -1,20 +1,37 @@
 Question Link : https://www.geeksforgeeks.org/problems/reverse-a-linked-list-in-groups-of-given-size/1
 
-*   create a counter having intial value of zero.
+* Problem:
+  Reverse a linked list in groups of k nodes.
 
-*   perform algorithm to reverse a LinkedList (using prev, curr and next pointer) until counter is 
-    not less than K (do increment the counter in each iteration).
+* Key observation:
+  Reverse one group of k nodes, then recursively reverse the remaining list.
 
-*   once counter is equal to K, LL of K nodes will be reversed in which prev will point to reversed LL
-    head, head will point to reversed LL tailand next will point to head of the remaing nodes of LL.
+* During the first loop, prev becomes the head of the reversed current group and curr becomes the first node of the next group.
 
-*   if next pointer is null, then just return prev pointer node as it points to head of the reversed
-    LL in K groups.
+* next must be saved before changing curr.next because otherwise the remaining list would be lost.
 
-*   if next is not null, that means there are nodes remaining to be reversed in K groups, so recursively
-    call the same method with next pointer being the head which will return head of the remaining 
-    LL reversed in K groups. So just make head's next node point ot returned value from the recursive call
-    as head points to tail of the previous section of reversed LL in K groups.
+* After reversing the group, the original head becomes the last node of that group.
 
-*   this recursive call of method will eventually reverse the LL in K groups and will return head of the 
-    LL
+* Therefore, connect head.next to the result of recursively reversing the remaining nodes.
+
+* If fewer than k nodes remain, the loop reverses those remaining nodes as well.
+
+* The base condition for recursion is implicitly handled because when next == null there is no remaining group to process.
+
+* Example:
+  1 -> 2 -> 3 -> 4 -> 5, k = 2
+
+  First group:
+  1 -> 2 becomes 2 -> 1
+
+  Remaining:
+  3 -> 4 -> 5 becomes 4 -> 3 -> 5
+
+  Result:
+  2 -> 1 -> 4 -> 3 -> 5
+
+* Time Complexity:
+  O(n), because every node is processed exactly once.
+
+* Space Complexity:
+  O(n/k) recursion stack, because one recursive call is made for each group.

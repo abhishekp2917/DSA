@@ -1,17 +1,30 @@
 Question Link : https://www.geeksforgeeks.org/problems/intersection-of-two-sorted-linked-lists/1
 
-*   create a new Node viz ansHead which will be the head of the intersection of two sorted LinkedList
-    and assign a pointer to it viz pointer 'curr'.
+* Problem:
+  Given two sorted linked lists, return their intersection as a new linked list.
 
-*   create two pointers viz ptr1 and ptr2 which will initially point to heads of both the sorted LinkedList.
+* Key observation:
+  Since both lists are sorted, we can use two pointers and compare their current values.
 
-*   move both pointer forward by one node until any one of them points to null.
+* If head1.data == head2.data:
+  The value exists in both lists, so add it to the result and move both pointers forward.
 
-*   compare both the pointer node data and whichever is smaller than the other make that node to 
-    next of the curr pointer and move that pointer and curr pointer forward and make curr pointer next to null
-    to break the connection with the given sorted LinkedList.
+* If head1.data > head2.data:
+  head2 contains the smaller value, so move head2 forward because it can never match the larger head1 value at its current position.
 
-*   after coming out of the loop if any of the pointer is not null, then make that pointer to be the 
-    next of curr pointer.
+* If head1.data < head2.data:
+  head1 contains the smaller value, so move head1 forward for the same reason.
 
-*   atlast return next node of ansHead.
+* Why is it safe to discard the smaller value?
+  Because the lists are sorted, every future value in that list is greater than or equal to the current smaller value.
+
+* Dummy node:
+  ans simplifies result-list construction because every matched value can be appended using curr.next without separately handling the first node.
+
+* The loop stops when either list is exhausted because no further intersection is possible.
+
+* Time Complexity:
+  O(n + m), because each pointer moves only forward through its respective list.
+
+* Space Complexity:
+  O(k), where k is the number of elements in the intersection, because a new result list is created.

@@ -1,18 +1,24 @@
 Question Link : https://www.geeksforgeeks.org/problems/linked-list-in-zig-zag-fashion/1
 
-*   create a node viz tempHead whose next will be head so that prev node will not be null at initially
+* Problem:
+  Rearrange the linked list so that the values follow the pattern a < b > c < d > e ...
 
-*   create three pointer viz prev, curr and next which will initially point to tempHead, head and head's next
-    node of the LinkedList
+* Key observation:
+  Only adjacent pairs need to be checked because each position has a required relation with its immediate neighbour.
 
-*   create a boolean variable viz status to track whether two nodes relation should be lessthan or greaterthan so that
-    we based on the situation we can perform certain operation
+* shouldBeLessThan tells whether the current pair must satisfy curr < next or curr > next.
 
-*   while next pointer is not null, move prev, curr and next pointer and check whether curr nodes data
-    and next node data relation is equal to required relation or not. If it is not equal to
-    required realtion then just swap those node postion else leave as it is.
+* If the required relation is violated, swap the two adjacent nodes.
 
-*   now toggle the boolean variable so that we can switch from lessthan to greaterthan or viceversa and
-    move all the pointers forward 
+* If the relation is already correct, simply move to the next pair.
 
-*   finally return the tempHead next node
+* A dummy node is used so that swapping the original head works exactly like swapping any other pair.
+
+* After swapping, the pointers are updated differently because the two nodes have changed positions.
+
+* swap() changes only three links: previous -> second node -> first node -> remaining list.
+
+* The relation is toggled after every pair because the required pattern alternates between < and >.
+
+* Time Complexity: O(n)
+* Space Complexity: O(1)

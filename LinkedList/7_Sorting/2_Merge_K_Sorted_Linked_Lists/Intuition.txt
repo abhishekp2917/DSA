@@ -1,14 +1,28 @@
 Question Link : https://www.geeksforgeeks.org/problems/merge-k-sorted-linked-lists/1
 
-*   create a PriorityQueue of Node and add head of all the LL in it.
+* Problem:
+  Merge K sorted linked lists into one sorted linked list.
 
-*   create a Node viz tempHead to which all the node will be attached.
+* Key observation:
+  At any point, only the smallest unprocessed node from each list can be the next node in the merged list.
 
-*   create a pointer viz ptr which will intially point to tempHead.
+* Therefore, keep one candidate from each list in a min-heap.
 
-*   while size of PriorityQueue is not null, poll (smallest node) from it and make ptr next node to 
-    this polled node. After attaching make the ptr equal to ptr next node
+* Initially, add the head of every list because each head is the smallest available node from its respective list.
 
-*   if polled node next pointer is not pointing to null, then add that next node to the PriorityQueue.
+* Remove the smallest node from the heap and append it to the merged list.
 
-*   finally return the next pointer of temphead.
+* After removing a node, its next node becomes the new candidate from that same list.
+
+* Continue until the heap becomes empty, meaning every node from every list has been processed.
+
+* A node's value cannot be used as a unique identifier because different lists can contain equal values.
+
+* Therefore, the heap entry also stores the list index so that we know exactly which list the selected node belongs to.
+
+* Dummy node:
+  Simplifies result construction because every selected node can be appended using curr.next.
+
+* Time Complexity: O(N log K)
+
+* Space Complexity: O(K)

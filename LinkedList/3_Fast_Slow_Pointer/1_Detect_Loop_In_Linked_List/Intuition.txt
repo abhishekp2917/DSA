@@ -1,12 +1,28 @@
 Question Link : https://www.geeksforgeeks.org/problems/detect-loop-in-linked-list/1
 
-*   Set pointers to first and second node in linkedlist as slow and 
-    fast pointer respectively
+* Problem:
+  Determine whether a linked list contains a cycle.
 
-*   move the slow pointer by one node and fast pointer by two node 
-    until next's next of fast node is null
+* Key observation:
+  Use two pointers moving at different speeds.
 
-*   while iterating (moving slow and fast pointer) if slow and fast pointer 
-    points to same node then there is a loop present in linkedList
+* slow moves one node at a time, while fast moves two nodes at a time.
 
-*   else loop doesn't exists
+* If there is no cycle:
+  fast will eventually reach null because the list has an end.
+
+* If there is a cycle:
+  Both pointers eventually enter the cycle, and fast gains one node on slow during every iteration.
+
+* Therefore, fast must eventually catch slow inside the cycle.
+
+* Why does different speed guarantee a meeting?
+  Once both pointers are inside the cycle, their relative distance changes by one node per iteration, so eventually that distance becomes zero.
+
+* The condition fast != null && fast.next != null ensures that fast can safely move two nodes.
+
+* Time Complexity:
+  O(n)
+
+* Space Complexity:
+  O(1)

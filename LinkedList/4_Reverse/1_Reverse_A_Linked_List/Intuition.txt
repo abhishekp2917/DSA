@@ -1,16 +1,27 @@
 Question Link : https://www.geeksforgeeks.org/problems/reverse-a-linked-list/1
 
-*   create three pointers viz prev, curr and next which will point to null, head and null respectively.
+* Problem:
+  Reverse a singly linked list in-place.
 
-*   while curr pointer is not pointing to null, make next pointer point to curr pointer's next node.
-    we are keeping track of next pointer so that we can move curr pointer forward after certain operation on
-    on curr pointer by making curr pointer to point next pointer.
+* Key observation:
+  Reverse each next pointer one node at a time while maintaining access to the remaining list.
 
-*   thereafter, make curr pointer next node point to prev pointer. By doing so, we have changed the direction
-    of LinkedList from curr pointer in reverse direction.
+* prev represents the already reversed portion, while curr represents the current node being processed.
 
-*   atlast make prev pointer point to curr pointer and curr pointer point to next pointer and will repeat the 
-    same process until curr pointer points to null.
+* Before changing curr.next, store it in next because changing the pointer would otherwise lose the remaining list.
 
-*   return prev pointer as it will point to head of the reversed LinkedList.  
+* Set curr.next = prev to reverse the current node's pointer.
 
+* Move prev = curr because the current node is now the first node of the reversed portion.
+
+* Move curr = next to continue processing the unreversed portion.
+
+* Initially prev = null because the original head becomes the last node and must point to null after reversal.
+
+* When curr becomes null, every pointer has been reversed and prev points to the new head.
+
+* Time Complexity:
+  O(n)
+
+* Space Complexity:
+  O(1)

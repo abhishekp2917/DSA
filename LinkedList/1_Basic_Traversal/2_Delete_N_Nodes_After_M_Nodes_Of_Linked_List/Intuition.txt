@@ -1,0 +1,40 @@
+Question Link : https://www.geeksforgeeks.org/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/1
+
+* Problem:
+  Keep m nodes, delete the next n nodes, and repeat until the linked list ends.
+
+* Key observation:
+  We only need to maintain a pointer to the last node of the current block of m nodes.
+
+* Step 1:
+  Move curr to the m-th node so that curr.next becomes the first node that must be deleted.
+
+* Step 2:
+  Delete n nodes by repeatedly changing curr.next to curr.next.next.
+
+* Why deletion is O(1) per node:
+  No nodes are physically shifted; we simply bypass each node by changing a pointer.
+
+* Step 3:
+  After deleting n nodes, curr.next points to the first node of the next block.
+
+* Recursively repeat the same process from curr.next.
+
+* Example:
+  m = 2, n = 3
+
+      Keep:   1 -> 2
+      Delete: 3 -> 4 -> 5
+      Keep:   6 -> 7
+      Delete: 8 -> 9 -> 10
+
+* Important detail:
+  counter1 starts at m and stops when it reaches 1 because curr initially points to the first node of the block.
+
+* The deletion loop starts from curr.next because curr is the last node that must be preserved.
+
+* Time Complexity:
+  O(N), because every node is visited/deleted at most once.
+
+* Space Complexity:
+  O(N/m) recursion stack in the worst case.

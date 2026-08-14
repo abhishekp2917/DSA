@@ -1,17 +1,36 @@
 Question Link : https://www.geeksforgeeks.org/problems/rotate-a-linked-list/1
 
-*   create two pointer prev and curr which will be pointing to null and head intially.
+* Problem:
+  Rotate the linked list by k positions to the left.
 
-*   move both the pointer by K node so that curr pointer will reach to that node from where all
-    the nodes after curr pointer inclusively will come before head of LL after rotation
+* Key observation:
+  Split the list after the k-th node and move the first part to the end.
 
-    if curr is pointing to null that means we have rotated the LL K times where here K is equal to
-    size of LL. In thsi case LL will remain as it is so just return head of LL
+* Example:
+  1 -> 2 -> 3 -> 4 -> 5, k = 2
 
-*   if curr is not null the make prev pointer next point to null to break the link between prev
-    curr pointer
+  Split:
+  1 -> 2
 
-*   find the last node of the second part (list starting from curr pointer) of LL and make last node
-    next point to head to make second part come before head of LL.
+  3 -> 4 -> 5
 
-*   finally return curr pointer which is head of the second part.
+  Connect:
+  3 -> 4 -> 5 -> 1 -> 2
+
+* tail is moved to the k-th node because that is where the list must be split.
+
+* firstHead is moved to the node immediately after the k-th node because that node becomes the new head.
+
+* If firstHead == null, k equals the list length, so rotating produces the original list.
+
+* tail.next = null breaks the original list into two independent parts.
+
+* The tail of the second part is then connected to the original head.
+
+* secondHead stores the original head because that first part needs to be appended after the second part.
+
+* Time Complexity:
+  O(n), because the list is traversed to find the split point and then the tail of the second part.
+
+* Space Complexity:
+  O(1), because only a constant number of pointers are used.

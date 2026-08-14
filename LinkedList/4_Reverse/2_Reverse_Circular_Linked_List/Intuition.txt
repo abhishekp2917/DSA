@@ -1,11 +1,25 @@
 Question Link : https://www.geeksforgeeks.org/problems/reverse-the-circular-linked-list/1
 
-*   create a variable viz tail to store head of the CLL which will become tail to the reversed CLL.
+* Problem:
+  Reverse a circular doubly linked list.
 
-*   reverse the CLL in same fashion as we use to do with non CLL. The only difference will be that
-    instead of null as reference to stop the loop we will use head of CLL. In this way, it will 
-    convert CLL into reversed normal LL and will return head of the reverse LL
+* Key observation:
+  Since the list is circular, we cannot use curr != null as the stopping condition.
 
-*   now to make this normal reversed LL into reversed CLL, make tail next node point to head 
+* Traverse until curr becomes head again because returning to head means every node has been processed.
 
-*   finally return head
+* For a doubly linked list, reversing only next pointers is insufficient because prev pointers would still point in the original direction.
+
+* Therefore, for every node, swap its next and prev pointers.
+
+* Save the original curr.next before swapping because it is needed to move to the next unprocessed node.
+
+* After reversing all nodes, the original tail becomes the new head.
+
+* Since head.prev points to the original tail after the reversal, return head.prev.
+
+* Time Complexity:
+  O(n)
+
+* Space Complexity:
+  O(1)

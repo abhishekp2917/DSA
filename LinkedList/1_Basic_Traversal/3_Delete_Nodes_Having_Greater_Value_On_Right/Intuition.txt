@@ -1,0 +1,38 @@
+Question Link : https://www.geeksforgeeks.org/problems/delete-nodes-having-greater-value-on-right/1
+
+* Problem:
+  Delete every node that has a greater element somewhere to its right.
+
+* Key observation:
+  If we reverse the list, "has a greater element on the right" becomes "has a greater element already processed on the left".
+
+* After reversal:
+  We process the list from the original right to left.
+
+* Maintain curr as the maximum element seen so far from the original right side.
+
+* If curr.data > curr.next.data:
+  curr.next has a greater element on its original right, namely curr, so curr.next must be deleted.
+
+* If curr.data <= curr.next.data:
+  curr.next does not have a greater element among the nodes processed so far, so move curr forward.
+
+* Why can we only compare with curr?
+  curr represents the maximum value among all previously processed nodes, so if curr is not greater than curr.next, no other processed node can be greater either.
+
+* Example:
+  Original list: 12 -> 15 -> 10 -> 11 -> 5 -> 6 -> 2 -> 3
+
+  Reverse:
+  3 -> 2 -> 6 -> 5 -> 11 -> 10 -> 15 -> 12
+
+  While scanning, remove every node smaller than the maximum seen so far.
+
+* Finally:
+  Reverse the list again to restore the original ordering.
+
+* Time Complexity:
+  O(N), because the list is reversed twice and the filtering scan is linear.
+
+* Space Complexity:
+  O(1), because the list is modified in-place and no additional data structure is used.

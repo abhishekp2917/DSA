@@ -1,17 +1,23 @@
 Question Link : https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1
 
-*   create a PriorityQueue of Node and add all the next node in it as all next node are head of the 
-    bottom node.
+* Problem:
+  Flatten a linked structure where each node has a next pointer connecting vertical lists and a bottom pointer connecting nodes within each sorted vertical list.
 
-*   create a Node viz tempHead to which all the node will be attached through bottom pointer
+* Key observation:
+  This is equivalent to merging multiple sorted linked lists.
 
-*   create a pointer viz ptr which will intially point to tempHead.
+* Initially add the head of every vertical list to a min-heap because these are the smallest currently available candidates from each list.
 
-*   while size of PriorityQueue is not null, poll (smallest node) from it and make ptr next node to 
-    this polled node. After attaching make the ptr equal to ptr next node
+* The heap always contains at most one candidate from each vertical list.
 
-*   if polled node bottom pointer is not pointing to null, then add that bottom pointer node to the PriorityQueue.
+* Remove the smallest node from the heap and append it to the flattened list using bottom.
 
-*   finally return the bottom pointer of temphead.
+* After removing a node, its bottom node becomes the next candidate from the same vertical list, so add it to the heap.
 
-*   this algo is simillar to merge K nodes in LinkedList
+* The next pointers are not used in the final flattened list; the result is connected entirely through bottom pointers.
+
+* A dummy node simplifies construction because every selected node can be appended using ptr.bottom.
+
+* Time Complexity: O(N log K)
+
+* Space Complexity: O(K)
