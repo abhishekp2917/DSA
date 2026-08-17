@@ -1,54 +1,86 @@
-class Solution {
-    
-    public int[] getTicTacToeOptimalPos(char[][] board, char player) {
-        float[] playerWinOptimalPos = recursion(board, player);
-        return new int[] {(int)playerWinOptimalPos[0], (int)playerWinOptimalPos[1]};
+class WordDictionary {
+
+    // Root of the Trie.
+    // All added words are stored as character-by-character paths from this node.
+    PrefixTree prefixTree;
+
+    public WordDictionary() {
+        prefixTree = new PrefixTree();
     }
 
-    private float[] recursion(char[][] board, char player) {
-        char opponent = (player=='O')? 'X' : 'O';
-        if(isWinner(board, player)) return new float[] {-1, -1, 1};
-        if(isWinner(board, opponent)) return new float[] {-1, -1, 0};
-        if(isDraw(board)) return new float[] {-1, -1, 0.5f}; 
-        float[] optimalProb = new float[] {-1, -1, -1};
-        for(int i=0; i<3; i++) {
-            for(int j=0; j<3; j++) {
-                if(board[i][j]!='.') continue;
-                board[i][j] = player;
-                float[] temp = recursion(board, opponent);
-                float opponentWinningProb = temp[2];
-                if((1-opponentWinningProb)>optimalProb[2]) {
-                    optimalProb = new float[] {i, j, (1-opponentWinningProb)};
-                }
-                board[i][j] = '.';
+    public void addWord(String word) {
+
+        // Start from the Trie root and create/follow one node for every character.
+        PrefixTree root = prefixTree;
+
+        for(char ch : word.toCharArray()) {
+            int idx = ch-'a';
+
+            // Create the character's node only if its path does not already exist.
+            // Existing nodes are reused because multiple words can share prefixes.
+            if(root.map[idx]==null) root.map[idx] = new PrefixTree();
+
+            // Move to the node representing the current character.
+            root = root.map[idx];
+        }
+
+        // Mark the final node so that we can distinguish a complete
+        // inserted word from a path that is only a prefix of another word.
+        root.isLast = true;
+    }
+
+    public boolean search(String word) {
+
+        // Searching may require branching whenever '.' appears,
+        // so use recursive search instead of following only one Trie path.
+        return searchSufix(word, 0, prefixTree);
+    }
+
+    private boolean searchSufix(String word, int start, PrefixTree root) {
+
+        // This Trie path does not exist, so this branch cannot match the word.
+        if(root==null) return false;
+
+        // All characters have been matched.
+        // Return true only if the current node represents the end of
+        // an inserted word, otherwise we have matched only a prefix.
+        if(start==word.length()) return root.isLast;
+
+        char ch = word.charAt(start);
+
+        if(ch=='.') {
+
+            // '.' can represent any lowercase character.
+            // Therefore, try every existing child as a possible match
+            // for the current position.
+            for(PrefixTree node : root.map) {
+                if(node==null) continue;
+
+                // If even one child can match the remaining suffix,
+                // the complete search pattern is valid.
+                if(searchSufix(word, start+1, node)) return true;
             }
         }
-        return optimalProb;
-    }
 
-    private boolean isWinner(char[][] board, char player) {
-        char tl = board[0][0], tm = board[0][1], tr = board[0][2];
-        char ml = board[1][0], mm = board[1][1], mr = board[1][2];
-        char bl = board[2][0], bm = board[2][1], br = board[2][2];
-        return (
-            (tl==tm && tm==tr && tr==player) ||
-            (ml==mm && mm==mr && mr==player) ||
-            (bl==bm && bm==br && br==player) ||
-            (tl==ml && ml==bl && bl==player) ||
-            (tm==mm && mm==bm && bm==player) ||
-            (tr==mr && mr==br && br==player) ||
-            (tl==mm && mm==br && br==player) ||
-            (tr==mm && mm==bl && bl==player));
-    }
+        // For a normal character there is only one possible Trie path,
+        // so directly continue through that character's child.
+        else return searchSufix(word, start+1, root.map[ch-'a']);
 
-    private boolean isDraw(char[][] board) {
-        boolean isDraw = true;
-        for(int i=0; i<3; i++) {
-            for(int j=0; j<3; j++) {
-                if(board[i][j]=='.') isDraw = false;
-            }
-        }
-        return isDraw;
+        // Reaching here means '.' tried every possible child
+        // but none could match the remaining suffix.
+        return false;
     }
 }
 
+class PrefixTree {
+
+    // map[i] represents the child corresponding to ('a' + i).
+    PrefixTree[] map;
+
+    // Marks whether a complete added word ends at this node.
+    boolean isLast;
+
+    PrefixTree() {
+        this.map = new PrefixTree[26];
+    }
+}

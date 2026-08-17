@@ -1,1 +1,35 @@
 Question Link : https://www.naukri.com/code360/problems/implement-trie-ll_8230840
+
+* Core intuition:
+  Maintain a Trie with two counters at every character node: endCount for exact words and prefixCount for words passing through that prefix.
+
+* insert():
+  Traverse/create the word's path and increment prefixCount at every character node because the inserted word contributes to every one of its prefixes.
+
+* endCount:
+  Increment only at the final node because it represents the number of occurrences of the exact word.
+
+* countWordsEqualTo():
+  Traverse the complete word and return endCount of the final node.
+
+* countWordsStartingWith():
+  Traverse the prefix and return prefixCount of the final node because every word having this prefix passes through that node.
+
+* erase():
+  First traverse the complete path and store its nodes because prefixCount must be decremented only after confirming that the exact word exists.
+
+* Why check endCount:
+  The Trie path can exist even when the exact word was never inserted, for example when a longer word has the given word as its prefix.
+
+* After confirming the word exists:
+  Decrement endCount at the final node and prefixCount at every node on the word's path.
+
+* Nodes are not physically deleted:
+  They can remain in the Trie with prefixCount = 0 because future insertions may reuse the same path.
+
+* Duplicate words:
+  endCount allows the same word to be inserted multiple times and erased one occurrence at a time.
+
+* Time Complexity: O(L)
+
+* Space Complexity: O(total characters inserted)

@@ -1,1 +1,28 @@
 Question Link : https://leetcode.com/problems/longest-word-in-dictionary/description/
+
+* Core intuition:
+  Build a Trie and ensure that every prefix of a candidate word is itself a complete word.
+
+* Why Trie:
+  A Trie lets us check every prefix while traversing the characters of a word.
+
+* Why sort by length:
+  Shorter words are processed before longer words, so when processing a word, its shorter prefixes have already had a chance to be marked as complete words.
+
+* During insertion, root.map[idx] creates/follows the character path for the current word.
+
+* isEnd is checked for every prefix because an existing Trie path alone does not mean that prefix exists as a complete word.
+
+* The final node is marked isEnd = true after checking the word's prefixes so that the current word can become a prefix for future longer words.
+
+* hasAllPrefix remains true only when every prefix before the complete word is already marked as a complete word.
+
+* Update the answer only when hasAllPrefix is true because otherwise the word cannot be built one character at a time from the given words.
+
+* Prefer a longer valid word because the problem asks for the longest word.
+
+* If two valid words have the same length, choose the lexicographically smaller one using word.compareTo(longestWord) < 0.
+
+* Time Complexity: O(N log N + total characters)
+
+* Space Complexity: O(total characters)

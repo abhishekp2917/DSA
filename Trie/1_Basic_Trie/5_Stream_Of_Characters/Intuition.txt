@@ -1,1 +1,29 @@
 Question Link : https://leetcode.com/problems/stream-of-characters/description/
+
+* Core intuition:
+  We need to determine whether the current stream ends with any word from the dictionary.
+
+* Key observation:
+  Since query() only adds one new character at a time, only suffixes of the current stream can form a new matching word.
+
+* Why reverse the dictionary words:
+  Queries arrive from the newest character backward through the stream suffix, so storing every word in reverse order lets us traverse the Trie in the same direction.
+
+* Example:
+  For word "cd", store "dc" in the Trie. After queries 'a', 'c', 'd', the queue is d -> c -> a, so the Trie sees "dc" and detects the word.
+
+* queue:
+  Stores stream characters with the newest character at the front, allowing suffixes to be checked from newest to oldest.
+
+* query():
+  Add the new character to the front and traverse the Trie using the queue from front to back.
+
+* If a Trie edge does not exist, no dictionary word can match the current suffix, so return false immediately.
+
+* If isEnd is reached, the characters traversed so far form a complete dictionary word, so return true immediately.
+
+* We do not need to continue after finding isEnd because the question only asks whether at least one dictionary word matches.
+
+* Time Complexity: O(L) per query, where L is the maximum dictionary word length
+
+* Space Complexity: O(total dictionary characters + L)

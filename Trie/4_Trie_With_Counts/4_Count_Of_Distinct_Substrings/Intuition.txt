@@ -1,1 +1,26 @@
 Question Link : https://www.geeksforgeeks.org/problems/count-of-distinct-substrings/1
+
+* Core intuition:
+  Insert every suffix of the string into a Trie; every distinct non-empty substring corresponds to a unique Trie node.
+
+* Why start from every position:
+  Every substring has some starting index, so traversing from every start generates all possible substrings.
+
+* For a fixed start:
+  Extending i from start to n-1 generates s[start...start], s[start...start+1], ..., s[start...n-1].
+
+* Why count only when creating a node:
+  If the Trie path already exists, that substring has already been encountered from another starting position, so it is not distinct.
+
+* Key observation:
+  Each newly created Trie node represents exactly one new distinct substring.
+
+* Example:
+  For "aba", the substrings "a" and "ab" reuse existing Trie nodes when encountered again, while "ba" creates a new path.
+
+* The Trie does not need isEnd:
+  We are counting all distinct non-empty substrings, and every prefix represented by a Trie node is already a substring.
+
+* Time Complexity: O(n²)
+
+* Space Complexity: O(n²)

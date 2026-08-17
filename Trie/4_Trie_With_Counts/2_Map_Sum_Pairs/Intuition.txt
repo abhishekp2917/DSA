@@ -1,1 +1,29 @@
 Question Link : https://leetcode.com/problems/map-sum-pairs/description/
+
+* Core intuition:
+  Store every key in a Trie and maintain at each prefix node the sum of values of all keys having that prefix.
+
+* Why an additional HashMap:
+  When an existing key is updated, its old value must be removed from every prefix sum before adding the new value.
+
+* insert():
+  Find the previous value using map, store the new value, then update the sum of every Trie node along the key's path.
+
+* New key:
+  prevVal = 0, so only the new value is added to every prefix.
+
+* Existing key:
+  Subtract prevVal and add val at every prefix node, effectively changing the key's contribution from its old value to its new value.
+
+* sum():
+  Traverse the Trie using the requested prefix and return the sum stored at the final prefix node.
+
+* If a prefix path does not exist:
+  No inserted key starts with that prefix, so return 0.
+
+* Why sum is stored at every node:
+  Once we reach the prefix node, its sum already represents all keys beginning with that prefix, so no further traversal is required.
+
+* Time Complexity: O(L)
+
+* Space Complexity: O(total characters inserted)

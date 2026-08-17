@@ -1,1 +1,23 @@
 Question Link : https://leetcode.com/problems/sum-of-prefix-scores-of-strings/description/
+
+* Core intuition:
+  Build a Trie where every node stores how many words share the prefix represented by that node.
+
+* First pass:
+  Insert every word and increment count at every node along its path.
+
+* Why count:
+  The count of a prefix is exactly the number of words containing that prefix, which is the score required by the problem.
+
+* Example:
+  For ["abc", "ab", "bc"], the node representing "a" has count = 2 and the node representing "ab" has count = 2.
+
+* Second pass:
+  Traverse each word again and add the count of every prefix node to that word's answer.
+
+* Why two passes:
+  All prefix counts must be known before calculating the score of any word.
+
+* Time Complexity: O(total characters)
+
+* Space Complexity: O(total characters)

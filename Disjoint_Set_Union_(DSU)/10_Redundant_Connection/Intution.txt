@@ -1,0 +1,31 @@
+Question Link : https://leetcode.com/problems/redundant-connection/description/
+
+* Core intuition:
+  Use DSU to detect the first edge whose endpoints are already connected.
+
+* Initially:
+  Every node is its own connected component.
+
+* For every edge [u, v]:
+  Find the roots of u and v.
+
+* If roots are different:
+  The edge connects two separate components, so safely merge them.
+
+* If roots are the same:
+  u and v are already connected by previously processed edges.
+  Adding [u, v] creates a cycle, so this edge is redundant.
+
+* Why this identifies the answer:
+  The input contains a tree plus one additional edge. Therefore, exactly one
+  edge will connect two nodes that are already connected.
+
+* Union by size:
+  Attach the smaller component below the larger one to keep the DSU tree shallow.
+
+* Path compression:
+  Directly connect a node to its root after finding it.
+
+* Time Complexity: O(n α(n))
+
+* Space Complexity: O(n)

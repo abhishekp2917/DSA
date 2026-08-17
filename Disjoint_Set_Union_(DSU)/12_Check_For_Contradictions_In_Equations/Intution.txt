@@ -1,0 +1,52 @@
+Question Link : https://www.talentd.in/fleetcode/problems/check-for-contradictions-in-equations
+
+* Core intuition:
+  Use a weighted DSU where each edge represents a ratio between two variables.
+
+* parents[x]:
+  Parent of variable x in the DSU tree.
+
+* weights[x]:
+  value(x / parent[x]).
+
+* After path compression:
+  weights[x] = value(x / root).
+
+* When two variables have different roots:
+  Their components are independent, so the new equation can safely connect them.
+  The weight between the two roots is calculated from the required ratio.
+
+* When two variables have the same root:
+  Their ratio is already implied by previously processed equations.
+  Compare that implied ratio with the new equation.
+
+* If the ratios differ:
+  The equations are contradictory, so return true.
+
+* If every equation is consistent:
+  return false.
+
+* Why weighted DSU:
+  Normal DSU only tells us whether two variables are connected.
+  Here we also need to know the ratio between connected variables.
+
+* Path compression:
+  Besides flattening the DSU tree, it must also update weights so that
+  weights[x] changes from value(x / oldParent) to value(x / root).
+
+* Important formula when merging:
+      value(var1Root / var2Root)
+      = value(var1Root / var1)
+        * value(var1 / var2)
+        * value(var2 / var2Root)
+
+      = (1 / weights[var1])
+        * value
+        * weights[var2]
+
+  Therefore:
+      weights[var1Root] = value * weights[var2] / weights[var1]
+
+* Time Complexity: O(E α(V))
+
+* Space Complexity: O(V)

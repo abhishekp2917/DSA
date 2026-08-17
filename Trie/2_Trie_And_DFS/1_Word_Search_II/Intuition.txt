@@ -1,1 +1,38 @@
 Question Link : https://leetcode.com/problems/word-search-ii/description/
+
+* Core intuition:
+  Combine a Trie with DFS/backtracking so that the board is searched only along paths that correspond to prefixes of dictionary words.
+
+* Why Trie:
+  A normal DFS may explore a huge number of board paths that cannot form any dictionary word; the Trie lets us stop immediately when the current path is not a valid prefix.
+
+* Dictionary preprocessing:
+  Insert every word into the Trie and store the complete word at its terminal node.
+
+* Starting DFS from every cell:
+  Any board cell can be the first character of a matching word.
+
+* At each DFS step:
+  Use the current board character to move to the corresponding Trie child.
+
+* If the Trie child does not exist:
+  No dictionary word has the current path as a prefix, so the entire DFS branch can be stopped.
+
+* visited:
+  Prevents using the same board cell more than once in the current word.
+
+* root.word:
+  When a Trie node contains a word, the current board path has formed a complete dictionary word.
+
+* root.word = null:
+  Prevents adding the same dictionary word multiple times when different board paths can form it.
+
+* Four recursive calls:
+  A valid word can move only up, down, left or right.
+
+* Backtracking:
+  Set visited[x][y] back to false after exploring all neighbours so that the cell can participate in other independent paths.
+
+* Time Complexity: O(n × m × 4^L) worst case
+
+* Space Complexity: O(total dictionary characters + n × m + L)

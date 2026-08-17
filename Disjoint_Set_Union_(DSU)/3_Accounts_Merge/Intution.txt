@@ -1,0 +1,38 @@
+Question Link : https://leetcode.com/problems/accounts-merge/description/
+
+* Core intuition:
+  Treat every account as a node and connect two accounts whenever they share an email.
+
+* Why DSU:
+  Shared emails create connected components. If A shares an email with B and B shares another email with C, all three accounts belong to the same merged account.
+
+* mailIdToAccountIdMap:
+  Stores the account where each email was first encountered. When the same email appears again, merge the two accounts.
+
+* parents:
+  DSU structure where each account initially belongs to its own component.
+
+* merge():
+  Finds the roots of both accounts and connects one root to the other.
+
+* getRootNode():
+  Finds the representative of an account's connected component.
+
+* Path compression:
+  After finding the root, directly connect the current node to the root to make future DSU operations faster.
+
+* mergedAccountMap:
+  After all merges are complete, find the root of every email's account and group emails by that root.
+
+* Why grouping happens after all merges:
+  An account's final component may change through a chain of shared emails, so grouping before completing all unions could put emails under the wrong component.
+
+* Why sort emails:
+  The problem requires emails within each merged account to be lexicographically sorted.
+
+* Account name:
+  Any account in the same connected component represents the same person, so using the root account's name is sufficient.
+
+* Time Complexity: O(E log E + E α(A))
+
+* Space Complexity: O(A + E)

@@ -1,1 +1,44 @@
 Question Link : https://leetcode.com/problems/delete-duplicate-folders-in-system/description/
+
+* Core intuition:
+  Build the folder hierarchy as a Trie, assign every subtree a structural ID, count how often each ID occurs, and remove folders whose subtree ID appears more than once.
+
+* Why Trie:
+  Each folder path shares common parent folders, so a Trie naturally represents the complete directory hierarchy.
+
+* Key observation:
+  Two folders are duplicates if their child folder names and the complete subtree structure under every child are identical.
+
+* subtree ID:
+  Instead of comparing entire subtrees directly, assign the same integer ID to structurally identical subtrees.
+
+* Leaf folder:
+  A folder with no children has the same empty subtree as every other leaf, so it receives ID 0.
+
+* Serialization:
+  A folder's subtree is represented using each child folder name together with that child's subtree ID.
+
+* Example:
+  If a folder has children `a` and `b`, where `a` has subtree ID 2 and `b` has subtree ID 5, its serialization becomes `a#2,b#5,`.
+
+* Why sort child names:
+  HashMap iteration order is not guaranteed, so sorting ensures identical subtrees always produce the same serialization regardless of insertion order.
+
+* computeIfAbsent:
+  Identical serialized subtrees receive the same ID, while a new serialization receives a new unique ID.
+
+* subtreeIdFrequency:
+  Counts how many folders have each structural subtree ID; frequency > 1 means those folders are duplicates.
+
+* collectUniqueFolders():
+  DFS through the Trie and add a folder to the result only if its subtree ID occurs exactly once.
+
+* Why stop recursion for duplicate folders:
+  Once a folder is identified as duplicate, its entire subtree must also be removed, so there is no need to visit its descendants.
+
+* path:
+  Maintains the current root-to-folder path during DFS and backtracks after processing each child.
+
+* Time Complexity: O(total path characters + total child sorting cost)
+
+* Space Complexity: O(total path characters)

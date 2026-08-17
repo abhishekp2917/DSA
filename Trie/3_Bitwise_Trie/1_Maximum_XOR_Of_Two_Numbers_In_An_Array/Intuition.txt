@@ -1,1 +1,41 @@
 Question Link : https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/
+
+* Core intuition:
+  Store previously processed numbers in a binary Trie and for every number find the previously inserted number that maximizes XOR with it.
+
+* Why binary Trie:
+  XOR operates independently on individual bits, so representing every number as a 32-bit path lets us greedily choose the best bit at every position.
+
+* Why process from bit 31 to 0:
+  Higher bits contribute more to the final XOR value, so maximizing the highest possible XOR bit is always more important than lower bits.
+
+* For the current bit:
+  If num has bit 0, we prefer 1; if num has bit 1, we prefer 0.
+
+* Why opposite bit:
+  XOR produces 1 only when the two bits are different, so choosing the opposite bit maximizes the current XOR bit.
+
+* Greedy choice:
+  If the opposite-bit Trie child exists, always choose it because making a higher bit 1 cannot be compensated for by any combination of lower bits.
+
+* If opposite bit does not exist:
+  We must take the same bit, making the current XOR bit 0.
+
+* check:
+  Traverses the Trie to find the number that gives the best XOR with the current number.
+
+* root:
+  Separately inserts the current number into the Trie so it can be used for subsequent numbers.
+
+* Why insertion and search happen together:
+  Before searching, the Trie contains only previously processed numbers, ensuring we compare the current number with another number rather than itself.
+
+* currXor:
+  Records the maximum XOR achievable with the current number based on the greedy Trie traversal.
+
+* maxXor:
+  Keeps the best XOR found across all numbers.
+
+* Time Complexity: O(32 × n) = O(n)
+
+* Space Complexity: O(32 × n) = O(n)

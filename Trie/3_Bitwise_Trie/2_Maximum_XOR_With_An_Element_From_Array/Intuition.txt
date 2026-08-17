@@ -1,1 +1,82 @@
 Question Link : https://leetcode.com/problems/maximum-xor-with-an-element-from-array/description/
+
+Approach 1:
+
+* Core intuition:
+  Sort both nums and queries by m, incrementally insert all nums <= m into a binary Trie, then find the maximum XOR for each query.
+
+* Why sort queries by m:
+  As m increases, the set of valid numbers only grows, so previously inserted numbers remain valid for every later query.
+
+* Why sort nums:
+  It lets us add newly eligible numbers using one pointer instead of scanning nums for every query.
+
+* qArr:
+  Stores [x, m, originalIndex] so queries can be sorted by m while answers are placed back in their original positions.
+
+* Pointer i:
+  Points to the first number in sorted nums that has not yet been inserted into the Trie.
+
+* For every query:
+  Insert all nums[i] <= m; after this, the Trie contains exactly the numbers allowed for that query.
+
+* Why no minNum is needed:
+  Unlike the previous solution, the Trie contains only valid numbers for the current query, so every Trie path is automatically within the m constraint.
+
+* If i == 0:
+  No number satisfies nums[i] <= m, so the answer is -1.
+
+* getMaxXor():
+  Traverse the binary Trie from the most significant bit to the least significant bit.
+
+* Why prefer opposite bit:
+  Different bits produce XOR 1, and maximizing higher bits has priority over lower bits.
+
+* If opposite bit does not exist:
+  Take the same bit because it is the only available choice.
+
+* Key advantage:
+  Each number is inserted only once across all queries, eliminating the need to rebuild or repeatedly filter the Trie.
+
+* Time Complexity: O(n log n + q log q)
+
+* Space Complexity: O(n + q)
+
+Approach 2:
+
+* Core intuition:
+  Use a binary Trie to maximize XOR while storing the minimum number in every Trie branch to enforce nums[i] <= m.
+
+* Why binary Trie:
+  XOR is determined bit by bit, so we can greedily choose the opposite bit at every position.
+
+* Why process MSB to LSB:
+  A higher XOR bit has a larger contribution than all lower bits combined.
+
+* minNum:
+  Stores the smallest number that passes through a Trie node.
+
+* Why minNum is sufficient:
+  If minNum <= m, then that entire Trie branch contains at least one number satisfying the query constraint.
+
+* insert():
+  Insert every number into the Trie and update minNum along its path.
+
+* getMaxXor():
+  At every bit, first try the opposite bit because it makes the current XOR bit 1.
+
+* Opposite branch condition:
+  We can use it only when that branch exists and its minNum <= m.
+
+* If the opposite branch is invalid:
+  Try the same-bit branch, provided it contains a number <= m.
+
+* If neither branch is valid:
+  No number in nums satisfies nums[i] <= m, so return -1.
+
+* Why we do not need to know the exact number:
+  During greedy traversal, we only need to know whether a valid number exists in each branch; minNum provides exactly that information.
+
+* Time Complexity: O(n + q)
+
+* Space Complexity: O(n)

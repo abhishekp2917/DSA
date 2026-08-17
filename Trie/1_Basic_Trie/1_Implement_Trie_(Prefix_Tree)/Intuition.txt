@@ -1,1 +1,35 @@
 Question Link : https://leetcode.com/problems/implement-trie-prefix-tree/description/
+
+* Core intuition:
+  A Trie stores words character by character, where every node represents a prefix shared by all words passing through that node.
+
+* Each PrefixTree node contains 26 child references, one for each lowercase English character.
+
+* ch-'a' converts a character into its corresponding child-array index.
+
+* insert():
+  Traverse the Trie character by character and create a node whenever the required path does not already exist.
+
+* isLast:
+  Marks that a complete word ends at the current node because the same node can be both the end of one word and a prefix of another.
+
+* search():
+  Traverse the complete word and return false immediately if any character path is missing.
+
+* search() must also check isLast because an existing path does not necessarily mean the complete word was inserted.
+
+* startsWith():
+  Traverse only the given prefix and return true if the complete prefix path exists.
+
+* startsWith() does not check isLast because the prefix itself does not need to be a complete inserted word.
+
+* Example:
+  After inserting "apple", the path a -> p -> p -> l -> e exists and the node for e has isLast = true.
+
+* If "app" is searched after inserting only "apple", its path exists but isLast at the second p is false, so search("app") returns false.
+
+* If startsWith("app") is called after inserting "apple", it returns true because the complete "app" path exists.
+
+* Time Complexity: O(L)
+
+* Space Complexity: O(total characters inserted)

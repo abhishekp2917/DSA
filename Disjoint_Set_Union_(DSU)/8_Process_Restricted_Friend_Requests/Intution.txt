@@ -1,0 +1,48 @@
+Question Link : https://leetcode.com/problems/process-restricted-friend-requests/description/
+
+* Core intuition:
+  Use DSU to maintain friend groups formed by accepted requests.
+
+* parents:
+  Stores the representative of each person's current friend group.
+
+* sizes:
+  Stores the size of each DSU component so that the smaller tree can be
+  attached below the larger tree during a merge.
+
+* For every request [u,v]:
+  1. Find the roots of u and v.
+  2. If they are already in the same component, accept the request.
+  3. Otherwise, check whether merging the two components violates any restriction.
+  4. If safe, merge the components.
+
+* Why checking restrictions before merging:
+  An accepted request connects the entire friend group of u with the entire
+  friend group of v. Therefore, a restriction between any person in these
+  two groups would become violated.
+
+* canBecomeFriends():
+  For every restriction [a,b], find the current groups of a and b.
+  If one belongs to u's group and the other belongs to v's group,
+  merging u and v would violate that restriction.
+
+* Why restrictions inside the same component do not need special handling:
+  If such a restriction already existed within a component, it would have
+  already been violated by an earlier accepted request. Therefore, it cannot
+  occur in a valid state.
+
+* Why the same-component request is automatically valid:
+  The two people are already friends, so accepting the request does not
+  create a new connection between different components and cannot introduce
+  a new restriction violation.
+
+* Union by size:
+  Attach the smaller DSU tree under the larger tree to keep the structure shallow.
+
+* Path compression:
+  findRootFriend() directly connects a node to its root after finding it,
+  making subsequent lookups faster.
+
+* Time Complexity: O(q × (r α(n) + α(n)))
+
+* Space Complexity: O(n)

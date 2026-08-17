@@ -1,1 +1,44 @@
 Question Link : https://leetcode.com/problems/count-pairs-with-xor-in-a-range/description/
+
+* Core intuition:
+  Count pairs whose XOR lies in [low, high] using:
+  count(XOR < high + 1) - count(XOR < low).
+
+* Why high + 1:
+  XOR values are integers, so:
+  XOR <= high  is equivalent to  XOR < high + 1.
+
+* Why query before insert:
+  The Trie contains only previously processed numbers, so every pair is counted exactly once.
+
+* Binary Trie:
+  Stores previously processed numbers bit by bit and allows us to compare XOR with high greedily from the most significant bit.
+
+* query(num, high):
+  Counts previously inserted x satisfying:
+  num ^ x < high.
+
+* Key comparison rule:
+  When comparing two binary numbers, the first bit where they differ determines which one is smaller.
+
+* If highBit == 1:
+  Choosing the SAME bit as num produces XOR bit 0.
+  Since 0 < 1, the resulting XOR is immediately smaller than high.
+  Therefore, the entire same-bit subtree can be counted using node.count.
+
+* After counting the same-bit branch:
+  Continue through the OPPOSITE-bit branch because XOR bit becomes 1, keeping the XOR equal to high so far.
+
+* If highBit == 0:
+  XOR cannot become 1 at this position because that would make it greater than high.
+  Therefore, only the SAME bit is allowed.
+
+* Why count is stored at every Trie node:
+  Once an entire subtree is known to produce a smaller XOR, we can add all its numbers in O(1) instead of traversing the subtree.
+
+* Two separate Tries:
+  One counts XOR < high + 1 and the other counts XOR < low.
+
+* Time Complexity: O(n)
+
+* Space Complexity: O(n)

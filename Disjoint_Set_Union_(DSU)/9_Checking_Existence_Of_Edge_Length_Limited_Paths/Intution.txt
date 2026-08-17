@@ -1,0 +1,43 @@
+Question Link : https://leetcode.com/problems/checking-existence-of-edge-length-limited-paths/description/
+
+* Core intuition:
+  Process queries offline using DSU.
+
+* Key observation:
+  For a query [u, v, limit], only edges with weight < limit can be used.
+
+* Sort edges by weight and queries by limit.
+  As the query limit increases, progressively add all newly valid edges to DSU.
+
+* Why this works:
+  After adding every edge with weight < limit, two nodes belong to the same
+  DSU component exactly when there exists a path between them using only
+  edges whose weights are < limit.
+
+* eIdx:
+  Points to the first edge that has not yet been added to DSU.
+
+* For every query:
+  Add edges while edge.weight < query.limit, then check whether u and v
+  have the same DSU root.
+
+* Why < limit instead of <= limit:
+  The problem requires every edge weight to be strictly smaller than limit.
+
+* Why sort queries:
+  Without sorting, we might have to repeatedly process the same edges for
+  different queries. Sorting lets every edge be added at most once.
+
+* indexedQueries:
+  Stores [originalIndex, u, v, limit] so queries can be sorted while
+  answers are still returned in their original order.
+
+* Union by size:
+  Attach the smaller DSU tree under the larger tree to keep the tree shallow.
+
+* Path compression:
+  Directly connects nodes to their root after a find operation.
+
+* Time Complexity: O(max(E log E), Q log Q, (E + Q)*α(n))
+
+* Space Complexity: O(n + q)

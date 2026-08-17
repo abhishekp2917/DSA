@@ -1,0 +1,50 @@
+Question Link : https://leetcode.com/problems/number-of-good-paths/description/
+
+* Core intuition:
+  Every node itself is a good path, so initialize ans = n.
+
+* Process nodes in increasing order of vals.
+
+* Why increasing value:
+  When processing value val, we only allow edges connecting nodes whose value <= val.
+  Therefore every active connected component contains only values <= val.
+
+* Good path condition:
+  For a path to be good with maximum value val, both endpoints must have value val,
+  while every node inside the path must have value <= val.
+
+* DSU:
+  Maintains the connected components formed using only currently allowed edges.
+
+* componentNodeValFreqMap:
+  For every component, stores:
+      value -> number of nodes having that value.
+
+* Why only freq of val matters during a merge:
+  When two components become connected while processing val, a new good path
+  can only be formed by choosing a val-valued node from each component.
+
+* Number of new good paths:
+      freqU * freqV
+
+  Every val-valued node in component U can pair with every val-valued node
+  in component V.
+
+* Why multiply instead of adding:
+  Each pair of endpoints represents a distinct good path.
+
+* Why edges to larger-valued nodes are skipped:
+  Their value is greater than the current val, so using that edge would make
+  the path's maximum value greater than val. That edge becomes relevant later
+  when its larger-valued endpoint is processed.
+
+* Why already-connected components are skipped:
+  They already have connectivity through nodes with values <= val, so adding
+  another edge between them does not create a new pair of endpoint components.
+
+* DSU path compression:
+  Makes repeated root lookups efficient.
+
+* Time Complexity: O(n log n + E α(n))
+
+* Space Complexity: O(n + E)

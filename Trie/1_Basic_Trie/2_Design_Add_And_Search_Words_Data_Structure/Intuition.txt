@@ -1,1 +1,43 @@
 Question Link : https://leetcode.com/problems/design-add-and-search-words-data-structure/description/
+
+* Core intuition:
+  Store all words in a Trie, but modify normal Trie search so that '.' can explore every possible character at that position.
+
+* addWord():
+  Works like normal Trie insertion by creating/following one node for every character.
+
+* Multiple words can share the same Trie nodes for their common prefixes, so existing nodes are reused.
+
+* isLast:
+  Marks whether a complete added word ends at a node, allowing us to distinguish a complete word from only a prefix.
+
+* Normal character during search:
+  There is exactly one possible next path, so directly move to root.map[ch-'a'].
+
+* '.' during search:
+  It can represent any character, so every existing child of the current Trie node becomes a possible next state.
+
+* Why recursion is needed:
+  A '.' can create multiple possible paths, and each path may contain more '.' characters later, so we need DFS/backtracking over the Trie.
+
+* searchSufix(word, start, root):
+  Represents whether word[start...] can be matched starting from the current Trie node.
+
+* If root == null:
+  The required Trie path does not exist, so the current search branch immediately fails.
+
+* If start == word.length():
+  Every pattern character has been matched, but the result is true only when root.isLast is true because the match must represent a complete added word.
+
+* For '.':
+  Return true as soon as any one child successfully matches the remaining suffix because only one valid interpretation is required.
+
+* If every child fails for '.':
+  No possible character substitution can produce the requested word, so return false.
+
+* Example:
+  If "bad", "dad" and "mad" are stored, ".ad" tries every first-character child and succeeds through b, d or m.
+
+* Time Complexity: O(L) without '.', O(26^D × L) worst case with D wildcard positions
+
+* Space Complexity: O(total characters inserted + L)

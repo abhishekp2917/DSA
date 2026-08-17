@@ -1,1 +1,27 @@
 Question Link : https://leetcode.com/problems/replace-words/description/
+
+* Core intuition:
+  Store all dictionary roots in a Trie and use it to find the shortest root prefix of every sentence word.
+
+* Why Trie:
+  A root must be a prefix of the sentence word, so Trie traversal naturally checks prefixes character by character.
+
+* Dictionary insertion:
+  Insert every root into the Trie and mark its final node with isEnd = true.
+
+* Sentence processing:
+  Traverse each word from its first character through the Trie.
+
+* If a Trie path does not exist, no dictionary root can match the word beyond that point, so stop searching.
+
+* The first isEnd encountered is the shortest valid root, so stop immediately because the problem requires the shortest root.
+
+* If a root is found, replace the complete sentence word with that root.
+
+* If no root is found, keep the original sentence word unchanged.
+
+* StringBuilder is used to efficiently construct the resulting sentence instead of repeatedly creating immutable String objects.
+
+* Time Complexity: O(total dictionary characters + total sentence characters)
+
+* Space Complexity: O(total dictionary characters + sentence result)

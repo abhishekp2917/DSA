@@ -1,1 +1,36 @@
 Question Link : https://leetcode.com/problems/maximum-strong-pair-xor-ii/description/
+
+* Core intuition:
+  Sort nums and maintain a sliding window containing all numbers that can form a strong pair with the current smallest number.
+
+* Strong pair condition:
+  |x-y| <= min(x,y).
+
+* Since nums[i] is the smallest number in the window, the condition becomes nums[j] <= 2 * nums[i].
+
+* Therefore, for every nums[i], valid partners are exactly the numbers in [nums[i], 2 * nums[i]].
+
+* j:
+  Expands the right boundary and inserts newly valid numbers into the binary Trie.
+
+* i:
+  Moves the left boundary and removes nums[i] after calculating its maximum XOR.
+
+* Binary Trie:
+  Represents every number bit by bit so that maximum XOR can be found greedily.
+
+* At every bit, prefer the opposite bit because different bits produce XOR 1.
+
+* Process bits from 31 to 0 because a higher XOR bit has greater significance than all lower bits.
+
+* remove():
+  The Trie path can be shared by multiple numbers, so find the deepest branching point and remove only the suffix of the path that is no longer needed.
+
+* Why duplicates do not require counts:
+  The current number nums[i] is the smallest value, and another copy of nums[i] produces XOR 0 with it. Therefore, retaining duplicate copies cannot improve the maximum XOR for the current query.
+
+* If a duplicate survives conceptually, it also cannot improve the answer for later identical left-boundary values because it again produces XOR 0.
+
+* Time Complexity: O(n log n)
+
+* Space Complexity: O(n)
