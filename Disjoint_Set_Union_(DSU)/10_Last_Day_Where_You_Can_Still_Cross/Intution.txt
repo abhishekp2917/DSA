@@ -1,0 +1,49 @@
+Question Link : https://leetcode.com/problems/last-day-where-you-can-still-cross/description/
+
+* Core intuition:
+  The forward process turns land into water, which would require removing
+  nodes/edges from connected components. DSU is not good at deletions.
+
+* Reverse the process:
+  Start with all cells as water and process cells[] from right to left.
+  Every processed cell is turned back into land.
+
+* Why reverse processing helps:
+  Turning water into land only requires adding nodes/edges.
+  DSU efficiently supports these union operations.
+
+* Virtual nodes:
+  TOP_VIRTUAL_ID represents the entire top row.
+  BOTTOM_VIRTUAL_ID represents the entire bottom row.
+
+* Connect every restored land cell in the first row to TOP_VIRTUAL_ID.
+  Connect every restored land cell in the last row to BOTTOM_VIRTUAL_ID.
+
+* Crossing condition:
+  A path from the top row to the bottom row exists exactly when
+  TOP_VIRTUAL_ID and BOTTOM_VIRTUAL_ID belong to the same DSU component.
+
+* Why return day:
+  We process days backwards.
+  The first time top and bottom become connected is the transition from
+  "cannot cross" to "can cross" in reverse time.
+  Therefore that day is the latest day on which crossing was possible
+  in the original forward process.
+
+* isLand:
+  Tracks which cells have already been restored while processing backwards.
+  We only union the current cell with neighboring cells that are already land.
+
+* getCellId:
+  Converts (row, col) into a unique DSU node:
+      id = row * colCount + col
+
+* Union by size:
+  Keeps DSU trees shallow by attaching the smaller component to the larger one.
+
+* Path compression:
+  Makes future root lookups faster by directly connecting nodes to their root.
+
+* Time Complexity: O(row × col × α(row × col))
+
+* Space Complexity: O(row × col)
