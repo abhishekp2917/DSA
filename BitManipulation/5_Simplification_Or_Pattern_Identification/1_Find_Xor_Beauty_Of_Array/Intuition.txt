@@ -9,6 +9,13 @@ Question Link : https://leetcode.com/problems/find-xor-beauty-of-array/descripti
 *   XOR is also associative and commutative, meaning the order of operations
     does not affect the final result.
 
+*   Moreover, if we expand the expression (i | j) & k, we will get (i & k) | (j & k) because
+    of the distributive property of OR and AND operation.
+
+*   If we will apply this distributive property to all the combinations of i, j and k, we will sequentially
+    the every such combination has a duplicate (except for N distinct combination whose result will be same as array nums of size N) 
+    whose XOR we need to perform to get final result.
+
 *   When multiple XOR expressions involving array elements are expanded, most
     intermediate values cancel out due to the self-canceling property of XOR.
 

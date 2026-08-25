@@ -1,4 +1,4 @@
-Question Link : Question Link : https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/description/
+Question Link : https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/description/
 
 *   The problem asks for the minimum length subarray whose bitwise OR is greater than or equal to k.
 

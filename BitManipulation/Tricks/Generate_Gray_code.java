@@ -3,15 +3,15 @@ package BitManipulation.Tricks;
 class Generate_Gray_Code {
 
     public static void main(String[] args) {
-        int n = 4;          // to generate 4-bit gray code
-        int count = (1<<4); // number of gray codes
+        int n = 3;          // to generate 4-bit gray code
+        int count = (1<<n); // number of gray codes
         int[] grayCode = new int[count];
         // Explanation:
         // 
         // Gray codes are sequence of numbers in which every next num differs from it's previous num by 1 bit
         // 
         // Example: 
-        // (1) n=4
+        // (1) n=3
         //     
         //     i (binary)	i>>1	i ^ (i>>1)    	Result
         //     000 (0)	    000	    000 ^ 000	    000

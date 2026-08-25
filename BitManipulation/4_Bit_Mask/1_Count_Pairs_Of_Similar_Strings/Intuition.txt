@@ -1,0 +1,38 @@
+Question Link : https://leetcode.com/problems/count-pairs-of-similar-strings/description/
+
+* Core intuition:
+  Two words are similar if they contain exactly the same set of distinct
+  characters, regardless of character frequency or ordering.
+
+* Represent each word's character set using a 26-bit integer.
+
+* Bit representation:
+      'a' -> bit 0
+      'b' -> bit 1
+      ...
+      'z' -> bit 25
+
+* Repeated characters do not matter because setting an already-set bit
+  leaves the mask unchanged.
+
+* Example:
+      "aba" -> 000...0011
+      "aabb" -> 000...0011
+
+  Both have the same character set {a,b}, so they are similar.
+
+* bitmaskFreq:
+  Stores:
+      character-set mask -> number of previously seen words with that mask
+
+* Why add the previous frequency to count:
+  If k previous words have the same mask as the current word, the current
+  word forms exactly k new pairs with them.
+
+* This automatically counts every pair exactly once:
+  When processing the later word of a pair, the earlier word is already
+  present in bitmaskFreq.
+
+* Time Complexity: O(total characters)
+
+* Space Complexity: O(n)

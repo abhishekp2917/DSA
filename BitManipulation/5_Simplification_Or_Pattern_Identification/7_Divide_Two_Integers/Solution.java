@@ -23,13 +23,15 @@ class Solution {
 
         // Try subtracting shifted divisor from numerator
         for (int bit = 31; bit >= 0; bit--) {
-
+            
+            long multiplier = (1 << bit);
+            long newDenominator = (denominator << bit); // (denominator*multiplier) 
             // If denominator shifted by bit fits into numerator
-            if (numerator >= (denominator << bit)) {
+            if (numerator >= newDenominator) {
 
                 // Subtract and accumulate quotient contribution
-                numerator -= (denominator << bit);
-                ans += (1 << bit);
+                numerator -= newDenominator;
+                ans += multiplier;
             }
         }
 
