@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 class Solution {
 
@@ -21,7 +19,9 @@ class Solution {
         seperateNumAndSymbol(exp, nums, symbols);
 
         // Recursively compute all results for the full range
-        return recursion(nums, symbols, 0, nums.size() - 1, new HashMap<>());
+        int n = nums.size();
+        List<Integer>[][] memo = new ArrayList[n][n];
+        return recursion(nums, symbols, 0, n-1, memo);
     }
 
     private List<Integer> recursion(
@@ -29,16 +29,14 @@ class Solution {
         List<Character> symbols,
         int start,
         int end,
-        Map<String, List<Integer>> memo
+        List<Integer>[][] memo
     ) {
 
         // Base case: single number
         if (start == end) return Arrays.asList(nums.get(start));
 
-        String key = start + "_" + end;
-
         // Return cached result if already computed
-        if (memo.containsKey(key)) return memo.get(key);
+        if(memo[start][end]!=null) return memo[start][end];
 
         List<Integer> results = new ArrayList<>();
 
@@ -62,7 +60,7 @@ class Solution {
         }
 
         // Store result for memoization
-        memo.put(key, results);
+        memo[start][end] = results;
 
         return results;
     }
