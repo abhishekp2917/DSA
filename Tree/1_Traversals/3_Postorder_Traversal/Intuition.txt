@@ -1,0 +1,24 @@
+Question Link : https://leetcode.com/problems/binary-tree-postorder-traversal/description/
+
+Approach 1 : 
+
+*   if root is null then return from that function. This will be the 
+    base condition.
+    
+*   if root is not null, then move to the left by recursively calling the function 
+
+*   after returning from left, recursively call the function to move right
+
+*   at last, after returning from left and right node, add the root node data
+
+*   logic : left --> right --> root
+
+Approach 2 :
+
+*   postorder traversal of a tree is equal to it's preorder in which we traverse 
+    right child before left child
+
+*   so first store the result of preorder traversal and reverse the result to get 
+    postorder
+
+
