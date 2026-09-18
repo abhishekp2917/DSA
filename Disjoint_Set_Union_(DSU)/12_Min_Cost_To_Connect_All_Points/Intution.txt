@@ -1,0 +1,30 @@
+Question Link : https://leetcode.com/problems/min-cost-to-connect-all-points/description/
+
+* Core intuition:
+  Treat every point as a graph node and connect every pair of points with
+  an edge whose weight is their Manhattan distance.
+
+* Since this is a complete graph, generate all n(n-1)/2 possible edges.
+
+* Use Kruskal's algorithm:
+  1. Sort all edges by increasing cost.
+  2. Process the cheapest edge first.
+  3. If its endpoints belong to different DSU components, add the edge.
+  4. If they already belong to the same component, skip it because it creates
+     a cycle.
+  5. Stop after selecting n-1 edges.
+
+* DSU is used to efficiently determine whether two points are already
+  connected and to merge their components.
+
+* Union by size keeps the DSU tree shallow.
+
+* Path compression makes repeated find operations very efficient.
+
+* Why this produces the minimum cost:
+  Kruskal's greedy choice always selects the cheapest edge that connects
+  two currently disconnected components, which is safe for constructing
+  an MST.
+
+* Time Complexity: O(n² log n)
+* Space Complexity: O(n²)
