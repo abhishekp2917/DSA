@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Solution {
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adjList) {
         // for directed graph, we need to keep track of visited nodes and path visited nodes

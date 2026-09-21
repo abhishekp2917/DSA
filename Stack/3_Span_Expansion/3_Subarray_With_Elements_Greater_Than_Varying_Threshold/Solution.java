@@ -1,94 +1,151 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 class Solution {
-
     public int validSubarraySize(int[] nums, int threshold) {
-
         int n = nums.length;
 
-        // Monotonic increasing stack (stores indices)
+        // For every index i:
+        // nearestSmallerRight[i] = index of the first element to the right
+        //                         that is strictly smaller than nums[i].
         //
-        // We push -1 as a dummy index to simplify boundary handling
-        // (acts as "no smaller element on left")
-        Stack<Integer> minStack = new Stack<>();
-        minStack.push(-1);
+        // If no smaller element exists on the right, store n as a sentinel.
+        //
+        // nearestSmallerLeft[i] = index of the first element to the left
+        //                        that is strictly smaller than nums[i].
+        //
+        // If no smaller element exists on the left, store -1 as a sentinel.
+        int[] nearestSmallerRight = new int[n];
+        int[] nearestSmallerLeft = new int[n];
 
+        // Monotonic increasing stack implemented using a Deque.
+        // We store indices instead of values so that we can:
+        // 1. Compare values using nums[index].
+        // 2. Directly obtain the boundary indices.
+        Deque<Integer> minStack = new ArrayDeque<>();
 
-        // --------------------------------------------------
-        // STEP 1: Traverse array
-        // --------------------------------------------------
-        for (int i = 0; i < n; i++) {
+        // ------------------------------------------------------------
+        // STEP 1: Find the nearest smaller element on the right.
+        // ------------------------------------------------------------
+        //
+        // Traverse from right to left because we want to find the
+        // closest smaller element among the elements to the right.
+        for (int i = n - 1; i >= 0; i--) {
+            int num = nums[i];
 
-            // --------------------------------------------------
-            // Resolve elements when current is smaller
-            // --------------------------------------------------
+            // Remove all elements greater than or equal to nums[i].
             //
-            // If current element is smaller than stack top,
-            // then stack top's "right boundary" is found
+            // Why?
+            // - An element >= nums[i] cannot be the answer for nums[i]
+            //   because we need a strictly smaller element.
+            // - It also cannot be useful for any future element to the
+            //   left because nums[i] is smaller than or equal to it
+            //   and is closer to those elements.
             //
-            // So we finalize subarray where that element is minimum
-            while (minStack.peek() != -1 &&
-                   nums[minStack.peek()] >= nums[i]) {
-
-                int idx = minStack.pop();
-
-                int num = nums[idx]; // minimum of subarray
-
-                // --------------------------------------------------
-                // Find boundaries
-                // --------------------------------------------------
-
-                // Right boundary = i - 1
-                int endIdx = i - 1;
-
-                // Left boundary = next index after smaller element
-                int startIdx = minStack.peek() + 1;
-
-                // Length of subarray
-                int k = endIdx - startIdx + 1;
-
-                // --------------------------------------------------
-                // Check condition
-                // --------------------------------------------------
-                //
-                // We need:
-                // num > threshold / k
-                //
-                // Instead of division (precision issues),
-                // use multiplication:
-                //
-                // num * k > threshold
-                if (num * k > threshold)
-                    return k;
+            // After this loop, the stack contains a monotonically
+            // increasing sequence of values from bottom to top.
+            while (!minStack.isEmpty()
+                    && nums[minStack.peekLast()] >= num) {
+                minStack.pollLast();
             }
 
-            // Push current index
-            minStack.push(i);
+            // The last element of the stack is the closest smaller
+            // element on the right.
+            //
+            // If the stack is empty, there is no smaller element
+            // to the right, so use n as the right boundary.
+            nearestSmallerRight[i] =
+                    (!minStack.isEmpty()) ? minStack.peekLast() : n;
+
+            // Add the current index so that it can act as a possible
+            // smaller boundary for elements to its left.
+            minStack.addLast(i);
         }
 
+        // Reuse the same deque for finding smaller elements on the left.
+        minStack.clear();
 
-        // --------------------------------------------------
-        // STEP 2: Process remaining stack
-        // --------------------------------------------------
+        // ------------------------------------------------------------
+        // STEP 2: Find the nearest smaller element on the left.
+        // ------------------------------------------------------------
         //
-        // For remaining elements,
-        // assume right boundary = n - 1
-        while (minStack.peek() != -1) {
+        // Traverse from left to right because we want to find the
+        // closest smaller element among the elements to the left.
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
 
-            int idx = minStack.pop();
+            // Remove all elements greater than or equal to nums[i].
+            //
+            // We need a strictly smaller element. Any element >= num
+            // cannot serve as a valid boundary.
+            //
+            // Removing these elements also maintains the monotonic
+            // increasing property of the stack.
+            while (!minStack.isEmpty()
+                    && nums[minStack.peekLast()] >= num) {
+                minStack.pollLast();
+            }
 
-            int num = nums[idx];
+            // The last element remaining in the stack is the nearest
+            // smaller element on the left.
+            //
+            // If the stack is empty, there is no smaller element
+            // to the left, so use -1 as the left boundary.
+            nearestSmallerLeft[i] =
+                    (!minStack.isEmpty()) ? minStack.peekLast() : -1;
 
-            int endIdx = n - 1;
-
-            int startIdx = minStack.peek() + 1;
-
-            int k = endIdx - startIdx + 1;
-
-            if (num * k > threshold)
-                return k;
+            // Add the current index for future elements on the right.
+            minStack.addLast(i);
         }
 
+        // ------------------------------------------------------------
+        // STEP 3: Consider each element as the minimum of a subarray.
+        // ------------------------------------------------------------
+        //
+        // For every index i, we know:
+        //
+        // leftIdx  = nearest smaller element on the left.
+        // rightIdx = nearest smaller element on the right.
+        //
+        // Therefore, nums[i] is the minimum value in the largest
+        // possible subarray bounded by these smaller elements:
+        //
+        //        (leftIdx, rightIdx)
+        //
+        // The valid subarray indices are:
+        //        leftIdx + 1 ... rightIdx - 1
+        //
+        // Its length is:
+        //        rightIdx - leftIdx - 1
+        //
+        // If a subarray of this maximum length satisfies the condition,
+        // then nums[i] * subarraySize > threshold.
+        //
+        // Since nums[i] is the minimum element in this subarray:
+        //        minimum * length > threshold
+        //
+        // This means the subarray satisfies the problem's requirement.
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+
+            int leftIdx = nearestSmallerLeft[i];
+            int rightIdx = nearestSmallerRight[i];
+
+            // Calculate the largest range in which nums[i] remains
+            // the minimum element.
+            int subarraySize = rightIdx - leftIdx - 1;
+
+            // Check whether the minimum value multiplied by the
+            // subarray length exceeds the given threshold.
+            //
+            // Use long multiplication if the constraints allow
+            // nums[i] * subarraySize to exceed the int range.
+            if ((long) num * subarraySize > threshold) {
+                return subarraySize;
+            }
+        }
+
+        // No valid subarray was found.
         return -1;
     }
 }
