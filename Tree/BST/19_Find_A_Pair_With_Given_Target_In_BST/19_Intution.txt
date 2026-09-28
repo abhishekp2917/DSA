@@ -1,8 +1,0 @@
-Question Link : https://www.geeksforgeeks.org/problems/find-a-pair-with-given-target-in-bst/1
-
-*   traverse the tree and store node value in a set.
-
-*   for a node, it's pair counterpart will be (taregt-node), so before adding node value in set
-    check if that node other part (pair) is present in the set or not
-
-*   if pair is present then return true else explore its left and right subtree.
